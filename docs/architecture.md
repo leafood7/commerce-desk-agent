@@ -1,21 +1,28 @@
 # 架构与调用链
 
 ```text
-Streamlit → AgentClient → FastAPI → LangGraph → 工具／SQLite／Chroma
+Streamlit → AgentClient → FastAPI → LangGraph
+                                    ├─ MCP 客户端 → stdio Server → 只读订单／政策
+                                    └─ 本地催单／审批 → SQLite
 ```
 
 ## 聊天与政策
 
 ```text
 用户消息
-→ check_policy_evidence：判断当前问题及证据是否足够
+→ auto完整匹配独立问候／致谢／纯查单：省检查，交给model正常回复或查单
+→ 其余进入check_policy_evidence：判断当前问题及证据是否足够
 → 不足：ToolNode → search_knowledge_base → search_policies
 → 足够：复用指定的真实工具片段
 → call_model：回答或继续选择工具
 → 有工具请求则 tools → model，否则结束
 ```
 
-订单查询走 `get_order_status → get_order_from_db`。缺少订单号时询问；一般政策说明无需订单号。
+快捷路径只省检查模型调用，不跳过订单工具；混合问题、更正和复述仍核对证据。`SUPPORTPILOT_POLICY_CHECK_MODE=always`可恢复每轮检查。
+
+API 默认经 MCP 调用 `get_order_status → order_result → get_order_from_db`；政策工具同样经 MCP 复用 `policy_result → search_policies`。本地后端可通过配置回退，详细契约与验证见 [MCP 文档](mcp-tools.md)。
+
+订单查询缺少订单号时询问；一般政策说明无需订单号。
 
 ## 催单与审批
 
@@ -37,10 +44,13 @@ request_shipping → submit_shipping → submit_request
 | 文件 | 作用 |
 | --- | --- |
 | `src/agents/supportpilot_agent.py` | 图、证据检查节点、模型与工具 |
-| `src/agents/policy_evidence.py` | 真实证据提取与检查结果校验 |
+| `src/agents/policy_evidence.py` | 真实证据提取、检查结果校验及窄范围快捷分流 |
+| `src/agents/answer_policy.py` | 同一次生成共享的规则应用与工具边界约束 |
 | `src/business/knowledge.py` | 政策切块、索引与检索入口 |
 | `src/business/rag_retrieval.py` | BM25、融合与重排 |
 | `src/business/shipping.py` | 催单校验、审批图和事务执行 |
 | `src/business/order_repository.py` | 订单与工单表 |
 | `src/service/shipping_api.py` | 审批接口 |
 | `src/shipping_ui.py` | 网页审批操作 |
+
+只读工具进程实现位于 `src/tool_protocol/`；`src/agents/mcp_supportpilot.py` 管理会话与图的生命周期，`src/business/readonly_tools.py` 保存两种后端共用的业务响应。

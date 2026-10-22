@@ -61,6 +61,21 @@ class RagRetrievalTests(unittest.TestCase):
             self.assertEqual(result["matches"][0]["id"], "a")
             self.assertEqual(retrieve(collection, "退款", "hybrid_rerank", rerank_threshold=4)["matches"], [])
 
+    def test_retrieval_returns_same_source_evidence_without_promoting_it_to_anchor(self):
+        collection = MagicMock()
+        collection.get.return_value = {
+            "ids": ["a-0", "a-1", "b-0"], "documents": ["适用条件", "限制条款", "其他政策"],
+            "metadatas": [{"source": "a.txt"}, {"source": "a.txt"}, {"source": "b.txt"}]}
+        anchor = {"id": "a-0", "content": "适用条件", "source": "a.txt", "rerank_score": 3.0}
+        with patch("business.rag_retrieval.vector_candidates", return_value=[anchor]), patch(
+                "business.rag_retrieval.rerank", return_value=[anchor]):
+            result = retrieve(collection, "适用条件", "hybrid_rerank", rerank_threshold=2)
+        self.assertEqual(result["anchor_matches"], [anchor])
+        self.assertEqual(result["matches"][0]["context_chunks"], [
+            {"id": "a-1", "source": "a.txt", "content": "限制条款"}])
+        self.assertEqual(result["context"]["evidence_count"], 2)
+        self.assertEqual(result["stages"]["dense_ids"], ["a-0"])
+
     def test_unknown_strategy_and_invalid_limits_are_rejected(self):
         with self.assertRaises(ValueError):
             retrieve(MagicMock(), "退款", "unknown")

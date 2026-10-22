@@ -1,0 +1,75 @@
+{
+  "method": "本助手逐条对照回答、真实查询和政策原文；非独立人工盲审，无额外模型裁判调用。",
+  "controlled": [
+    {
+      "id": "phone",
+      "before_main_conclusion_correct": false,
+      "after_main_conclusion_correct": true,
+      "reason": "补全后能区分实物手机与数字内容，合理开箱不当然失去资格，需核实激活与完好。"
+    },
+    {
+      "id": "gold",
+      "before_main_conclusion_correct": true,
+      "after_main_conclusion_correct": true,
+      "reason": "新提示下原锚点亦可根据普通商品基础规则与未标注规则答出7天；补全后直接覆盖金卡限制。不能把本次正确性变化完全归因于检索。"
+    },
+    {
+      "id": "coupon",
+      "before_main_conclusion_correct": false,
+      "after_main_conclusion_correct": false,
+      "reason": "补全后仍因食品券未被逐字定义而拒答，未应用不能跨品类的一般规则。"
+    }
+  ],
+  "dialogues": [
+    {
+      "id": "rewrite-01",
+      "main_conclusion_correct": true,
+      "fully_issue_free": false,
+      "route": "retrieve",
+      "remaining_issue": "结尾以订单查询再确认具体资格的说法过宽，工具缺少签收时间、激活和完好状态；政策主要结论正确。"
+    },
+    {
+      "id": "rewrite-16",
+      "main_conclusion_correct": true,
+      "fully_issue_free": false,
+      "route": "reuse",
+      "remaining_issue": "结尾仍称提供订单号可核实签收时间，当前订单工具没有该字段；工具能力约束尚未稳定生效。"
+    },
+    {
+      "id": "refresh-new-02",
+      "main_conclusion_correct": true,
+      "fully_issue_free": true,
+      "route": "retrieve",
+      "remaining_issue": "保留结算页面核实限定，但未推翻食品券不可跨品类购买显示器的主要结论。"
+    }
+  ],
+  "cost": {
+    "controlled": {
+      "before": {
+        "input_tokens": 1346,
+        "output_tokens": 355,
+        "total_tokens": 1701
+      },
+      "after": {
+        "input_tokens": 3351,
+        "output_tokens": 452,
+        "total_tokens": 3803
+      }
+    },
+    "checker": {
+      "input_tokens": 4209,
+      "output_tokens": 345,
+      "total_tokens": 4554
+    },
+    "answer": {
+      "input_tokens": 13040,
+      "output_tokens": 794,
+      "total_tokens": 13834
+    },
+    "checker_calls": 5,
+    "answer_calls": 5,
+    "checker_ms_mean": 3141.5837799664587,
+    "turn_ms_mean": 6036.599679966457
+  },
+  "limitations": "同三条案例单次重测，提示修改与采样差异同时存在。真实图仅修复后验证，未做真实图新旧配对；不代表总体准确率。"
+}

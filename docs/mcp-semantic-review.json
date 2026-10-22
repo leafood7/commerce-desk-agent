@@ -1,0 +1,115 @@
+{
+  "reviewer": "本助手逐条复核，非独立真人盲审或模型裁判金标准",
+  "dataset_used_for_tuning": true,
+  "rows": [
+    {
+      "id": "known-phone",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "合理开箱不当然失去资格；列出激活、完好及期限。仍有多余查单邀请，但明确无法查询激活与实物完好，未承诺缺失字段。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "known-gold",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "第二轮按金卡与未标注条件判断不适用15天，复用真实ID。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "known-coupon",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "更正有效期后重新检索，食品券简称给带券面限制前提的结论，不沿用过期。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-category",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "明确仅限食品即直接排除电脑主机，不再追问是否只是活动名称。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-name",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "不把活动名称当品类事实，依真实一般条款给条件结论，仍要求券面范围。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-store",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "店铺限定不能因同品牌跨店使用。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-return",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "七天内不保证一定能退，保留激活、完好与购买提示条件。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-fee",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "费用未收录，不编造金额。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-quantity",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "真实空结果后拒绝编造固定券数。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-activation",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "明确订单工具没有激活/实物完好字段。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-signed",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "真实查单，表述为记录显示运输中；未将预计送达当签收时间。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-mixed",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "同轮经MCP检索退款政策并查单，3至7工作日有来源；未误走纯订单快捷路径。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-greeting",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "独立问候省检查，无工具调用。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-thanks",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "独立致谢省检查，无工具调用。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-order",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "真实MCP查单，商品/支付/物流/预计送达与虚构库一致，无催单写入。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-repeat",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "第二轮reuse，引用历史真实片段，不新增检索。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-correction",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "更正后按甲店券不能跨乙店处理，不延续过期。",
+      "mechanical_issues": []
+    },
+    {
+      "id": "new-after-thanks",
+      "assessment": "本次未发现重大结论或证据边界错误",
+      "note": "首轮7天规则有依据，末轮致谢不重复查询。",
+      "mechanical_issues": []
+    }
+  ],
+  "controlled_no_evidence": "生产MCP实际返回no_evidence，回答未追加无证据条件政策。"
+}

@@ -1,0 +1,347 @@
+{
+  "method": "本助手逐条对照原始回答、实际返回证据和参考答案；不是独立人工盲审，不修改原裁判分数。覆盖旧50题中至少一个版本判错的全部8题。",
+  "rows": [
+    {
+      "id": "rewrite-01",
+      "source": "work/policy-refresh-regression.json",
+      "case": {
+        "id": "rewrite-01",
+        "category": "口语",
+        "turns": [
+          "手机就拆开瞅了一眼，也不能退了？"
+        ],
+        "answerable": true,
+        "reference_answer": "合理开箱查验不当然失去退货资格，激活使用等需核实。",
+        "evidence_groups": [
+          [
+            "return_digital_policy.txt-1"
+          ]
+        ],
+        "required_conditions": [
+          "商品是实物手机",
+          "行为仅为开箱查验，不是已激活使用"
+        ]
+      },
+      "original_audit": {
+        "before": {
+          "correct": false,
+          "grounded": false,
+          "refusal": true,
+          "reason": "回答称知识库无手机拆封退货条款并拒答，但参考答案明确合理开箱查验不当然失去退货资格，未给出正确结论，且未引用对应证据。"
+        },
+        "after": {
+          "correct": false,
+          "grounded": false,
+          "refusal": true,
+          "reason": "回答同样称无直接规定并拒答，未说明合理开箱查验不当然失去退货资格，未满足参考答案要求。"
+        }
+      },
+      "before_answer": "关于拆封手机能否退货，知识库中目前只有关于“拆封的音像制品、计算机软件等数字化商品不适用七日无理由退货”的规定，**没有明确针对手机等硬件商品拆封后退货的条款**，因此我无法确认您的手机是否还能退。\n\n建议您提供订单号，我帮您查询订单状态；同时建议联系人工客服进一步核实。",
+      "after_answer": "知识库中没有直接规定“手机拆封后能否退货”的条款，无法确认。现有片段只提到：拆封的音像制品、计算机软件等数字化商品不适用七日无理由退货（来源：return_digital_policy.txt、return_policy.txt），并未涉及手机这类实体数码硬件。\n\n建议您提供订单号，我帮您查一下订单状态；也可以帮您转人工客服进一步核实。",
+      "classification": "持续失败",
+      "assistant_review": "缺合理开箱证据，主要结论未回答；拒答不等于编造，不能仅因参考答案存在就把grounded判错。两版还追加无助于解释一般规则的查单/转人工邀请。",
+      "independent_human_review": "pending"
+    },
+    {
+      "id": "rewrite-03",
+      "source": "work/policy-refresh-regression.json",
+      "case": {
+        "id": "rewrite-03",
+        "category": "口语",
+        "turns": [
+          "券退我了，可已经过日子了，还能花吗？"
+        ],
+        "answerable": true,
+        "reference_answer": "退回时过期的券不能继续用，返还不自动延长有效期。",
+        "evidence_groups": [
+          [
+            "coupon_refund_policy.txt-3"
+          ]
+        ],
+        "required_conditions": [
+          "优惠券已返还",
+          "返还时已过期"
+        ]
+      },
+      "original_audit": {
+        "before": {
+          "correct": false,
+          "grounded": false,
+          "refusal": false,
+          "reason": "未回答过期券能否使用，反而索要券名或订单号，未提供一般政策解释。"
+        },
+        "after": {
+          "correct": true,
+          "grounded": true,
+          "refusal": false,
+          "reason": "明确说明退回时已过期的券不能继续使用且不自动延长有效期，有政策证据支持。"
+        }
+      },
+      "before_answer": "您好，请问您指的是哪张优惠券呢？方便提供一下券的名称或订单号吗？这样我可以帮您确认具体情况。",
+      "after_answer": "根据商城政策：优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。\n\n另外，活动专享券可能有特别的返还规则，需要以领取时的活动规则为准。\n\n来源：coupon_refund_policy.txt、coupon_usage_policy.txt\n\n如果您想确认这张券是否有补发可能，可以提供订单号，我帮您查询。",
+      "classification": "改善但非整段无问题",
+      "assistant_review": "新版说明过期返券不能使用、不自动延长，主要结论正确；结尾称提供订单号可查询补发可能性，工具无优惠券补发字段。旧裁判grounded=True漏掉能力承诺。",
+      "independent_human_review": "pending"
+    },
+    {
+      "id": "rewrite-16",
+      "source": "work/policy-refresh-regression.json",
+      "case": {
+        "id": "rewrite-16",
+        "category": "多轮补充",
+        "turns": [
+          "会员是不是可以15天退？",
+          "我是金卡，买的普通商品，页面没写延长。"
+        ],
+        "answerable": true,
+        "reference_answer": "金卡是优先客服，不自动享受黑金指定商品15天。",
+        "evidence_groups": [
+          [
+            "membership_policy.txt-1"
+          ],
+          [
+            "membership_policy.txt-2"
+          ]
+        ],
+        "required_conditions": [
+          "金卡不是黑金",
+          "普通商品未写延长",
+          "继承15天退货疑问"
+        ]
+      },
+      "original_audit": {
+        "after": {
+          "correct": false,
+          "grounded": true,
+          "refusal": true,
+          "reason": "回答称金卡规则无依据并拒答，未明确金卡不自动享受黑金15天权益，未满足参考答案。"
+        },
+        "before": {
+          "correct": true,
+          "grounded": true,
+          "refusal": false,
+          "reason": "明确说明15天仅限黑金且需标注延长，普通商品未标注按七日规则，符合参考答案。"
+        }
+      },
+      "before_answer": "按政策，您的情况不适用 15 天无理由退货：\n\n- 15 天延长权益仅限**黑金会员**，且只针对订单**明确标注支持延长**的商品。\n- 您的商品页面未标注延长，因此仍按普通规则执行，即七日无理由退货及其例外。\n\n来源：membership_policy.txt、return_policy.txt\n\n如需确认具体订单的签收时间和是否还在退货期内，可以提供订单号，我帮您查询。",
+      "after_answer": "知识库中没有“金卡会员”这一等级的退货规则，也没有金卡会员的15天权益依据，因此无法确认金卡会员是否享有15天退货期。\n\n目前能确认的规则如下：\n\n- 适用七日无理由退货的普通商品，自签收次日起计算 **7天** 申请期，商品须保持完好。\n- 15天权益仅明确适用于**黑金会员**，且订单须明确标注支持延长；未标注商品不自动延长。\n- 普通会员超过7天不自动获得无理由退货资格。\n\n按您的情况（普通商品、页面未标注延长），可参照通用规则，即签收次日起7天内申请；但金卡等级本身的具体规则，知识库暂无依据，无法确认。\n\n来源：return_policy.txt、membership_policy.txt",
+      "classification": "退化且旧版也有附带问题",
+      "assistant_review": "旧版主要结论正确，但承诺查签收时间无工具依据；新版缺金卡条款且先称无法确认，后给7天结论，存在过度拒答和表达冲突。不能把旧版整段当完美答案。",
+      "independent_human_review": "pending"
+    },
+    {
+      "id": "rewrite-24",
+      "source": "work/policy-refresh-regression.json",
+      "case": {
+        "id": "rewrite-24",
+        "category": "条件变更",
+        "turns": [
+          "耳机买了不喜欢想退。",
+          "不是不喜欢，是收到就坏了，签收20天。"
+        ],
+        "answerable": true,
+        "reference_answer": "质量问题独立核实，不能因超过15天就直接排除责任。",
+        "evidence_groups": [
+          [
+            "return_policy.txt-3"
+          ]
+        ],
+        "required_conditions": [
+          "质量问题，旧不喜欢原因撤回",
+          "签收20天",
+          "不能套用无理由7天直接拒绝"
+        ]
+      },
+      "original_audit": {
+        "after": {
+          "correct": true,
+          "grounded": true,
+          "refusal": false,
+          "reason": "正确区分质量问题与无理由退货，说明15天窗口非质量责任截止期，需核实，符合参考答案。"
+        },
+        "before": {
+          "correct": false,
+          "grounded": false,
+          "refusal": false,
+          "reason": "未给出政策解释，仅索要订单号并称需查知识库，未回应质量问题超15天能否受理。"
+        }
+      },
+      "before_answer": "您好，请提供订单号，我帮您查询订单并确认质量问题退货政策。\n\n另外先说明：质量问题退货与“不喜欢”退货的政策可能不同，我需要先查知识库确认，再给您准确答复。",
+      "after_answer": "您的情况属于商品质量问题，与七日无理由退货是不同售后依据：\n\n- 商品质量问题与无理由退货是不同售后依据。本商城签收后 15 天的常规受理窗口不作为全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实（return_policy.txt）\n\n也就是说，签收 20 天已超过 15 天常规受理窗口，但并非直接不予受理，需按具体保障和实际情况核实。知识库目前没有明确说明质量问题退货的具体时限和条件，无法确认最终能否受理。\n\n建议提供订单号（格式如 A1002），我先帮您查询订单状态，再进一步核实。",
+      "classification": "改善",
+      "assistant_review": "新版基于质量问题独立核实及15天非全部责任截止期回应最新条件；未承诺直接退款。索要订单号不应替代已给出的一般政策结论。",
+      "independent_human_review": "pending"
+    },
+    {
+      "id": "refresh-new-02",
+      "source": "work/policy-refresh-holdout.json",
+      "case": {
+        "id": "refresh-new-02",
+        "category": "条件更正",
+        "turns": [
+          "我的券已经超过有效期。",
+          "我重新看了：有效期还没到，是食品券，想买显示器。"
+        ],
+        "answerable": true,
+        "reference_answer": "品类限定券不可跨品类使用，有效不代表全品类可用。",
+        "evidence_groups": [
+          [
+            "coupon_scope_policy.txt-0"
+          ]
+        ],
+        "required_conditions": [
+          "券仍有效",
+          "食品品类券购买显示器"
+        ]
+      },
+      "original_audit": {
+        "after": {
+          "correct": false,
+          "grounded": true,
+          "refusal": true,
+          "reason": "回答未给出参考答案的核心结论即品类限定券不可跨品类使用，反而称无依据无法确认，属于对可回答问题拒答。"
+        },
+        "before": {
+          "correct": false,
+          "grounded": true,
+          "refusal": true,
+          "reason": "回答虽引用品类范围政策，但未明确食品券不可用于显示器，称无法确认可以通用，未给出参考答案结论。"
+        }
+      },
+      "before_answer": "根据商城优惠券政策：\n\n- 优惠券需在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。\n- 商品满减券需达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都在可用范围内。\n\n因此，食品券能否用于购买显示器，取决于该券是否限定了商品或品类范围。知识库中没有“食品券可用于显示器”的依据，无法确认可以通用。建议您在券详情页核对适用品类，或提供券名称/类型我再帮您确认。\n\n来源：coupon_usage_policy.txt",
+      "after_answer": "根据知识库，关于“食品券能否买显示器”：\n\n- 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都在可用范围内（来源：coupon_usage_policy.txt）\n- 优惠券只有在有效期内并符合适用条件才可使用，领券成功不等于每笔订单都能用（来源：coupon_usage_policy.txt）\n\n也就是说，券能否使用取决于它的指定品类范围，而不只是有效期。但知识库没有明确说明“食品券”是否可用于显示器这类跨品类商品，**这部分暂无依据，无法确认**。\n\n建议您查看券面说明中的“适用品类/商品”一栏，或提供券名称，我再帮您核对。",
+      "classification": "持续失败且参考前提需说明",
+      "assistant_review": "两版均未明确应用跨品类限制；但食品券若仅为活动名称不能武断视为品类限定。理想答案应在未确认前给条件结论，而不是只拒答或无条件禁止。",
+      "independent_human_review": "pending"
+    },
+    {
+      "id": "refresh-new-03",
+      "source": "work/policy-refresh-holdout.json",
+      "case": {
+        "id": "refresh-new-03",
+        "category": "条件更正",
+        "turns": [
+          "我想退一件不喜欢的商品。",
+          "是运输时破损了，不是改变主意，签收已经一个月。"
+        ],
+        "answerable": true,
+        "reference_answer": "质量与无理由不同，超过常规窗口仍核实保障和具体问题，不能保证直接退款。",
+        "evidence_groups": [
+          [
+            "return_policy.txt-3"
+          ]
+        ],
+        "required_conditions": [
+          "破损质量问题",
+          "签收一个月"
+        ]
+      },
+      "original_audit": {
+        "before": {
+          "correct": false,
+          "grounded": false,
+          "refusal": false,
+          "reason": "仅索要订单号，未按最新条件解释破损质量问题与超期核实规则，未回答一般政策。"
+        },
+        "after": {
+          "correct": true,
+          "grounded": true,
+          "refusal": false,
+          "reason": "区分质量与无理由退货，说明超15天仍按保障核实，不能保证退款，并指出运输异常需人工核查。"
+        }
+      },
+      "before_answer": "请问您的订单号是多少？我需要订单号才能查询订单状态并核实具体政策。",
+      "after_answer": "关于“运输破损、已签收一个月”的情况，知识库能确认的内容如下：\n\n- **质量问题与无理由退货属于不同的售后依据**：签收后 15 天的常规受理窗口**不是**全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实（来源：return_policy.txt）。\n- **无理由退货**：适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期，且商品须保持完好（来源：return_policy.txt）。您的情况不属于无理由退货，因此不适用这一时限。\n- **运输异常**：需要另行人工核查（来源：shipping_policy.txt）。\n\n也就是说，签收一个月后申请运输破损售后**并非一律不受理**，但能否退货或换货，需要依据具体保障条款和商品实际情况核实。知识库暂未明确说明运输破损的申请时限和具体流程，无法确认最终结果。\n\n请提供订单号，我帮您查询该订单的商品和物流状态，再进一步核实。",
+      "classification": "改善",
+      "assistant_review": "新版区分运输破损/质量与无理由退货，超过常规窗口仍核实保障；没有凭一个月就拒绝或保证退款。",
+      "independent_human_review": "pending"
+    },
+    {
+      "id": "refresh-new-07",
+      "source": "work/policy-refresh-holdout.json",
+      "case": {
+        "id": "refresh-new-07",
+        "category": "条件更正",
+        "turns": [
+          "我付全款两天了能认定预售超时吗？",
+          "支付记录只有定金，尾款还没有付。"
+        ],
+        "answerable": true,
+        "reference_answer": "定金不等于全款，预售依承诺日期，不能凭定金两天认定超时。",
+        "evidence_groups": [
+          [
+            "presale_shipping_policy.txt-0"
+          ],
+          [
+            "presale_shipping_policy.txt-1"
+          ]
+        ],
+        "required_conditions": [
+          "预售",
+          "只付定金未付尾款"
+        ]
+      },
+      "original_audit": {
+        "before": {
+          "correct": false,
+          "grounded": false,
+          "refusal": false,
+          "reason": "未回答定金两天能否认定预售超时，反而索要订单号并要求澄清，未依据政策解释。"
+        },
+        "after": {
+          "correct": true,
+          "grounded": true,
+          "refusal": false,
+          "reason": "明确说明定金不等于全款，尾款未付不能仅凭定金付款时间认定超时，符合参考答案且有政策证据支持。"
+        }
+      },
+      "before_answer": "您还没有提供订单号，我无法查询具体订单情况。\n\n另外想确认一下：您前面说“付全款两天了”，现在又说“只有定金、尾款未付”，这两者不一致。请明确：\n\n1. 订单号（如 A1002）；\n2. 您实际是已付全款，还是仅付了定金？\n\n确认后我再为您查询订单状态，并核实预售超时的认定规则。",
+      "after_answer": "根据知识库政策：定金与尾款分开支付的预售订单，支付定金不等于已完成全款，需要核实尾款支付状态和约定发货条件，**不能仅凭定金付款时间认定超时**。（来源：presale_shipping_policy.txt）\n\n因此，在尾款未付的情况下，目前无法认定预售超时。如需核实该订单的承诺发货截止时间，请提供订单号。",
+      "classification": "改善但措辞可收紧",
+      "assistant_review": "新版按最新更正解释定金不等于全款、不能仅凭定金付款时间认定超时；应避免将其泛化为所有未付尾款情形绝不可能存在履约争议。",
+      "independent_human_review": "pending"
+    },
+    {
+      "id": "refresh-new-11",
+      "source": "work/policy-refresh-holdout.json",
+      "case": {
+        "id": "refresh-new-11",
+        "category": "多轮补充",
+        "turns": [
+          "预售订单什么时候能催？",
+          "已付尾款，承诺日期昨天过了，仍没发。"
+        ],
+        "answerable": true,
+        "reference_answer": "付清且待发货超承诺可催，加急仍程序校验人工审批，不保证提前。",
+        "evidence_groups": [
+          [
+            "presale_shipping_policy.txt-3"
+          ]
+        ],
+        "required_conditions": [
+          "预售付清",
+          "超过承诺仍待发"
+        ]
+      },
+      "original_audit": {
+        "before": {
+          "correct": false,
+          "grounded": true,
+          "refusal": false,
+          "reason": "未直接回答催单条件，仅索要订单号，未说明付清且超承诺可催及加急审批不保证提前。"
+        },
+        "after": {
+          "correct": true,
+          "grounded": true,
+          "refusal": false,
+          "reason": "准确说明付清且超承诺可催，加急需校验审批不保证提前，并确认符合条件。"
+        }
+      },
+      "before_answer": "请提供订单号，我帮您查询该订单的实际状态和承诺发货时间。",
+      "after_answer": "根据知识库政策：\n\n- 已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单；加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证。\n- 已付款且待发货的订单可登记普通催单，无需等满 72 小时；加急申请还要求当前时间超过该订单的承诺发货截止时间，并须人工审批。\n- 尾款截止时间与承诺发货截止时间分别管理，不能把尾款最后支付日期当成发货截止日期。\n\n来源：presale_shipping_policy.txt、shipping_policy.txt\n\n您说承诺日期昨天已过，符合催单条件。如需我登记催单，请提供订单号（普通催单或加急请说明）。",
+      "classification": "改善但执行资格仍须程序校验",
+      "assistant_review": "新版正确说明付清、待发、超承诺可提出催单及加急审批；根据用户描述说明一般条件不等于查单确认已具备实际执行资格。",
+      "independent_human_review": "pending"
+    }
+  ]
+}

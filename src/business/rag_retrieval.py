@@ -7,6 +7,8 @@ from functools import lru_cache
 from time import perf_counter
 from threading import Lock
 
+from business.policy_context import expand_policy_context, flatten_policy_matches, CONTEXT_CHAR_BUDGET
+
 RERANKER_MODEL = "BAAI/bge-reranker-base"
 RERANKER_REVISION = "2cfc18c9415c912f9d8155881c133215df768a70"
 STRATEGIES = ("vector", "hybrid", "hybrid_rerank")
@@ -129,7 +131,18 @@ def retrieve(collection, query, strategy, top_k=3, pool_size=12, rerank_threshol
                 "timing_ms": {"vector": vector_ms, "bm25_rrf": fusion_ms}}
     rerank_start = perf_counter()
     ranked = rerank(query, fused)
-    return {"matches": [row for row in ranked if row["rerank_score"] >= rerank_threshold][:top_k],
+    rerank_ms = (perf_counter() - rerank_start) * 1000
+    context_start = perf_counter()
+    anchors = [row for row in ranked if row["rerank_score"] >= rerank_threshold][:top_k]
+    documents = [{"id": row[0], "content": row[1], "source": row[2]} for row in fingerprint]
+    matches = expand_policy_context(anchors, documents)
+    return {"matches": matches, "anchor_matches": anchors,
+            "context": {"char_budget": CONTEXT_CHAR_BUDGET,
+                        "chars": sum(len(row["content"]) for row in flatten_policy_matches(matches)),
+                        "evidence_count": len(flatten_policy_matches(matches))},
             "candidates": ranked,
+            "stages": {"dense_ids": [r["id"] for r in dense],
+                       "bm25_ids": [r["id"] for r in sparse],
+                       "fusion_ids": [r["id"] for r in fused]},
             "timing_ms": {"vector": vector_ms, "bm25_rrf": fusion_ms,
-                          "rerank": (perf_counter() - rerank_start) * 1000}}
+                          "rerank": rerank_ms, "context": (perf_counter() - context_start) * 1000}}

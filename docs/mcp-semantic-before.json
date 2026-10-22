@@ -1,0 +1,494 @@
+{
+  "metadata": {
+    "status": "running",
+    "started_at": "2026-10-22T14:06:25.521019+00:00",
+    "endpoint": "https://api.deepseek.com/v1",
+    "model": "deepseek-chat",
+    "variant": "before",
+    "transport": "production stdio MCP",
+    "real_llm": true,
+    "synthetic_orders": true,
+    "business_writes_blocked": true,
+    "source_hashes": {
+      "src/agents/answer_policy.py": "7dec6c3eccf211e0fd5a425a3911470dd7ffd7587c75e96b5b4e76194d7da6b9",
+      "src/agents/policy_evidence.py": "aaebe89574d1575cfa262029964affd7d81121286720a83c65b2f2dc70d30751",
+      "src/agents/supportpilot_agent.py": "242cbcc76ab29394a8b66278a527cd51cbe1bb195c46404e06428005051020bf",
+      "src/tool_protocol/server.py": "4a707e6ae4c8b3bd7646cd5d476d83f2f612862b7347ae4fc6288bc42e74eeb3"
+    },
+    "limitations": "单次小样本；程序检查不是语义金标准，需逐条复核；不含网页点击、HTTP链路或生产并发。",
+    "startup_ms": 12002.162599936128,
+    "cleanup_issue": "初版评测脚本SQLite连接未显式关闭，临时目录清理报错；两题模型结果完整保存。脚本已修复。"
+  },
+  "rows": [
+    {
+      "case": {
+        "id": "new-category",
+        "group": "policy",
+        "turns": [
+          "这张券写着仅限食品类，明天才过期，今天买电脑主机能抵扣吗？"
+        ],
+        "expectation": "明确不能跨品类，有效期未到不改变品类限制。"
+      },
+      "turns": [
+        {
+          "question": "这张券写着仅限食品类，明天才过期，今天买电脑主机能抵扣吗？",
+          "answer": "**结论**：如果这张券确实限定为食品类，就不能用于抵扣电脑主机。品类限定券只能用于指定品类商品，不能跨品类使用；券在有效期内只是必要条件之一，并不代表所有商品都能用。\n\n**依据**：品类限定券只能用于指定品类，不能因同属商城就跨品类使用；优惠券须在有效期内且符合适用范围才可用（来源：coupon_scope_policy.txt、coupon_usage_policy.txt）。\n\n**待核实**：请确认券面写的是“仅限食品类”这一品类限制，而不是活动名称；最终能否抵扣，以结算页实际可用结果为准。",
+          "policy_check": {
+            "mode": "retrieve",
+            "query": "仅限食品类的优惠券能否用于购买电脑主机？",
+            "evidence_ids": [],
+            "reason": "优惠券适用范围属于政策问题，现有证据为空，需检索食品类限用券是否可用于电脑主机。",
+            "status": "checked",
+            "usage": {
+              "input_tokens": 394,
+              "output_tokens": 52,
+              "total_tokens": 446,
+              "input_token_details": {
+                "cache_read": 256
+              },
+              "output_token_details": {}
+            },
+            "checker_called": true,
+            "checker_ms": 3601.437699981034
+          },
+          "queries": [
+            {
+              "origin": "policy_check",
+              "id": "policy_bd96e3da9b4746ff838b78372a16ea3e",
+              "query": "仅限食品类的优惠券能否用于购买电脑主机？",
+              "args": {
+                "query": "仅限食品类的优惠券能否用于购买电脑主机？"
+              }
+            }
+          ],
+          "matches": [
+            {
+              "id": "coupon_scope_policy.txt-0",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。",
+              "source": "coupon_scope_policy.txt",
+              "distance": 0.7747988104820251,
+              "rrf_score": 0.03252247488101534,
+              "bm25_score": 30.853930975794075,
+              "rerank_score": -1.5993365049362183
+            },
+            {
+              "id": "coupon_scope_policy.txt-1",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。",
+              "context_of": "coupon_scope_policy.txt-0"
+            },
+            {
+              "id": "coupon_scope_policy.txt-2",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。",
+              "context_of": "coupon_scope_policy.txt-0"
+            },
+            {
+              "id": "coupon_scope_policy.txt-3",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。",
+              "context_of": "coupon_scope_policy.txt-0"
+            },
+            {
+              "id": "coupon_usage_policy.txt-1",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。",
+              "source": "coupon_usage_policy.txt",
+              "distance": 0.7892194390296936,
+              "rrf_score": 0.030798389007344232,
+              "bm25_score": 17.383851101833795,
+              "rerank_score": -1.8707756996154785
+            },
+            {
+              "id": "coupon_usage_policy.txt-0",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。",
+              "context_of": "coupon_usage_policy.txt-1"
+            },
+            {
+              "id": "coupon_usage_policy.txt-2",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。",
+              "context_of": "coupon_usage_policy.txt-1"
+            },
+            {
+              "id": "coupon_usage_policy.txt-3",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。",
+              "context_of": "coupon_usage_policy.txt-1"
+            },
+            {
+              "id": "coupon_usage_policy.txt-4",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。",
+              "context_of": "coupon_usage_policy.txt-1"
+            }
+          ],
+          "tool_errors": [],
+          "other_tools": [],
+          "query_matches": {
+            "policy_bd96e3da9b4746ff838b78372a16ea3e": [
+              {
+                "id": "coupon_scope_policy.txt-0",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。",
+                "source": "coupon_scope_policy.txt",
+                "distance": 0.7747988104820251,
+                "rrf_score": 0.03252247488101534,
+                "bm25_score": 30.853930975794075,
+                "rerank_score": -1.5993365049362183
+              },
+              {
+                "id": "coupon_scope_policy.txt-1",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。",
+                "context_of": "coupon_scope_policy.txt-0"
+              },
+              {
+                "id": "coupon_scope_policy.txt-2",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。",
+                "context_of": "coupon_scope_policy.txt-0"
+              },
+              {
+                "id": "coupon_scope_policy.txt-3",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。",
+                "context_of": "coupon_scope_policy.txt-0"
+              },
+              {
+                "id": "coupon_usage_policy.txt-1",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。",
+                "source": "coupon_usage_policy.txt",
+                "distance": 0.7892194390296936,
+                "rrf_score": 0.030798389007344232,
+                "bm25_score": 17.383851101833795,
+                "rerank_score": -1.8707756996154785
+              },
+              {
+                "id": "coupon_usage_policy.txt-0",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。",
+                "context_of": "coupon_usage_policy.txt-1"
+              },
+              {
+                "id": "coupon_usage_policy.txt-2",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。",
+                "context_of": "coupon_usage_policy.txt-1"
+              },
+              {
+                "id": "coupon_usage_policy.txt-3",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。",
+                "context_of": "coupon_usage_policy.txt-1"
+              },
+              {
+                "id": "coupon_usage_policy.txt-4",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。",
+                "context_of": "coupon_usage_policy.txt-1"
+              }
+            ]
+          },
+          "answer_calls": [
+            {
+              "usage": {
+                "input_tokens": 2581,
+                "output_tokens": 137,
+                "total_tokens": 2718,
+                "input_token_details": {
+                  "cache_read": 512
+                },
+                "output_token_details": {}
+              },
+              "model": "deepseek-flash"
+            }
+          ],
+          "elapsed_ms": 6376.577099901624,
+          "tool_trace": [
+            {
+              "event": "start",
+              "run_id": "01a163ef-7a19-7612-8845-340146972b14",
+              "tool": "search_knowledge_base",
+              "input": "{'query': '仅限食品类的优惠券能否用于购买电脑主机？'}",
+              "metadata": {
+                "thread_id": "40bc5cd487af46a8b384102357f119ff",
+                "ls_integration": "langgraph",
+                "langgraph_step": 2,
+                "langgraph_node": "tools",
+                "langgraph_triggers": [
+                  "branch:to:tools"
+                ],
+                "langgraph_path": [
+                  "__pregel_pull",
+                  "tools"
+                ],
+                "langgraph_checkpoint_ns": "tools:5efcb2e6-a602-afaa-5bab-179614a6d8e2",
+                "checkpoint_ns": "tools:5efcb2e6-a602-afaa-5bab-179614a6d8e2",
+                "transport": "mcp",
+                "server": "commerce-desk-readonly"
+              }
+            },
+            {
+              "event": "start",
+              "run_id": "01a163ef-7a19-7612-8845-341425c23259",
+              "tool": "search_knowledge_base",
+              "input": "{'query': '仅限食品类的优惠券能否用于购买电脑主机？'}",
+              "metadata": {
+                "thread_id": "40bc5cd487af46a8b384102357f119ff",
+                "ls_integration": "langgraph",
+                "langgraph_step": 2,
+                "langgraph_node": "tools",
+                "langgraph_triggers": [
+                  "branch:to:tools"
+                ],
+                "langgraph_path": [
+                  "__pregel_pull",
+                  "tools"
+                ],
+                "langgraph_checkpoint_ns": "tools:5efcb2e6-a602-afaa-5bab-179614a6d8e2",
+                "checkpoint_ns": "tools:5efcb2e6-a602-afaa-5bab-179614a6d8e2",
+                "title": null,
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              }
+            },
+            {
+              "event": "end",
+              "run_id": "01a163ef-7a19-7612-8845-341425c23259",
+              "status": "success"
+            },
+            {
+              "event": "end",
+              "run_id": "01a163ef-7a19-7612-8845-340146972b14",
+              "status": "success"
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "search_knowledge_base",
+              "content": "{\"status\": \"found\", \"matches\": [{\"id\": \"coupon_scope_policy.txt-0\", \"content\": \"SupportPilot 商城优惠券限制与运费券政策\\n\\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。\", \"source\": \"coupon_scope_policy.txt\", \"distance\": 0.7747988104820251, \"rrf_score\": 0.03252247488101534, \"bm25_score\": 30.853930975794075, \"rerank_score\": -1.5993365049362183, \"context_chunks\": [{\"id\": \"coupon_scope_policy.txt-1\", \"source\": \"coupon_scope_policy.txt\", \"content\": \"SupportPilot 商城优惠券限制与运费券政策\\n\\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。\"}, {\"id\": \"coupon_scope_policy.txt-2\", \"source\": \"coupon_scope_policy.txt\", \"content\": \"SupportPilot 商城优惠券限制与运费券政策\\n\\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。\"}, {\"id\": \"coupon_scope_policy.txt-3\", \"source\": \"coupon_scope_policy.txt\", \"content\": \"SupportPilot 商城优惠券限制与运费券政策\\n\\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。\"}]}, {\"id\": \"coupon_usage_policy.txt-1\", \"content\": \"SupportPilot 商城商品优惠券使用政策\\n\\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。\", \"source\": \"coupon_usage_policy.txt\", \"distance\": 0.7892194390296936, \"rrf_score\": 0.030798389007344232, \"bm25_score\": 17.383851101833795, \"rerank_score\": -1.8707756996154785, \"context_chunks\": [{\"id\": \"coupon_usage_policy.txt-0\", \"source\": \"coupon_usage_policy.txt\", \"content\": \"SupportPilot 商城商品优惠券使用政策\\n\\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。\"}, {\"id\": \"coupon_usage_policy.txt-2\", \"source\": \"coupon_usage_policy.txt\", \"content\": \"SupportPilot 商城商品优惠券使用政策\\n\\n3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。\"}, {\"id\": \"coupon_usage_policy.txt-3\", \"source\": \"coupon_usage_policy.txt\", \"content\": \"SupportPilot 商城商品优惠券使用政策\\n\\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。\"}, {\"id\": \"coupon_usage_policy.txt-4\", \"source\": \"coupon_usage_policy.txt\", \"content\": \"SupportPilot 商城商品优惠券使用政策\\n\\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。\"}]}]}",
+              "status": "success"
+            }
+          ]
+        }
+      ],
+      "cost": {
+        "turns": 1,
+        "checker_calls": 1,
+        "answer_calls": 1,
+        "searches": 1,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 2975,
+        "output_tokens_reported": 189,
+        "total_tokens_reported": 3164,
+        "elapsed_ms": 6376.577099901624
+      }
+    },
+    {
+      "case": {
+        "id": "new-name",
+        "group": "policy",
+        "turns": [
+          "活动名字叫食品节券，但我没找到适用品类，能拿来买键盘吗？"
+        ],
+        "expectation": "不把活动名当品类限定事实；若限食品则不能，若券面允许则另论，需用户提供范围。"
+      },
+      "turns": [
+        {
+          "question": "活动名字叫食品节券，但我没找到适用品类，能拿来买键盘吗？",
+          "answer": "**结论**：仅凭“食品节券”这个活动名称，无法判断它是否限定为食品品类。如果券面明确限定为食品品类，就不能用于购买键盘；如果券面没有限定品类，只是活动名称叫“食品节”，那么键盘能否使用，要看券面规则和结算页面的实际结果。\n\n**依据**：知识库中的优惠券政策规定，品类限定券只能用于指定品类，不能因为同属商城就跨品类使用；会员身份也不能绕过券的有效期、店铺范围或活动限制。（来源：coupon_scope_policy.txt）\n\n**待核实**：请查看券面说明或券详情页，确认其中是否写明“仅限食品类”等品类范围；如果券面没有写明，最终以结算页显示的可否使用为准。",
+          "policy_check": {
+            "mode": "retrieve",
+            "query": "食品节券的适用品类范围是什么，能否用于购买键盘等非食品类商品？",
+            "evidence_ids": [],
+            "reason": "用户询问优惠券适用品类，属于政策问题，现有证据为空，需检索食品节券适用范围。",
+            "status": "checked",
+            "usage": {
+              "input_tokens": 393,
+              "output_tokens": 58,
+              "total_tokens": 451,
+              "input_token_details": {
+                "cache_read": 256
+              },
+              "output_token_details": {}
+            },
+            "checker_called": true,
+            "checker_ms": 1653.9072000887245
+          },
+          "queries": [
+            {
+              "origin": "policy_check",
+              "id": "policy_ab1f230026eb4ea9a2141a9bc8af220e",
+              "query": "食品节券的适用品类范围是什么，能否用于购买键盘等非食品类商品？",
+              "args": {
+                "query": "食品节券的适用品类范围是什么，能否用于购买键盘等非食品类商品？"
+              }
+            }
+          ],
+          "matches": [
+            {
+              "id": "coupon_scope_policy.txt-0",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。",
+              "source": "coupon_scope_policy.txt",
+              "distance": 0.7707743048667908,
+              "rrf_score": 0.031754032258064516,
+              "bm25_score": 22.199643560317067,
+              "rerank_score": -1.007717490196228
+            },
+            {
+              "id": "coupon_scope_policy.txt-1",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。",
+              "context_of": "coupon_scope_policy.txt-0"
+            },
+            {
+              "id": "coupon_scope_policy.txt-2",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。",
+              "context_of": "coupon_scope_policy.txt-0"
+            },
+            {
+              "id": "coupon_scope_policy.txt-3",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。",
+              "context_of": "coupon_scope_policy.txt-0"
+            }
+          ],
+          "tool_errors": [],
+          "other_tools": [],
+          "query_matches": {
+            "policy_ab1f230026eb4ea9a2141a9bc8af220e": [
+              {
+                "id": "coupon_scope_policy.txt-0",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。",
+                "source": "coupon_scope_policy.txt",
+                "distance": 0.7707743048667908,
+                "rrf_score": 0.031754032258064516,
+                "bm25_score": 22.199643560317067,
+                "rerank_score": -1.007717490196228
+              },
+              {
+                "id": "coupon_scope_policy.txt-1",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。",
+                "context_of": "coupon_scope_policy.txt-0"
+              },
+              {
+                "id": "coupon_scope_policy.txt-2",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。",
+                "context_of": "coupon_scope_policy.txt-0"
+              },
+              {
+                "id": "coupon_scope_policy.txt-3",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。",
+                "context_of": "coupon_scope_policy.txt-0"
+              }
+            ]
+          },
+          "answer_calls": [
+            {
+              "usage": {
+                "input_tokens": 2146,
+                "output_tokens": 168,
+                "total_tokens": 2314,
+                "input_token_details": {
+                  "cache_read": 512
+                },
+                "output_token_details": {}
+              },
+              "model": "deepseek-flash"
+            }
+          ],
+          "elapsed_ms": 4442.309500067495,
+          "tool_trace": [
+            {
+              "event": "start",
+              "run_id": "01a163ef-8b61-7d51-ae5b-8e6bfe06f358",
+              "tool": "search_knowledge_base",
+              "input": "{'query': '食品节券的适用品类范围是什么，能否用于购买键盘等非食品类商品？'}",
+              "metadata": {
+                "thread_id": "9fed057a527047579451b6de18cf4312",
+                "ls_integration": "langgraph",
+                "langgraph_step": 2,
+                "langgraph_node": "tools",
+                "langgraph_triggers": [
+                  "branch:to:tools"
+                ],
+                "langgraph_path": [
+                  "__pregel_pull",
+                  "tools"
+                ],
+                "langgraph_checkpoint_ns": "tools:2ea2cf27-a144-59e4-b647-4dfdf5449ca9",
+                "checkpoint_ns": "tools:2ea2cf27-a144-59e4-b647-4dfdf5449ca9",
+                "transport": "mcp",
+                "server": "commerce-desk-readonly"
+              }
+            },
+            {
+              "event": "start",
+              "run_id": "01a163ef-8b61-7d51-ae5b-8e772922e2c1",
+              "tool": "search_knowledge_base",
+              "input": "{'query': '食品节券的适用品类范围是什么，能否用于购买键盘等非食品类商品？'}",
+              "metadata": {
+                "thread_id": "9fed057a527047579451b6de18cf4312",
+                "ls_integration": "langgraph",
+                "langgraph_step": 2,
+                "langgraph_node": "tools",
+                "langgraph_triggers": [
+                  "branch:to:tools"
+                ],
+                "langgraph_path": [
+                  "__pregel_pull",
+                  "tools"
+                ],
+                "langgraph_checkpoint_ns": "tools:2ea2cf27-a144-59e4-b647-4dfdf5449ca9",
+                "checkpoint_ns": "tools:2ea2cf27-a144-59e4-b647-4dfdf5449ca9",
+                "title": null,
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              }
+            },
+            {
+              "event": "end",
+              "run_id": "01a163ef-8b61-7d51-ae5b-8e772922e2c1",
+              "status": "success"
+            },
+            {
+              "event": "end",
+              "run_id": "01a163ef-8b61-7d51-ae5b-8e6bfe06f358",
+              "status": "success"
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "search_knowledge_base",
+              "content": "{\"status\": \"found\", \"matches\": [{\"id\": \"coupon_scope_policy.txt-0\", \"content\": \"SupportPilot 商城优惠券限制与运费券政策\\n\\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。\", \"source\": \"coupon_scope_policy.txt\", \"distance\": 0.7707743048667908, \"rrf_score\": 0.031754032258064516, \"bm25_score\": 22.199643560317067, \"rerank_score\": -1.007717490196228, \"context_chunks\": [{\"id\": \"coupon_scope_policy.txt-1\", \"source\": \"coupon_scope_policy.txt\", \"content\": \"SupportPilot 商城优惠券限制与运费券政策\\n\\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。\"}, {\"id\": \"coupon_scope_policy.txt-2\", \"source\": \"coupon_scope_policy.txt\", \"content\": \"SupportPilot 商城优惠券限制与运费券政策\\n\\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。\"}, {\"id\": \"coupon_scope_policy.txt-3\", \"source\": \"coupon_scope_policy.txt\", \"content\": \"SupportPilot 商城优惠券限制与运费券政策\\n\\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。\"}]}]}",
+              "status": "success"
+            }
+          ]
+        }
+      ],
+      "cost": {
+        "turns": 1,
+        "checker_calls": 1,
+        "answer_calls": 1,
+        "searches": 1,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 2539,
+        "output_tokens_reported": 226,
+        "total_tokens_reported": 2765,
+        "elapsed_ms": 4442.309500067495
+      }
+    }
+  ]
+}

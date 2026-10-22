@@ -1,0 +1,2859 @@
+{
+  "metadata": {
+    "baseline_ref": "e71f35fe2a7ce333bd7271a8ddedb57ffa0e5cd1",
+    "baseline_sha256": "be31cc12b3fbc5a200d22a2573ad9b068cc87e809bfbfb5ef9f9fedf9bd7ec6d",
+    "context_sha256": "3585dadcc48582dc8f9df2a1eca110d8e6ea1a79ee26162d758fa5d7e9a83926",
+    "retriever_sha256": "5c6cdc0ed6ac1881e9fff138927fd7b02eb334cf238eff95784b5dca1c3591b9",
+    "corpus_sha256": "d38605a2c08137f361f682edc6a01fa3085f535ee4f409c3c256bcbbc983e594",
+    "top_k_anchors": 3,
+    "pool_size": 12,
+    "threshold": -2,
+    "context_char_budget": 1800,
+    "method": "三个固定查询真实运行新旧检索；其余116题固定旧版锚点后组装同源上下文，锚点排名不变。均为既有题回归，非新留出集；补证覆盖不等于Top3排序提升。"
+  },
+  "targets": [
+    {
+      "id": "phone",
+      "query": "手机拆封后能否退货 七天无理由退货",
+      "evidence_groups": [
+        [
+          "return_digital_policy.txt-1"
+        ]
+      ],
+      "before_coverage": 0.0,
+      "after_coverage": 1.0,
+      "diagnosis": {
+        "return_digital_policy.txt-1": {
+          "dense": {
+            "rank": 9,
+            "score": null
+          },
+          "bm25": null,
+          "fusion": null,
+          "rerank": null,
+          "all_chunks_rerank": {
+            "rank": 25,
+            "score": -1.9285706281661987
+          }
+        }
+      },
+      "before_ids": [
+        "return_digital_policy.txt-3",
+        "return_policy.txt-2",
+        "return_hygiene_policy.txt-0"
+      ],
+      "after_ids": [
+        "return_digital_policy.txt-3",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-1",
+        "return_policy.txt-3",
+        "return_policy.txt-0",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "return_hygiene_policy.txt-0",
+        "return_hygiene_policy.txt-1",
+        "return_hygiene_policy.txt-2"
+      ],
+      "before_chars": 273,
+      "after_chars": 1235
+    },
+    {
+      "id": "gold",
+      "query": "金卡会员购买普通商品，页面未标注延长，退货申请期是多少天？",
+      "evidence_groups": [
+        [
+          "membership_policy.txt-1"
+        ],
+        [
+          "membership_policy.txt-2"
+        ]
+      ],
+      "before_coverage": 0.5,
+      "after_coverage": 1.0,
+      "diagnosis": {
+        "membership_policy.txt-1": {
+          "dense": {
+            "rank": 3,
+            "score": null
+          },
+          "bm25": {
+            "rank": 4,
+            "score": null
+          },
+          "fusion": {
+            "rank": 3,
+            "score": null
+          },
+          "rerank": {
+            "rank": 6,
+            "score": 0.7514348030090332
+          },
+          "all_chunks_rerank": {
+            "rank": 6,
+            "score": 0.7514321804046631
+          }
+        },
+        "membership_policy.txt-2": {
+          "dense": {
+            "rank": 1,
+            "score": null
+          },
+          "bm25": {
+            "rank": 1,
+            "score": null
+          },
+          "fusion": {
+            "rank": 1,
+            "score": null
+          },
+          "rerank": {
+            "rank": 1,
+            "score": 5.256011486053467
+          },
+          "all_chunks_rerank": {
+            "rank": 1,
+            "score": 5.256011962890625
+          }
+        }
+      },
+      "before_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "return_policy.txt-0"
+      ],
+      "after_ids": [
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-3",
+        "membership_policy.txt-0",
+        "membership_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "return_policy.txt-0"
+      ],
+      "before_chars": 264,
+      "after_chars": 1017
+    },
+    {
+      "id": "coupon",
+      "query": "食品券在有效期内能否用于购买显示器？优惠券适用商品范围如何规定？",
+      "evidence_groups": [
+        [
+          "coupon_scope_policy.txt-0"
+        ]
+      ],
+      "before_coverage": 0.0,
+      "after_coverage": 1.0,
+      "diagnosis": {
+        "coupon_scope_policy.txt-0": {
+          "dense": {
+            "rank": 7,
+            "score": null
+          },
+          "bm25": {
+            "rank": 8,
+            "score": null
+          },
+          "fusion": {
+            "rank": 7,
+            "score": null
+          },
+          "rerank": {
+            "rank": 4,
+            "score": -0.46963629126548767
+          },
+          "all_chunks_rerank": {
+            "rank": 4,
+            "score": -0.4696362316608429
+          }
+        }
+      },
+      "before_ids": [
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-1",
+        "coupon_scope_policy.txt-3"
+      ],
+      "after_ids": [
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-4",
+        "coupon_usage_policy.txt-1",
+        "coupon_scope_policy.txt-3",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-0"
+      ],
+      "before_chars": 227,
+      "after_chars": 721
+    }
+  ],
+  "summary": {
+    "dialogue": {
+      "count": 30,
+      "answerable": 24,
+      "before_complete": 19,
+      "after_context_complete": 21,
+      "before_empty_unknown": 1,
+      "after_empty_unknown": 1,
+      "unknown_count": 6,
+      "mean_before_chars": 203.66666666666666,
+      "mean_after_chars": 603.1333333333333,
+      "coverage_losses": []
+    },
+    "previous_new_cases": {
+      "count": 20,
+      "answerable": 16,
+      "before_complete": 14,
+      "after_context_complete": 15,
+      "before_empty_unknown": 0,
+      "after_empty_unknown": 0,
+      "unknown_count": 4,
+      "mean_before_chars": 243.6,
+      "mean_after_chars": 692.75,
+      "coverage_losses": []
+    },
+    "rag/dev": {
+      "count": 22,
+      "answerable": 18,
+      "before_complete": 17,
+      "after_context_complete": 17,
+      "before_empty_unknown": 2,
+      "after_empty_unknown": 2,
+      "unknown_count": 4,
+      "mean_before_chars": 169.9090909090909,
+      "mean_after_chars": 655.4545454545455,
+      "coverage_losses": []
+    },
+    "rag/test": {
+      "count": 44,
+      "answerable": 36,
+      "before_complete": 36,
+      "after_context_complete": 36,
+      "before_empty_unknown": 6,
+      "after_empty_unknown": 6,
+      "unknown_count": 8,
+      "mean_before_chars": 191.4090909090909,
+      "mean_after_chars": 606.8863636363636,
+      "coverage_losses": []
+    }
+  },
+  "rows": [
+    {
+      "id": "presale_shipping_policy-1",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "presale_shipping_policy.txt-1",
+        "coupon_usage_policy.txt-4"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-0",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-4",
+        "coupon_usage_policy.txt-4",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-0"
+      ],
+      "before_chars": 167,
+      "after_chars": 818,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "presale_shipping_policy-2",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "presale_shipping_policy.txt-4",
+        "presale_shipping_policy.txt-0",
+        "shipping_policy.txt-2"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-4",
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-0",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-0",
+        "shipping_policy.txt-4"
+      ],
+      "before_chars": 233,
+      "after_chars": 879,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "presale_shipping_policy-3",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "presale_shipping_policy.txt-0",
+        "shipping_policy.txt-0",
+        "presale_shipping_policy.txt-3"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-0",
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-4",
+        "shipping_policy.txt-0",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-4",
+        "presale_shipping_policy.txt-3"
+      ],
+      "before_chars": 276,
+      "after_chars": 879,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_usage_policy-1",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "coupon_usage_policy.txt-0"
+      ],
+      "after_ids": [
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-4"
+      ],
+      "before_chars": 82,
+      "after_chars": 396,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_usage_policy-2",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-4"
+      ],
+      "after_ids": [
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-4"
+      ],
+      "before_chars": 230,
+      "after_chars": 396,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_usage_policy-3",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-0"
+      ],
+      "after_ids": [
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-4",
+        "coupon_usage_policy.txt-0"
+      ],
+      "before_chars": 166,
+      "after_chars": 396,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_digital_policy-1",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "return_digital_policy.txt-1",
+        "return_policy.txt-4",
+        "return_digital_policy.txt-0"
+      ],
+      "after_ids": [
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-3",
+        "return_policy.txt-5",
+        "return_policy.txt-2",
+        "return_policy.txt-6",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_digital_policy.txt-0"
+      ],
+      "before_chars": 271,
+      "after_chars": 983,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_digital_policy-2",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-3",
+        "return_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-3",
+        "return_policy.txt-2",
+        "return_policy.txt-1",
+        "return_policy.txt-3",
+        "return_policy.txt-0",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "before_chars": 271,
+      "after_chars": 983,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_digital_policy-3",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "return_digital_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-3",
+        "return_digital_policy.txt-0"
+      ],
+      "before_chars": 87,
+      "after_chars": 369,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "membership_policy-1",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "membership_scope_policy.txt-2"
+      ],
+      "after_ids": [
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-3",
+        "membership_policy.txt-0",
+        "membership_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 273,
+      "after_chars": 1356,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "membership_policy-2",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "membership_policy.txt-1",
+        "membership_scope_policy.txt-0"
+      ],
+      "after_ids": [
+        "membership_policy.txt-1",
+        "membership_policy.txt-0",
+        "membership_policy.txt-2",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4",
+        "membership_scope_policy.txt-0",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-3"
+      ],
+      "before_chars": 151,
+      "after_chars": 742,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "membership_policy-3",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "membership_scope_policy.txt-3",
+        "membership_policy.txt-4",
+        "return_policy.txt-1"
+      ],
+      "after_ids": [
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-0",
+        "membership_policy.txt-4",
+        "membership_policy.txt-3",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-0",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "before_chars": 257,
+      "after_chars": 1356,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "invoice_policy-1",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "invoice_policy.txt-0"
+      ],
+      "after_ids": [
+        "invoice_policy.txt-0",
+        "invoice_policy.txt-1",
+        "invoice_policy.txt-2",
+        "invoice_policy.txt-3"
+      ],
+      "before_chars": 83,
+      "after_chars": 345,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "invoice_policy-2",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_coverage": 0.0,
+      "after_coverage": 0.0
+    },
+    {
+      "id": "invoice_policy-3",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "invoice_policy.txt-1"
+      ],
+      "after_ids": [
+        "invoice_policy.txt-1",
+        "invoice_policy.txt-0",
+        "invoice_policy.txt-2",
+        "invoice_policy.txt-3"
+      ],
+      "before_chars": 96,
+      "after_chars": 345,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refund_policy-1",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "refund_policy.txt-0",
+        "refund_policy.txt-4"
+      ],
+      "after_ids": [
+        "refund_policy.txt-0",
+        "refund_policy.txt-1",
+        "refund_policy.txt-3",
+        "refund_policy.txt-2",
+        "refund_policy.txt-4"
+      ],
+      "before_chars": 177,
+      "after_chars": 505,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refund_policy-2",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "refund_policy.txt-2",
+        "membership_scope_policy.txt-2"
+      ],
+      "after_ids": [
+        "refund_policy.txt-2",
+        "refund_policy.txt-1",
+        "refund_policy.txt-3",
+        "refund_policy.txt-0",
+        "refund_policy.txt-4",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 217,
+      "after_chars": 844,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refund_policy-3",
+      "set": "rag/dev",
+      "answerable": true,
+      "before_ids": [
+        "refund_policy.txt-3",
+        "coupon_refund_policy.txt-2",
+        "invoice_amount_policy.txt-2"
+      ],
+      "after_ids": [
+        "refund_policy.txt-3",
+        "refund_policy.txt-2",
+        "refund_policy.txt-4",
+        "refund_policy.txt-1",
+        "refund_policy.txt-0",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-4",
+        "invoice_amount_policy.txt-2",
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0"
+      ],
+      "before_chars": 247,
+      "after_chars": 1207,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "shipping_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "shipping_policy.txt-3",
+        "shipping_exception_policy.txt-1",
+        "shipping_policy.txt-1"
+      ],
+      "after_ids": [
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-0",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-4",
+        "shipping_exception_policy.txt-1",
+        "shipping_exception_policy.txt-0",
+        "shipping_exception_policy.txt-2",
+        "shipping_exception_policy.txt-3",
+        "shipping_policy.txt-1"
+      ],
+      "before_chars": 269,
+      "after_chars": 775,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "shipping_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-0"
+      ],
+      "after_ids": [
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-4",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-0"
+      ],
+      "before_chars": 295,
+      "after_chars": 457,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "shipping_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-3"
+      ],
+      "after_ids": [
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-0",
+        "shipping_policy.txt-4",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-3"
+      ],
+      "before_chars": 269,
+      "after_chars": 457,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "shipping_exception_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "shipping_exception_policy.txt-0",
+        "shipping_policy.txt-4",
+        "presale_shipping_policy.txt-3"
+      ],
+      "after_ids": [
+        "shipping_exception_policy.txt-0",
+        "shipping_exception_policy.txt-1",
+        "shipping_exception_policy.txt-2",
+        "shipping_exception_policy.txt-3",
+        "shipping_policy.txt-4",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-0",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-4",
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-0"
+      ],
+      "before_chars": 250,
+      "after_chars": 1197,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "shipping_exception_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "shipping_exception_policy.txt-1",
+        "shipping_exception_policy.txt-2",
+        "shipping_policy.txt-4"
+      ],
+      "after_ids": [
+        "shipping_exception_policy.txt-1",
+        "shipping_exception_policy.txt-0",
+        "shipping_exception_policy.txt-3",
+        "shipping_exception_policy.txt-2",
+        "shipping_policy.txt-4",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-0"
+      ],
+      "before_chars": 245,
+      "after_chars": 775,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "shipping_exception_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "shipping_exception_policy.txt-2",
+        "shipping_exception_policy.txt-1",
+        "shipping_policy.txt-4"
+      ],
+      "after_ids": [
+        "shipping_exception_policy.txt-2",
+        "shipping_exception_policy.txt-0",
+        "shipping_exception_policy.txt-3",
+        "shipping_exception_policy.txt-1",
+        "shipping_policy.txt-4",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-0"
+      ],
+      "before_chars": 245,
+      "after_chars": 775,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_refund_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-3",
+        "membership_scope_policy.txt-0",
+        "coupon_refund_policy.txt-4"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "membership_scope_policy.txt-0",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-3",
+        "coupon_refund_policy.txt-4"
+      ],
+      "before_chars": 255,
+      "after_chars": 792,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_refund_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-2"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-2"
+      ],
+      "before_chars": 278,
+      "after_chars": 453,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_refund_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-2",
+        "refund_policy.txt-3",
+        "invoice_amount_policy.txt-2"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-4",
+        "refund_policy.txt-3",
+        "refund_policy.txt-2",
+        "refund_policy.txt-4",
+        "refund_policy.txt-1",
+        "refund_policy.txt-0",
+        "invoice_amount_policy.txt-2",
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0"
+      ],
+      "before_chars": 247,
+      "after_chars": 1207,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_scope_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "coupon_scope_policy.txt-0"
+      ],
+      "after_ids": [
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-3"
+      ],
+      "before_chars": 85,
+      "after_chars": 325,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_scope_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "coupon_scope_policy.txt-1"
+      ],
+      "after_ids": [
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-3"
+      ],
+      "before_chars": 80,
+      "after_chars": 325,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "coupon_scope_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "coupon_scope_policy.txt-3",
+        "coupon_scope_policy.txt-0",
+        "membership_scope_policy.txt-0"
+      ],
+      "after_ids": [
+        "coupon_scope_policy.txt-3",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-0",
+        "membership_scope_policy.txt-0",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-3"
+      ],
+      "before_chars": 240,
+      "after_chars": 664,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_policy.txt-0",
+        "membership_policy.txt-2",
+        "membership_scope_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_policy.txt-0",
+        "return_policy.txt-1",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-3",
+        "membership_policy.txt-0",
+        "membership_policy.txt-4",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 267,
+      "after_chars": 1356,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_policy.txt-3",
+        "membership_policy.txt-2",
+        "return_policy.txt-6"
+      ],
+      "after_ids": [
+        "return_policy.txt-3",
+        "return_policy.txt-2",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-3",
+        "membership_policy.txt-0",
+        "membership_policy.txt-4",
+        "return_policy.txt-6"
+      ],
+      "before_chars": 267,
+      "after_chars": 1017,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_policy.txt-5"
+      ],
+      "after_ids": [
+        "return_policy.txt-5",
+        "return_policy.txt-4",
+        "return_policy.txt-6",
+        "return_policy.txt-3",
+        "return_policy.txt-2",
+        "return_policy.txt-1",
+        "return_policy.txt-0"
+      ],
+      "before_chars": 87,
+      "after_chars": 614,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_apparel_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_apparel_policy.txt-0",
+        "return_apparel_policy.txt-1",
+        "return_apparel_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_apparel_policy.txt-0",
+        "return_apparel_policy.txt-1",
+        "return_apparel_policy.txt-2"
+      ],
+      "before_chars": 240,
+      "after_chars": 240,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_apparel_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_apparel_policy.txt-1"
+      ],
+      "after_ids": [
+        "return_apparel_policy.txt-1",
+        "return_apparel_policy.txt-0",
+        "return_apparel_policy.txt-2"
+      ],
+      "before_chars": 83,
+      "after_chars": 240,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_apparel_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_apparel_policy.txt-2",
+        "membership_policy.txt-3",
+        "return_apparel_policy.txt-0"
+      ],
+      "after_ids": [
+        "return_apparel_policy.txt-2",
+        "return_apparel_policy.txt-1",
+        "membership_policy.txt-3",
+        "membership_policy.txt-2",
+        "membership_policy.txt-4",
+        "membership_policy.txt-1",
+        "membership_policy.txt-0",
+        "return_apparel_policy.txt-0"
+      ],
+      "before_chars": 250,
+      "after_chars": 643,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_fresh_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_fresh_policy.txt-0",
+        "return_policy.txt-2",
+        "return_fresh_policy.txt-1"
+      ],
+      "after_ids": [
+        "return_fresh_policy.txt-0",
+        "return_fresh_policy.txt-2",
+        "return_policy.txt-2",
+        "return_policy.txt-1",
+        "return_policy.txt-3",
+        "return_policy.txt-0",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "return_fresh_policy.txt-1"
+      ],
+      "before_chars": 262,
+      "after_chars": 860,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_fresh_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_fresh_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "membership_policy.txt-3"
+      ],
+      "after_ids": [
+        "return_fresh_policy.txt-1",
+        "return_fresh_policy.txt-0",
+        "return_fresh_policy.txt-2",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-3",
+        "return_digital_policy.txt-0",
+        "membership_policy.txt-3",
+        "membership_policy.txt-2",
+        "membership_policy.txt-4",
+        "membership_policy.txt-1",
+        "membership_policy.txt-0"
+      ],
+      "before_chars": 268,
+      "after_chars": 1018,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_fresh_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_fresh_policy.txt-2",
+        "return_hygiene_policy.txt-1"
+      ],
+      "after_ids": [
+        "return_fresh_policy.txt-2",
+        "return_fresh_policy.txt-1",
+        "return_fresh_policy.txt-0",
+        "return_hygiene_policy.txt-1",
+        "return_hygiene_policy.txt-0",
+        "return_hygiene_policy.txt-2"
+      ],
+      "before_chars": 166,
+      "after_chars": 498,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_custom_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_custom_policy.txt-0",
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-1"
+      ],
+      "after_ids": [
+        "return_custom_policy.txt-0",
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-1"
+      ],
+      "before_chars": 238,
+      "after_chars": 238,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_custom_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-0"
+      ],
+      "after_ids": [
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-0"
+      ],
+      "before_chars": 238,
+      "after_chars": 238,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_custom_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_custom_policy.txt-2",
+        "return_digital_policy.txt-0",
+        "return_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-0",
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-3",
+        "return_policy.txt-2",
+        "return_policy.txt-1",
+        "return_policy.txt-3",
+        "return_policy.txt-0",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "before_chars": 255,
+      "after_chars": 1221,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_hygiene_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_hygiene_policy.txt-0",
+        "return_digital_policy.txt-0",
+        "membership_scope_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_hygiene_policy.txt-0",
+        "return_hygiene_policy.txt-1",
+        "return_hygiene_policy.txt-2",
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-3",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 272,
+      "after_chars": 960,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_hygiene_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_hygiene_policy.txt-1",
+        "return_fresh_policy.txt-2",
+        "return_hygiene_policy.txt-0"
+      ],
+      "after_ids": [
+        "return_hygiene_policy.txt-1",
+        "return_hygiene_policy.txt-2",
+        "return_fresh_policy.txt-2",
+        "return_fresh_policy.txt-1",
+        "return_fresh_policy.txt-0",
+        "return_hygiene_policy.txt-0"
+      ],
+      "before_chars": 256,
+      "after_chars": 498,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "return_hygiene_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "return_hygiene_policy.txt-2",
+        "return_policy.txt-6",
+        "return_hygiene_policy.txt-0"
+      ],
+      "after_ids": [
+        "return_hygiene_policy.txt-2",
+        "return_hygiene_policy.txt-1",
+        "return_policy.txt-6",
+        "return_policy.txt-5",
+        "return_policy.txt-4",
+        "return_policy.txt-3",
+        "return_policy.txt-2",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_hygiene_policy.txt-0"
+      ],
+      "before_chars": 241,
+      "after_chars": 866,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "membership_scope_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "membership_scope_policy.txt-0",
+        "membership_policy.txt-2",
+        "return_policy.txt-1"
+      ],
+      "after_ids": [
+        "membership_scope_policy.txt-0",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-3",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-3",
+        "membership_policy.txt-0",
+        "membership_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "before_chars": 259,
+      "after_chars": 1356,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "membership_scope_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "membership_scope_policy.txt-2",
+        "membership_policy.txt-0",
+        "return_policy.txt-1"
+      ],
+      "after_ids": [
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0",
+        "membership_policy.txt-0",
+        "membership_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "before_chars": 250,
+      "after_chars": 1356,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "membership_scope_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "membership_scope_policy.txt-1"
+      ],
+      "after_ids": [
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-0",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-3"
+      ],
+      "before_chars": 85,
+      "after_chars": 339,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "invoice_correction_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-3"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-3"
+      ],
+      "before_chars": 247,
+      "after_chars": 328,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "invoice_correction_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "invoice_correction_policy.txt-2",
+        "invoice_amount_policy.txt-2",
+        "coupon_refund_policy.txt-1"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-3",
+        "invoice_correction_policy.txt-0",
+        "invoice_amount_policy.txt-2",
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4"
+      ],
+      "before_chars": 251,
+      "after_chars": 1030,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "invoice_correction_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "invoice_correction_policy.txt-3",
+        "invoice_correction_policy.txt-0"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-3",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-0"
+      ],
+      "before_chars": 164,
+      "after_chars": 328,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "invoice_amount_policy-1",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "invoice_amount_policy.txt-0",
+        "invoice_amount_policy.txt-1",
+        "coupon_refund_policy.txt-2"
+      ],
+      "after_ids": [
+        "invoice_amount_policy.txt-0",
+        "invoice_amount_policy.txt-2",
+        "invoice_amount_policy.txt-1",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-4"
+      ],
+      "before_chars": 255,
+      "after_chars": 702,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "invoice_amount_policy-2",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-2"
+      ],
+      "after_ids": [
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0",
+        "invoice_amount_policy.txt-2"
+      ],
+      "before_chars": 170,
+      "after_chars": 249,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "invoice_amount_policy-3",
+      "set": "rag/test",
+      "answerable": true,
+      "before_ids": [
+        "invoice_amount_policy.txt-2",
+        "invoice_correction_policy.txt-2",
+        "coupon_refund_policy.txt-1"
+      ],
+      "after_ids": [
+        "invoice_amount_policy.txt-2",
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0",
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-3",
+        "invoice_correction_policy.txt-0",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4"
+      ],
+      "before_chars": 251,
+      "after_chars": 1030,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "unknown-1",
+      "set": "rag/dev",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "unknown-2",
+      "set": "rag/dev",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "unknown-3",
+      "set": "rag/dev",
+      "answerable": false,
+      "before_ids": [
+        "membership_policy.txt-4",
+        "membership_scope_policy.txt-3"
+      ],
+      "after_ids": [
+        "membership_policy.txt-4",
+        "membership_policy.txt-3",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-0",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 166,
+      "after_chars": 742,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "unknown-4",
+      "set": "rag/dev",
+      "answerable": false,
+      "before_ids": [
+        "shipping_policy.txt-3",
+        "presale_shipping_policy.txt-3",
+        "shipping_policy.txt-0"
+      ],
+      "after_ids": [
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-4",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-4",
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-0",
+        "shipping_policy.txt-0"
+      ],
+      "before_chars": 288,
+      "after_chars": 879,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "unknown-5",
+      "set": "rag/test",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "unknown-6",
+      "set": "rag/test",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "unknown-7",
+      "set": "rag/test",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "unknown-8",
+      "set": "rag/test",
+      "answerable": false,
+      "before_ids": [
+        "shipping_exception_policy.txt-3"
+      ],
+      "after_ids": [
+        "shipping_exception_policy.txt-3",
+        "shipping_exception_policy.txt-2",
+        "shipping_exception_policy.txt-1",
+        "shipping_exception_policy.txt-0"
+      ],
+      "before_chars": 83,
+      "after_chars": 318,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "unknown-9",
+      "set": "rag/test",
+      "answerable": false,
+      "before_ids": [
+        "coupon_refund_policy.txt-4",
+        "refund_policy.txt-3",
+        "coupon_refund_policy.txt-2"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-0",
+        "refund_policy.txt-3",
+        "refund_policy.txt-2",
+        "refund_policy.txt-4",
+        "refund_policy.txt-1",
+        "refund_policy.txt-0",
+        "coupon_refund_policy.txt-2"
+      ],
+      "before_chars": 259,
+      "after_chars": 958,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "unknown-10",
+      "set": "rag/test",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "unknown-11",
+      "set": "rag/test",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "unknown-12",
+      "set": "rag/test",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "rewrite-01",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_coverage": 0.0,
+      "after_coverage": 0.0
+    },
+    {
+      "id": "rewrite-02",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "return_hygiene_policy.txt-0",
+        "return_hygiene_policy.txt-1",
+        "return_hygiene_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_hygiene_policy.txt-0",
+        "return_hygiene_policy.txt-1",
+        "return_hygiene_policy.txt-2"
+      ],
+      "before_chars": 252,
+      "after_chars": 252,
+      "before_coverage": 0.0,
+      "after_coverage": 0.0
+    },
+    {
+      "id": "rewrite-03",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-2"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-2"
+      ],
+      "before_chars": 260,
+      "after_chars": 453,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-04",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-0"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-4",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-0"
+      ],
+      "before_chars": 261,
+      "after_chars": 422,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-05",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "return_custom_policy.txt-2",
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-3"
+      ],
+      "after_ids": [
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-0",
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-3"
+      ],
+      "before_chars": 254,
+      "after_chars": 607,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-06",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "invoice_correction_policy.txt-0"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-3"
+      ],
+      "before_chars": 86,
+      "after_chars": 328,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-07",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "membership_scope_policy.txt-2",
+        "return_policy.txt-3",
+        "membership_policy.txt-0"
+      ],
+      "after_ids": [
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0",
+        "return_policy.txt-3",
+        "return_policy.txt-2",
+        "return_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-5",
+        "return_policy.txt-0",
+        "return_policy.txt-6",
+        "membership_policy.txt-0",
+        "membership_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4"
+      ],
+      "before_chars": 259,
+      "after_chars": 1356,
+      "before_coverage": 0.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-08",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "membership_scope_policy.txt-2"
+      ],
+      "after_ids": [
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-3",
+        "membership_policy.txt-0",
+        "membership_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 273,
+      "after_chars": 1356,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-09",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-0",
+        "presale_shipping_policy.txt-3"
+      ],
+      "after_ids": [
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-4",
+        "shipping_policy.txt-0",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-4",
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-0"
+      ],
+      "before_chars": 288,
+      "after_chars": 879,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-10",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-1",
+        "coupon_scope_policy.txt-2"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-3",
+        "coupon_scope_policy.txt-0"
+      ],
+      "before_chars": 278,
+      "after_chars": 778,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-11",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "return_fresh_policy.txt-1",
+        "return_policy.txt-6",
+        "return_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_fresh_policy.txt-1",
+        "return_fresh_policy.txt-0",
+        "return_fresh_policy.txt-2",
+        "return_policy.txt-6",
+        "return_policy.txt-1",
+        "return_policy.txt-3",
+        "return_policy.txt-5",
+        "return_policy.txt-0",
+        "return_policy.txt-4",
+        "return_policy.txt-2"
+      ],
+      "before_chars": 259,
+      "after_chars": 860,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-12",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "invoice_policy.txt-0",
+        "return_policy.txt-3"
+      ],
+      "after_ids": [
+        "invoice_policy.txt-0",
+        "invoice_policy.txt-1",
+        "invoice_policy.txt-2",
+        "invoice_policy.txt-3",
+        "return_policy.txt-3",
+        "return_policy.txt-2",
+        "return_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-5",
+        "return_policy.txt-0",
+        "return_policy.txt-6"
+      ],
+      "before_chars": 183,
+      "after_chars": 959,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-13",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "return_policy.txt-4",
+        "return_digital_policy.txt-1",
+        "return_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-3",
+        "return_policy.txt-5",
+        "return_policy.txt-0",
+        "return_policy.txt-6",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-3",
+        "return_policy.txt-2"
+      ],
+      "before_chars": 275,
+      "after_chars": 983,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-14",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-2"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-2"
+      ],
+      "before_chars": 260,
+      "after_chars": 453,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-15",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-4",
+        "coupon_usage_policy.txt-4"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-0",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-4",
+        "coupon_usage_policy.txt-4",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-0"
+      ],
+      "before_chars": 242,
+      "after_chars": 818,
+      "before_coverage": 0.5,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-16",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "return_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1"
+      ],
+      "after_ids": [
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "membership_policy.txt-2",
+        "membership_policy.txt-0",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4",
+        "membership_policy.txt-1"
+      ],
+      "before_chars": 250,
+      "after_chars": 1017,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-17",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0",
+        "invoice_amount_policy.txt-2"
+      ],
+      "after_ids": [
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0",
+        "invoice_amount_policy.txt-2"
+      ],
+      "before_chars": 249,
+      "after_chars": 249,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-18",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3"
+      ],
+      "before_chars": 260,
+      "after_chars": 453,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-19",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-0",
+        "membership_scope_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-0",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 254,
+      "after_chars": 577,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-20",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "return_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-0"
+      ],
+      "after_ids": [
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4",
+        "membership_policy.txt-0"
+      ],
+      "before_chars": 244,
+      "after_chars": 1017,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-21",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "return_apparel_policy.txt-1",
+        "return_apparel_policy.txt-0"
+      ],
+      "after_ids": [
+        "return_apparel_policy.txt-1",
+        "return_apparel_policy.txt-2",
+        "return_apparel_policy.txt-0"
+      ],
+      "before_chars": 158,
+      "after_chars": 240,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-22",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "coupon_scope_policy.txt-0",
+        "coupon_refund_policy.txt-3",
+        "coupon_scope_policy.txt-1"
+      ],
+      "after_ids": [
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-3",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_scope_policy.txt-1"
+      ],
+      "before_chars": 249,
+      "after_chars": 778,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-23",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_policy.txt-2",
+        "invoice_correction_policy.txt-1"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-3",
+        "invoice_policy.txt-2",
+        "invoice_policy.txt-1",
+        "invoice_policy.txt-3",
+        "invoice_policy.txt-0",
+        "invoice_correction_policy.txt-1"
+      ],
+      "before_chars": 251,
+      "after_chars": 673,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "rewrite-24",
+      "set": "dialogue",
+      "answerable": true,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_coverage": 0.0,
+      "after_coverage": 0.0
+    },
+    {
+      "id": "rewrite-25",
+      "set": "dialogue",
+      "answerable": false,
+      "before_ids": [
+        "membership_policy.txt-4"
+      ],
+      "after_ids": [
+        "membership_policy.txt-4",
+        "membership_policy.txt-3",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-0"
+      ],
+      "before_chars": 86,
+      "after_chars": 403,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "rewrite-26",
+      "set": "dialogue",
+      "answerable": false,
+      "before_ids": [
+        "membership_scope_policy.txt-2"
+      ],
+      "after_ids": [
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 94,
+      "after_chars": 339,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "rewrite-27",
+      "set": "dialogue",
+      "answerable": false,
+      "before_ids": [],
+      "after_ids": [],
+      "before_chars": 0,
+      "after_chars": 0,
+      "before_empty": true,
+      "after_empty": true
+    },
+    {
+      "id": "rewrite-28",
+      "set": "dialogue",
+      "answerable": false,
+      "before_ids": [
+        "shipping_exception_policy.txt-0",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-4"
+      ],
+      "after_ids": [
+        "shipping_exception_policy.txt-0",
+        "shipping_exception_policy.txt-1",
+        "shipping_exception_policy.txt-2",
+        "shipping_exception_policy.txt-3",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-0",
+        "shipping_policy.txt-4"
+      ],
+      "before_chars": 250,
+      "after_chars": 775,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "rewrite-29",
+      "set": "dialogue",
+      "answerable": false,
+      "before_ids": [
+        "coupon_usage_policy.txt-2"
+      ],
+      "after_ids": [
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-4"
+      ],
+      "before_chars": 84,
+      "after_chars": 396,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "rewrite-30",
+      "set": "dialogue",
+      "answerable": false,
+      "before_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-1",
+        "invoice_policy.txt-2"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-3",
+        "invoice_correction_policy.txt-1",
+        "invoice_policy.txt-2",
+        "invoice_policy.txt-1",
+        "invoice_policy.txt-3",
+        "invoice_policy.txt-0"
+      ],
+      "before_chars": 251,
+      "after_chars": 673,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "refresh-new-01",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "membership_policy.txt-1"
+      ],
+      "after_ids": [
+        "membership_policy.txt-2",
+        "membership_policy.txt-0",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "membership_policy.txt-1"
+      ],
+      "before_chars": 250,
+      "after_chars": 1017,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-02",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-1"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-4",
+        "coupon_usage_policy.txt-1"
+      ],
+      "before_chars": 236,
+      "after_chars": 849,
+      "before_coverage": 0.0,
+      "after_coverage": 0.0
+    },
+    {
+      "id": "refresh-new-03",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "shipping_exception_policy.txt-3",
+        "return_policy.txt-3",
+        "return_policy.txt-2"
+      ],
+      "after_ids": [
+        "shipping_exception_policy.txt-3",
+        "shipping_exception_policy.txt-2",
+        "shipping_exception_policy.txt-1",
+        "shipping_exception_policy.txt-0",
+        "return_policy.txt-3",
+        "return_policy.txt-1",
+        "return_policy.txt-4",
+        "return_policy.txt-0",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "return_policy.txt-2"
+      ],
+      "before_chars": 275,
+      "after_chars": 932,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-04",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "return_custom_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-0"
+      ],
+      "before_chars": 75,
+      "after_chars": 238,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-05",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-0"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-0"
+      ],
+      "before_chars": 277,
+      "after_chars": 453,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-06",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_policy.txt-2",
+        "invoice_correction_policy.txt-1"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-3",
+        "invoice_policy.txt-2",
+        "invoice_policy.txt-1",
+        "invoice_policy.txt-3",
+        "invoice_policy.txt-0",
+        "invoice_correction_policy.txt-1"
+      ],
+      "before_chars": 251,
+      "after_chars": 673,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-07",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "presale_shipping_policy.txt-1",
+        "coupon_usage_policy.txt-4",
+        "presale_shipping_policy.txt-4"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-0",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-3",
+        "coupon_usage_policy.txt-4",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-0",
+        "presale_shipping_policy.txt-4"
+      ],
+      "before_chars": 242,
+      "after_chars": 818,
+      "before_coverage": 0.5,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-08",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-3",
+        "coupon_scope_policy.txt-0"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-3",
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-3"
+      ],
+      "before_chars": 260,
+      "after_chars": 778,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-09",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "membership_policy.txt-0",
+        "return_policy.txt-1",
+        "return_policy.txt-0"
+      ],
+      "after_ids": [
+        "membership_policy.txt-0",
+        "membership_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4",
+        "return_policy.txt-1",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "return_policy.txt-0"
+      ],
+      "before_chars": 241,
+      "after_chars": 1017,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-10",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "coupon_scope_policy.txt-3",
+        "coupon_scope_policy.txt-0",
+        "membership_policy.txt-4"
+      ],
+      "after_ids": [
+        "coupon_scope_policy.txt-3",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-0",
+        "membership_policy.txt-4",
+        "membership_policy.txt-3",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-0"
+      ],
+      "before_chars": 246,
+      "after_chars": 728,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-11",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-4",
+        "shipping_policy.txt-3"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-0",
+        "presale_shipping_policy.txt-4",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-4",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-0"
+      ],
+      "before_chars": 259,
+      "after_chars": 879,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-12",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-0",
+        "return_custom_policy.txt-2"
+      ],
+      "after_ids": [
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-0",
+        "return_custom_policy.txt-2"
+      ],
+      "before_chars": 238,
+      "after_chars": 238,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-13",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-3"
+      ],
+      "after_ids": [
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-3"
+      ],
+      "before_chars": 240,
+      "after_chars": 325,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-14",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-3",
+        "invoice_policy.txt-2"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-3",
+        "invoice_policy.txt-2",
+        "invoice_policy.txt-1",
+        "invoice_policy.txt-3",
+        "invoice_policy.txt-0"
+      ],
+      "before_chars": 246,
+      "after_chars": 673,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-15",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "membership_policy.txt-3"
+      ],
+      "after_ids": [
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-4",
+        "membership_policy.txt-0",
+        "return_policy.txt-1",
+        "return_policy.txt-0",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6",
+        "membership_policy.txt-3"
+      ],
+      "before_chars": 272,
+      "after_chars": 1017,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-16",
+      "set": "previous_new_cases",
+      "answerable": true,
+      "before_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-4",
+        "coupon_usage_policy.txt-4"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-0",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-4",
+        "coupon_usage_policy.txt-4",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-0"
+      ],
+      "before_chars": 242,
+      "after_chars": 818,
+      "before_coverage": 1.0,
+      "after_coverage": 1.0
+    },
+    {
+      "id": "refresh-new-17",
+      "set": "previous_new_cases",
+      "answerable": false,
+      "before_ids": [
+        "membership_policy.txt-4",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-0"
+      ],
+      "after_ids": [
+        "membership_policy.txt-4",
+        "membership_policy.txt-3",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1",
+        "membership_policy.txt-0",
+        "membership_scope_policy.txt-3",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-0"
+      ],
+      "before_chars": 246,
+      "after_chars": 742,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "refresh-new-18",
+      "set": "previous_new_cases",
+      "answerable": false,
+      "before_ids": [
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-3"
+      ],
+      "after_ids": [
+        "invoice_correction_policy.txt-2",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-3"
+      ],
+      "before_chars": 245,
+      "after_chars": 328,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "refresh-new-19",
+      "set": "previous_new_cases",
+      "answerable": false,
+      "before_ids": [
+        "presale_shipping_policy.txt-3",
+        "shipping_policy.txt-3",
+        "presale_shipping_policy.txt-0"
+      ],
+      "after_ids": [
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-2",
+        "presale_shipping_policy.txt-4",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-2",
+        "shipping_policy.txt-4",
+        "shipping_policy.txt-1",
+        "shipping_policy.txt-0",
+        "presale_shipping_policy.txt-0"
+      ],
+      "before_chars": 264,
+      "after_chars": 879,
+      "before_empty": false,
+      "after_empty": false
+    },
+    {
+      "id": "refresh-new-20",
+      "set": "previous_new_cases",
+      "answerable": false,
+      "before_ids": [
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2"
+      ],
+      "after_ids": [
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2"
+      ],
+      "before_chars": 267,
+      "after_chars": 453,
+      "before_empty": false,
+      "after_empty": false
+    }
+  ]
+}

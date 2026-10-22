@@ -1,0 +1,16 @@
+{
+  "isolated_temp_database": true,
+  "happy_path": {
+    "pending_status": "pending",
+    "tickets_before_approval": 0,
+    "approved_status": "completed",
+    "ticket_id": "T-097d9285-245",
+    "repeat_ticket_id": "T-097d9285-245",
+    "tickets_after_repeat": 1
+  },
+  "changed_before_approval": {
+    "status": "invalidated",
+    "message": "订单已发货或已签收，无需催发货。",
+    "tickets": 0
+  }
+}

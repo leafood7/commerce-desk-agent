@@ -14,6 +14,19 @@ class PolicyRefreshEvaluationTests(unittest.TestCase):
         self.assertEqual(Counter(c["category"] for c in cases), {"条件更正": 8, "多轮补充": 4, "复用证据": 4, "无答案": 4})
         self.assertEqual(sum(not c["answerable"] for c in cases), 4)
 
+    def test_truthy_skipped_check_is_not_a_model_call(self):
+        def variant(check):
+            return {"turns":[{"queries":[],"policy_check":check,"other_tools":[],"tool_errors":[]}],
+                    "evidence_metric":{"all_required":True}}
+        grade={"correct":True,"grounded":True,"refusal":False}
+        row={"case":{"id":"greeting","answerable":True},
+             "before":variant({"status":"checked"}),
+             "after":variant({"status":"skipped","checker_called":False}),
+             "audit":{"before":grade,"after":grade}}
+        result=summarize([row])
+        self.assertEqual(result["variants"]["before"]["checker_calls"],1)
+        self.assertEqual(result["variants"]["after"]["checker_calls"],0)
+
     def test_gain_does_not_hide_loss_or_tool_error(self):
         def row(identifier, before, after):
             turn = {"queries": [], "policy_check": {}, "other_tools": [], "tool_errors": []}

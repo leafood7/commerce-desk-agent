@@ -70,7 +70,7 @@ def summarize(rows):
             "answerable_count": len(known),
             "last_turn_searches": sum(len(r[name]["turns"][-1]["queries"]) for r in rows),
             "all_turn_searches": sum(len(t["queries"]) for r in rows for t in r[name]["turns"]),
-            "checker_calls": sum(bool(t["policy_check"]) for r in rows for t in r[name]["turns"]),
+            "checker_calls": sum(t["policy_check"].get("checker_called", bool(t["policy_check"]) and t["policy_check"].get("status") != "skipped") for r in rows for t in r[name]["turns"]),
             "checker_fallbacks": sum(t["policy_check"].get("status") == "error" for r in rows for t in r[name]["turns"]),
             "other_tool_cases": sum(any(t["other_tools"] for t in r[name]["turns"]) for r in rows),
             "tool_error_cases": sum(any(t["tool_errors"] for t in r[name]["turns"]) for r in rows)}
@@ -113,6 +113,8 @@ async def main(args):
         "corpus_sha256": sha(json.dumps(build_chunks(), ensure_ascii=False, sort_keys=True).encode()),
         "agent_sha256": sha((ROOT / "src/agents/supportpilot_agent.py").read_bytes()),
         "checker_sha256": sha((ROOT / "src/agents/policy_evidence.py").read_bytes()),
+        "guidance_sha256": sha((ROOT / "src/agents/answer_policy.py").read_bytes()),
+        "policy_check_mode": os.getenv("SUPPORTPILOT_POLICY_CHECK_MODE", "auto"),
         "stage": args.stage, "model_setting": str(settings.DEFAULT_MODEL),
         "strategy": "hybrid_rerank", "pool_size": int(os.environ.get("SUPPORTPILOT_RAG_POOL_SIZE", "12")),
         "threshold": float(os.environ.get("SUPPORTPILOT_RERANK_THRESHOLD", "0")), "top_k": 3,
@@ -123,7 +125,7 @@ async def main(args):
     rows = []
     if args.resume and destination.exists():
         previous = json.loads(destination.read_text(encoding="utf-8"))
-        for key in ["baseline_sha256", "dataset_sha256", "corpus_sha256", "agent_sha256", "checker_sha256", "strategy", "threshold", "pool_size", "model_setting"]:
+        for key in ["baseline_sha256", "dataset_sha256", "corpus_sha256", "agent_sha256", "checker_sha256", "guidance_sha256", "policy_check_mode", "strategy", "threshold", "pool_size", "model_setting"]:
             if metadata[key] != previous["metadata"][key]:
                 raise ValueError("续跑条件已改变：" + key)
         rows = previous["rows"]

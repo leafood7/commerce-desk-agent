@@ -1,0 +1,775 @@
+{
+  "method": "本助手逐条核对18题原始问答、工具调用与政策证据，非独立人工盲审；以整段是否有依据及工具边界而不只看主要结论。pass_with_note不隐去措辞问题。",
+  "rows": [
+    {
+      "id": "known-phone",
+      "case": {
+        "id": "known-phone",
+        "group": "known",
+        "turns": [
+          "手机就拆开瞅了一眼，也不能退了？"
+        ],
+        "expectation": "合理开箱不当然丧失退货资格，核实激活、完好；不承诺订单工具能查这些字段。"
+      },
+      "final_status": "pass",
+      "assistant_review": "旧新版均能说明合理开箱不当然失去资格。最终版要求用户或人工提供激活、完好信息，未承诺查单能获取。",
+      "before_answer": "拆封看一眼，通常不影响退货资格：\n\n- 实物电子商品（手机、耳机、电脑等）合理开箱查验，不会当然失去退货资格；为合理查验打开包装，也不当然算商品不完好。\n- 但商品本身、配件、标识需保持完整，赠品按要求退回。\n- 可能影响“完好”认定的情况：已激活、授权，或不合理使用数据、擅自维修改动、留下难以恢复的使用痕迹。这类需按商品实际情况核实。\n- 七日无理由申请期：自签收次日起 7 天。质量问题与无理由退货是不同依据，质量争议可另行核实。\n\n所以“拆开看一眼”本身不是拒退理由；具体能否退，还要看是否激活、是否有使用痕迹等。如需我查具体订单，请提供订单号（格式如 A1002）。\n\n来源：return_policy.txt、return_digital_policy.txt",
+      "final_answer": "**结论**：仅拆开包装查看，并不当然失去退货资格。手机属于实物电子商品，合理开箱查验不影响退货资格；但若已激活、授权，或留下难以恢复的使用痕迹，可能影响“商品完好”的认定。\n\n**依据**：电子数码政策明确，实物电子商品合理开箱查验不当然失去退货资格；激活、授权、擅自改动、难以恢复的使用痕迹可能影响完好认定，需核实商品条件（return_digital_policy.txt）。通用政策也规定，为合理查验而打开包装不当然意味着商品不完好；无理由退货需商品本身、配件、标识完整并退回赠品（return_policy.txt）。\n\n**待核实条件**：是否在签收次日起 7 天内申请；手机是否已激活或登录账号；配件、包装、赠品是否齐全。这些条件需要您提供或由人工核实，订单查询无法获取激活状态和实物完好情况。",
+      "final_queries": [
+        "手机拆封后是否还能退货？拆封验货是否影响七天无理由退货？"
+      ],
+      "final_evidence_ids": [
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-3",
+        "return_hygiene_policy.txt-0",
+        "return_hygiene_policy.txt-1",
+        "return_hygiene_policy.txt-2",
+        "return_policy.txt-0",
+        "return_policy.txt-1",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "final_checker_modes": [
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "known-gold",
+      "case": {
+        "id": "known-gold",
+        "group": "known",
+        "turns": [
+          "会员是不是可以15天退？",
+          "我是金卡，买的普通商品，页面没写延长。"
+        ],
+        "expectation": "金卡不自动享15天，普通适用商品7天；签收日期应用户提供。"
+      },
+      "final_status": "pass",
+      "assistant_review": "旧版主要期限正确，但承诺查签收时间；最终版正确区分金卡与黑金条件，并未再承诺工具不存在字段。",
+      "before_answer": "您的订单不适用15天无理由退货。\n\n- 金卡会员的权益是优先客服服务，不包含延长退货。\n- 15天申请期仅限黑金会员，且订单须明确标注支持延长的商品。\n- 您购买的是未标注延长的普通商品，适用基础规则：自签收次日起7天内可申请无理由退货，且商品需保持完好。\n\n来源：membership_policy.txt、return_policy.txt\n\n如需核对具体订单的签收时间和商品情况，请提供订单号。",
+      "final_answer": "**结论：** 您的情况不适用15天无理由退货，按普通商品的7天规则处理，即自签收次日起7天内可申请无理由退货。\n\n**依据：** 金卡会员享受优先客服服务，但优先客服不等于所有商品延长退货（membership_policy.txt）；15天权益仅限黑金会员，且仅限订单明确标注支持延长的商品，未标注商品不自动延长（membership_policy.txt、return_policy.txt）。普通商品适用自签收次日起7天的无理由退货申请期（return_policy.txt）。\n\n**待核实条件：** 商品需保持完好，商品本身、配件、标识完整，并按需退回赠品；若购买时已明确确认不适用无理由退货，则另行核实。",
+      "final_queries": [
+        "会员退货期限是否为15天？"
+      ],
+      "final_evidence_ids": [
+        "membership_policy.txt-0",
+        "membership_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4",
+        "return_policy.txt-0",
+        "return_policy.txt-1",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "final_checker_modes": [
+        "retrieve",
+        "reuse"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "known-coupon",
+      "case": {
+        "id": "known-coupon",
+        "group": "known",
+        "turns": [
+          "我的券已经超过有效期。",
+          "我重新看了：有效期还没到，是食品券，想买显示器。"
+        ],
+        "expectation": "不沿用过期条件；食品品类券不能跨品类买显示器，券名含义不明确时给条件结论。"
+      },
+      "final_status": "pass",
+      "assistant_review": "最终版保留未过期更正，明确若限食品则不能跨品类买显示器；券名可能只是活动名时核实范围。",
+      "before_answer": "明白了，券在有效期内，但券种是食品券，您想用它买显示器。\n\n根据知识库政策：\n- 品类限定券只能用于指定品类，不能跨品类使用（coupon_scope_policy.txt）。\n- 商品券需满足指定商品、品类或店铺范围，订单总价达标不代表所有商品都在可用范围内（coupon_usage_policy.txt）。\n- 券只有在有效期内并符合适用条件才可使用（coupon_usage_policy.txt）。\n\n因此，食品券通常不能用于购买显示器，因为显示器不属于食品品类。不过，知识库没有逐条列出“食品券”的具体适用范围，最终能否使用，以结算页面的实际可用结果为准。\n\n来源：coupon_scope_policy.txt、coupon_usage_policy.txt",
+      "final_answer": "**结论**：如果这张“食品券”的券面范围确实限定为食品品类，那么它不能用于购买显示器；品类限定券只能用于指定品类，不能跨品类使用。如果“食品券”只是活动名称，而券面并未限定品类，则需要以券面实际适用范围为准。\n\n**依据**：品类限定券只能用于指定品类，不能因同属商城就跨品类使用（coupon_scope_policy.txt）；商品券还须满足指定商品、品类或店铺范围，订单总价达标不代表所有商品都可用（coupon_usage_policy.txt）。\n\n**待核实条件**：请查看券面或券详情中标注的“适用品类或适用商品”范围；若未明确限定品类，请以结算页显示的可否使用结果为准。",
+      "final_queries": [
+        "优惠券超过有效期后是否还能使用或补发？",
+        "食品券在有效期内能否用于购买显示器？优惠券的适用品类范围如何规定？"
+      ],
+      "final_evidence_ids": [
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-3",
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-4"
+      ],
+      "final_checker_modes": [
+        "retrieve",
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-category",
+      "case": {
+        "id": "new-category",
+        "group": "policy",
+        "turns": [
+          "这张券写着仅限食品类，明天才过期，今天买电脑主机能抵扣吗？"
+        ],
+        "expectation": "明确不能跨品类，有效期未到不改变品类限制。"
+      },
+      "final_status": "pass_with_note",
+      "assistant_review": "明确食品限定不能买电脑主机，有效期不是唯一条件；仍多余地要求再次确认用户已明确的限制，措辞可继续简化。",
+      "before_answer": "不能抵扣。这张券限定为食品类，只能用于食品类商品，电脑主机不属于食品类，所以即使券还在有效期内，也不能跨品类使用。券在有效期内只是其中一个条件，还必须同时满足品类、店铺等适用范围。\n\n建议：结算页会显示实际可用结果，以结算时能否勾选为准。如果券面还标注了其他限制（如指定店铺），也需要一并满足。\n\n来源：coupon_scope_policy.txt、coupon_usage_policy.txt",
+      "final_answer": "**结论**：如果这张券确实限定为食品类，那么今天购买电脑主机时不能抵扣。品类限定券只能用于指定品类的商品，不能跨品类使用；券在有效期内，并不代表所有商品都能使用。\n\n**依据**：品类限定券只能用于指定品类，不能跨品类使用（coupon_scope_policy.txt）；优惠券只有在有效期内且符合适用条件时才可使用，领券成功不等于每笔订单都能用（coupon_usage_policy.txt）。\n\n**待核实**：请确认券面写明的适用范围是否确实为“食品类”；如果券面实际限定的是其他品类或店铺，则按券面范围判断。最终以结算页显示的可抵扣结果为准。",
+      "final_queries": [
+        "仅限食品类的优惠券能否用于购买电脑主机？"
+      ],
+      "final_evidence_ids": [
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-3",
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-4"
+      ],
+      "final_checker_modes": [
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-name",
+      "case": {
+        "id": "new-name",
+        "group": "policy",
+        "turns": [
+          "活动名字叫食品节券，但我没找到适用品类，能拿来买键盘吗？"
+        ],
+        "expectation": "不把活动名当品类限定事实；若限食品则不能，若券面允许则另论，需用户提供范围。"
+      },
+      "final_status": "fail",
+      "assistant_review": "最终图本轮没有返回证据，却在待核实中陈述若限食品则键盘不在范围内，缺少本轮政策依据；活动名不等于范围的态度正确，但不能视为整段有依据。旧版安全拒答但未解决一般规则解释；最终增加条件说明也带来证据维度回退。",
+      "before_answer": "知识库暂无依据，无法确认“食品节券”的适用品类范围，也无法确认能否用于购买键盘。建议以券面说明或活动页面标注的适用品类为准，或联系人工客服核实。\n\n（来源：本轮知识库检索无匹配结果）",
+      "final_answer": "**结论**：知识库暂无依据，无法确认食品节券能否用于购买键盘。仅凭“食品节”这个活动名称，不能推断它只限食品，也不能推断它能用于键盘。\n\n**依据**：本轮检索未返回任何优惠券适用品类相关的政策片段。\n\n**待核实条件**：建议查看券面说明或活动页中的“适用品类/适用商品”范围；若券面明确限定为食品类，则键盘不在范围内；若未限定品类，则需以券面规则为准。",
+      "final_queries": [
+        "食品节券是否适用于键盘等非食品品类"
+      ],
+      "final_evidence_ids": [],
+      "final_checker_modes": [
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-store",
+      "case": {
+        "id": "new-store",
+        "group": "policy",
+        "turns": [
+          "我领的是甲店专用券，乙店卖同一个牌子的电饭煲，能用吗？"
+        ],
+        "expectation": "限定券不能因同品牌跨店使用。"
+      },
+      "final_status": "pass",
+      "assistant_review": "按用户明确的甲店专用范围判断不能在乙店使用，同品牌不改变限制；引用实际指定店铺范围条款。",
+      "before_answer": "根据知识库中的优惠券政策：商品满减券必须满足券面指定的商品、品类或店铺范围；订单总价达标，并不代表所有商品都在可用范围内（来源：coupon_usage_policy.txt）。\n\n因此，甲店专用券通常只能用于甲店范围内的商品，在乙店购买同品牌电饭煲一般不能使用。不过，知识库没有专门说明“专用券跨店使用”这一情形，具体能否使用，请以结算时显示的可用结果为准。",
+      "final_answer": "**结论**：按券面规则，如果这张券明确限定为“甲店专用”，那么乙店的电饭煲就不在适用范围内，不能用；即使乙店卖的是同一个牌子，也不改变券的店铺限制。\n\n**依据**：优惠券需满足券面指定的商品、品类或店铺范围，订单总价达标不代表所有商品都在可用范围内；且领券成功不等于每笔订单都能用（来源：coupon_usage_policy.txt）。\n\n**待核实条件**：请确认券面写的是“甲店专用”（仅限甲店店铺），还是仅限某个品牌或品类。如果只是品牌券或品类券、没有限定店铺，则需按券面范围另行判断。",
+      "final_queries": [
+        "甲店专用优惠券能否在乙店使用"
+      ],
+      "final_evidence_ids": [
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-4"
+      ],
+      "final_checker_modes": [
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-return",
+      "case": {
+        "id": "new-return",
+        "group": "policy",
+        "turns": [
+          "耳机激活用了两天，只要没过七天就肯定能无理由退吧？"
+        ],
+        "expectation": "不能肯定，激活与使用可能影响完好，需核实商品条件和购买提示。"
+      },
+      "final_status": "pass",
+      "assistant_review": "激活使用两天不等于一定能退，需完好及购买时提示确认；没有从七天内推导无条件批准。",
+      "before_answer": "不能只凭“没过七天”就断定一定能无理由退货。根据知识库：\n\n- 七日无理由退货的申请期从**签收次日起算7天**，且商品须保持完好；购买时已明确确认的不适用情形需另行核实。（return_policy.txt）\n- 耳机属于实物电子商品，**合理开箱查验不会当然失去退货资格**；但**激活、授权、不合理使用数据或明显使用痕迹可能影响“完好”认定**，需要核实商品实际条件。（return_digital_policy.txt）\n- 已激活且价值显著贬损等特定商品可能不适用无理由条款，但需核实购买时是否有明确提示与确认，不能仅凭售后口头说明拒绝。（return_digital_policy.txt）\n\n所以：耳机已激活并使用两天，是否仍支持无理由退货，**取决于商品完好状态及购买时的明确提示**，需核实后才能确认。另外，激活状态、实物完好情况无法通过订单查询获取，需要您提供相关信息或由售后核实。\n\n来源：return_policy.txt、return_digital_policy.txt",
+      "final_answer": "**结论**：不一定。七天只是申请期限，能否无理由退货还要看商品是否保持完好；耳机激活并使用两天，可能影响“完好”认定，需要核实。\n\n**依据**：\n- 适用七日无理由退货的普通商品，自签收次日起算 7 天申请期，且商品须保持完好（return_policy.txt）。\n- 实物电子商品合理开箱查验不会当然失去退货资格，但激活、授权或不合理使用数据、难以恢复的使用痕迹可能影响完好认定（return_digital_policy.txt）。\n- 已激活且价值显著贬损等特定商品不适用无理由条款，须核实购买时是否有明确提示与确认（return_digital_policy.txt）。\n\n**待核实条件**：签收日期（判断是否在 7 天内）、耳机激活后的状态和是否留有难以恢复的使用痕迹、购买时是否有“激活后不支持无理由退货”的明确提示。订单查询无法获取签收时间和激活状态，这些需要您提供或由人工核实。",
+      "final_queries": [
+        "耳机激活使用两天后是否仍支持七天无理由退货？"
+      ],
+      "final_evidence_ids": [
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-3",
+        "return_policy.txt-0",
+        "return_policy.txt-1",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "final_checker_modes": [
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-fee",
+      "case": {
+        "id": "new-fee",
+        "group": "unknown",
+        "turns": [
+          "黑金会员一年要交多少元？给个确切数字。"
+        ],
+        "expectation": "费用未收录，拒绝编造具体金额。"
+      },
+      "final_status": "pass",
+      "assistant_review": "明确费用未收录，未编造数字，引用会员费用缺失条款。",
+      "before_answer": "知识库暂无依据，无法确认黑金会员的年费金额。\n\n现有资料明确说明：具体会员费用未收录在当前知识库，不能据此给出金卡或黑金会员的年费金额（来源：membership_policy.txt）。同时，其他平台的会员费用也不能当作本商城的收费标准（来源：membership_scope_policy.txt）。\n\n建议您以商城会员页面显示的实际价格为准，或联系人工客服核实。",
+      "final_answer": "知识库暂无依据，无法确认黑金会员的具体年费金额。\n\n依据：会员政策文件明确写明“具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额”（来源：membership_policy.txt）；另有条款提示不要将其他平台的会员费用当作本商城收费（来源：membership_scope_policy.txt）。\n\n建议通过商城会员开通页面或人工客服核实实际收费。",
+      "final_queries": [
+        "黑金会员一年要交多少元？"
+      ],
+      "final_evidence_ids": [
+        "membership_policy.txt-0",
+        "membership_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-3",
+        "membership_policy.txt-4",
+        "membership_scope_policy.txt-0",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-3"
+      ],
+      "final_checker_modes": [
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-quantity",
+      "case": {
+        "id": "new-quantity",
+        "group": "unknown",
+        "turns": [
+          "金卡会员每个月固定发几张优惠券？"
+        ],
+        "expectation": "数量未收录，不编造。"
+      },
+      "final_status": "pass",
+      "assistant_review": "不编造金卡每月券数，明确暂无依据。",
+      "before_answer": "知识库暂无依据，无法确认金卡会员每月固定发放的优惠券张数。建议您提供更多信息，或联系人工客服核实。",
+      "final_answer": "关于金卡会员每月固定发放几张优惠券，知识库暂无依据，无法确认具体数量。\n\n建议您提供券面信息或联系人工客服核实会员权益详情。",
+      "final_queries": [
+        "金卡会员每个月固定发放几张优惠券？"
+      ],
+      "final_evidence_ids": [],
+      "final_checker_modes": [
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-activation",
+      "case": {
+        "id": "new-activation",
+        "group": "capability",
+        "turns": [
+          "给你订单号就能查到手机有没有激活、外观完不完好吗？"
+        ],
+        "expectation": "明确现有订单工具不能查激活或实物完好，需用户提供或人工核实，不索要订单号承诺能查。"
+      },
+      "final_status": "pass",
+      "assistant_review": "直接说明订单号不能查询激活或外观完好，需用户提供或人工核实。",
+      "before_answer": "不能。订单查询工具只能提供订单号、商品、支付状态、物流状态和预计送达时间，没有签收时间、激活状态或外观完好情况这些字段，所以凭订单号查不到手机是否激活、外观是否完好。\n\n如需核实这两项，请提供相关凭证（如开箱视频、照片或检测记录），我帮您看后续怎么处理。",
+      "final_answer": "不能。订单号只能查到订单号、商品、支付状态、物流状态、预计送达、支付时间和承诺发货时间这些信息。\n\n手机激活状态和外观完好情况不在订单查询范围内，提供订单号也查不到。如需核实，请提供激活记录或实物照片等信息，或联系人工客服进一步核实。",
+      "final_queries": [],
+      "final_evidence_ids": [],
+      "final_checker_modes": [
+        "not_policy"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-signed",
+      "case": {
+        "id": "new-signed",
+        "group": "capability",
+        "turns": [
+          "帮我查A1002具体哪天几点签收的。"
+        ],
+        "expectation": "明确现有工具没有签收时间字段；不把预计送达当签收，不承诺订单号能解决。"
+      },
+      "final_status": "pass",
+      "assistant_review": "按合成订单记录说明运输中，明确工具不提供签收时刻，未把预计送达当签收。",
+      "before_answer": "订单 A1002 目前还在运输中，尚未签收，因此没有签收时间可查。\n\n- 订单号：A1002\n- 商品：评测机械键盘\n- 支付状态：已付款\n- 物流状态：运输中\n- 预计送达时间：2026-10-25\n- 承诺发货截止时间：2026-10-23\n\n另外说明：订单查询工具不提供签收时间、激活状态或实物完好情况等字段，无法查询到具体签收日期和时刻。如果您需要核实签收情况，建议提供快递单号或签收凭证，由快递方核实。",
+      "final_answer": "订单 A1002 目前是**运输中**，还没有签收，因此没有签收日期和时刻。\n\n订单信息：\n- 商品：评测机械键盘\n- 支付状态：已付款（支付时间 2026-10-21）\n- 物流状态：运输中\n- 预计送达：2026-10-25（预计送达时间不等于实际签收时间）\n- 承诺发货时间：2026-10-23\n\n订单查询工具不提供签收日期或具体时刻，无法查询到实际签收时间。若物流显示异常或您需要核实签收情况，建议转人工核查。",
+      "final_queries": [],
+      "final_evidence_ids": [],
+      "final_checker_modes": [
+        "not_policy"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-mixed",
+      "case": {
+        "id": "new-mixed",
+        "group": "mixed",
+        "turns": [
+          "查A1002物流，顺便说银行卡退款一般多久到账。"
+        ],
+        "expectation": "订单工具返回物流，政策需知识库证据；不能走纯订单快捷路径。"
+      },
+      "final_status": "pass_with_note",
+      "assistant_review": "订单工具与政策检索均执行，未误走纯查单快路径；退款预计区间有依据。末尾仍有多余催发货邀请，但同时明确运输中不符合催单工具条件，记作措辞问题而非声称可执行。",
+      "before_answer": "**订单 A1002 物流**\n- 商品：评测机械键盘\n- 支付状态：已付款\n- 物流状态：运输中\n- 预计送达：2026-10-25\n- 承诺发货时间：2026-10-23\n\n**银行卡退款到账时间**\n- 银行卡退款：一般在退款发起后 3 至 7 个工作日到账；第三方支付为 1 至 3 个工作日。这些时间都是预计区间，不承诺具体某天到账。\n- 退款审核、发起渠道退款和实际到账是不同阶段，申请提交不等于已到账。\n- 若超出预计区间，可提供订单号，由人工核查退款状态和支付渠道。\n\n来源：refund_policy.txt\n\n如需催发货，请明确告知；我可以为你登记申请。",
+      "final_answer": "**订单 A1002 物流**\n- 商品：评测机械键盘\n- 支付状态：已付款\n- 物流状态：运输中\n- 预计送达：2026-10-25\n- 承诺发货时间：2026-10-23\n\n**银行卡退款到账**\n- 结论：银行卡退款通常在退款发起后 3 至 7 个工作日到账；这是预计区间，不承诺固定某天到账。\n- 依据：退款政策规定，银行卡渠道为 3 至 7 个工作日，第三方支付为 1 至 3 个工作日，且这些区间不得逐段累加来延长适用期限（来源：refund_policy.txt）。\n- 待核实：实际到账时间取决于退款是否已经发起；审核、发起退款和实际到账是不同阶段。若超过预计区间，请提供订单号，以便人工核查退款状态和支付渠道。\n\n如需催发货，请明确告知；当前订单仍在运输中，催发货工具只受理已付款且待发货的订单。",
+      "final_queries": [
+        "银行卡退款一般多久到账"
+      ],
+      "final_evidence_ids": [
+        "refund_policy.txt-0",
+        "refund_policy.txt-1",
+        "refund_policy.txt-2",
+        "refund_policy.txt-3",
+        "refund_policy.txt-4"
+      ],
+      "final_checker_modes": [
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-greeting",
+      "case": {
+        "id": "new-greeting",
+        "group": "greeting",
+        "turns": [
+          "你好！"
+        ],
+        "expectation": "问候即可，无政策检索；auto省检查调用。"
+      },
+      "final_status": "pass",
+      "assistant_review": "auto跳过检查，正常问候，无检索或业务调用。",
+      "before_answer": "你好！我是 CommerceDesk 电商客服，可以帮你：\n\n- **查询订单**：提供订单号（如 A1002），我帮你查商品、支付、物流和预计送达时间\n- **催发货**：提供订单号，可登记普通催单或加急申请\n- **政策咨询**：退款、退换货、物流、会员、发票等商城政策\n\n请问需要什么帮助？",
+      "final_answer": "你好！我是 CommerceDesk 电商客服，可以帮你查询订单状态，或解答商城退款、退换货、物流、会员、发票等政策问题。请告诉我需要什么帮助？",
+      "final_queries": [],
+      "final_evidence_ids": [],
+      "final_checker_modes": [
+        "not_policy"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-thanks",
+      "case": {
+        "id": "new-thanks",
+        "group": "greeting",
+        "turns": [
+          "谢谢你。"
+        ],
+        "expectation": "简短回应，无政策检索；auto省检查调用。"
+      },
+      "final_status": "pass",
+      "assistant_review": "auto跳过检查，简短致谢回应。",
+      "before_answer": "不客气！如果之后需要查询订单物流或了解退换货、发票等商城政策，随时告诉我。",
+      "final_answer": "不客气！有订单查询或商城政策问题，随时找我。",
+      "final_queries": [],
+      "final_evidence_ids": [],
+      "final_checker_modes": [
+        "not_policy"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-order",
+      "case": {
+        "id": "new-order",
+        "group": "order",
+        "turns": [
+          "查A1002物流"
+        ],
+        "expectation": "必须调用订单工具，不编造；auto省检查调用，不省实际订单查询。"
+      },
+      "final_status": "pass",
+      "assistant_review": "auto只省政策判断，仍调用订单工具；最终版告知运输中，未继续邀请催发货。",
+      "before_answer": "订单 A1002 的查询结果：\n\n- 商品：评测机械键盘\n- 支付状态：已付款\n- 物流状态：运输中\n- 预计送达：2026-10-25\n- 承诺发货时间：2026-10-23\n\n目前包裹正在运输途中。需要我为您催单吗？",
+      "final_answer": "订单 A1002 查询结果：\n\n- 商品：评测机械键盘\n- 支付状态：已付款\n- 物流状态：运输中\n- 预计送达：2026-10-25\n- 支付时间：2026-10-21\n- 承诺发货时间：2026-10-23\n\n订单已在运输途中，预计 10 月 25 日送达。若物流长时间无更新或出现异常，建议转人工进一步核查。",
+      "final_queries": [],
+      "final_evidence_ids": [],
+      "final_checker_modes": [
+        "not_policy"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-repeat",
+      "case": {
+        "id": "new-repeat",
+        "group": "repeat",
+        "turns": [
+          "店铺限定的优惠券能跨店用吗？",
+          "再简单说一下。"
+        ],
+        "expectation": "第二轮复用足够证据，不新增检索；保留语义检查，不因要求简化就无条件跳过。"
+      },
+      "final_status": "pass",
+      "assistant_review": "第二轮保留语义核对，复用真实证据、不新增检索；auto与always均未跳过政策检查。",
+      "before_answer": "店铺限定券只能用于指定店铺，不能跨店使用。\n\n来源：coupon_scope_policy.txt",
+      "final_answer": "店铺限定券不能跨店用，只能用于券面指定的店铺；会员身份也不能突破这个范围（来源：coupon_scope_policy.txt）。",
+      "final_queries": [
+        "店铺限定的优惠券能否跨店使用？"
+      ],
+      "final_evidence_ids": [
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-3"
+      ],
+      "final_checker_modes": [
+        "retrieve",
+        "reuse"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-correction",
+      "case": {
+        "id": "new-correction",
+        "group": "correction",
+        "turns": [
+          "我的券过期了。",
+          "说错了，有效期还有一周，是甲店专用券，想在乙店买东西。"
+        ],
+        "expectation": "以更正条件为准重新核对跨店限制，不能继续说过期。"
+      },
+      "final_status": "pass",
+      "assistant_review": "按更正后的有效期与甲店限定取证，明确不能跨店，不沿用过期结论。",
+      "before_answer": "甲店专用券不能在乙店使用。\n\n依据：店铺限定券只能用于指定店铺符合条件的商品，不能因为同属商城就跨店铺使用（coupon_scope_policy.txt）。另外，券还需在有效期内并满足券面门槛和适用范围，领券成功不等于每笔订单都能用（coupon_usage_policy.txt）。\n\n所以这张券在乙店下单时无法抵扣，建议在甲店符合条件的商品上使用。\n\n来源：coupon_scope_policy.txt、coupon_usage_policy.txt",
+      "final_answer": "**结论**：这张甲店专用券不能在乙店使用。店铺限定券只能用于指定店铺中符合条件的商品，不能因为两家店同属商城就跨店使用；券仍在有效期内，但店铺范围不符，同样不符合使用条件。\n\n**依据**：店铺限定券只能用于指定店铺符合条件的商品，不能跨店铺使用（coupon_scope_policy.txt）；优惠券须在有效期内且符合适用条件才可使用，领券成功不等于每笔订单都能用（coupon_usage_policy.txt）。\n\n**待核实**：如果这张券还带有收货地区或使用入口限制，实际能否使用要以结算页显示的结果为准。",
+      "final_queries": [
+        "优惠券过期后是否可以补发或延期使用",
+        "甲店专用优惠券能否在乙店使用，券在有效期内但店铺范围不符时如何处理"
+      ],
+      "final_evidence_ids": [
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_scope_policy.txt-0",
+        "coupon_scope_policy.txt-1",
+        "coupon_scope_policy.txt-2",
+        "coupon_scope_policy.txt-3",
+        "coupon_usage_policy.txt-0",
+        "coupon_usage_policy.txt-1",
+        "coupon_usage_policy.txt-2",
+        "coupon_usage_policy.txt-3",
+        "coupon_usage_policy.txt-4",
+        "membership_scope_policy.txt-0",
+        "membership_scope_policy.txt-1",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-3"
+      ],
+      "final_checker_modes": [
+        "retrieve",
+        "retrieve"
+      ],
+      "human_confirmation": "pending"
+    },
+    {
+      "id": "new-after-thanks",
+      "case": {
+        "id": "new-after-thanks",
+        "group": "greeting",
+        "turns": [
+          "普通商品无理由退货申请期几天？",
+          "谢谢。"
+        ],
+        "expectation": "第一轮有依据解释，末轮致谢独立回应，auto只跳过末轮检查。"
+      },
+      "final_status": "pass",
+      "assistant_review": "首轮正常政策取证，末轮独立致谢跳过检查，未重答或新增政策事实。",
+      "before_answer": "不客气！如后续需要查询订单物流或了解退换货、发票等政策，随时告诉我。",
+      "final_answer": "不客气！如有订单查询或退换货、物流等政策问题，随时告诉我。",
+      "final_queries": [
+        "普通商品无理由退货申请期是几天？"
+      ],
+      "final_evidence_ids": [
+        "return_custom_policy.txt-0",
+        "return_custom_policy.txt-1",
+        "return_custom_policy.txt-2",
+        "return_policy.txt-0",
+        "return_policy.txt-1",
+        "return_policy.txt-2",
+        "return_policy.txt-3",
+        "return_policy.txt-4",
+        "return_policy.txt-5",
+        "return_policy.txt-6"
+      ],
+      "final_checker_modes": [
+        "retrieve",
+        "not_policy"
+      ],
+      "human_confirmation": "pending"
+    }
+  ],
+  "failure_ids": [
+    "new-name"
+  ],
+  "minor_issue_ids": [
+    "new-category",
+    "new-mixed"
+  ],
+  "paired_cost_summary": {
+    "variants": {
+      "before": {
+        "cases": 18,
+        "turns": 23,
+        "checker_calls": 23,
+        "answer_calls": 26,
+        "searches": 15,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 63380,
+        "output_tokens_reported": 3888,
+        "total_tokens_reported": 67268,
+        "elapsed_ms": 117766.19330013636
+      },
+      "after": {
+        "cases": 18,
+        "turns": 23,
+        "checker_calls": 19,
+        "answer_calls": 26,
+        "searches": 15,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 72214,
+        "output_tokens_reported": 4615,
+        "total_tokens_reported": 76829,
+        "elapsed_ms": 114559.03870018665
+      },
+      "after_always": {
+        "cases": 5,
+        "turns": 7,
+        "checker_calls": 7,
+        "answer_calls": 8,
+        "searches": 2,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 1,
+        "input_tokens_reported": 19242,
+        "output_tokens_reported": 830,
+        "total_tokens_reported": 20072,
+        "elapsed_ms": 41081.18889993057
+      }
+    },
+    "same_prompt_cost_subset": {
+      "case_ids": [
+        "new-greeting",
+        "new-thanks",
+        "new-order",
+        "new-repeat",
+        "new-after-thanks"
+      ],
+      "auto": {
+        "turns": 7,
+        "checker_calls": 3,
+        "answer_calls": 8,
+        "searches": 2,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 17426,
+        "output_tokens_reported": 685,
+        "total_tokens_reported": 18111,
+        "elapsed_ms": 27569.159399950877
+      },
+      "always": {
+        "turns": 7,
+        "checker_calls": 7,
+        "answer_calls": 8,
+        "searches": 2,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 1,
+        "input_tokens_reported": 19242,
+        "output_tokens_reported": 830,
+        "total_tokens_reported": 20072,
+        "elapsed_ms": 41081.18889993057
+      }
+    },
+    "clean_same_prompt_cost_subset": {
+      "case_ids": [
+        "new-greeting",
+        "new-thanks",
+        "new-order",
+        "new-after-thanks"
+      ],
+      "excluded_ids": [
+        "new-repeat"
+      ],
+      "auto": {
+        "turns": 5,
+        "checker_calls": 1,
+        "answer_calls": 6,
+        "searches": 1,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 11760,
+        "output_tokens_reported": 433,
+        "total_tokens_reported": 12193,
+        "elapsed_ms": 18430.913299904205
+      },
+      "always": {
+        "turns": 5,
+        "checker_calls": 5,
+        "answer_calls": 6,
+        "searches": 1,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 14543,
+        "output_tokens_reported": 629,
+        "total_tokens_reported": 15172,
+        "elapsed_ms": 18050.66509998869
+      }
+    }
+  },
+  "final_cost_summary": {
+    "variants": {
+      "before": {
+        "cases": 0
+      },
+      "after": {
+        "cases": 18,
+        "turns": 23,
+        "checker_calls": 19,
+        "answer_calls": 26,
+        "searches": 15,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 74675,
+        "output_tokens_reported": 3988,
+        "total_tokens_reported": 78663,
+        "elapsed_ms": 103497.33239982743
+      },
+      "after_always": {
+        "cases": 5,
+        "turns": 7,
+        "checker_calls": 7,
+        "answer_calls": 8,
+        "searches": 2,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 21134,
+        "output_tokens_reported": 847,
+        "total_tokens_reported": 21981,
+        "elapsed_ms": 24793.165999930352
+      }
+    },
+    "same_prompt_cost_subset": {
+      "case_ids": [
+        "new-greeting",
+        "new-thanks",
+        "new-order",
+        "new-repeat",
+        "new-after-thanks"
+      ],
+      "auto": {
+        "turns": 7,
+        "checker_calls": 3,
+        "answer_calls": 8,
+        "searches": 2,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 18310,
+        "output_tokens_reported": 673,
+        "total_tokens_reported": 18983,
+        "elapsed_ms": 25447.160399868153
+      },
+      "always": {
+        "turns": 7,
+        "checker_calls": 7,
+        "answer_calls": 8,
+        "searches": 2,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 21134,
+        "output_tokens_reported": 847,
+        "total_tokens_reported": 21981,
+        "elapsed_ms": 24793.165999930352
+      }
+    },
+    "clean_same_prompt_cost_subset": {
+      "case_ids": [
+        "new-greeting",
+        "new-thanks",
+        "new-order",
+        "new-repeat",
+        "new-after-thanks"
+      ],
+      "excluded_ids": [],
+      "auto": {
+        "turns": 7,
+        "checker_calls": 3,
+        "answer_calls": 8,
+        "searches": 2,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 18310,
+        "output_tokens_reported": 673,
+        "total_tokens_reported": 18983,
+        "elapsed_ms": 25447.160399868153
+      },
+      "always": {
+        "turns": 7,
+        "checker_calls": 7,
+        "answer_calls": 8,
+        "searches": 2,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 21134,
+        "output_tokens_reported": 847,
+        "total_tokens_reported": 21981,
+        "elapsed_ms": 24793.165999930352
+      }
+    }
+  },
+  "limitations": "初轮18题冻结后运行，其中15题当时为新增；根据结果收紧约束后重跑，最终18题已成为回归集，不称独立留出集。不将17条无重大问题视为业务准确率。"
+}

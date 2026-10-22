@@ -56,6 +56,7 @@ dependencies = [
     "tiktoken >=0.13.0",
     "uvicorn ~=0.52.0",
     "langchain-mcp-adapters>=0.3.0",
+    "mcp>=1.29,<2",
     "ddgs>=9.14.4",
     "ag-ui-langgraph~=0.0.42",
 ]

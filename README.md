@@ -7,6 +7,7 @@
 - **客服业务**：订单工具、普通催单、加急审批、执行前复查与工单去重。
 - **政策 RAG**：BGE 向量检索、BM25、RRF 融合与交叉编码器重排。
 - **多轮取证**：检查当前问题和已有证据，不足时重新检索，足够时复用。
+- **MCP 工具复用**：订单与政策只读 Server，LangGraph 经持久 stdio 会话调用，审批保留本地执行。
 - **评测**：检索对比、回答依据检查、条件更正回归及新题配对验证。
 
 ## 启动
@@ -26,8 +27,12 @@ powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1
 
 - [配置与运行](LOCAL_SUPPORTPILOT.md)
 - [架构与调用链](docs/architecture.md)
+- [MCP 工具封装与验证](docs/mcp-tools.md)
 - [RAG 检索](docs/rag-optimization.md)
 - [评测结果与复现](docs/evaluation.md)
+- [回答质量与检查成本](docs/answer-quality-results.md)
+- [三条展示流程与面试说明](docs/demo-and-interview.md)
+- [逐案复核清单](docs/answer-quality-review.md)
 - [政策来源](docs/policy-expansion-review.md)
 
 工单仅保存在本地，未接入真实仓库或退款系统。评测为内部小样本，模型裁判结果不等同真实业务准确率。
@@ -35,3 +40,7 @@ powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1
 ## 开源来源
 
 基于 [JoshuaC215/agent-service-toolkit](https://github.com/JoshuaC215/agent-service-toolkit) 二次开发，保留其服务、会话与模型接入基础，新增上述电商业务、RAG 和评测能力。版权与许可见 [LICENSE](LICENSE)，修改说明见 [NOTICE](NOTICE.md)。
+
+## 真实 MCP 与语义边界回归补充
+
+最终18题、23轮真实模型与生产MCP回归、固定无证据补测和107项离线测试已完成，逐案结果、成本和中间失败见 [本轮报告](docs/mcp-semantic-regression.md)。本文之前的批次指标仍是历史记录，不改写为新成绩。

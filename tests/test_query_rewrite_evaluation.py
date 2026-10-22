@@ -1,4 +1,5 @@
 import sys
+import json
 import unittest
 from pathlib import Path
 from collections import Counter
@@ -43,6 +44,14 @@ class QueryRewriteTests(unittest.TestCase):
         self.assertEqual(result['matches'], [{'id': 'b'}])
         self.assertEqual(len(result['tool_errors']), 1)
         self.assertEqual(result['other_tools'][0]['name'], 'request_shipping')
+
+    def test_evaluation_counts_only_actually_returned_context(self):
+        payload = {"matches": [{"id": "a-0", "source": "a.txt", "content": "主片段", "context_chunks": [
+            {"id": "a-1", "source": "a.txt", "content": "补充证据"}]}]}
+        self.assertTrue(evidence_metrics({"answerable": True, "evidence_groups": [["a-1"]]}, payload["matches"])["all_required"])
+        trace = extract_turn([AIMessage(content="", tool_calls=[{"id": "kb", "name": "search_knowledge_base", "args": {"query": "政策"}}]),
+            ToolMessage(content=json.dumps(payload), tool_call_id="kb")])
+        self.assertEqual({r["id"] for r in trace["query_matches"]["kb"]}, {"a-0", "a-1"})
 
     def test_dataset_distribution_and_valid_references(self):
         cases = load_cases()

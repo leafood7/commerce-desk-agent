@@ -1,0 +1,4 @@
+
+# Frozen evaluation artifacts retain their exact bytes for manifest verification.
+/data/evaluation/answer_quality_cases.jsonl -text whitespace=cr-at-eol
+/data/evaluation/baselines/** -text whitespace=cr-at-eol

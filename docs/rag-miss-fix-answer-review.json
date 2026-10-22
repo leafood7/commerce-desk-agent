@@ -1,0 +1,84 @@
+{
+  "method": "本助手逐条核对原始回答、实际查询及政策原文；不是独立人工盲审，也不是另一次模型裁判调用。只评三个已知案例，不推断总体准确率。",
+  "controlled": [
+    {
+      "id": "phone",
+      "before_main_conclusion_correct": false,
+      "after_main_conclusion_correct": true,
+      "reason": "原证据未含合理开箱条款，回答拒答；补全后正确区分合理查验、激活及完好条件。"
+    },
+    {
+      "id": "gold",
+      "before_main_conclusion_correct": false,
+      "after_main_conclusion_correct": false,
+      "reason": "补全后已说明金卡优先客服不等于延长、普通商品7天，却仍称无法确认是否7天；主要问题是过度拒答。"
+    },
+    {
+      "id": "coupon",
+      "before_main_conclusion_correct": false,
+      "after_main_conclusion_correct": false,
+      "reason": "补全后已引用品类券不能跨品类，仍因未出现食品券字面定义而拒绝应用一般规则，属过度拒答。"
+    }
+  ],
+  "dialogues": [
+    {
+      "id": "rewrite-01",
+      "main_conclusion_correct": true,
+      "evidence_ids": [
+        "return_digital_policy.txt-1"
+      ],
+      "query_conditions_preserved": true,
+      "remaining_issue": "结尾声称可查询订单签收时间和商品状态，但现有订单工具没有签收时间、激活或实物完好字段；核心政策结论正确，整段不能评为完全无问题。"
+    },
+    {
+      "id": "rewrite-16",
+      "main_conclusion_correct": true,
+      "evidence_ids": [
+        "membership_policy.txt-1",
+        "membership_policy.txt-2",
+        "return_policy.txt-0"
+      ],
+      "query_conditions_preserved": true,
+      "route": "第二轮reuse，4个引用ID均来自实际工具证据；未新增检索属于合法复用。",
+      "remaining_issue": "将来可把不延长退货措辞限定为不因金卡身份自动延长，避免脱离本题条件后过度概括；结尾查询签收时间超出现有工具字段。"
+    },
+    {
+      "id": "refresh-new-02",
+      "main_conclusion_correct": true,
+      "evidence_ids": [
+        "coupon_scope_policy.txt-0"
+      ],
+      "query_conditions_preserved": true,
+      "route": "第二轮retrieve，查询保留有效期内、食品券、显示器，未沿用过期结论。",
+      "remaining_issue": "先明确不能跨品类，后补充结算核实；该限定未推翻主要结论，但可以更直接。"
+    }
+  ],
+  "cost": {
+    "controlled": {
+      "before": {
+        "input_tokens": 1043,
+        "output_tokens": 290,
+        "total_tokens": 1333
+      },
+      "after": {
+        "input_tokens": 3048,
+        "output_tokens": 545,
+        "total_tokens": 3593
+      }
+    },
+    "dialogue_checker": {
+      "input_tokens": 4209,
+      "output_tokens": 327,
+      "total_tokens": 4536
+    },
+    "dialogue_answers": {
+      "input_tokens": 12275,
+      "output_tokens": 764,
+      "total_tokens": 13039
+    },
+    "dialogue_checker_calls": 5,
+    "dialogue_answer_calls": 5,
+    "checker_ms_mean": 2038.0370400147513,
+    "dialogue_turn_ms_mean": 4804.175479989499
+  }
+}

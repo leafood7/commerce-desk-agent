@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "status": "complete",
+    "started_at": "2026-10-22T14:18:26.804210+00:00",
+    "endpoint": "https://api.deepseek.com/v1",
+    "model": "deepseek-chat",
+    "variant": "final-controlled",
+    "controlled_query": "食品节券是否适用于键盘等非食品品类",
+    "transport": "production stdio MCP",
+    "real_llm": true,
+    "synthetic_orders": true,
+    "business_writes_blocked": true,
+    "source_hashes": {
+      "src/agents/answer_policy.py": "fcc2e3f57e0c2025c1e8a019964fc7510e22bc560d9f738eef807380710a4bde",
+      "src/agents/policy_evidence.py": "943d4d93e207b2a7f7b7354f36d32d792e6232e0b5882e4818a69ac914bf837e",
+      "src/agents/supportpilot_agent.py": "2091f921885efe1c028b718074e41f3387d1af1204450f6a91771cd2fbfce1bd",
+      "src/tool_protocol/server.py": "4a707e6ae4c8b3bd7646cd5d476d83f2f612862b7347ae4fc6288bc42e74eeb3",
+      "src/business/rag_retrieval.py": "5c6cdc0ed6ac1881e9fff138927fd7b02eb334cf238eff95784b5dca1c3591b9",
+      "data/evaluation/answer_quality_cases.jsonl": "c9bb8313ac18c1dab2f9b288a9d954eabd8ab08753a9e5aec8f0f09e1616cba7",
+      "scripts/evaluate_mcp_semantics.py": "4e8ef743614241ffaf305d430d06ff5d568a1892355ccf9351cdd1ec93bee3e8"
+    },
+    "limitations": "单次小样本；程序检查不是语义金标准，需逐条复核；不含网页点击、HTTP链路或生产并发。",
+    "startup_ms": 12090.627899975516
+  },
+  "rows": [
+    {
+      "case": {
+        "id": "new-name",
+        "group": "policy",
+        "turns": [
+          "活动名字叫食品节券，但我没找到适用品类，能拿来买键盘吗？"
+        ],
+        "expectation": "不把活动名当品类限定事实；若限食品则不能，若券面允许则另论，需用户提供范围。"
+      },
+      "turns": [
+        {
+          "question": "活动名字叫食品节券，但我没找到适用品类，能拿来买键盘吗？",
+          "answer": "知识库暂无依据，无法确认这张券能否用于键盘。\n\n仅凭活动名称“食品节券”不能判断适用范围——名称不等于限制，也不能据此认定它只限食品或全品类通用。建议您查看券面说明或活动页的适用品类，或联系人工客服核实。",
+          "policy_check": {
+            "mode": "retrieve",
+            "query": "食品节券是否适用于键盘等非食品品类",
+            "evidence_ids": [],
+            "reason": "用户询问优惠券适用品类及跨品类使用规则，现有证据为空，需检索相关优惠券适用范围政策。",
+            "status": "checked",
+            "usage": {
+              "input_tokens": 513,
+              "output_tokens": 58,
+              "total_tokens": 571,
+              "input_token_details": {
+                "cache_read": 379
+              },
+              "output_token_details": {}
+            },
+            "checker_called": true,
+            "checker_ms": 3454.1266999440268
+          },
+          "queries": [
+            {
+              "origin": "policy_check",
+              "id": "policy_4662a16fb4cf436ebd50756e785b9dcd",
+              "query": "食品节券是否适用于键盘等非食品品类",
+              "args": {
+                "query": "食品节券是否适用于键盘等非食品品类"
+              }
+            }
+          ],
+          "matches": [],
+          "tool_errors": [],
+          "other_tools": [],
+          "query_matches": {
+            "policy_4662a16fb4cf436ebd50756e785b9dcd": []
+          },
+          "answer_calls": [
+            {
+              "usage": {
+                "input_tokens": 1943,
+                "output_tokens": 61,
+                "total_tokens": 2004,
+                "input_token_details": {
+                  "cache_read": 384
+                },
+                "output_token_details": {}
+              },
+              "model": "deepseek-flash"
+            }
+          ],
+          "elapsed_ms": 5835.045899963006,
+          "tool_trace": [
+            {
+              "event": "start",
+              "run_id": "01a163fa-7b5d-7142-be5f-1583a228f4fa",
+              "tool": "search_knowledge_base",
+              "input": "{'query': '食品节券是否适用于键盘等非食品品类'}",
+              "metadata": {
+                "thread_id": "91a3936a00f24ecebddae2e718d82462",
+                "ls_integration": "langgraph",
+                "langgraph_step": 2,
+                "langgraph_node": "tools",
+                "langgraph_triggers": [
+                  "branch:to:tools"
+                ],
+                "langgraph_path": [
+                  "__pregel_pull",
+                  "tools"
+                ],
+                "langgraph_checkpoint_ns": "tools:535e7554-332e-4e0c-c2fd-81852a2c3be0",
+                "checkpoint_ns": "tools:535e7554-332e-4e0c-c2fd-81852a2c3be0",
+                "transport": "mcp",
+                "server": "commerce-desk-readonly"
+              }
+            },
+            {
+              "event": "start",
+              "run_id": "01a163fa-7b5e-78f0-9df1-ae6f178b3f4b",
+              "tool": "search_knowledge_base",
+              "input": "{'query': '食品节券是否适用于键盘等非食品品类'}",
+              "metadata": {
+                "thread_id": "91a3936a00f24ecebddae2e718d82462",
+                "ls_integration": "langgraph",
+                "langgraph_step": 2,
+                "langgraph_node": "tools",
+                "langgraph_triggers": [
+                  "branch:to:tools"
+                ],
+                "langgraph_path": [
+                  "__pregel_pull",
+                  "tools"
+                ],
+                "langgraph_checkpoint_ns": "tools:535e7554-332e-4e0c-c2fd-81852a2c3be0",
+                "checkpoint_ns": "tools:535e7554-332e-4e0c-c2fd-81852a2c3be0",
+                "title": null,
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              }
+            },
+            {
+              "event": "end",
+              "run_id": "01a163fa-7b5e-78f0-9df1-ae6f178b3f4b",
+              "status": "success"
+            },
+            {
+              "event": "end",
+              "run_id": "01a163fa-7b5d-7142-be5f-1583a228f4fa",
+              "status": "success"
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "search_knowledge_base",
+              "content": "{\"status\": \"no_evidence\", \"message\": \"知识库没有找到相关政策依据。\", \"matches\": []}",
+              "status": "success"
+            }
+          ]
+        }
+      ],
+      "cost": {
+        "turns": 1,
+        "checker_calls": 1,
+        "answer_calls": 1,
+        "searches": 1,
+        "tool_errors": 0,
+        "blocked_business_calls": 0,
+        "missing_usage_calls": 0,
+        "input_tokens_reported": 2456,
+        "output_tokens_reported": 119,
+        "total_tokens_reported": 2575,
+        "elapsed_ms": 5835.045899963006
+      },
+      "mechanical_issues": []
+    }
+  ],
+  "cost": {
+    "turns": 1,
+    "checker_calls": 1,
+    "answer_calls": 1,
+    "searches": 1,
+    "tool_errors": 0,
+    "blocked_business_calls": 0,
+    "missing_usage_calls": 0,
+    "input_tokens_reported": 2456,
+    "output_tokens_reported": 119,
+    "total_tokens_reported": 2575,
+    "elapsed_ms": 5835.045899963006
+  }
+}

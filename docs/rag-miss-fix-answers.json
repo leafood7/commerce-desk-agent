@@ -1,0 +1,1330 @@
+{
+  "metadata": {
+    "started_at": "2026-10-22T08:06:35.119884+00:00",
+    "status": "complete",
+    "model_setting": "openai-compatible",
+    "offline_report_sha256": "f9e5211300cfd17b2789c90f6ddcd40886ef99971bd406b253fb99f456d14093",
+    "offline_metadata": {
+      "baseline_ref": "e71f35fe2a7ce333bd7271a8ddedb57ffa0e5cd1",
+      "baseline_sha256": "be31cc12b3fbc5a200d22a2573ad9b068cc87e809bfbfb5ef9f9fedf9bd7ec6d",
+      "context_sha256": "3585dadcc48582dc8f9df2a1eca110d8e6ea1a79ee26162d758fa5d7e9a83926",
+      "retriever_sha256": "5c6cdc0ed6ac1881e9fff138927fd7b02eb334cf238eff95784b5dca1c3591b9",
+      "corpus_sha256": "d38605a2c08137f361f682edc6a01fa3085f535ee4f409c3c256bcbbc983e594",
+      "top_k_anchors": 3,
+      "pool_size": 12,
+      "threshold": -2,
+      "context_char_budget": 1800,
+      "method": "三个固定查询真实运行新旧检索；其余116题固定旧版锚点后组装同源上下文，锚点排名不变。均为既有题回归，非新留出集；补证覆盖不等于Top3排序提升。"
+    },
+    "agent_sha256": "8d292e0af1e096e47cb9194a10bc0a2ad1dafd841f0d39db0765e8c7d40edc9f",
+    "checker_sha256": "6acb313eff603e44460954091f6a4590c72d54ef0a9ab5056fa242aa90805058",
+    "script_sha256": "56768e2bc17e430b91cbe3704b7e015daaf37bbd6d2a5115effb16c5e3cbe11e",
+    "pool_size": 12,
+    "threshold": -2.0,
+    "method": "固定查询同提示、相同原文锚点、交替生成顺序、temperature=0；修复后真实图独立内存会话。无额外模型裁判，单次样本。",
+    "limitations": "三条已知失败案例不是留出集。固定生成前后对照不等于真实图前后对照。真实图使用生产模型设置。耗时包含接口波动，非性能基准；usage来自接口，不换算价格。",
+    "completed_at": "2026-10-22T08:07:35.745944+00:00"
+  },
+  "controlled": [
+    {
+      "id": "phone",
+      "query": "手机拆封后能否退货 七天无理由退货",
+      "evidence_groups": [
+        [
+          "return_digital_policy.txt-1"
+        ]
+      ],
+      "before": {
+        "answer": "知识库暂无依据，无法确认手机拆封后能否七天无理由退货。\n\n现有证据只提到：拆封的音像制品、计算机软件等数字化商品不适用通常的七日无理由退货（来源：return_digital_policy.txt、return_policy.txt）；贴身或卫生用品需核实拆封影响及购买确认（来源：return_hygiene_policy.txt）。这些均未明确涉及手机。",
+        "evidence": [
+          {
+            "id": "return_digital_policy.txt-3",
+            "source": "return_digital_policy.txt",
+            "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n4. 在线下载或消费者拆封的音像制品、计算机软件等数字化商品不适用通常的七日无理由退货；下载失败、无法履约等争议另行核实。"
+          },
+          {
+            "id": "return_policy.txt-2",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n3. 消费者定作、鲜活易腐、已交付报刊、在线下载或消费者拆封的音像软件等数字化商品不适用通常的七日无理由退货；质量或履约争议应另行核实。"
+          },
+          {
+            "id": "return_hygiene_policy.txt-0",
+            "source": "return_hygiene_policy.txt",
+            "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n1. 贴身或卫生用品不应仅凭品类名称一律排除七日无理由；需要核实拆封是否影响人身安全、健康或商品品质，以及购买时的明确确认。"
+          }
+        ],
+        "usage": {
+          "input_tokens": 352,
+          "output_tokens": 87,
+          "total_tokens": 439,
+          "input_token_details": {
+            "cache_read": 0
+          },
+          "output_token_details": {}
+        },
+        "generation_ms": 16264.93780000601,
+        "model": "deepseek-flash"
+      },
+      "after": {
+        "answer": "手机拆封后能否七天无理由退货，需结合具体情况核实，不能一概而论：\n\n- **合理开箱查验不当然失去退货资格**：实物电子商品为合理查验而打开包装，不当然意味着商品不完好；但激活、授权、不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响“完好”认定，需核实商品条件。（来源：return_digital_policy.txt、return_policy.txt）\n- **手机不能与数字内容混为一类**：手机等实物电子商品不能与下载的软件或数字内容混为一类，不能统一声称所有数码商品都不支持七日无理由。（来源：return_digital_policy.txt）\n- **申请期**：适用七日无理由退货的普通商品，自签收次日起计算7天申请期，商品须保持完好。（来源：return_policy.txt）\n- **已激活等特定情形**：已激活、价值显著贬损等特定商品不适用无理由条款的，须核实购买时的明确提示与确认，不能仅凭售后口头说明拒绝。（来源：return_digital_policy.txt）\n\n结论：拆封本身不必然导致不能退货，但能否适用七天无理由，取决于是否激活、使用痕迹、商品完好状态及购买时的明确提示，需按具体订单核实。",
+        "evidence": [
+          {
+            "id": "return_digital_policy.txt-3",
+            "source": "return_digital_policy.txt",
+            "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n4. 在线下载或消费者拆封的音像制品、计算机软件等数字化商品不适用通常的七日无理由退货；下载失败、无法履约等争议另行核实。"
+          },
+          {
+            "id": "return_digital_policy.txt-2",
+            "source": "return_digital_policy.txt",
+            "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n3. 已激活价值显著贬损等特定商品的不适用无理由条款，须核实购买时的明确提示与确认，不能只凭售后新增口头说明拒绝。"
+          },
+          {
+            "id": "return_digital_policy.txt-1",
+            "source": "return_digital_policy.txt",
+            "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n2. 实物电子商品合理开箱查验不当然失去退货资格；激活、授权或不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响完好认定，需要核实商品条件。"
+          },
+          {
+            "id": "return_digital_policy.txt-0",
+            "source": "return_digital_policy.txt",
+            "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n1. 手机、耳机、电脑等实物电子商品不能与下载的软件或数字内容混为一类；不能统一声称所有数码商品都不支持七日无理由。"
+          },
+          {
+            "id": "return_policy.txt-2",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n3. 消费者定作、鲜活易腐、已交付报刊、在线下载或消费者拆封的音像软件等数字化商品不适用通常的七日无理由退货；质量或履约争议应另行核实。"
+          },
+          {
+            "id": "return_policy.txt-1",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。"
+          },
+          {
+            "id": "return_policy.txt-3",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n4. 商品质量问题与无理由退货是不同售后依据。本商城签收后 15 天的常规受理窗口不作为全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实。"
+          },
+          {
+            "id": "return_policy.txt-0",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n1. 适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期；商品须保持完好，购买时已明确确认的不适用情形另行核实。"
+          },
+          {
+            "id": "return_policy.txt-4",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n5. 无理由退货需要保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。"
+          },
+          {
+            "id": "return_policy.txt-5",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n6. 质量问题的合理退货运费由责任方按核实结果承担；普通非质量原因退货运费由用户承担，有明确更有利运费权益的订单按该约定处理。"
+          },
+          {
+            "id": "return_policy.txt-6",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n7. 电子数码、服饰、生鲜、定制及卫生用品须结合具体品类规则和完好状态核实；不得仅以商品大类一概拒绝所有售后。"
+          },
+          {
+            "id": "return_hygiene_policy.txt-0",
+            "source": "return_hygiene_policy.txt",
+            "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n1. 贴身或卫生用品不应仅凭品类名称一律排除七日无理由；需要核实拆封是否影响人身安全、健康或商品品质，以及购买时的明确确认。"
+          },
+          {
+            "id": "return_hygiene_policy.txt-1",
+            "source": "return_hygiene_policy.txt",
+            "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n2. 属于拆封影响健康或品质的特殊商品，且购买时已明确确认相关不适用条件的，按该条件处理；普通外箱开封不等于必要密封已破坏。"
+          },
+          {
+            "id": "return_hygiene_policy.txt-2",
+            "source": "return_hygiene_policy.txt",
+            "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n3. 卫生用品发生质量或履约问题时，应单独受理核实，不以无理由退货例外替代质量售后判断。"
+          }
+        ],
+        "usage": {
+          "input_tokens": 1216,
+          "output_tokens": 273,
+          "total_tokens": 1489,
+          "input_token_details": {
+            "cache_read": 0
+          },
+          "output_token_details": {}
+        },
+        "generation_ms": 2949.65249998495,
+        "model": "deepseek-flash"
+      }
+    },
+    {
+      "id": "gold",
+      "query": "金卡会员购买普通商品，页面未标注延长，退货申请期是多少天？",
+      "evidence_groups": [
+        [
+          "membership_policy.txt-1"
+        ],
+        [
+          "membership_policy.txt-2"
+        ]
+      ],
+      "after": {
+        "answer": "知识库没有明确说明金卡会员购买普通商品、页面未标注延长时的退货申请期。金卡会员权益仅为优先客服，不等于延长退货（membership_policy.txt）；普通商品通常适用自签收次日起7天无理由退货（return_policy.txt）。因此无法确认金卡会员在此情形下是否仍为7天。",
+        "evidence": [
+          {
+            "id": "membership_policy.txt-2",
+            "source": "membership_policy.txt",
+            "content": "SupportPilot 商城会员等级与退货权益\n\n3. 黑金会员仅对订单明确标注支持延长的部分商品，享受自签收次日起 15 天无理由退货申请期；不适用或未标注商品不自动延长。"
+          },
+          {
+            "id": "membership_policy.txt-1",
+            "source": "membership_policy.txt",
+            "content": "SupportPilot 商城会员等级与退货权益\n\n2. 金卡会员可享受优先客服服务；优先客服不等于所有商品延长退货、免除运费或自动批准退款。"
+          },
+          {
+            "id": "membership_policy.txt-3",
+            "source": "membership_policy.txt",
+            "content": "SupportPilot 商城会员等级与退货权益\n\n4. 会员延长退货不取消商品完好条件，也不覆盖依法或按有效确认排除无理由退货的情形；会员身份不意味着定制、生鲜、已下载内容都能随意退。"
+          },
+          {
+            "id": "membership_policy.txt-0",
+            "source": "membership_policy.txt",
+            "content": "SupportPilot 商城会员等级与退货权益\n\n1. 普通会员享受适用商品的基础售后服务，通常适用七日无理由退货规则及其例外。"
+          },
+          {
+            "id": "membership_policy.txt-4",
+            "source": "membership_policy.txt",
+            "content": "SupportPilot 商城会员等级与退货权益\n\n5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。"
+          },
+          {
+            "id": "return_policy.txt-1",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。"
+          },
+          {
+            "id": "return_policy.txt-2",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n3. 消费者定作、鲜活易腐、已交付报刊、在线下载或消费者拆封的音像软件等数字化商品不适用通常的七日无理由退货；质量或履约争议应另行核实。"
+          },
+          {
+            "id": "return_policy.txt-3",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n4. 商品质量问题与无理由退货是不同售后依据。本商城签收后 15 天的常规受理窗口不作为全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实。"
+          },
+          {
+            "id": "return_policy.txt-4",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n5. 无理由退货需要保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。"
+          },
+          {
+            "id": "return_policy.txt-5",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n6. 质量问题的合理退货运费由责任方按核实结果承担；普通非质量原因退货运费由用户承担，有明确更有利运费权益的订单按该约定处理。"
+          },
+          {
+            "id": "return_policy.txt-6",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n7. 电子数码、服饰、生鲜、定制及卫生用品须结合具体品类规则和完好状态核实；不得仅以商品大类一概拒绝所有售后。"
+          },
+          {
+            "id": "return_policy.txt-0",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n1. 适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期；商品须保持完好，购买时已明确确认的不适用情形另行核实。"
+          }
+        ],
+        "usage": {
+          "input_tokens": 1023,
+          "output_tokens": 74,
+          "total_tokens": 1097,
+          "input_token_details": {
+            "cache_read": 0
+          },
+          "output_token_details": {}
+        },
+        "generation_ms": 1402.7872000588104,
+        "model": "deepseek-flash"
+      },
+      "before": {
+        "answer": "根据现有证据，普通商品适用七日无理由退货，申请期为自签收次日起 7 天（来源：return_policy.txt-0）。\n\n证据未提及金卡会员的专门退货期限，也未说明金卡会员购买普通商品可延长申请期，因此无法确认金卡会员是否有其他特殊规定。",
+        "evidence": [
+          {
+            "id": "membership_policy.txt-2",
+            "source": "membership_policy.txt",
+            "content": "SupportPilot 商城会员等级与退货权益\n\n3. 黑金会员仅对订单明确标注支持延长的部分商品，享受自签收次日起 15 天无理由退货申请期；不适用或未标注商品不自动延长。"
+          },
+          {
+            "id": "return_policy.txt-1",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。"
+          },
+          {
+            "id": "return_policy.txt-0",
+            "source": "return_policy.txt",
+            "content": "SupportPilot 商城退换货通用政策\n\n1. 适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期；商品须保持完好，购买时已明确确认的不适用情形另行核实。"
+          }
+        ],
+        "usage": {
+          "input_tokens": 355,
+          "output_tokens": 68,
+          "total_tokens": 423,
+          "input_token_details": {
+            "cache_read": 0
+          },
+          "output_token_details": {}
+        },
+        "generation_ms": 1445.794300059788,
+        "model": "deepseek-flash"
+      }
+    },
+    {
+      "id": "coupon",
+      "query": "食品券在有效期内能否用于购买显示器？优惠券适用商品范围如何规定？",
+      "evidence_groups": [
+        [
+          "coupon_scope_policy.txt-0"
+        ]
+      ],
+      "before": {
+        "answer": "根据现有证据，无法确认食品券能否用于购买显示器，也无法确认“食品券”的具体适用商品范围。知识库暂无依据。\n\n可确认的相关规则：\n- 优惠券须在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用（来源：coupon_usage_policy.txt）。\n- 商品满减券需达到门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都可用（来源：coupon_usage_policy.txt）。\n- 会员身份不能绕过券的有效期、店铺范围或活动限制（来源：coupon_scope_policy.txt）。",
+        "evidence": [
+          {
+            "id": "coupon_usage_policy.txt-3",
+            "source": "coupon_usage_policy.txt",
+            "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。"
+          },
+          {
+            "id": "coupon_usage_policy.txt-1",
+            "source": "coupon_usage_policy.txt",
+            "content": "SupportPilot 商城商品优惠券使用政策\n\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。"
+          },
+          {
+            "id": "coupon_scope_policy.txt-3",
+            "source": "coupon_scope_policy.txt",
+            "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。"
+          }
+        ],
+        "usage": {
+          "input_tokens": 336,
+          "output_tokens": 135,
+          "total_tokens": 471,
+          "input_token_details": {
+            "cache_read": 0
+          },
+          "output_token_details": {}
+        },
+        "generation_ms": 1766.1962000420317,
+        "model": "deepseek-flash"
+      },
+      "after": {
+        "answer": "关于“食品券在有效期内能否用于购买显示器”：知识库暂无依据，无法确认。现有资料只涉及商品优惠券、运费券、店铺/品类限定券等规则，未提及“食品券”及其适用商品。\n\n优惠券适用商品范围的规定（据 coupon_usage_policy.txt、coupon_scope_policy.txt）：\n- 商品满减券须达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都可用（coupon_usage_policy.txt）。\n- 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类，不能跨店铺、跨品类使用（coupon_scope_policy.txt）。\n- 渠道或地区限定券还须满足使用入口、收货地区等条件（coupon_scope_policy.txt）。\n- 优惠券须在有效期内且符合适用条件才可使用（coupon_usage_policy.txt）。",
+        "evidence": [
+          {
+            "id": "coupon_usage_policy.txt-3",
+            "source": "coupon_usage_policy.txt",
+            "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。"
+          },
+          {
+            "id": "coupon_usage_policy.txt-0",
+            "source": "coupon_usage_policy.txt",
+            "content": "SupportPilot 商城商品优惠券使用政策\n\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。"
+          },
+          {
+            "id": "coupon_usage_policy.txt-2",
+            "source": "coupon_usage_policy.txt",
+            "content": "SupportPilot 商城商品优惠券使用政策\n\n3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。"
+          },
+          {
+            "id": "coupon_usage_policy.txt-4",
+            "source": "coupon_usage_policy.txt",
+            "content": "SupportPilot 商城商品优惠券使用政策\n\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。"
+          },
+          {
+            "id": "coupon_usage_policy.txt-1",
+            "source": "coupon_usage_policy.txt",
+            "content": "SupportPilot 商城商品优惠券使用政策\n\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。"
+          },
+          {
+            "id": "coupon_scope_policy.txt-3",
+            "source": "coupon_scope_policy.txt",
+            "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。"
+          },
+          {
+            "id": "coupon_scope_policy.txt-2",
+            "source": "coupon_scope_policy.txt",
+            "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。"
+          },
+          {
+            "id": "coupon_scope_policy.txt-1",
+            "source": "coupon_scope_policy.txt",
+            "content": "SupportPilot 商城优惠券限制与运费券政策\n\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。"
+          },
+          {
+            "id": "coupon_scope_policy.txt-0",
+            "source": "coupon_scope_policy.txt",
+            "content": "SupportPilot 商城优惠券限制与运费券政策\n\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。"
+          }
+        ],
+        "usage": {
+          "input_tokens": 809,
+          "output_tokens": 198,
+          "total_tokens": 1007,
+          "input_token_details": {
+            "cache_read": 0
+          },
+          "output_token_details": {}
+        },
+        "generation_ms": 1696.084100054577,
+        "model": "deepseek-flash"
+      }
+    }
+  ],
+  "dialogues": [
+    {
+      "case": {
+        "id": "rewrite-01",
+        "category": "口语",
+        "turns": [
+          "手机就拆开瞅了一眼，也不能退了？"
+        ],
+        "answerable": true,
+        "reference_answer": "合理开箱查验不当然失去退货资格，激活使用等需核实。",
+        "evidence_groups": [
+          [
+            "return_digital_policy.txt-1"
+          ]
+        ],
+        "required_conditions": [
+          "商品是实物手机",
+          "行为仅为开箱查验，不是已激活使用"
+        ]
+      },
+      "turns": [
+        {
+          "question": "手机就拆开瞅了一眼，也不能退了？",
+          "answer": "拆开看一眼并不当然导致不能退货，但能否退货还需要核实商品状态。\n\n根据知识库中的政策：\n- 实物电子商品（手机、耳机、电脑等）不能与下载的软件或数字内容混为一类，也不能统一声称所有数码商品都不支持七日无理由退货。（return_digital_policy.txt）\n- 实物电子商品合理开箱查验不当然失去退货资格；但激活、授权或不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响“完好”认定，需要核实商品条件。（return_digital_policy.txt）\n- 无理由退货需保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。（return_policy.txt）\n- 适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期。（return_policy.txt）\n\n也就是说：仅拆封查看通常不影响退货资格，但如果已经激活手机，或留下明显使用痕迹，就可能影响“完好”认定，需要按实际情况核实。\n\n如需我帮您判断，请提供订单号，我可以查询该订单的签收时间和商品状态。",
+          "policy_check": {
+            "mode": "retrieve",
+            "query": "手机拆封后是否还能退货？",
+            "evidence_ids": [],
+            "reason": "用户询问拆封手机是否可退，涉及退货资格政策，当前无证据，需检索。",
+            "status": "checked",
+            "usage": {
+              "input_tokens": 384,
+              "output_tokens": 46,
+              "total_tokens": 430,
+              "input_token_details": {
+                "cache_read": 128
+              },
+              "output_token_details": {}
+            },
+            "checker_ms": 1715.9510001074523
+          },
+          "queries": [
+            {
+              "origin": "policy_check",
+              "id": "policy_3abcf90886ca4d26848c21a362109e81",
+              "query": "手机拆封后是否还能退货？",
+              "args": {
+                "query": "手机拆封后是否还能退货？"
+              }
+            }
+          ],
+          "matches": [
+            {
+              "id": "return_digital_policy.txt-3",
+              "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n4. 在线下载或消费者拆封的音像制品、计算机软件等数字化商品不适用通常的七日无理由退货；下载失败、无法履约等争议另行核实。",
+              "source": "return_digital_policy.txt",
+              "distance": 0.7869307994842529,
+              "rrf_score": 0.03200204813108039,
+              "bm25_score": 12.696565057904104,
+              "rerank_score": 1.0275518894195557
+            },
+            {
+              "id": "return_digital_policy.txt-2",
+              "source": "return_digital_policy.txt",
+              "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n3. 已激活价值显著贬损等特定商品的不适用无理由条款，须核实购买时的明确提示与确认，不能只凭售后新增口头说明拒绝。",
+              "context_of": "return_digital_policy.txt-3"
+            },
+            {
+              "id": "return_digital_policy.txt-1",
+              "source": "return_digital_policy.txt",
+              "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n2. 实物电子商品合理开箱查验不当然失去退货资格；激活、授权或不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响完好认定，需要核实商品条件。",
+              "context_of": "return_digital_policy.txt-3"
+            },
+            {
+              "id": "return_digital_policy.txt-0",
+              "source": "return_digital_policy.txt",
+              "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n1. 手机、耳机、电脑等实物电子商品不能与下载的软件或数字内容混为一类；不能统一声称所有数码商品都不支持七日无理由。",
+              "context_of": "return_digital_policy.txt-3"
+            },
+            {
+              "id": "return_policy.txt-2",
+              "content": "SupportPilot 商城退换货通用政策\n\n3. 消费者定作、鲜活易腐、已交付报刊、在线下载或消费者拆封的音像软件等数字化商品不适用通常的七日无理由退货；质量或履约争议应另行核实。",
+              "source": "return_policy.txt",
+              "distance": 0.8406578898429871,
+              "rrf_score": 0.029857397504456328,
+              "bm25_score": 9.206115369716509,
+              "rerank_score": 0.4071790874004364
+            },
+            {
+              "id": "return_policy.txt-1",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。",
+              "context_of": "return_policy.txt-2"
+            },
+            {
+              "id": "return_policy.txt-3",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n4. 商品质量问题与无理由退货是不同售后依据。本商城签收后 15 天的常规受理窗口不作为全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实。",
+              "context_of": "return_policy.txt-2"
+            },
+            {
+              "id": "return_policy.txt-0",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n1. 适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期；商品须保持完好，购买时已明确确认的不适用情形另行核实。",
+              "context_of": "return_policy.txt-2"
+            },
+            {
+              "id": "return_policy.txt-4",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n5. 无理由退货需要保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。",
+              "context_of": "return_policy.txt-2"
+            },
+            {
+              "id": "return_policy.txt-5",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n6. 质量问题的合理退货运费由责任方按核实结果承担；普通非质量原因退货运费由用户承担，有明确更有利运费权益的订单按该约定处理。",
+              "context_of": "return_policy.txt-2"
+            },
+            {
+              "id": "return_policy.txt-6",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n7. 电子数码、服饰、生鲜、定制及卫生用品须结合具体品类规则和完好状态核实；不得仅以商品大类一概拒绝所有售后。",
+              "context_of": "return_policy.txt-2"
+            },
+            {
+              "id": "return_hygiene_policy.txt-1",
+              "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n2. 属于拆封影响健康或品质的特殊商品，且购买时已明确确认相关不适用条件的，按该条件处理；普通外箱开封不等于必要密封已破坏。",
+              "source": "return_hygiene_policy.txt",
+              "distance": 0.7256686091423035,
+              "rrf_score": 0.032018442622950824,
+              "bm25_score": 10.686063479663405,
+              "rerank_score": -0.7960729598999023
+            },
+            {
+              "id": "return_hygiene_policy.txt-0",
+              "source": "return_hygiene_policy.txt",
+              "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n1. 贴身或卫生用品不应仅凭品类名称一律排除七日无理由；需要核实拆封是否影响人身安全、健康或商品品质，以及购买时的明确确认。",
+              "context_of": "return_hygiene_policy.txt-1"
+            },
+            {
+              "id": "return_hygiene_policy.txt-2",
+              "source": "return_hygiene_policy.txt",
+              "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n3. 卫生用品发生质量或履约问题时，应单独受理核实，不以无理由退货例外替代质量售后判断。",
+              "context_of": "return_hygiene_policy.txt-1"
+            }
+          ],
+          "tool_errors": [],
+          "other_tools": [],
+          "query_matches": {
+            "policy_3abcf90886ca4d26848c21a362109e81": [
+              {
+                "id": "return_digital_policy.txt-3",
+                "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n4. 在线下载或消费者拆封的音像制品、计算机软件等数字化商品不适用通常的七日无理由退货；下载失败、无法履约等争议另行核实。",
+                "source": "return_digital_policy.txt",
+                "distance": 0.7869307994842529,
+                "rrf_score": 0.03200204813108039,
+                "bm25_score": 12.696565057904104,
+                "rerank_score": 1.0275518894195557
+              },
+              {
+                "id": "return_digital_policy.txt-2",
+                "source": "return_digital_policy.txt",
+                "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n3. 已激活价值显著贬损等特定商品的不适用无理由条款，须核实购买时的明确提示与确认，不能只凭售后新增口头说明拒绝。",
+                "context_of": "return_digital_policy.txt-3"
+              },
+              {
+                "id": "return_digital_policy.txt-1",
+                "source": "return_digital_policy.txt",
+                "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n2. 实物电子商品合理开箱查验不当然失去退货资格；激活、授权或不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响完好认定，需要核实商品条件。",
+                "context_of": "return_digital_policy.txt-3"
+              },
+              {
+                "id": "return_digital_policy.txt-0",
+                "source": "return_digital_policy.txt",
+                "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n1. 手机、耳机、电脑等实物电子商品不能与下载的软件或数字内容混为一类；不能统一声称所有数码商品都不支持七日无理由。",
+                "context_of": "return_digital_policy.txt-3"
+              },
+              {
+                "id": "return_policy.txt-2",
+                "content": "SupportPilot 商城退换货通用政策\n\n3. 消费者定作、鲜活易腐、已交付报刊、在线下载或消费者拆封的音像软件等数字化商品不适用通常的七日无理由退货；质量或履约争议应另行核实。",
+                "source": "return_policy.txt",
+                "distance": 0.8406578898429871,
+                "rrf_score": 0.029857397504456328,
+                "bm25_score": 9.206115369716509,
+                "rerank_score": 0.4071790874004364
+              },
+              {
+                "id": "return_policy.txt-1",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。",
+                "context_of": "return_policy.txt-2"
+              },
+              {
+                "id": "return_policy.txt-3",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n4. 商品质量问题与无理由退货是不同售后依据。本商城签收后 15 天的常规受理窗口不作为全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实。",
+                "context_of": "return_policy.txt-2"
+              },
+              {
+                "id": "return_policy.txt-0",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n1. 适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期；商品须保持完好，购买时已明确确认的不适用情形另行核实。",
+                "context_of": "return_policy.txt-2"
+              },
+              {
+                "id": "return_policy.txt-4",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n5. 无理由退货需要保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。",
+                "context_of": "return_policy.txt-2"
+              },
+              {
+                "id": "return_policy.txt-5",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n6. 质量问题的合理退货运费由责任方按核实结果承担；普通非质量原因退货运费由用户承担，有明确更有利运费权益的订单按该约定处理。",
+                "context_of": "return_policy.txt-2"
+              },
+              {
+                "id": "return_policy.txt-6",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n7. 电子数码、服饰、生鲜、定制及卫生用品须结合具体品类规则和完好状态核实；不得仅以商品大类一概拒绝所有售后。",
+                "context_of": "return_policy.txt-2"
+              },
+              {
+                "id": "return_hygiene_policy.txt-1",
+                "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n2. 属于拆封影响健康或品质的特殊商品，且购买时已明确确认相关不适用条件的，按该条件处理；普通外箱开封不等于必要密封已破坏。",
+                "source": "return_hygiene_policy.txt",
+                "distance": 0.7256686091423035,
+                "rrf_score": 0.032018442622950824,
+                "bm25_score": 10.686063479663405,
+                "rerank_score": -0.7960729598999023
+              },
+              {
+                "id": "return_hygiene_policy.txt-0",
+                "source": "return_hygiene_policy.txt",
+                "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n1. 贴身或卫生用品不应仅凭品类名称一律排除七日无理由；需要核实拆封是否影响人身安全、健康或商品品质，以及购买时的明确确认。",
+                "context_of": "return_hygiene_policy.txt-1"
+              },
+              {
+                "id": "return_hygiene_policy.txt-2",
+                "source": "return_hygiene_policy.txt",
+                "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n3. 卫生用品发生质量或履约问题时，应单独受理核实，不以无理由退货例外替代质量售后判断。",
+                "context_of": "return_hygiene_policy.txt-1"
+              }
+            ]
+          },
+          "answer_model_calls": [
+            {
+              "usage": {
+                "input_tokens": 2384,
+                "output_tokens": 244,
+                "total_tokens": 2628,
+                "input_token_details": {
+                  "cache_read": 0
+                },
+                "output_token_details": {}
+              },
+              "model": "deepseek-flash"
+            }
+          ],
+          "elapsed_ms": 5699.852199992165
+        }
+      ],
+      "union_evidence_complete": true,
+      "last_turn_evidence_complete": true
+    },
+    {
+      "case": {
+        "id": "rewrite-16",
+        "category": "多轮补充",
+        "turns": [
+          "会员是不是可以15天退？",
+          "我是金卡，买的普通商品，页面没写延长。"
+        ],
+        "answerable": true,
+        "reference_answer": "金卡是优先客服，不自动享受黑金指定商品15天。",
+        "evidence_groups": [
+          [
+            "membership_policy.txt-1"
+          ],
+          [
+            "membership_policy.txt-2"
+          ]
+        ],
+        "required_conditions": [
+          "金卡不是黑金",
+          "普通商品未写延长",
+          "继承15天退货疑问"
+        ]
+      },
+      "turns": [
+        {
+          "question": "会员是不是可以15天退？",
+          "answer": "并非所有会员都能享受15天退货，具体要看会员等级和商品：\n\n- **普通会员**：适用商品按基础规则，通常为七日无理由退货（自签收次日起算）。\n- **金卡会员**：享受优先客服服务，但这不等于延长退货期。\n- **黑金会员**：仅对订单明确标注支持延长的部分商品，享受自签收次日起15天无理由退货申请期；未标注或不适用商品不自动延长。\n\n另外，延长退货仍需商品完好，也不覆盖定制、生鲜、已下载内容等依法或按确认排除无理由退货的情形。\n\n来源：membership_policy.txt、return_policy.txt",
+          "policy_check": {
+            "mode": "retrieve",
+            "query": "会员退货期限是否为15天？",
+            "evidence_ids": [],
+            "reason": "用户询问会员退货期限，属于退货政策问题，现有证据为空，需检索知识库依据。",
+            "status": "checked",
+            "usage": {
+              "input_tokens": 381,
+              "output_tokens": 45,
+              "total_tokens": 426,
+              "input_token_details": {
+                "cache_read": 128
+              },
+              "output_token_details": {}
+            },
+            "checker_ms": 2108.937699929811
+          },
+          "queries": [
+            {
+              "origin": "policy_check",
+              "id": "policy_37b7468446de4d11aa605ca60bd62c53",
+              "query": "会员退货期限是否为15天？",
+              "args": {
+                "query": "会员退货期限是否为15天？"
+              }
+            }
+          ],
+          "matches": [
+            {
+              "id": "membership_policy.txt-2",
+              "content": "SupportPilot 商城会员等级与退货权益\n\n3. 黑金会员仅对订单明确标注支持延长的部分商品，享受自签收次日起 15 天无理由退货申请期；不适用或未标注商品不自动延长。",
+              "source": "membership_policy.txt",
+              "distance": 0.6461316347122192,
+              "rrf_score": 0.032266458495966696,
+              "bm25_score": 16.71948669684262,
+              "rerank_score": 3.958954095840454
+            },
+            {
+              "id": "membership_policy.txt-1",
+              "source": "membership_policy.txt",
+              "content": "SupportPilot 商城会员等级与退货权益\n\n2. 金卡会员可享受优先客服服务；优先客服不等于所有商品延长退货、免除运费或自动批准退款。",
+              "context_of": "membership_policy.txt-2"
+            },
+            {
+              "id": "membership_policy.txt-3",
+              "source": "membership_policy.txt",
+              "content": "SupportPilot 商城会员等级与退货权益\n\n4. 会员延长退货不取消商品完好条件，也不覆盖依法或按有效确认排除无理由退货的情形；会员身份不意味着定制、生鲜、已下载内容都能随意退。",
+              "context_of": "membership_policy.txt-2"
+            },
+            {
+              "id": "membership_policy.txt-4",
+              "source": "membership_policy.txt",
+              "content": "SupportPilot 商城会员等级与退货权益\n\n5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。",
+              "context_of": "membership_policy.txt-2"
+            },
+            {
+              "id": "return_policy.txt-1",
+              "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。",
+              "source": "return_policy.txt",
+              "distance": 0.6618605852127075,
+              "rrf_score": 0.031754032258064516,
+              "bm25_score": 15.527527090160502,
+              "rerank_score": 3.8427319526672363
+            },
+            {
+              "id": "return_policy.txt-0",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n1. 适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期；商品须保持完好，购买时已明确确认的不适用情形另行核实。",
+              "context_of": "return_policy.txt-1"
+            },
+            {
+              "id": "return_policy.txt-2",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n3. 消费者定作、鲜活易腐、已交付报刊、在线下载或消费者拆封的音像软件等数字化商品不适用通常的七日无理由退货；质量或履约争议应另行核实。",
+              "context_of": "return_policy.txt-1"
+            },
+            {
+              "id": "return_policy.txt-3",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n4. 商品质量问题与无理由退货是不同售后依据。本商城签收后 15 天的常规受理窗口不作为全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实。",
+              "context_of": "return_policy.txt-1"
+            },
+            {
+              "id": "return_policy.txt-4",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n5. 无理由退货需要保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。",
+              "context_of": "return_policy.txt-1"
+            },
+            {
+              "id": "return_policy.txt-5",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n6. 质量问题的合理退货运费由责任方按核实结果承担；普通非质量原因退货运费由用户承担，有明确更有利运费权益的订单按该约定处理。",
+              "context_of": "return_policy.txt-1"
+            },
+            {
+              "id": "return_policy.txt-6",
+              "source": "return_policy.txt",
+              "content": "SupportPilot 商城退换货通用政策\n\n7. 电子数码、服饰、生鲜、定制及卫生用品须结合具体品类规则和完好状态核实；不得仅以商品大类一概拒绝所有售后。",
+              "context_of": "return_policy.txt-1"
+            },
+            {
+              "id": "membership_policy.txt-0",
+              "content": "SupportPilot 商城会员等级与退货权益\n\n1. 普通会员享受适用商品的基础售后服务，通常适用七日无理由退货规则及其例外。",
+              "source": "membership_policy.txt",
+              "distance": 0.7287315726280212,
+              "rrf_score": 0.029236022193768675,
+              "bm25_score": 10.52322157688703,
+              "rerank_score": 2.3219170570373535
+            }
+          ],
+          "tool_errors": [],
+          "other_tools": [],
+          "query_matches": {
+            "policy_37b7468446de4d11aa605ca60bd62c53": [
+              {
+                "id": "membership_policy.txt-2",
+                "content": "SupportPilot 商城会员等级与退货权益\n\n3. 黑金会员仅对订单明确标注支持延长的部分商品，享受自签收次日起 15 天无理由退货申请期；不适用或未标注商品不自动延长。",
+                "source": "membership_policy.txt",
+                "distance": 0.6461316347122192,
+                "rrf_score": 0.032266458495966696,
+                "bm25_score": 16.71948669684262,
+                "rerank_score": 3.958954095840454
+              },
+              {
+                "id": "membership_policy.txt-1",
+                "source": "membership_policy.txt",
+                "content": "SupportPilot 商城会员等级与退货权益\n\n2. 金卡会员可享受优先客服服务；优先客服不等于所有商品延长退货、免除运费或自动批准退款。",
+                "context_of": "membership_policy.txt-2"
+              },
+              {
+                "id": "membership_policy.txt-3",
+                "source": "membership_policy.txt",
+                "content": "SupportPilot 商城会员等级与退货权益\n\n4. 会员延长退货不取消商品完好条件，也不覆盖依法或按有效确认排除无理由退货的情形；会员身份不意味着定制、生鲜、已下载内容都能随意退。",
+                "context_of": "membership_policy.txt-2"
+              },
+              {
+                "id": "membership_policy.txt-4",
+                "source": "membership_policy.txt",
+                "content": "SupportPilot 商城会员等级与退货权益\n\n5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。",
+                "context_of": "membership_policy.txt-2"
+              },
+              {
+                "id": "return_policy.txt-1",
+                "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。",
+                "source": "return_policy.txt",
+                "distance": 0.6618605852127075,
+                "rrf_score": 0.031754032258064516,
+                "bm25_score": 15.527527090160502,
+                "rerank_score": 3.8427319526672363
+              },
+              {
+                "id": "return_policy.txt-0",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n1. 适用七日无理由退货的普通商品，自签收次日起计算 7 天申请期；商品须保持完好，购买时已明确确认的不适用情形另行核实。",
+                "context_of": "return_policy.txt-1"
+              },
+              {
+                "id": "return_policy.txt-2",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n3. 消费者定作、鲜活易腐、已交付报刊、在线下载或消费者拆封的音像软件等数字化商品不适用通常的七日无理由退货；质量或履约争议应另行核实。",
+                "context_of": "return_policy.txt-1"
+              },
+              {
+                "id": "return_policy.txt-3",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n4. 商品质量问题与无理由退货是不同售后依据。本商城签收后 15 天的常规受理窗口不作为全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实。",
+                "context_of": "return_policy.txt-1"
+              },
+              {
+                "id": "return_policy.txt-4",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n5. 无理由退货需要保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。",
+                "context_of": "return_policy.txt-1"
+              },
+              {
+                "id": "return_policy.txt-5",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n6. 质量问题的合理退货运费由责任方按核实结果承担；普通非质量原因退货运费由用户承担，有明确更有利运费权益的订单按该约定处理。",
+                "context_of": "return_policy.txt-1"
+              },
+              {
+                "id": "return_policy.txt-6",
+                "source": "return_policy.txt",
+                "content": "SupportPilot 商城退换货通用政策\n\n7. 电子数码、服饰、生鲜、定制及卫生用品须结合具体品类规则和完好状态核实；不得仅以商品大类一概拒绝所有售后。",
+                "context_of": "return_policy.txt-1"
+              },
+              {
+                "id": "membership_policy.txt-0",
+                "content": "SupportPilot 商城会员等级与退货权益\n\n1. 普通会员享受适用商品的基础售后服务，通常适用七日无理由退货规则及其例外。",
+                "source": "membership_policy.txt",
+                "distance": 0.7287315726280212,
+                "rrf_score": 0.029236022193768675,
+                "bm25_score": 10.52322157688703,
+                "rerank_score": 2.3219170570373535
+              }
+            ]
+          },
+          "answer_model_calls": [
+            {
+              "usage": {
+                "input_tokens": 2177,
+                "output_tokens": 142,
+                "total_tokens": 2319,
+                "input_token_details": {
+                  "cache_read": 256
+                },
+                "output_token_details": {}
+              },
+              "model": "deepseek-flash"
+            }
+          ],
+          "elapsed_ms": 4623.630300047807
+        },
+        {
+          "question": "我是金卡，买的普通商品，页面没写延长。",
+          "answer": "您的这种情况不适用15天无理由退货。\n\n- 金卡会员的权益是优先客服服务，不延长退货期（membership_policy.txt）。\n- 未标注支持延长的普通商品，仍按七日无理由退货规则执行，自签收次日起算7天（return_policy.txt）。\n\n所以请以签收次日起7天内申请为准，且商品需保持完好、配件标识齐全。如需查询具体订单的签收时间，请提供订单号。",
+          "policy_check": {
+            "mode": "reuse",
+            "query": "金卡会员购买未标注延长退货的普通商品，是否适用15天无理由退货？",
+            "evidence_ids": [
+              "membership_policy.txt-1",
+              "membership_policy.txt-2",
+              "return_policy.txt-0",
+              "return_policy.txt-1"
+            ],
+            "reason": "现有片段明确说明金卡仅享优先客服、不延长退货，普通商品适用7天无理由，未标注延长的商品不适用15天权益，足以回答。",
+            "status": "checked",
+            "usage": {
+              "input_tokens": 1586,
+              "output_tokens": 104,
+              "total_tokens": 1690,
+              "input_token_details": {
+                "cache_read": 256
+              },
+              "output_token_details": {}
+            },
+            "checker_ms": 2162.2747000074014
+          },
+          "queries": [],
+          "matches": [],
+          "tool_errors": [],
+          "other_tools": [],
+          "query_matches": {},
+          "answer_model_calls": [
+            {
+              "usage": {
+                "input_tokens": 2401,
+                "output_tokens": 102,
+                "total_tokens": 2503,
+                "input_token_details": {
+                  "cache_read": 256
+                },
+                "output_token_details": {}
+              },
+              "model": "deepseek-flash"
+            }
+          ],
+          "elapsed_ms": 3952.8800999978557
+        }
+      ],
+      "union_evidence_complete": true,
+      "last_turn_evidence_complete": false
+    },
+    {
+      "case": {
+        "id": "refresh-new-02",
+        "category": "条件更正",
+        "turns": [
+          "我的券已经超过有效期。",
+          "我重新看了：有效期还没到，是食品券，想买显示器。"
+        ],
+        "answerable": true,
+        "reference_answer": "品类限定券不可跨品类使用，有效不代表全品类可用。",
+        "evidence_groups": [
+          [
+            "coupon_scope_policy.txt-0"
+          ]
+        ],
+        "required_conditions": [
+          "券仍有效",
+          "食品品类券购买显示器"
+        ]
+      },
+      "turns": [
+        {
+          "question": "我的券已经超过有效期。",
+          "answer": "关于优惠券过期：\n\n- 优惠券只有在有效期内并符合适用条件才能使用（来源：coupon_usage_policy.txt）\n- 即使符合返还条件，退回时已经过期的券也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发（来源：coupon_refund_policy.txt）\n\n如果这张券属于活动专享券，可能另有约定的返还条件，需要核实领取时的活动规则；具体券种和返还时效需人工确认。\n\n如果您想确认某张券的具体情况，可以提供券种或相关订单号，我帮您进一步核实。",
+          "policy_check": {
+            "mode": "retrieve",
+            "query": "优惠券超过有效期后是否还能使用或补发？",
+            "evidence_ids": [],
+            "reason": "用户询问优惠券过期后的处理，属于优惠券政策问题，现有证据为空，需检索知识库。",
+            "status": "checked",
+            "usage": {
+              "input_tokens": 380,
+              "output_tokens": 52,
+              "total_tokens": 432,
+              "input_token_details": {
+                "cache_read": 128
+              },
+              "output_token_details": {}
+            },
+            "checker_ms": 2217.545700026676
+          },
+          "queries": [
+            {
+              "origin": "policy_check",
+              "id": "policy_1c49061503e64aab9994bb06de73e219",
+              "query": "优惠券超过有效期后是否还能使用或补发？",
+              "args": {
+                "query": "优惠券超过有效期后是否还能使用或补发？"
+              }
+            }
+          ],
+          "matches": [
+            {
+              "id": "coupon_refund_policy.txt-3",
+              "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。",
+              "source": "coupon_refund_policy.txt",
+              "distance": 0.5566482543945312,
+              "rrf_score": 0.03278688524590164,
+              "bm25_score": 44.78029895098978,
+              "rerank_score": 5.8443217277526855
+            },
+            {
+              "id": "coupon_refund_policy.txt-2",
+              "source": "coupon_refund_policy.txt",
+              "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n3. 退款按实际支付及优惠分摊计算，不能把商品原价作为必然退回的现金金额，优惠券抵扣部分也不作为现金重复退还。",
+              "context_of": "coupon_refund_policy.txt-3"
+            },
+            {
+              "id": "coupon_refund_policy.txt-4",
+              "source": "coupon_refund_policy.txt",
+              "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+              "context_of": "coupon_refund_policy.txt-3"
+            },
+            {
+              "id": "coupon_refund_policy.txt-1",
+              "source": "coupon_refund_policy.txt",
+              "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n2. 商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。",
+              "context_of": "coupon_refund_policy.txt-3"
+            },
+            {
+              "id": "coupon_refund_policy.txt-0",
+              "source": "coupon_refund_policy.txt",
+              "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n1. 普通商品满减券用于未拆分订单时，订单完整取消后按券的返还规则处理；拆分订单须核实全部关联子订单状态，不能因取消一个子单就认定整张券已返还。",
+              "context_of": "coupon_refund_policy.txt-3"
+            },
+            {
+              "id": "coupon_usage_policy.txt-3",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。",
+              "source": "coupon_usage_policy.txt",
+              "distance": 0.6767253875732422,
+              "rrf_score": 0.03225806451612903,
+              "bm25_score": 32.84890662711274,
+              "rerank_score": 2.6833744049072266
+            },
+            {
+              "id": "coupon_usage_policy.txt-0",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。",
+              "context_of": "coupon_usage_policy.txt-3"
+            },
+            {
+              "id": "coupon_usage_policy.txt-2",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。",
+              "context_of": "coupon_usage_policy.txt-3"
+            },
+            {
+              "id": "coupon_usage_policy.txt-4",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。",
+              "context_of": "coupon_usage_policy.txt-3"
+            },
+            {
+              "id": "coupon_usage_policy.txt-1",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。",
+              "source": "coupon_usage_policy.txt",
+              "distance": 0.8021098375320435,
+              "rrf_score": 0.029211087420042643,
+              "bm25_score": 15.2453613795948,
+              "rerank_score": -0.5895019769668579
+            }
+          ],
+          "tool_errors": [],
+          "other_tools": [],
+          "query_matches": {
+            "policy_1c49061503e64aab9994bb06de73e219": [
+              {
+                "id": "coupon_refund_policy.txt-3",
+                "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。",
+                "source": "coupon_refund_policy.txt",
+                "distance": 0.5566482543945312,
+                "rrf_score": 0.03278688524590164,
+                "bm25_score": 44.78029895098978,
+                "rerank_score": 5.8443217277526855
+              },
+              {
+                "id": "coupon_refund_policy.txt-2",
+                "source": "coupon_refund_policy.txt",
+                "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n3. 退款按实际支付及优惠分摊计算，不能把商品原价作为必然退回的现金金额，优惠券抵扣部分也不作为现金重复退还。",
+                "context_of": "coupon_refund_policy.txt-3"
+              },
+              {
+                "id": "coupon_refund_policy.txt-4",
+                "source": "coupon_refund_policy.txt",
+                "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+                "context_of": "coupon_refund_policy.txt-3"
+              },
+              {
+                "id": "coupon_refund_policy.txt-1",
+                "source": "coupon_refund_policy.txt",
+                "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n2. 商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。",
+                "context_of": "coupon_refund_policy.txt-3"
+              },
+              {
+                "id": "coupon_refund_policy.txt-0",
+                "source": "coupon_refund_policy.txt",
+                "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n1. 普通商品满减券用于未拆分订单时，订单完整取消后按券的返还规则处理；拆分订单须核实全部关联子订单状态，不能因取消一个子单就认定整张券已返还。",
+                "context_of": "coupon_refund_policy.txt-3"
+              },
+              {
+                "id": "coupon_usage_policy.txt-3",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。",
+                "source": "coupon_usage_policy.txt",
+                "distance": 0.6767253875732422,
+                "rrf_score": 0.03225806451612903,
+                "bm25_score": 32.84890662711274,
+                "rerank_score": 2.6833744049072266
+              },
+              {
+                "id": "coupon_usage_policy.txt-0",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。",
+                "context_of": "coupon_usage_policy.txt-3"
+              },
+              {
+                "id": "coupon_usage_policy.txt-2",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。",
+                "context_of": "coupon_usage_policy.txt-3"
+              },
+              {
+                "id": "coupon_usage_policy.txt-4",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。",
+                "context_of": "coupon_usage_policy.txt-3"
+              },
+              {
+                "id": "coupon_usage_policy.txt-1",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。",
+                "source": "coupon_usage_policy.txt",
+                "distance": 0.8021098375320435,
+                "rrf_score": 0.029211087420042643,
+                "bm25_score": 15.2453613795948,
+                "rerank_score": -0.5895019769668579
+              }
+            ]
+          },
+          "answer_model_calls": [
+            {
+              "usage": {
+                "input_tokens": 2084,
+                "output_tokens": 127,
+                "total_tokens": 2211,
+                "input_token_details": {
+                  "cache_read": 256
+                },
+                "output_token_details": {}
+              },
+              "model": "deepseek-flash"
+            }
+          ],
+          "elapsed_ms": 4882.178499945439
+        },
+        {
+          "question": "我重新看了：有效期还没到，是食品券，想买显示器。",
+          "answer": "关于食品券买显示器：\n\n- 品类限定券只能用于指定品类，不能跨品类使用（来源：coupon_scope_policy.txt）\n- 商品满减券需满足指定商品、品类或店铺范围，订单总价达标不代表所有商品都在可用范围内（来源：coupon_usage_policy.txt）\n- 优惠券只有在有效期内并符合适用条件才可使用（来源：coupon_usage_policy.txt）\n\n按上述规则，食品券属于品类限定券，不能用于显示器这类非食品品类。不过知识库没有直接写明“食品券”这一券种的完整定义，最终能否使用请以结算页面的可用结果为准。\n\n如需查询具体订单，请提供订单号。",
+          "policy_check": {
+            "mode": "retrieve",
+            "query": "食品券在有效期内能否用于购买显示器？优惠券的适用品类范围如何规定？",
+            "evidence_ids": [],
+            "reason": "用户更正为券未过期，但券种为食品券而拟购显示器，现有片段仅说明需满足指定商品、品类或店铺范围，未明确食品券能否用于显示器，需重新检索。",
+            "status": "checked",
+            "usage": {
+              "input_tokens": 1478,
+              "output_tokens": 80,
+              "total_tokens": 1558,
+              "input_token_details": {
+                "cache_read": 256
+              },
+              "output_token_details": {}
+            },
+            "checker_ms": 1985.4761000024155
+          },
+          "queries": [
+            {
+              "origin": "policy_check",
+              "id": "policy_b15a824b2b584e7dae0eb8ae86a1678a",
+              "query": "食品券在有效期内能否用于购买显示器？优惠券的适用品类范围如何规定？",
+              "args": {
+                "query": "食品券在有效期内能否用于购买显示器？优惠券的适用品类范围如何规定？"
+              }
+            }
+          ],
+          "matches": [
+            {
+              "id": "coupon_scope_policy.txt-0",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。",
+              "source": "coupon_scope_policy.txt",
+              "distance": 0.7900537252426147,
+              "rrf_score": 0.03076923076923077,
+              "bm25_score": 29.26483339266136,
+              "rerank_score": 0.43126317858695984
+            },
+            {
+              "id": "coupon_scope_policy.txt-1",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。",
+              "context_of": "coupon_scope_policy.txt-0"
+            },
+            {
+              "id": "coupon_scope_policy.txt-2",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。",
+              "context_of": "coupon_scope_policy.txt-0"
+            },
+            {
+              "id": "coupon_scope_policy.txt-3",
+              "source": "coupon_scope_policy.txt",
+              "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。",
+              "context_of": "coupon_scope_policy.txt-0"
+            },
+            {
+              "id": "coupon_usage_policy.txt-1",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。",
+              "source": "coupon_usage_policy.txt",
+              "distance": 0.7006484866142273,
+              "rrf_score": 0.031754032258064516,
+              "bm25_score": 31.09888700957038,
+              "rerank_score": 0.24747182428836823
+            },
+            {
+              "id": "coupon_usage_policy.txt-0",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。",
+              "context_of": "coupon_usage_policy.txt-1"
+            },
+            {
+              "id": "coupon_usage_policy.txt-2",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。",
+              "context_of": "coupon_usage_policy.txt-1"
+            },
+            {
+              "id": "coupon_usage_policy.txt-4",
+              "source": "coupon_usage_policy.txt",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。",
+              "context_of": "coupon_usage_policy.txt-1"
+            },
+            {
+              "id": "coupon_usage_policy.txt-3",
+              "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。",
+              "source": "coupon_usage_policy.txt",
+              "distance": 0.6634471416473389,
+              "rrf_score": 0.03278688524590164,
+              "bm25_score": 45.479788826340425,
+              "rerank_score": 0.010157942771911621
+            }
+          ],
+          "tool_errors": [],
+          "other_tools": [],
+          "query_matches": {
+            "policy_b15a824b2b584e7dae0eb8ae86a1678a": [
+              {
+                "id": "coupon_scope_policy.txt-0",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。",
+                "source": "coupon_scope_policy.txt",
+                "distance": 0.7900537252426147,
+                "rrf_score": 0.03076923076923077,
+                "bm25_score": 29.26483339266136,
+                "rerank_score": 0.43126317858695984
+              },
+              {
+                "id": "coupon_scope_policy.txt-1",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n2. 渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。",
+                "context_of": "coupon_scope_policy.txt-0"
+              },
+              {
+                "id": "coupon_scope_policy.txt-2",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。",
+                "context_of": "coupon_scope_policy.txt-0"
+              },
+              {
+                "id": "coupon_scope_policy.txt-3",
+                "source": "coupon_scope_policy.txt",
+                "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。",
+                "context_of": "coupon_scope_policy.txt-0"
+              },
+              {
+                "id": "coupon_usage_policy.txt-1",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n2. 商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。",
+                "source": "coupon_usage_policy.txt",
+                "distance": 0.7006484866142273,
+                "rrf_score": 0.031754032258064516,
+                "bm25_score": 31.09888700957038,
+                "rerank_score": 0.24747182428836823
+              },
+              {
+                "id": "coupon_usage_policy.txt-0",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。",
+                "context_of": "coupon_usage_policy.txt-1"
+              },
+              {
+                "id": "coupon_usage_policy.txt-2",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。",
+                "context_of": "coupon_usage_policy.txt-1"
+              },
+              {
+                "id": "coupon_usage_policy.txt-4",
+                "source": "coupon_usage_policy.txt",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。",
+                "context_of": "coupon_usage_policy.txt-1"
+              },
+              {
+                "id": "coupon_usage_policy.txt-3",
+                "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。",
+                "source": "coupon_usage_policy.txt",
+                "distance": 0.6634471416473389,
+                "rrf_score": 0.03278688524590164,
+                "bm25_score": 45.479788826340425,
+                "rerank_score": 0.010157942771911621
+              }
+            ]
+          },
+          "answer_model_calls": [
+            {
+              "usage": {
+                "input_tokens": 3229,
+                "output_tokens": 149,
+                "total_tokens": 3378,
+                "input_token_details": {
+                  "cache_read": 256
+                },
+                "output_token_details": {}
+              },
+              "model": "deepseek-flash"
+            }
+          ],
+          "elapsed_ms": 4862.336299964227
+        }
+      ],
+      "union_evidence_complete": true,
+      "last_turn_evidence_complete": true
+    }
+  ]
+}

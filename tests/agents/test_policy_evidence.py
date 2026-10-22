@@ -54,10 +54,25 @@ class EvidenceValidationTests(unittest.TestCase):
         messages[-1] = ToolMessage(content='{"status":"error"}', tool_call_id="a")
         self.assertEqual(policy_evidence(messages), [])
 
+    def test_real_context_chunk_can_be_reused_on_next_turn(self):
+        extra = {"id": "coupon_scope_policy.txt-1", "source": EVIDENCE["source"], "content": "地区限制需要核实"}
+        anchor = {**EVIDENCE, "context_chunks": [extra]}
+        messages = [AIMessage(content="", tool_calls=[{"id": "kb", "name": "search_knowledge_base", "args": {"query": "券"}}]),
+            ToolMessage(content=json.dumps({"status": "found", "matches": [anchor]}), tool_call_id="kb")]
+        evidence = policy_evidence(messages)
+        self.assertIn(extra["id"], {r["id"] for r in evidence})
+        self.assertEqual(validate_decision(decision("reuse", ids=[extra["id"]]).content, evidence)["mode"], "reuse")
+
     def test_unknown_reuse_id_forces_retrieval(self):
         result = validate_decision(decision("reuse", ids=["invented"]).content, [EVIDENCE])
         self.assertEqual(result["mode"], "retrieve")
         self.assertEqual(result["evidence_ids"], [])
+
+    def test_valid_reuse_does_not_require_a_new_search_query(self):
+        result=validate_decision(decision("reuse",query="",ids=[EVIDENCE["id"]]).content,[EVIDENCE])
+        self.assertEqual(result["mode"],"reuse")
+        with self.assertRaises(ValueError):
+            validate_decision(decision("reuse",query="",ids=["invented"]).content,[EVIDENCE])
 
     def test_reuse_requires_nonempty_evidence_and_policy_query(self):
         self.assertEqual(validate_decision(decision("reuse").content, [])['mode'], 'retrieve')
@@ -75,7 +90,7 @@ class PolicyEvidenceGraphTests(unittest.IsolatedAsyncioTestCase):
         model = ChatFake(responses=[decision("not_policy", query=""), AIMessage(content="你好")])
         with patch("agents.supportpilot_agent.get_model", return_value=model):
             events = [event async for event in build_supportpilot_graph().astream(
-                {"messages": [HumanMessage(content="你好")]}, stream_mode=["messages", "updates"])]
+                {"messages": [HumanMessage(content="你好")]}, config={"configurable": {"policy_check_mode": "always"}}, stream_mode=["messages", "updates"])]
         checker_tokens = [event[0].content for mode, event in events if mode == "messages"
                           and event[1].get("langgraph_node") == "policy_check"
                           and isinstance(event[0], AIMessageChunk)]
@@ -98,7 +113,7 @@ class PolicyEvidenceGraphTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result["policy_check"]["mode"], "retrieve")
 
     async def test_rephrase_reuses_real_evidence_without_new_search(self):
-        model = FakeModel([decision(), decision("reuse", ids=[EVIDENCE["id"]])])
+        model = FakeModel([decision(), decision("reuse", query="", ids=[EVIDENCE["id"]])])
         with patch("agents.supportpilot_agent.get_model", return_value=model), \
              patch("agents.supportpilot_agent.search_policies", return_value=[EVIDENCE]) as search:
             graph = build_supportpilot_graph(checkpointer=InMemorySaver())
@@ -113,7 +128,7 @@ class PolicyEvidenceGraphTests(unittest.IsolatedAsyncioTestCase):
         with patch("agents.supportpilot_agent.get_model", return_value=model), \
              patch("agents.supportpilot_agent.search_policies") as search, \
              self.assertLogs("agents.supportpilot_agent", level="ERROR"):
-            result = await build_supportpilot_graph().ainvoke({"messages": [HumanMessage(content="你好")]})
+            result = await build_supportpilot_graph().ainvoke({"messages": [HumanMessage(content="你好")]}, {"configurable": {"policy_check_mode": "always"}})
         search.assert_not_called()
         self.assertEqual(result["policy_check"]["status"], "error")
         self.assertEqual(result["policy_check"]["evidence_ids"], [])
@@ -139,6 +154,15 @@ class PolicyEvidenceGraphTests(unittest.IsolatedAsyncioTestCase):
         submit.assert_called_once_with("A1001", "normal", "请催单")
         search.assert_not_called()
         self.assertEqual(result["messages"][-1].content, "已登记催单")
+
+    async def test_invalid_checker_output_still_records_paid_usage(self):
+        response=AIMessage(content='{"mode":"retrieve","query":"","evidence_ids":[],"reason":"bad"}',usage_metadata={"input_tokens":10,"output_tokens":5,"total_tokens":15})
+        model=FakeModel([response])
+        with patch("agents.supportpilot_agent.get_model",return_value=model), self.assertLogs("agents.supportpilot_agent",level="ERROR"):
+            from agents.supportpilot_agent import check_policy_evidence
+            result=await check_policy_evidence({"messages":[HumanMessage(content="会员政策")]},{"configurable":{}})
+        self.assertEqual(result["policy_check"]["status"],"error")
+        self.assertEqual(result["policy_check"]["usage"]["total_tokens"],15)
 
     async def test_empty_policy_result_remains_no_evidence(self):
         model = FakeModel([decision(query="未收录的会员费用")])

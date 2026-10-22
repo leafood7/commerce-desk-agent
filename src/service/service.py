@@ -28,7 +28,7 @@ from langgraph.types import Command, Interrupt
 from langsmith import Client as LangsmithClient
 from langsmith import uuid7
 
-from agents import DEFAULT_AGENT, AgentGraph, get_agent, get_all_agent_info, load_agent
+from agents import DEFAULT_AGENT, AgentGraph, close_agents, get_agent, get_all_agent_info, load_agent
 from core import settings
 from memory import initialize_database, initialize_store
 from schema import (
@@ -106,7 +106,8 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
                     logger.info(f"Agent loaded: {a.key}")
                 except Exception as e:
                     logger.error(f"Failed to load agent {a.key}: {e}")
-                    # 单个智能体加载失败时，继续加载其他智能体，不终止整个服务启动
+                    # 默认Agent不可用时终止启动，避免接受请求后才发现MCP未连接。
+                    raise
 
                 agent = get_agent(a.key)
                 # 设置检查点组件，用于保存当前对话的记忆和消息历史
@@ -117,6 +118,8 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     except Exception as e:
         logger.error(f"Error during database/store/agents initialization: {e}")
         raise
+    finally:
+        await close_agents()
 
 
 app = FastAPI(lifespan=lifespan, generate_unique_id_function=custom_generate_unique_id)
