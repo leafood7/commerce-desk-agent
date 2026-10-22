@@ -1,55 +1,75 @@
-# 评测与复现
+# 评测总览
 
-| 题集 | 用途 |
+当前最新结果来自18条合成对话、23轮真实模型与生产 MCP 回归。检索覆盖、回答质量、工具执行和调用成本分别统计，避免用单个分数概括整个 Agent。
+
+## 最新结果
+
+| 项目 | 结果 |
 | --- | --- |
-| `rag_cases.jsonl`：66条 | 开发集22条、测试集44条；检索对比 |
-| `query_rewrite_cases.jsonl`：30条 | 口语、补充、更正及无答案的端到端诊断 |
-| `policy_refresh_holdout.jsonl`：20条 | 代码修改前编写的新题配对验证 |
+| 运行路径 | 真实模型 → LangGraph → 本地 stdio MCP → 订单／政策工具 → 回答 |
+| 对话规模 | 18题，23轮 |
+| 工具调用 | 15次政策检索，3次订单查询 |
+| 工具错误／检查回退／意外业务写入 | 0／0／0 |
+| 模型调用 | 检查19次，回答及工具选择26次 |
+| API 报告用量 | 输入82,442，输出4,068，共86,510 tokens |
+| 耗时 | 对话合计106.86秒，单轮中位数4.68秒；启动预热另计10.56秒 |
+| 离线验证 | 107项测试通过，另有待提交快照验证 |
 
-题集位于 `data/evaluation/`。必要证据按片段ID标注：组间需共同覆盖，组内允许替代。
+逐题复核未发现重大结论错误，手机开箱题仍有多余查单邀请。固定历史空召回查询的补测实际返回 `no_evidence`，回答没有补写未经支持的条件政策。完整过程见[真实 MCP 回归](mcp-semantic-regression.md)，原始结果见[mcp-semantic-final-v2.json](mcp-semantic-final-v2.json)。
 
-## 结果
+这里的真实模型回归不包含 HTTP API、浏览器点击或并发压测。题集已用于提示调整，复核采用 AI 辅助方式，未经独立人工盲审；结果不能估计线上业务准确率。tokens 为接口报告用量，耗时为单次顺序运行数据。
 
-检索测试集36条有答案题：原向量策略证据命中19条、混合检索35条、重排后36条。原向量策略使用距离阈值0.7；去掉旧阈值后可命中34条，不能把全部收益归因于混合检索。
+## 题集与指标
 
-证据检查改动的配对结果：
+| 题集 | 数量 | 用途与当前状态 |
+| --- | ---: | --- |
+| `rag_cases.jsonl` | 66 | 原检索开发集22题、测试集44题；后续也用于回归 |
+| `query_rewrite_cases.jsonl` | 30 | 口语、补充、更正和无答案诊断 |
+| `policy_refresh_holdout.jsonl` | 20 | 首次用于新题配对，现已成为已知回归集 |
+| `answer_quality_cases.jsonl` | 18 | 条件应用、工具边界、问候和复述；已参与调试 |
 
-| 指标 | 原30题：旧版→新版 | 新20题：旧版→新版 |
+文件位于 `data/evaluation/`。必要证据按片段 ID 标注：`evidence_groups` 组间需要共同覆盖，组内允许等价替代。
+
+- **必要证据覆盖**：回答所需的条款是否出现在返回证据中。
+- **回答质量**：是否回答最新问题，结论是否有依据，有没有错误承诺。
+- **执行正确性**：工具、参数、返回结果与实际状态是否一致。
+- **调用成本**：模型及工具次数、报告用量、缺失用量和耗时。
+
+轨迹和引用来源存在性由程序检查，语义是否得到支持需逐题复核。检索到相关资料并不保证回答正确，安全拒答也不一定解决了用户问题。
+
+## 历史对照
+
+| 阶段 | 观察结果 | 详细记录 |
 | --- | --- | --- |
-| 模型裁判判正确 | 27/30→28/30 | 16/20→19/20 |
-| 完整必要证据 | 18/24→21/24 | 11/16→12/16 |
-| 无答案明确拒答 | 6/6→6/6 | 4/4→4/4 |
+| 检索策略 | 36条有答案测试题，原向量／混合／重排策略命中19／35／36；向量去掉旧阈值后为34 | [检索对比](rag-comparison.json) |
+| 证据检查 | 旧30题模型裁判27→28，新20题16→19；旧题有1条退化 | [原始结果](policy-refresh-results.json)、[争议复核](history/2026-10-22-prior-evaluation-review.md) |
+| 同源补证 | 三个固定查询必要证据补齐；116题回归未见覆盖下降，上下文变长 | [漏检诊断](history/2026-10-22-rag-miss-fix.md) |
+| 检查快捷路径 | 同提示的7轮子集，逻辑模型调用15→11，tokens少约13.6%；耗时未改善 | [成本对照](history/2026-10-22-answer-quality.md) |
+| MCP 与语义边界 | 最新18题、23轮无检查回退；固定空结果补测正确拒答 | [最新回归](mcp-semantic-regression.md) |
 
-旧题2条改善、1条退化；新题3条改善、无新增退化。新版增加84次检查模型调用，不能宣称降低成本。67条相关离线测试通过。
+这些实验的题集、版本和指标不同，不合并成一个准确率。旧模型裁判漏掉过工具能力承诺，保留原分数并单独记录复核意见。
 
-## 运行
+## 复现
 
-先按运行说明配置模型和索引，设置 `PYTHONPATH=src`：
+在项目根目录配置环境及模型缓存后运行。离线测试不调用外部聊天模型：
 
 ```powershell
-.venv/Scripts/python.exe scripts/evaluate_rag.py --help
-.venv/Scripts/python.exe scripts/evaluate_rag_answers.py --help
-.venv/Scripts/python.exe scripts/evaluate_query_rewrite.py --help
-.venv/Scripts/python.exe scripts/evaluate_policy_refresh.py --stage regression --output work/policy-refresh-regression.json
-.venv/Scripts/python.exe scripts/evaluate_policy_refresh.py --stage holdout --output work/policy-refresh-holdout.json
+$env:PYTHONPATH='src;tests;tests/agents'
+$env:USE_FAKE_MODEL='true'
+$env:HF_HUB_OFFLINE='1'
+.venv/Scripts/python.exe -m unittest test_policy_evidence test_policy_refresh_evaluation test_query_rewrite_evaluation test_rag_evaluation test_rag_retrieval test_knowledge test_order_repository test_shipping test_supportpilot_agent test_policy_tool test_policy_context test_policy_fastpath test_answer_quality_evaluation test_mcp_integration test_mcp_semantic_evaluation
 ```
 
-在线脚本会发送测试对话及政策片段到配置的模型接口并产生用量；本地日志保存在work，不上传密钥或订单数据库。
+独立 MCP 客户端验证使用缓存检索模型和临时演示库，不调用聊天模型：
 
-## 数据与局限
+```powershell
+.venv/Scripts/python.exe scripts/verify_mcp_tools.py
+```
 
-原始检索对比：[rag-comparison.json](rag-comparison.json)；回答对比：[rag-answer-comparison.json](rag-answer-comparison.json)；查询轨迹：[query-rewrite-results.json](query-rewrite-results.json)；取证配对：[policy-refresh-results.json](policy-refresh-results.json)。
+真实模型回归会将合成对话、演示政策和虚构订单发送到 `.env` 配置的接口并产生用量。已有输出不覆盖：
 
-这是内部小样本，回答由同模型家族裁判，未做独立人工盲审。配对各运行一次，存在随机性；当前结果不代表真实业务准确率。新题首次运行因Chroma初始化竞争出现工具错误，记录保留在work；串行初始化后整批重跑，正式结果工具错误为0。
+```powershell
+.venv/Scripts/python.exe scripts/evaluate_mcp_semantics.py --online --output work/my-mcp-regression.json
+```
 
-金卡、手机开箱和跨品类券的阶段诊断与补证回归见 [漏检修复报告](rag-miss-fix.md)。补充的三案例在线验证见 [在线验证记录](rag-miss-online-validation.md)：真实流程主要结论正确，固定单轮仍有过度拒答；这些是本助手逐条核对结果，不替换上述旧批次模型裁判指标。新增检查仍可能误判复用。评测保留失败和退化，不以命中率代替回答正确率。
-
-## 回答质量与检查成本迭代
-
-18题（3已知+15初轮新增）冻结旧源码对照、最终回归与auto/always成本控制见 [本轮报告](answer-quality-results.md)。最终回归已经参与提示调整，不能称新留出集。原模型裁判指标保持原批次，不与本助手逐条复核混算。
-
-旧50题全部8条改善/退化/失败的复核见 [旧题清单](prior-evaluation-review.md)；新18题见 [逐案清单](answer-quality-review.md)。两者均由本助手复核，真人盲审仍待签认。
-
-## 真实 MCP 与语义边界回归补充
-
-最终18题、23轮真实模型与生产MCP回归、固定无证据补测和107项离线测试已完成，逐案结果、成本和中间失败见 [本轮报告](mcp-semantic-regression.md)。本文之前的批次指标仍是历史记录，不改写为新成绩。
+旧实验的运行命令、源码基线与数据链接见[历史记录](history/README.md)。

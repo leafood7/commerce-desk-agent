@@ -1,46 +1,54 @@
 # CommerceDesk · 商询
 
-基于 LangGraph、FastAPI 和 Streamlit 的电商客服 Agent，支持订单查询、政策问答、催单与人工审批。
+面向电商客服场景的 Agent 工作台，基于 LangGraph、FastAPI 和 Streamlit，支持政策问答、订单查询、催单与人工审批。
 
-## 在 Toolkit 上新增的能力
+## 主要功能
 
-- **客服业务**：订单工具、普通催单、加急审批、执行前复查与工单去重。
-- **政策 RAG**：BGE 向量检索、BM25、RRF 融合与交叉编码器重排。
-- **多轮取证**：检查当前问题和已有证据，不足时重新检索，足够时复用。
-- **MCP 工具复用**：订单与政策只读 Server，LangGraph 经持久 stdio 会话调用，审批保留本地执行。
-- **评测**：检索对比、回答依据检查、条件更正回归及新题配对验证。
+- 政策问答：BGE 向量与 BM25 混合检索，经 RRF 融合、重排和同源条款补全后返回证据与来源。
+- 多轮对话：根据最新条件核对证据，支持用户更正和真实片段复用。
+- 订单工具：通过本地 stdio MCP Server 提供订单查询与政策检索，Agent 复用持久连接。
+- 催单审批：普通催单按业务条件登记；加急申请暂停等待人工批准，执行前复查订单，并通过事务与唯一约束防止重复建单。
 
-## 启动
+```text
+Streamlit → FastAPI → LangGraph
+                      ├─ MCP 客户端 → 只读订单／政策工具
+                      └─ 本地催单／人工审批 → SQLite
+```
+
+## 运行
 
 需要 Python 3.12–3.14 和 uv。
 
 ```powershell
 uv sync --frozen --no-dev --extra supportpilot
 Copy-Item .env.example .env
-# 按运行说明填写模型接口配置
+# 在 .env 填写模型接口配置
 powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1
 ```
 
-网页：<http://127.0.0.1:8501>；API：<http://127.0.0.1:8081/docs>。
+网页：<http://127.0.0.1:8501>；API：<http://127.0.0.1:8081/docs>。首次运行需下载检索模型，完整配置见[运行说明](LOCAL_SUPPORTPILOT.md)。
+
+## 验证结果
+
+最新一批真实模型与 MCP 回归包含18条合成对话、23轮消息，完成15次政策检索和3次订单查询，未出现工具错误、检查回退或意外业务写入。107项离线测试在待提交内容的独立快照中通过。
+
+这些题目参与过调试，用于回归验证；语义结果采用 AI 辅助复核，尚未独立人工盲审。详细方法、成本和失败记录见[评测总览](docs/evaluation.md)。
 
 ## 文档
 
-- [配置与运行](LOCAL_SUPPORTPILOT.md)
-- [架构与调用链](docs/architecture.md)
-- [MCP 工具封装与验证](docs/mcp-tools.md)
-- [RAG 检索](docs/rag-optimization.md)
-- [评测结果与复现](docs/evaluation.md)
-- [回答质量与检查成本](docs/answer-quality-results.md)
-- [三条展示流程与面试说明](docs/demo-and-interview.md)
-- [逐案复核清单](docs/answer-quality-review.md)
-- [政策来源](docs/policy-expansion-review.md)
+| 文档 | 内容 |
+| --- | --- |
+| [配置与运行](LOCAL_SUPPORTPILOT.md) | 环境、模型缓存、启动、后端切换 |
+| [架构](docs/architecture.md) | 对话、工具与审批调用链 |
+| [RAG 检索](docs/rag-optimization.md) | 召回、重排、补证与参数 |
+| [MCP 接入](docs/mcp-tools.md) | 工具契约、会话管理、独立客户端 |
+| [评测总览](docs/evaluation.md) | 最新结果、指标口径与复现命令 |
+| [演示流程](docs/demo-and-interview.md) | 政策问答、条件更正、加急审批 |
+| [知识库来源](docs/knowledge-sources.md) | 演示政策的来源与适配范围 |
+| [历史记录](docs/history/README.md) | 各阶段诊断、成本对照和争议案例 |
 
-工单仅保存在本地，未接入真实仓库或退款系统。评测为内部小样本，模型裁判结果不等同真实业务准确率。
+## 使用范围与来源
 
-## 开源来源
+项目适用于本地演示和工程实践。订单与政策为演示数据，未接入真实仓库、退款或开票系统；当前没有多租户隔离，也未进行生产容量验证。
 
-基于 [JoshuaC215/agent-service-toolkit](https://github.com/JoshuaC215/agent-service-toolkit) 二次开发，保留其服务、会话与模型接入基础，新增上述电商业务、RAG 和评测能力。版权与许可见 [LICENSE](LICENSE)，修改说明见 [NOTICE](NOTICE.md)。
-
-## 真实 MCP 与语义边界回归补充
-
-最终18题、23轮真实模型与生产MCP回归、固定无证据补测和107项离线测试已完成，逐案结果、成本和中间失败见 [本轮报告](docs/mcp-semantic-regression.md)。本文之前的批次指标仍是历史记录，不改写为新成绩。
+基于 [JoshuaC215/agent-service-toolkit](https://github.com/JoshuaC215/agent-service-toolkit) 二次开发，沿用服务、会话与模型接入基础，新增电商业务、政策检索、证据检查、MCP 接入及评测。版权与修改说明见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE.md)。
