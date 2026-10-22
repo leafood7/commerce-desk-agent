@@ -1,0 +1,13 @@
+{
+  "strategy": "hybrid_rerank",
+  "pool_size": 12,
+  "top_k": 3,
+  "rrf_constant": 60,
+  "rerank_threshold": -2,
+  "reranker_revision": "2cfc18c9415c912f9d8155881c133215df768a70",
+  "selected_on": "2026-10-21",
+  "selection_data": "dev",
+  "selection_rule": "仅开发集：证据Recall@3至少0.90，再最大化无答案空返回率、MRR，最后选择绝对值较小阈值",
+  "dataset_sha256": "75df388662e2d0c69e0b21bec08f1bfb367e90a1b4252e7fe974c2fe7565d2cd",
+  "corpus_sha256": "d38605a2c08137f361f682edc6a01fa3085f535ee4f409c3c256bcbbc983e594"
+}

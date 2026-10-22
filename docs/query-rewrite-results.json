@@ -1,0 +1,2654 @@
+{
+  "metadata": {
+    "dataset_sha256": "31dcb8f1c172f4bbcfed6c6bb3512480e325c568b1544d630c48076bd0abf4d4",
+    "corpus_sha256": "d38605a2c08137f361f682edc6a01fa3085f535ee4f409c3c256bcbbc983e594",
+    "strategy": "hybrid_rerank",
+    "threshold": -2.0,
+    "pool_size": 12,
+    "method": "实际call_model、同工具schema与路由；独立内存会话，评测器阻止写工具；非网页HTTP层测试。原话基线保留全部用户历史与更正，不只取最后一句。两路受控生成同提示和历史，每路一次查询Top3；实际Agent全部对话工具证据与回答另外记录；首次查询对照只取末轮。",
+    "limitations": "内部诊断集，部分题来自已讨论失败；单次运行，同模型家族裁判不是人工金标准，归因只是诊断线索。"
+  },
+  "summary": {
+    "total": 30,
+    "answerable": 24,
+    "unanswerable": 6,
+    "raw_all_evidence_count": 19,
+    "rewrite_first_query_all_evidence_count": 13,
+    "actual_agent_union_all_evidence_count": 17,
+    "raw_evidence_coverage": 0.8125,
+    "rewrite_first_query_coverage": 0.5416666666666666,
+    "cases_without_new_query": 10,
+    "queried_answerable_comparison": {
+      "count": 15,
+      "raw_complete": 11,
+      "first_query_complete": 13,
+      "gains": [
+        "rewrite-07",
+        "rewrite-15"
+      ],
+      "losses": []
+    },
+    "cases_with_multiple_queries": 1,
+    "rewrite_gains": [
+      "rewrite-07",
+      "rewrite-15"
+    ],
+    "rewrite_losses": [
+      "rewrite-03",
+      "rewrite-16",
+      "rewrite-18",
+      "rewrite-19",
+      "rewrite-20",
+      "rewrite-21",
+      "rewrite-22",
+      "rewrite-23"
+    ],
+    "model_judged_all_conditions_preserved_count": 19,
+    "cases_with_other_tools": 0,
+    "cases_with_tool_error": 0,
+    "answer_grades": {
+      "actual_agent": {
+        "model_judged_correct_rate": 0.8,
+        "model_judged_grounded_rate": 0.9333333333333333,
+        "model_judged_unknown_refusal_rate": 1
+      },
+      "raw_controlled": {
+        "model_judged_correct_rate": 0.8666666666666667,
+        "model_judged_grounded_rate": 0.9666666666666667,
+        "model_judged_unknown_refusal_rate": 1
+      },
+      "rewrite_controlled": {
+        "model_judged_correct_rate": 0.6666666666666666,
+        "model_judged_grounded_rate": 0.9666666666666667,
+        "model_judged_unknown_refusal_rate": 1
+      }
+    },
+    "diagnostic_counts": {
+      "裁判认为查询条件丢失或更正未保留": 11,
+      "必要证据不完整": 7,
+      "裁判认为最终回答不正确或不完整": 6,
+      "未查询知识库": 10
+    }
+  },
+  "cases": [
+    {
+      "id": "rewrite-01",
+      "category": "口语",
+      "turns": [
+        "手机就拆开瞅了一眼，也不能退了？"
+      ],
+      "required_conditions": [
+        "商品是实物手机",
+        "行为仅为开箱查验，不是已激活使用"
+      ],
+      "evidence_groups": [
+        [
+          "return_digital_policy.txt-1"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_OFYdLC0kD8at7XEuey7U8147",
+          "query": "手机拆封后能否退货 七天无理由退货",
+          "args": {
+            "query": "手机拆封后能否退货 七天无理由退货"
+          }
+        }
+      ],
+      "raw_evidence_ids": [],
+      "first_query_evidence_ids": [
+        "return_digital_policy.txt-3",
+        "return_policy.txt-2",
+        "return_hygiene_policy.txt-0"
+      ],
+      "dialogue_evidence_ids": [
+        "return_digital_policy.txt-3",
+        "return_policy.txt-2",
+        "return_hygiene_policy.txt-0"
+      ],
+      "raw_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "answer": "我查了知识库，目前找到的相关条款只涉及**音像制品、计算机软件等数字化商品**拆封后不适用七日无理由退货，并没有针对“手机拆封”的明确规定。\n\n因此，手机拆封后能否退货，知识库暂无依据，无法确认。建议您提供订单号，我帮您查询订单状态，或由人工客服进一步核实。\n\n（来源：return_digital_policy.txt、return_policy.txt）",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": false,
+            "reason": "查询仅泛问“手机拆封后能否退货”，未体现“商品是实物手机”这一具体事实条件。"
+          },
+          {
+            "preserved": false,
+            "reason": "查询未体现“行为仅为开箱查验，不是已激活使用”这一限定条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "答案明确表示无法确认，属保守拒答，且其结论由所引数字化商品条款支持，故grounded；但当前问题可依据退货政策回答合理开箱查验不当然失去退货资格，其直接拒答未回答问题，故correct为false。"
+          },
+          "raw_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "无证据但明确表示无法确认，属保守拒答，grounded为true；未回答合理开箱查验是否影响退货资格，correct为false。"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "答案明确表示无法确认手机拆封退货问题，属保守拒答，且所引条款支持其关于数字化商品排除的陈述，grounded为true；但未给出合理开箱查验不当然失去退货资格的结论，correct为false。"
+          }
+        }
+      },
+      "diagnostics": [
+        "裁判认为查询条件丢失或更正未保留",
+        "必要证据不完整",
+        "裁判认为最终回答不正确或不完整"
+      ]
+    },
+    {
+      "id": "rewrite-02",
+      "category": "口语",
+      "turns": [
+        "买衣服就上身比划了一下，吊牌还在，没弄脏，能退不？"
+      ],
+      "required_conditions": [
+        "商品为衣服",
+        "合理试穿、吊牌完整且无污损"
+      ],
+      "evidence_groups": [
+        [
+          "return_apparel_policy.txt-0"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_Hzh1zjOOutBVV27VkysW8250",
+          "query": "衣服吊牌还在 试穿未弄脏 能否退货 七天无理由退货条件",
+          "args": {
+            "query": "衣服吊牌还在 试穿未弄脏 能否退货 七天无理由退货条件"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "return_hygiene_policy.txt-0",
+        "return_hygiene_policy.txt-1",
+        "return_hygiene_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [
+        "return_policy.txt-2",
+        "return_fresh_policy.txt-0",
+        "return_hygiene_policy.txt-0"
+      ],
+      "dialogue_evidence_ids": [
+        "return_policy.txt-2",
+        "return_fresh_policy.txt-0",
+        "return_hygiene_policy.txt-0"
+      ],
+      "raw_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "answer": "知识库暂无明确依据，无法确认“仅试穿、吊牌完好、未弄脏”的衣服是否一定能退。\n\n检索到的片段只涉及例外情形（如定作、鲜活易腐、数字化商品，以及贴身或卫生用品需核实拆封影响），都没有直接规定您这种情况。\n\n建议您提供订单号，我帮您核实订单状态；或由客服进一步确认具体商品的退货条件。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确包含“衣服”，保留了商品为衣服的条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询包含“吊牌还在 试穿未弄脏”，保留了合理试穿、吊牌完整且无污损的条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "当前问题可依据服装退货政策回答，合理试穿且吊牌完好无污损满足条件可申请退货；实际回答仅称无法确认，未给出参考答案结论，属有答案却拒答，故correct为false。其拒答基于检索到的例外条款证据，未编造事实，grounded为true；明确表示无法确认，refusal为true。"
+          },
+          "raw_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "回答仅依据贴身与卫生用品政策称无法确认，未回答普通服装试穿吊牌完好能否退货，与参考答案不符，correct为false。其拒答有对应证据支持且未编造，grounded为true；明确表示无法确认，refusal为true。"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "回答列举例外条款后称无普通服装明确规定，未给出参考答案中合理试穿可申请退货的结论，correct为false。其表述由所引证据支持，未编造事实，grounded为true；明确表示无法确认，refusal为true。"
+          }
+        }
+      },
+      "diagnostics": [
+        "必要证据不完整",
+        "裁判认为最终回答不正确或不完整"
+      ]
+    },
+    {
+      "id": "rewrite-03",
+      "category": "口语",
+      "turns": [
+        "券退我了，可已经过日子了，还能花吗？"
+      ],
+      "required_conditions": [
+        "优惠券已返还",
+        "返还时已过期"
+      ],
+      "evidence_groups": [
+        [
+          "coupon_refund_policy.txt-3"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "answer": "您好，我需要先确认一下您说的“券”具体指哪类券（比如优惠券、退换货券等），以及您想了解的是有效期问题吗？另外方便提供一下订单号吗？这样我可以帮您核实具体情况。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断查询是否保留“优惠券已返还”这一条件。"
+          },
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断查询是否保留“返还时已过期”这一条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": false,
+            "grounded": false,
+            "refusal": false,
+            "reason": "回答仅要求用户澄清券种和提供订单号，未回答过期返还券能否使用的问题，不符合参考答案。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明退回时已过期的券不能继续使用、返还不自动延长有效期，与参考答案一致，且由证据 coupon_refund_policy.txt-3 支持。"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "回答明确拒答，但该问题有知识库依据且可回答，因此拒答不正确；拒答本身可视为 grounded。"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库",
+        "裁判认为查询条件丢失或更正未保留",
+        "必要证据不完整",
+        "裁判认为最终回答不正确或不完整"
+      ]
+    },
+    {
+      "id": "rewrite-04",
+      "category": "口语",
+      "turns": [
+        "钱刚交了个定，就算我买完了吗？我买的是预售。"
+      ],
+      "required_conditions": [
+        "商品为预售",
+        "仅支付定金，尚非付清"
+      ],
+      "evidence_groups": [
+        [
+          "presale_shipping_policy.txt-1"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_xcD9nWowJiAfsvRAcda25260",
+          "query": "预售订单 支付定金 是否视为购买完成 尾款",
+          "args": {
+            "query": "预售订单 支付定金 是否视为购买完成 尾款"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-3",
+        "presale_shipping_policy.txt-0"
+      ],
+      "first_query_evidence_ids": [
+        "presale_shipping_policy.txt-1",
+        "coupon_usage_policy.txt-4",
+        "presale_shipping_policy.txt-4"
+      ],
+      "dialogue_evidence_ids": [
+        "presale_shipping_policy.txt-1",
+        "coupon_usage_policy.txt-4",
+        "presale_shipping_policy.txt-4"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "根据商城政策：**支付定金不等于已完成全款**。定金与尾款分开支付的预售订单，需要核实尾款支付状态和约定发货条件，不能仅凭定金付款时间认定购买完成或超时。\n\n另外，预售订单的尾款截止时间与承诺发货截止时间分别管理，尾款最后支付日期不等于发货截止日期。\n\n如果您想确认自己订单的具体状态，请提供订单号（格式如 A1002），我帮您查询尾款和物流情况。\n\n来源：presale_shipping_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确包含“预售订单”，保留了“商品为预售”这一条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询包含“支付定金 是否视为购买完成 尾款”，体现了仅支付定金、尚非付清并需核实尾款的含义。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明支付定金不等于完成全款，需核实尾款状态，符合参考答案，且核心事实由presale_shipping_policy.txt-1支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确指出预售定金不等于完成全款，需核实尾款支付状态，符合参考答案，且由所引证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答与raw_controlled一致，正确回答当前问题，核心事实由presale_shipping_policy.txt-1支持。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-05",
+      "category": "口语",
+      "turns": [
+        "预售的普通电脑，不是刻字啥的，也一概不让七天退？"
+      ],
+      "required_conditions": [
+        "标准化预售商品",
+        "没有个性化定制",
+        "询问七日无理由"
+      ],
+      "evidence_groups": [
+        [
+          "return_custom_policy.txt-2"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_IvLVUJbUzsWp5c4LuRee1385",
+          "query": "预售商品 普通商品 七天无理由退货 是否支持",
+          "args": {
+            "query": "预售商品 普通商品 七天无理由退货 是否支持"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "return_custom_policy.txt-2",
+        "return_digital_policy.txt-0",
+        "return_digital_policy.txt-3"
+      ],
+      "first_query_evidence_ids": [
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-0",
+        "return_policy.txt-0"
+      ],
+      "dialogue_evidence_ids": [
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-0",
+        "return_policy.txt-0"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "不是的。按商城政策：\n\n- 预售和个性化定制不是同一概念；普通标准化商品采用预售方式，**不意味着天然失去七日无理由退货资格**（来源：return_custom_policy.txt）\n- 只有按消费者个性化要求制作的商品（如刻字）不适用通常的七日无理由退货（来源：return_custom_policy.txt）\n- 适用七日无理由退货的普通商品，自签收次日起 7 天内可申请，商品须保持完好；购买时已明确确认的不适用情形需另行核实（来源：return_policy.txt）\n\n所以您这款非刻字的普通预售电脑，理论上仍可享受七日无理由退货，但需保持商品完好，并确认下单时是否有明确提示的不适用情形。如方便提供订单号，我可以帮您查具体订单信息。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询中的普通商品对应标准化预售商品，保留了标准化预售商品这一条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询未涉及刻字等个性化定制，与没有个性化定制条件一致。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询明确包含七天无理由退货，保留了询问七日无理由的条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明标准化预售不等于个性化定制，不天然排除七日无理由，并补充商品完好等条件，符合参考答案且有证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确指出预售普通电脑不天然排除七日无理由，核心结论有return_custom_policy证据支持，引用数字政策虽非必需但不影响正确性。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答准确说明预售与个性化定制不同，普通标准化预售不天然失去七日无理由资格，并给出申请期限和完好要求，有证据支持。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-06",
+      "category": "口语",
+      "turns": [
+        "票早开好了，名字写岔了，直接在原票上改改就行？"
+      ],
+      "required_conditions": [
+        "发票已经开具",
+        "抬头错误，不是开具前修改"
+      ],
+      "evidence_groups": [
+        [
+          "invoice_correction_policy.txt-0"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_z5am4jdm52HGyQEffxvi6545",
+          "query": "发票开错 名字错误 能否直接在原发票上修改",
+          "args": {
+            "query": "发票开错 名字错误 能否直接在原发票上修改"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "invoice_correction_policy.txt-0"
+      ],
+      "first_query_evidence_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-3",
+        "invoice_correction_policy.txt-1"
+      ],
+      "dialogue_evidence_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-3",
+        "invoice_correction_policy.txt-1"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "不可以直接在原发票上改。已开具的发票不能直接改写，需要联系开票方核实，走更正、红冲或重新开具的流程；如果发票是商家自行开具的，需联系对应销售方处理。\n\n如果您方便提供订单号（如 A1002），我可以帮您查询订单信息，便于进一步核实。\n\n来源：invoice_correction_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确针对发票开错且名字错误的情形，隐含发票已经开具，保留了已开具这一条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询询问能否直接在原发票上修改，指向开具后抬头错误的更正，而非开具前修改资料。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确否定直接改写原票，并给出联系开票方核实更正红冲或重开的流程，与参考答案一致，事实由证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确说明不能直接改写原票，并给出更正红冲或重开流程，与参考答案一致且有证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确否定直接修改原票，给出更正红冲或重开流程并补充商家自开发票联系销售方，与参考答案一致且有证据支持。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-07",
+      "category": "关键条件",
+      "turns": [
+        "普通会员签收第10天，商品没问题，就是不喜欢，可以按无理由退吗？"
+      ],
+      "required_conditions": [
+        "普通会员，不是黑金会员",
+        "签收第10天",
+        "非质量原因的无理由退货"
+      ],
+      "evidence_groups": [
+        [
+          "return_policy.txt-1"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_poYQTHpIAK9ATBFkBtN81179",
+          "query": "无理由退货 签收后期限 普通会员",
+          "args": {
+            "query": "无理由退货 签收后期限 普通会员"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "membership_scope_policy.txt-2",
+        "return_policy.txt-3",
+        "membership_policy.txt-0"
+      ],
+      "first_query_evidence_ids": [
+        "membership_policy.txt-0",
+        "return_policy.txt-1",
+        "membership_policy.txt-2"
+      ],
+      "dialogue_evidence_ids": [
+        "membership_policy.txt-0",
+        "return_policy.txt-1",
+        "membership_policy.txt-2"
+      ],
+      "raw_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "按知识库政策，您这种情况不能按无理由退货：\n\n- 普通会员适用**七日无理由退货**规则（membership_policy.txt）\n- 普通会员**超过 7 天不自动获得**无理由退货资格；15 天延长权益仅限黑金会员且订单明确标注支持延长的商品（return_policy.txt）\n\n您已签收第 10 天，超出 7 天期限，因此无法按无理由退货申请。如商品存在质量问题，可另行说明情况，我再帮您核实相关政策。\n\n来源：membership_policy.txt、return_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确包含普通会员，保留了会员身份条件"
+          },
+          {
+            "preserved": false,
+            "reason": "查询只问签收后期限，未体现签收第10天这一具体天数"
+          },
+          {
+            "preserved": true,
+            "reason": "查询主题为无理由退货，保留了非质量原因退货意图"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "正确回答普通会员签收第10天不能无理由退货，并说明7天期限及黑金15天不适用，事实由证据支持"
+          },
+          "raw_controlled": {
+            "correct": false,
+            "grounded": false,
+            "refusal": false,
+            "reason": "开头称可以，与结论矛盾，且引用证据未直接支持普通会员7天期限，存在重要错误"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "明确回答不可以，说明普通会员7天期限及签收第10天超期，事实由证据支持"
+          }
+        }
+      },
+      "diagnostics": [
+        "裁判认为查询条件丢失或更正未保留"
+      ]
+    },
+    {
+      "id": "rewrite-08",
+      "category": "关键条件",
+      "turns": [
+        "我是黑金会员，但商品没标延长退货，第10天能直接按15天权益退吗？"
+      ],
+      "required_conditions": [
+        "黑金会员",
+        "商品未标注延长权益",
+        "签收第10天"
+      ],
+      "evidence_groups": [
+        [
+          "membership_policy.txt-2",
+          "return_policy.txt-1"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_fGoVaabxorys8uVj2XG34936",
+          "query": "黑金会员 延长退货 15天 权益 未标注延长退货的商品",
+          "args": {
+            "query": "黑金会员 延长退货 15天 权益 未标注延长退货的商品"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "membership_scope_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "membership_policy.txt-3"
+      ],
+      "dialogue_evidence_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "membership_policy.txt-3"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "不能。根据商城政策，黑金会员的 15 天无理由退货权益仅适用于订单中明确标注支持延长的商品；未标注或不适用延长的商品不会自动延长，仍按该商品适用的规则处理。\n\n来源：membership_policy.txt、return_policy.txt\n\n如果您提供订单号，我可以帮您查询该订单的具体情况。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询包含黑金会员，保留了会员身份条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询包含未标注延长退货的商品，保留了商品未标注延长权益条件。"
+          },
+          {
+            "preserved": false,
+            "reason": "查询未包含签收第10天或第10天等时间条件，未保留签收第10天条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明未标注商品不自动延长至15天，符合参考答案，且事实由会员政策和退货政策证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明未标注商品不自动延长，第10天不能直接按15天权益退货，符合参考答案且有证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明不能直接按15天权益退，未标注商品不自动延长，符合参考答案且有证据支持。"
+          }
+        }
+      },
+      "diagnostics": [
+        "裁判认为查询条件丢失或更正未保留"
+      ]
+    },
+    {
+      "id": "rewrite-09",
+      "category": "关键条件",
+      "turns": [
+        "已付款的现货还没发，但还没超过承诺时间，只登记普通催单，必须等72小时吗？"
+      ],
+      "required_conditions": [
+        "已付款且待发货",
+        "未超过承诺时间",
+        "普通催单而非加急",
+        "只咨询条件，不实际提交"
+      ],
+      "evidence_groups": [
+        [
+          "shipping_policy.txt-3"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_owpIQNMAE2rJaVYhRh990290",
+          "query": "催单登记后处理时限 72小时",
+          "args": {
+            "query": "催单登记后处理时限 72小时"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-0",
+        "presale_shipping_policy.txt-3"
+      ],
+      "first_query_evidence_ids": [
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-1",
+        "shipping_exception_policy.txt-1"
+      ],
+      "dialogue_evidence_ids": [
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-1",
+        "shipping_exception_policy.txt-1"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "不需要等72小时。根据知识库：已付款且待发货的订单可以登记普通催单，无需等满72小时（来源：shipping_policy.txt）。\n\n请提供订单号，我为你登记普通催单，并核对这张订单的实际承诺发货时间。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": false,
+            "reason": "查询仅涉及催单登记后处理时限72小时，未体现已付款且待发货这一条件。"
+          },
+          {
+            "preserved": false,
+            "reason": "查询未提及未超过承诺时间这一条件。"
+          },
+          {
+            "preserved": false,
+            "reason": "查询未区分普通催单与加急，未体现普通催单而非加急。"
+          },
+          {
+            "preserved": false,
+            "reason": "查询未体现只咨询条件不实际提交的意图。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确普通催单无需等满72小时，并区分加急条件，符合参考答案，且由shipping_policy.txt-3证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确说明普通催单无需等满72小时并区分加急条件，事实由shipping_policy.txt-3支持。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确说明普通催单无需等满72小时，补充72小时仅适用于确有承诺的订单，事实由所引证据支持。"
+          }
+        }
+      },
+      "diagnostics": [
+        "裁判认为查询条件丢失或更正未保留"
+      ]
+    },
+    {
+      "id": "rewrite-10",
+      "category": "关键条件",
+      "turns": [
+        "有一笔单拆成两个子单，只取消一个，优惠券会整张回来吗？"
+      ],
+      "required_conditions": [
+        "订单已经拆单",
+        "只取消一个子单",
+        "询问整券返还"
+      ],
+      "evidence_groups": [
+        [
+          "coupon_refund_policy.txt-0"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_CZ56sWqgYTPTxlfIsSHr6090",
+          "query": "拆单 部分取消 优惠券是否整张退回",
+          "args": {
+            "query": "拆单 部分取消 优惠券是否整张退回"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-1",
+        "coupon_scope_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2"
+      ],
+      "dialogue_evidence_ids": [
+        "coupon_refund_policy.txt-0",
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "不会整张自动退回。根据知识库：\n\n- 拆分订单必须核实全部关联子订单状态，不能因取消一个子单就认定整张券已返还。\n- 只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。\n- 优惠券抵扣部分不作为现金重复退还。\n\n建议提供订单号，我帮您查询该订单的具体状态。\n\n来源：coupon_refund_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询中的拆单对应订单已经拆单这一条件"
+          },
+          {
+            "preserved": true,
+            "reason": "查询中的部分取消对应只取消一个子单这一条件"
+          },
+          {
+            "preserved": true,
+            "reason": "查询直接询问优惠券是否整张退回，保留整券返还意图"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确不能确认整券返还并说明需核实全部关联子订单状态，符合参考答案且事实由证据支持"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答准确说明无法确认整券返还并引用核实全部关联状态的要求，符合参考答案且证据支持"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答保留拆单部分取消与整券返还条件，结论与证据一致且符合参考答案"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-11",
+      "category": "关键条件",
+      "turns": [
+        "生鲜到手已经臭了，卖家用不支持无理由退货拒绝售后，合理吗？"
+      ],
+      "required_conditions": [
+        "鲜活易腐商品",
+        "变质质量问题，不是无理由退货"
+      ],
+      "evidence_groups": [
+        [
+          "return_fresh_policy.txt-1"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_kTDcx3MTer5H9vpirQxu7438",
+          "query": "生鲜商品变质腐烂 无理由退货 售后政策",
+          "args": {
+            "query": "生鲜商品变质腐烂 无理由退货 售后政策"
+          }
+        },
+        {
+          "id": "call_01_Kzo6tZVIIlfRlQ97AX0T3356",
+          "query": "生鲜类商品不支持七天无理由退货 质量问题",
+          "args": {
+            "query": "生鲜类商品不支持七天无理由退货 质量问题"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "return_fresh_policy.txt-1",
+        "return_policy.txt-6",
+        "return_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [
+        "return_fresh_policy.txt-1",
+        "return_fresh_policy.txt-0",
+        "return_policy.txt-2"
+      ],
+      "dialogue_evidence_ids": [
+        "return_fresh_policy.txt-1",
+        "return_fresh_policy.txt-0",
+        "return_policy.txt-2"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "不合理。根据商城政策：\n\n- 鲜活易腐商品确实属于七日无理由退货的例外，但**食品存在破损、变质或其他质量争议时，不能以“不支持无理由退货”为由直接排除售后**，应保留订单、商品状态等证据并联系人工核实。\n- 另外，常温包装食品不应仅因属于食品就一概归为鲜活易腐，需核实商品性质和完好条件。\n\n建议您保留订单信息、商品照片等证据，联系人工客服核实处理。方便的话请提供订单号，我可以帮您查询订单状态。\n\n来源：return_fresh_policy.txt、return_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "两条查询均涉及生鲜商品，且生鲜属于鲜活易腐商品，条件得到保留。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询明确区分生鲜变质腐烂的质量问题与无理由退货，条件得到保留。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答指出变质属于质量争议，不能以不支持无理由退货排除售后，并建议保留证据核实，符合参考答案；事实由生鲜政策证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确说明生鲜变质属质量争议，卖家不能仅以无理由退货拒绝售后，并建议保留证据核实，符合参考答案且有证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确区分生鲜属无理由退货例外与变质属质量争议，结论和证据建议符合参考答案，事实有政策证据支持。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-12",
+      "category": "关键条件",
+      "turns": [
+        "签收35天了，错过30天自助窗口，还能请客服核实开票吗？"
+      ],
+      "required_conditions": [
+        "签收35天，超过30天窗口",
+        "询问人工开票核实而非自助申请"
+      ],
+      "evidence_groups": [
+        [
+          "invoice_policy.txt-0"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_1bd3kh6yT9bynM59WaqO7048",
+          "query": "签收超过30天自助开票窗口 能否联系客服核实开票",
+          "args": {
+            "query": "签收超过30天自助开票窗口 能否联系客服核实开票"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "invoice_policy.txt-0",
+        "return_policy.txt-3"
+      ],
+      "first_query_evidence_ids": [
+        "invoice_policy.txt-0",
+        "return_policy.txt-3",
+        "invoice_correction_policy.txt-3"
+      ],
+      "dialogue_evidence_ids": [
+        "invoice_policy.txt-0",
+        "return_policy.txt-3",
+        "invoice_correction_policy.txt-3"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "可以。根据商城电子发票申请政策：自助申请窗口为订单签收后 30 天，超过该窗口应联系人工核实，但不会因此就永久失去开票资格。\n\n建议您提供订单号，我帮您核对订单信息，方便后续人工核实开票。\n\n来源：invoice_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确提到签收超过30天自助开票窗口，保留了签收35天超过30天窗口的条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询询问能否联系客服核实开票，保留了人工核实而非自助申请的条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答确认超过自助窗口可联系人工核实且不永久失去开票资格，符合参考答案，并由invoice_policy.txt-0证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答确认可联系客服核实开票，并说明超过30天窗口应人工核实且不永久失去资格，符合参考答案且有证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答确认超过30天自助窗口后应联系人工核实开票，且不永久失去资格，符合参考答案并有证据支持。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-13",
+      "category": "多轮补充",
+      "turns": [
+        "拆了包装还能退吗？",
+        "是手机，只开箱查验，没激活。"
+      ],
+      "required_conditions": [
+        "从上一轮继承退货问题",
+        "补充手机、仅开箱未激活"
+      ],
+      "evidence_groups": [
+        [
+          "return_digital_policy.txt-1"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_a6Ht7JOTPajMSCG8ncO09148",
+          "query": "手机 数码产品 开箱未激活 退货政策",
+          "args": {
+            "query": "手机 数码产品 开箱未激活 退货政策"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "return_policy.txt-4",
+        "return_digital_policy.txt-1",
+        "return_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-0"
+      ],
+      "dialogue_evidence_ids": [
+        "return_policy.txt-4",
+        "return_hygiene_policy.txt-1",
+        "return_apparel_policy.txt-1",
+        "return_digital_policy.txt-1",
+        "return_digital_policy.txt-2",
+        "return_digital_policy.txt-0"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "手机只开箱查验、未激活，通常不影响退货资格：\n\n- 实物电子商品合理开箱查验不当然失去退货资格；激活、授权或不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响完好认定，需核实商品条件。（return_digital_policy.txt）\n- 已激活且价值显著贬损等特定商品的不适用无理由条款，须核实购买时是否有明确提示与确认，不能仅凭售后口头说明拒绝。（return_digital_policy.txt）\n- 手机等实物电子商品不能与下载的软件/数字内容混为一类，不能统一声称所有数码商品都不支持七日无理由。（return_digital_policy.txt）\n\n你的情况（仅开箱查验、未激活）符合合理查验范畴。建议保留原包装、配件和赠品完整。需要我帮你查具体订单吗？",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询围绕退货政策，继承了上一轮退货问题。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询包含手机、开箱未激活，覆盖补充条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明合理开箱不当然失去资格，激活与使用状态需核实，符合参考答案，且事实由数码退货政策证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答说明开箱未激活通常不因开箱失去资格，并需核实完好状态，符合参考答案，证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答说明开箱未激活通常不因开箱失去资格，并提及激活贬损需提示确认，符合参考答案，证据支持。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-14",
+      "category": "多轮补充",
+      "turns": [
+        "我的券怎么不能用了？",
+        "不是没领到，是退款退回来了，但已经过期。"
+      ],
+      "required_conditions": [
+        "当前是退款返还的券",
+        "券已过期，不是未领到"
+      ],
+      "evidence_groups": [
+        [
+          "coupon_refund_policy.txt-3"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_Hq0EbsCRLxyt1k4terhM5654",
+          "query": "退款后优惠券退回但已过期能否恢复使用",
+          "args": {
+            "query": "退款后优惠券退回但已过期能否恢复使用"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-4",
+        "coupon_refund_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-1"
+      ],
+      "dialogue_evidence_ids": [
+        "coupon_refund_policy.txt-3",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-1"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "根据商城政策：优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。\n\n所以您这张券目前无法使用，也无法保证补发。如需我进一步核对具体订单，请提供订单号。\n\n来源：coupon_refund_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确包含退款后优惠券退回且已过期，保留了退款返还的券这一条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询明确说明券已过期，且语境是退款退回而非未领到，保留了过期而非未领到的条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明退款退回但已过期的券不能继续使用且不保证补发，符合参考答案，事实由政策第4条支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答给出过期退回券无法使用且不保证补发的结论，符合参考答案，并补充活动专享券需人工确认，未编造事实。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明退款退回但已过期的券无法继续使用，符合参考答案，事实由政策第4条支持。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-15",
+      "category": "多轮补充",
+      "turns": [
+        "我的货两天没发正常吗？",
+        "这是预售，我才交定金，尾款还没交，只问政策。"
+      ],
+      "required_conditions": [
+        "预售而非现货",
+        "仅交定金尚未付尾款",
+        "继承未发货疑问，不实际催单"
+      ],
+      "evidence_groups": [
+        [
+          "presale_shipping_policy.txt-0"
+        ],
+        [
+          "presale_shipping_policy.txt-1"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_4NbO3HVpC1C6HMDe9wsa7722",
+          "query": "预售定金 尾款 发货时间政策",
+          "args": {
+            "query": "预售定金 尾款 发货时间政策"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-4",
+        "coupon_usage_policy.txt-4"
+      ],
+      "first_query_evidence_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-4",
+        "presale_shipping_policy.txt-0"
+      ],
+      "dialogue_evidence_ids": [
+        "presale_shipping_policy.txt-1",
+        "presale_shipping_policy.txt-4",
+        "presale_shipping_policy.txt-0"
+      ],
+      "raw_metric": {
+        "coverage": 0.5,
+        "all_required": false,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "预售订单的发货政策如下：\n\n1. 预售商品按购买时确认的**预售承诺日期**发货，不适用普通现货付款后48小时发货的默认目标。\n2. 定金与尾款分开支付时，**支付定金不等于已完成全款**，需核实尾款支付状态和约定发货条件，不能仅凭定金付款时间认定超时。\n3. 尾款截止时间与承诺发货截止时间分别管理，**尾款最后支付日期不等于发货截止日期**。\n\n所以您目前只交定金、未付尾款的情况下，两天未发货不能算异常。具体发货日期请以您下单时确认的预售承诺日期为准。\n\n来源：presale_shipping_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确包含预售，且回答区分预售与现货48小时规则。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询包含定金与尾款，回答说明仅交定金未付尾款不等于全款。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询为发货时间政策咨询，回答未实际催单，仅解释政策。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答覆盖预售不套现货48小时、定金不等于全款、尾款与发货截止分别管理，并说明两天未发不能算异常，符合参考答案。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答说明定金不等于全款、不能凭定金认定超时，并指出需核实尾款状态和约定条件，符合参考答案要点。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答覆盖预售承诺日期、定金不等于全款、尾款与发货截止分别管理，并说明需以承诺日期和尾款状态为准，符合参考答案。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-16",
+      "category": "多轮补充",
+      "turns": [
+        "会员是不是可以15天退？",
+        "我是金卡，买的普通商品，页面没写延长。"
+      ],
+      "required_conditions": [
+        "金卡不是黑金",
+        "普通商品未写延长",
+        "继承15天退货疑问"
+      ],
+      "evidence_groups": [
+        [
+          "membership_policy.txt-1"
+        ],
+        [
+          "membership_policy.txt-2"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [
+        "return_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-1"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "membership_policy.txt-0"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 0.5,
+        "all_required": false,
+        "any_hit": true
+      },
+      "answer": "金卡不在上述会员等级规则内，知识库暂无依据，无法确认金卡的具体退货期限。\n\n不过可以确定的是：15天延长权益仅适用于黑金会员且订单明确标注支持延长的商品。您的商品页面未标注延长，因此不适用15天规则，按该商品本身适用的退货规则执行。\n\n如需了解您订单的具体售后情况，可提供订单号，我帮您查询商品和物流信息。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留金卡不是黑金这一条件。"
+          },
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留普通商品未写延长这一条件。"
+          },
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留继承15天退货疑问这一条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "回答称金卡不在规则内且无法确认具体退货期限，但证据明确金卡为优先客服且15天仅限黑金标注商品，未直接回答金卡不自动享受15天，与参考答案有重要偏差。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确金卡权益为优先客服不等于延长退货，15天仅黑金标注商品适用，普通商品未标注不适用，符合参考答案且由证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "回答仅称知识库暂无依据无法确认，未说明金卡不是黑金及15天仅限黑金标注商品，未回答当前问题，保守拒答可grounded但不correct。"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库",
+        "裁判认为查询条件丢失或更正未保留",
+        "必要证据不完整",
+        "裁判认为最终回答不正确或不完整"
+      ]
+    },
+    {
+      "id": "rewrite-17",
+      "category": "多轮补充",
+      "turns": [
+        "发票金额不对。",
+        "标价100，用商品券减20，只付80，为什么没开100？"
+      ],
+      "required_conditions": [
+        "商品券抵扣20元",
+        "实付80与标价100不同",
+        "询问开票金额"
+      ],
+      "evidence_groups": [
+        [
+          "invoice_amount_policy.txt-0"
+        ]
+      ],
+      "queries": [
+        {
+          "id": "call_00_ILL5Hf2tXZE9CO589anu0789",
+          "query": "发票金额 商品券 优惠 按实付金额开票",
+          "args": {
+            "query": "发票金额 商品券 优惠 按实付金额开票"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0",
+        "invoice_amount_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0",
+        "invoice_amount_policy.txt-2"
+      ],
+      "dialogue_evidence_ids": [
+        "invoice_amount_policy.txt-1",
+        "invoice_amount_policy.txt-0",
+        "invoice_amount_policy.txt-2"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "按商城发票政策，商品优惠券抵扣属于价格优惠，抵扣面额不会重复计入商品实际开票金额；因此发票金额通常按券后实付金额开具，而不是按商品标价开具。建议您核对订单支付明细与最终开票明细。\n\n如需进一步核实您这张发票，请提供订单号。\n\n来源：invoice_amount_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询包含商品券和优惠，覆盖商品券抵扣20元的条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询包含按实付金额开票，覆盖实付80与标价100不同的条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询包含发票金额，覆盖询问开票金额的条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答说明商品券抵扣不重复计入开票金额并建议核对实付与开票明细，符合参考答案且由证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答说明商品券抵扣不重复计入开票金额并建议核对支付与开票明细，符合参考答案且由证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答说明商品券抵扣不重复计入开票金额并建议核对支付与开票明细，符合参考答案且由证据支持。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-18",
+      "category": "多轮补充",
+      "turns": [
+        "优惠券会退吗？",
+        "一张券买三件，我只退一件。"
+      ],
+      "required_conditions": [
+        "同券三件商品",
+        "仅部分退货",
+        "询问整张券返还"
+      ],
+      "evidence_groups": [
+        [
+          "coupon_refund_policy.txt-1"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [
+        "coupon_refund_policy.txt-1",
+        "coupon_refund_policy.txt-2",
+        "coupon_refund_policy.txt-3"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "根据知识库政策：只退部分商品时，不承诺立即退回整张券，退款金额按优惠分摊记录核算。\n\n也就是说，这张券不会因为退一件就整张退回；该件商品对应的实付金额会按优惠分摊计算后退还，优惠券抵扣部分不作为现金重复退还。\n\n来源：coupon_refund_policy.txt\n\n如需确认具体订单的退款金额，请提供订单号。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留同券三件商品条件"
+          },
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留仅部分退货条件"
+          },
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留询问整张券返还条件"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确说明部分退货不承诺立即退回整张券并按优惠分摊核算，符合参考答案且由证据支持"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答覆盖部分退货不立即返整券及按分摊核算，符合参考答案且由证据支持"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "证据实际存在且可回答，却声称暂无依据并拒答，因此不correct；拒答明确且保守可视为grounded"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库",
+        "裁判认为查询条件丢失或更正未保留"
+      ]
+    },
+    {
+      "id": "rewrite-19",
+      "category": "条件变更",
+      "turns": [
+        "定制杯子可以七天无理由吗？",
+        "刚才说错了，是普通标准化预售杯子，没有个性化定制。"
+      ],
+      "required_conditions": [
+        "以最新更正为准：标准化预售",
+        "不再按个性化定制判断",
+        "继承七日无理由问题"
+      ],
+      "evidence_groups": [
+        [
+          "return_custom_policy.txt-2"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [
+        "return_custom_policy.txt-2",
+        "return_custom_policy.txt-0",
+        "membership_scope_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [
+        "return_custom_policy.txt-0",
+        "return_custom_policy.txt-2",
+        "return_policy.txt-2"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "根据知识库：普通标准化商品即使采用预售方式，也不因此失去七日无理由退货资格；只有按您个性化要求制作的商品才不适用。所以您这款普通标准化预售杯子，通常可以适用七天无理由退货。\n\n来源：return_custom_policy.txt、return_policy.txt\n\n如需我查询具体订单，请提供订单号。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": false,
+            "reason": "没有任何工具查询，未体现以最新更正的标准化预售为准。"
+          },
+          {
+            "preserved": false,
+            "reason": "没有查询，未体现不再按个性化定制判断。"
+          },
+          {
+            "preserved": false,
+            "reason": "没有查询，未继承七日无理由问题。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答以标准化预售为准，明确预售不天然排除七日无理由，符合参考答案，且由return_custom_policy.txt-2支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答正确区分预售与个性化定制，结论符合参考答案，证据return_custom_policy.txt-2支持。"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "知识库有明确依据却称暂无依据并拒答，未回答问题，不correct；保守拒答可视为grounded。"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库",
+        "裁判认为查询条件丢失或更正未保留"
+      ]
+    },
+    {
+      "id": "rewrite-20",
+      "category": "条件变更",
+      "turns": [
+        "我黑金会员，签收第10天，还能无理由退吗？",
+        "更正一下，我其实是普通会员，没有延长权益。"
+      ],
+      "required_conditions": [
+        "以最新普通会员身份为准，舍弃旧黑金身份",
+        "保留第10天和无理由条件"
+      ],
+      "evidence_groups": [
+        [
+          "return_policy.txt-1"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [
+        "return_policy.txt-1",
+        "membership_policy.txt-2",
+        "membership_policy.txt-0"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [
+        "membership_policy.txt-2",
+        "return_policy.txt-1",
+        "return_policy.txt-3"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "普通会员签收第 10 天已超过 7 天无理由退货期，不再自动获得无理由退货资格。\n\n如商品有质量问题，属于另一种售后依据，可提供订单号我帮您核实。来源：return_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询以普通会员身份为准，未沿用黑金会员身份。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询保留了签收第10天和无理由退货这两个条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答按普通会员规则说明第10天超过7天不自动获得无理由退货资格，符合参考答案，且由退货政策证据支持。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答按普通会员规则说明第10天超过7天不自动获得无理由退货资格，符合参考答案，且由退货政策证据支持。"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "知识库已有退货政策依据，回答却称暂无依据无法确认，属于有答案却拒答，不符合参考答案。"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库"
+      ]
+    },
+    {
+      "id": "rewrite-21",
+      "category": "条件变更",
+      "turns": [
+        "衣服吊牌剪了可以退吗？",
+        "刚才看错，吊牌完整，就是试穿一下，没有污渍。"
+      ],
+      "required_conditions": [
+        "当前吊牌完整，旧剪标条件撤回",
+        "合理试穿，无污渍"
+      ],
+      "evidence_groups": [
+        [
+          "return_apparel_policy.txt-0"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [
+        "return_apparel_policy.txt-1",
+        "return_apparel_policy.txt-0"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [
+        "return_apparel_policy.txt-1",
+        "membership_scope_policy.txt-0",
+        "return_policy.txt-4"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "answer": "吊牌完整、仅试穿且无污渍，一般符合“商品完好”的认定条件：\n\n- 无理由退货需保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。（来源：return_policy.txt）\n- 剪标、污损、破坏或明显使用痕迹可能影响完好认定；您的情况不属于这些情形。（来源：return_apparel_policy.txt）\n\n如需要，请提供订单号，我可以帮您查询订单状态并说明退货流程。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询与回答均以吊牌完整为当前状态，并明确剪标情形不再适用。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询与回答均涉及仅试穿且无污渍，并据此判断商品完好。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答按吊牌完整、合理试穿无污渍判断商品完好，并说明剪标污损等情形不适用，符合参考要点。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答依据服饰退货完好标准，按吊牌完整、仅试穿无污渍说明通常可退货，未继续按剪标判断。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": false,
+            "refusal": false,
+            "reason": "回答结论符合参考要点，但证据列表为空，实质事实缺少对应证据支持。"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库",
+        "必要证据不完整"
+      ]
+    },
+    {
+      "id": "rewrite-22",
+      "category": "条件变更",
+      "turns": [
+        "券已经过期了怎么用？",
+        "更正：券没过期，是A店铺限定券，我想拿到B店铺。"
+      ],
+      "required_conditions": [
+        "优惠券仍有效，旧过期条件撤回",
+        "A店铺券用于B店铺"
+      ],
+      "evidence_groups": [
+        [
+          "coupon_scope_policy.txt-0"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [
+        "coupon_scope_policy.txt-0",
+        "coupon_refund_policy.txt-3",
+        "coupon_scope_policy.txt-1"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "answer": "知识库暂无依据，无法确认店铺限定券能否跨店铺使用。建议您联系人工客服进一步核实。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": false,
+            "reason": "没有任何查询，未体现优惠券仍有效且旧过期条件已撤回。"
+          },
+          {
+            "preserved": false,
+            "reason": "没有任何查询，未体现A店铺限定券用于B店铺这一条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "知识库有店铺限定券不能跨店铺使用的依据，却拒答，未回答当前问题。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "正确依据店铺限定券政策回答不能跨店铺使用，符合参考答案。"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "知识库有明确依据却拒答，未回答A店铺券能否用于B店铺。"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库",
+        "裁判认为查询条件丢失或更正未保留",
+        "必要证据不完整",
+        "裁判认为最终回答不正确或不完整"
+      ]
+    },
+    {
+      "id": "rewrite-23",
+      "category": "条件变更",
+      "turns": [
+        "发票还没开，抬头错了怎么办？",
+        "查到了，已经开出来了，不是开具前。"
+      ],
+      "required_conditions": [
+        "以已经开具为准",
+        "抬头错误",
+        "不再仅建议开具前修改"
+      ],
+      "evidence_groups": [
+        [
+          "invoice_correction_policy.txt-0"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_policy.txt-2",
+        "invoice_correction_policy.txt-1"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-2"
+      ],
+      "raw_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 1.0,
+        "all_required": true,
+        "any_hit": true
+      },
+      "answer": "明白了，发票已开具的情况下：\n\n- 原发票**不能直接改写**，需要联系开票方核实更正、红冲或重新开具的流程。\n- 具体能否更正、如何操作，由实际开票方核实确认。\n\n建议您联系商城客服或开票方提交更正申请。如需我帮您查询订单信息，请提供订单号（如 A1002）。\n\n来源：invoice_correction_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "回答以发票已开出为前提，符合以已经开具为准"
+          },
+          {
+            "preserved": true,
+            "reason": "回答针对抬头错误情形给出处理方式"
+          },
+          {
+            "preserved": true,
+            "reason": "回答未再仅建议开具前修改，而是说明已开具后的更正红冲重开流程"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答明确已开不能直接改写原票，并建议联系开票方核实更正红冲重开，符合参考答案且有证据支持"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": false,
+            "reason": "回答覆盖已开具、抬头错误及更正红冲重开流程，事实由证据支持"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "回答声称知识库暂无依据并拒答，但证据实际存在且可回答问题，故不correct"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库"
+      ]
+    },
+    {
+      "id": "rewrite-24",
+      "category": "条件变更",
+      "turns": [
+        "耳机买了不喜欢想退。",
+        "不是不喜欢，是收到就坏了，签收20天。"
+      ],
+      "required_conditions": [
+        "质量问题，旧不喜欢原因撤回",
+        "签收20天",
+        "不能套用无理由7天直接拒绝"
+      ],
+      "evidence_groups": [
+        [
+          "return_policy.txt-3"
+        ]
+      ],
+      "queries": [],
+      "raw_evidence_ids": [],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [],
+      "raw_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "first_query_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "dialogue_metric": {
+        "coverage": 0.0,
+        "all_required": false,
+        "any_hit": false
+      },
+      "answer": "请问订单号是多少？我需要先查询订单状态，再帮您核对签收20天的退货/换货政策。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留质量问题并撤回旧不喜欢原因"
+          },
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留签收20天条件"
+          },
+          {
+            "preserved": false,
+            "reason": "没有知识库查询，无法判断是否保留不能套用无理由7天直接拒绝的条件"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": false,
+            "grounded": false,
+            "refusal": false,
+            "reason": "仅索要订单号，未回答质量问题退货及签收20天能否处理，未符合参考答案"
+          },
+          "raw_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示无法确认并建议联系客服，属保守拒答，但未回答质量问题独立核实及不能因超15天直接排除责任"
+          },
+          "rewrite_controlled": {
+            "correct": false,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示无法确认并建议联系客服，属保守拒答，但未回答质量问题独立核实及不能因超15天直接排除责任"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库",
+        "裁判认为查询条件丢失或更正未保留",
+        "必要证据不完整",
+        "裁判认为最终回答不正确或不完整"
+      ]
+    },
+    {
+      "id": "rewrite-25",
+      "category": "无答案",
+      "turns": [
+        "黑金会员年费到底多少，直接说个金额。"
+      ],
+      "required_conditions": [
+        "询问黑金年费具体金额",
+        "知识库没有该金额"
+      ],
+      "evidence_groups": [],
+      "queries": [
+        {
+          "id": "call_00_qwTxJjvOfp622cjvs55F2346",
+          "query": "黑金会员年费金额",
+          "args": {
+            "query": "黑金会员年费金额"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "membership_policy.txt-4"
+      ],
+      "first_query_evidence_ids": [
+        "membership_policy.txt-4",
+        "membership_scope_policy.txt-3"
+      ],
+      "dialogue_evidence_ids": [
+        "membership_policy.txt-4",
+        "membership_scope_policy.txt-3"
+      ],
+      "raw_metric": {
+        "empty": false
+      },
+      "first_query_metric": {
+        "empty": false
+      },
+      "dialogue_metric": {
+        "empty": false
+      },
+      "answer": "知识库暂无依据，无法确认黑金会员年费的具体金额。检索到的会员政策片段明确说明费用未收录，因此我不能给出金额。（来源：membership_policy.txt、membership_scope_policy.txt）",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询黑金会员年费金额，保留了询问具体金额的意图。"
+          },
+          {
+            "preserved": true,
+            "reason": "检索结果明确显示知识库未收录该费用，查询覆盖了知识库无此金额的条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确说明无法确认具体金额，未编造，符合参考答案，证据支持费用未收录。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确拒答具体金额，未编造，证据支持知识库无该金额。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确拒答具体金额，未编造，证据支持知识库无该金额。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-26",
+      "category": "无答案",
+      "turns": [
+        "会员开通想退卡，手续费固定百分之几？"
+      ],
+      "required_conditions": [
+        "会员服务退费，不是商品退款",
+        "询问手续费比例，无依据"
+      ],
+      "evidence_groups": [],
+      "queries": [
+        {
+          "id": "call_00_Ooib70YbPcqXiMkBJmwS5502",
+          "query": "会员开通后退卡手续费比例",
+          "args": {
+            "query": "会员开通后退卡手续费比例"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "membership_scope_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [
+        "membership_scope_policy.txt-2"
+      ],
+      "dialogue_evidence_ids": [
+        "membership_scope_policy.txt-2"
+      ],
+      "raw_metric": {
+        "empty": false
+      },
+      "first_query_metric": {
+        "empty": false
+      },
+      "dialogue_metric": {
+        "empty": false
+      },
+      "answer": "知识库暂无依据，无法确认会员退卡手续费的具体比例。现有资料只说明会员服务的开通、续费、取消与商品订单退货属于不同业务，未涉及会员退费条件或手续费标准。\n\n来源：membership_scope_policy.txt",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确为会员开通后退卡手续费，属于会员服务退费而非商品退款"
+          },
+          {
+            "preserved": true,
+            "reason": "查询直接询问手续费比例，且知识库无相关依据，符合无依据条件"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示知识库无依据无法确认手续费比例，未编造事实，符合参考答案"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确拒答手续费比例并说明资料仅区分业务类型，未编造，符合参考答案"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示无依据无法确认固定比例，未编造事实，符合参考答案"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-27",
+      "category": "无答案",
+      "turns": [
+        "你们客服电话的完整号码是多少？"
+      ],
+      "required_conditions": [
+        "询问具体电话号码，不能虚构"
+      ],
+      "evidence_groups": [],
+      "queries": [
+        {
+          "id": "call_00_2fHt8TqSiM2w9Lnp2QJ28208",
+          "query": "客服电话 完整号码 联系方式",
+          "args": {
+            "query": "客服电话 完整号码 联系方式"
+          }
+        }
+      ],
+      "raw_evidence_ids": [],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [],
+      "raw_metric": {
+        "empty": true
+      },
+      "first_query_metric": {
+        "empty": true
+      },
+      "dialogue_metric": {
+        "empty": true
+      },
+      "answer": "知识库暂无依据，无法确认客服电话的完整号码。建议您通过商城App或官网的“联系客服”入口获取官方联系方式。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询询问客服电话完整号码及联系方式，未虚构具体号码，保留了询问具体电话号码且不能虚构的意图。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示无法确认完整号码，未编造事实，并建议通过官方渠道获取，符合未收录参考答案。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示知识库无依据无法确认完整号码，未编造，符合未收录参考答案。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示知识库无依据无法确认完整号码，未编造，符合未收录参考答案。"
+          }
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "id": "rewrite-28",
+      "category": "无答案",
+      "turns": [
+        "仓库加急处理一定十分钟发出吗？只咨询，不申请。"
+      ],
+      "required_conditions": [
+        "询问具体10分钟保证，无依据",
+        "仅咨询，不创建加急申请"
+      ],
+      "evidence_groups": [],
+      "queries": [
+        {
+          "id": "call_00_Iz4liBGpSjkhVqFCVnIj5001",
+          "query": "加急处理 仓库 发货时限 十分钟",
+          "args": {
+            "query": "加急处理 仓库 发货时限 十分钟"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "shipping_exception_policy.txt-0",
+        "shipping_policy.txt-3",
+        "shipping_policy.txt-4"
+      ],
+      "first_query_evidence_ids": [
+        "shipping_policy.txt-3",
+        "shipping_exception_policy.txt-3",
+        "presale_shipping_policy.txt-3"
+      ],
+      "dialogue_evidence_ids": [
+        "shipping_policy.txt-3",
+        "shipping_exception_policy.txt-3",
+        "presale_shipping_policy.txt-3"
+      ],
+      "raw_metric": {
+        "empty": false
+      },
+      "first_query_metric": {
+        "empty": false
+      },
+      "dialogue_metric": {
+        "empty": false
+      },
+      "answer": "知识库中没有“加急后十分钟内一定发出”的依据，无法确认该时限。\n\n可确认的是：加急申请需满足超过该订单承诺发货截止时间，并须人工审批；预售订单也不因加急自动获得提前发货保证。来源：shipping_policy.txt、presale_shipping_policy.txt\n\n如需查询具体订单的承诺发货时间，请提供订单号。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询包含加急处理、仓库、发货时限、十分钟，覆盖询问具体十分钟保证且无依据这一条件。"
+          },
+          {
+            "preserved": false,
+            "reason": "查询未体现仅咨询不创建加急申请，也未表达不申请加急的意图。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确说明知识库无十分钟保证依据，无法确认时限，并补充加急需审批等政策，符合参考答案且未编造。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确无法确认十分钟发出，引用政策说明加急条件与本地工单不通知仓库，符合参考答案。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确无法确认十分钟时限，说明无依据且加急需审批，符合参考答案。"
+          }
+        }
+      },
+      "diagnostics": [
+        "裁判认为查询条件丢失或更正未保留"
+      ]
+    },
+    {
+      "id": "rewrite-29",
+      "category": "无答案",
+      "turns": [
+        "你们会员每月送券吗？",
+        "我只想知道金卡每个月固定几张券。"
+      ],
+      "required_conditions": [
+        "金卡会员",
+        "固定每月券张数，无依据"
+      ],
+      "evidence_groups": [],
+      "queries": [],
+      "raw_evidence_ids": [
+        "coupon_usage_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [
+        "membership_scope_policy.txt-0",
+        "membership_scope_policy.txt-2",
+        "membership_scope_policy.txt-1"
+      ],
+      "raw_metric": {
+        "empty": false
+      },
+      "first_query_metric": {
+        "empty": true
+      },
+      "dialogue_metric": {
+        "empty": false
+      },
+      "answer": "知识库暂无依据，无法确认金卡每月固定送几张券。现有会员资料只说明会员等级、退货条件、运费优惠和优惠券需分别核实，没有提到金卡每月发券数量。\n\n建议联系人工客服确认具体权益。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询明确针对金卡会员，保留了金卡会员这一条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询询问金卡每月固定券张数，且无依据时不编造，保留了固定每月券张数无依据这一条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示知识库无依据无法确认金卡每月固定券数量，未编造事实，符合参考答案。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示知识库无依据无法确认金卡每月固定券数量，未编造事实，符合参考答案。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示知识库无依据无法确认金卡每月固定券数量，未编造事实，符合参考答案。"
+          }
+        }
+      },
+      "diagnostics": [
+        "未查询知识库"
+      ]
+    },
+    {
+      "id": "rewrite-30",
+      "category": "无答案",
+      "turns": [
+        "发票抬头错了怎么办？",
+        "我知道要核实，就问重开固定收费多少元？"
+      ],
+      "required_conditions": [
+        "发票重开费用具体金额",
+        "当前问题不是重开步骤"
+      ],
+      "evidence_groups": [],
+      "queries": [
+        {
+          "id": "call_00_YH1r8veGlV6c13JfU09A3944",
+          "query": "发票重开收费标准 费用 多少元",
+          "args": {
+            "query": "发票重开收费标准 费用 多少元"
+          }
+        }
+      ],
+      "raw_evidence_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-1",
+        "invoice_policy.txt-2"
+      ],
+      "first_query_evidence_ids": [],
+      "dialogue_evidence_ids": [
+        "invoice_correction_policy.txt-0",
+        "invoice_correction_policy.txt-1",
+        "invoice_correction_policy.txt-2"
+      ],
+      "raw_metric": {
+        "empty": false
+      },
+      "first_query_metric": {
+        "empty": true
+      },
+      "dialogue_metric": {
+        "empty": false
+      },
+      "answer": "知识库暂无依据，无法确认发票重开是否收费、收费多少元。建议联系开票方核实具体费用。",
+      "audit": {
+        "condition_checks": [
+          {
+            "preserved": true,
+            "reason": "查询询问发票重开收费标准与费用多少元，保留了重开费用具体金额这一条件。"
+          },
+          {
+            "preserved": true,
+            "reason": "查询只问费用金额，没有询问重开步骤，符合当前问题不是重开步骤的条件。"
+          }
+        ],
+        "answers": {
+          "actual_agent": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示知识库无依据无法确认收费金额，未编造金额，符合参考答案。"
+          },
+          "raw_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确拒答固定收费金额，并说明资料未提及收费标准，未编造事实。"
+          },
+          "rewrite_controlled": {
+            "correct": true,
+            "grounded": true,
+            "refusal": true,
+            "reason": "明确表示无法确认固定费用及金额，属于保守拒答，未编造事实。"
+          }
+        }
+      },
+      "diagnostics": []
+    }
+  ]
+}

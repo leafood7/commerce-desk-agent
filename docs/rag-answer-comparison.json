@@ -1,0 +1,1254 @@
+{
+  "method": "固定12题，三策略同回答模型、同提示、temperature=0；同模型家族裁判，非独立人工正确率",
+  "retrieval_report": "work/rag-test.json",
+  "metrics": {
+    "vector": {
+      "n": 12,
+      "model_judged_correct_rate": 0.9166666666666666,
+      "model_judged_grounded_rate": 1.0,
+      "model_judged_unknown_refusal_rate": 1.0
+    },
+    "hybrid": {
+      "n": 12,
+      "model_judged_correct_rate": 1.0,
+      "model_judged_grounded_rate": 1.0,
+      "model_judged_unknown_refusal_rate": 1.0
+    },
+    "hybrid_rerank": {
+      "n": 12,
+      "model_judged_correct_rate": 1.0,
+      "model_judged_grounded_rate": 1.0,
+      "model_judged_unknown_refusal_rate": 1.0
+    }
+  },
+  "rows": [
+    {
+      "case_id": "shipping_policy-1",
+      "strategy": "vector",
+      "question": "普通催单要付款满72小时才能登记吗？",
+      "answerable": true,
+      "reference_answer": "无需等满72小时，已付款且待发货可普通催单；加急须超承诺并审批。",
+      "evidence": [
+        {
+          "id": "shipping_policy.txt-3",
+          "content": "SupportPilot 商城物流与承诺发货政策\n\n4. 已付款且待发货的订单可以登记普通催单，无需等满 72 小时；加急申请还要求当前时间超过该订单的承诺发货截止时间，并须人工审批。",
+          "source": "shipping_policy.txt",
+          "distance": 0.687714159488678
+        }
+      ],
+      "answer": "不是。已付款且待发货的订单可以登记普通催单，无需等满72小时。来源：shipping_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确否定72小时门槛，并说明已付款且待发货即可普通催单，与参考答案和证据一致，无重要错误。"
+      },
+      "generation_ms": 12115.465600043535,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "shipping_policy-1",
+      "strategy": "hybrid",
+      "question": "普通催单要付款满72小时才能登记吗？",
+      "answerable": true,
+      "reference_answer": "无需等满72小时，已付款且待发货可普通催单；加急须超承诺并审批。",
+      "evidence": [
+        {
+          "id": "shipping_policy.txt-3",
+          "content": "SupportPilot 商城物流与承诺发货政策\n\n4. 已付款且待发货的订单可以登记普通催单，无需等满 72 小时；加急申请还要求当前时间超过该订单的承诺发货截止时间，并须人工审批。",
+          "source": "shipping_policy.txt",
+          "distance": 0.687714159488678,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 42.04296419247379
+        },
+        {
+          "id": "shipping_exception_policy.txt-1",
+          "content": "SupportPilot 商城物流异常与加急处理范围\n\n2. 普通催单符合条件后直接登记；加急申请先保存为待审批，批准前不创建加急工单，审批拒绝时记录原因。",
+          "source": "shipping_exception_policy.txt",
+          "distance": 0.9050692915916443,
+          "rrf_score": 0.03200204813108039,
+          "bm25_score": 25.571454255307295
+        },
+        {
+          "id": "shipping_exception_policy.txt-0",
+          "content": "SupportPilot 商城物流异常与加急处理范围\n\n1. 查询物流只读取订单，不代表用户提出催单；用户明确要求催发货或加急处理时才登记相应申请。",
+          "source": "shipping_exception_policy.txt",
+          "distance": 0.9495805501937866,
+          "rrf_score": 0.031754032258064516,
+          "bm25_score": 26.349389355701163
+        }
+      ],
+      "answer": "不是。已付款且待发货的订单即可登记普通催单，无需等满72小时。来源：shipping_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确否定72小时门槛，并说明已付款且待发货即可登记普通催单，与参考答案一致；该事实由证据shipping_policy.txt-3直接支持，未编造。"
+      },
+      "generation_ms": 9637.988800066523,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "shipping_policy-1",
+      "strategy": "hybrid_rerank",
+      "question": "普通催单要付款满72小时才能登记吗？",
+      "answerable": true,
+      "reference_answer": "无需等满72小时，已付款且待发货可普通催单；加急须超承诺并审批。",
+      "evidence": [
+        {
+          "id": "shipping_policy.txt-3",
+          "content": "SupportPilot 商城物流与承诺发货政策\n\n4. 已付款且待发货的订单可以登记普通催单，无需等满 72 小时；加急申请还要求当前时间超过该订单的承诺发货截止时间，并须人工审批。",
+          "source": "shipping_policy.txt",
+          "distance": 0.687714159488678,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 42.04296419247379,
+          "rerank_score": 6.2812275886535645
+        },
+        {
+          "id": "shipping_exception_policy.txt-1",
+          "content": "SupportPilot 商城物流异常与加急处理范围\n\n2. 普通催单符合条件后直接登记；加急申请先保存为待审批，批准前不创建加急工单，审批拒绝时记录原因。",
+          "source": "shipping_exception_policy.txt",
+          "distance": 0.9050692915916443,
+          "rrf_score": 0.03200204813108039,
+          "bm25_score": 25.571454255307295,
+          "rerank_score": 0.7618473768234253
+        },
+        {
+          "id": "shipping_policy.txt-1",
+          "content": "SupportPilot 商城物流与承诺发货政策\n\n2. 大型促销的部分订单可能事先约定 72 小时发货；只有订单确实记录该承诺时才适用，不能给所有订单自动延后，也不能用活动规则覆盖更早的有效承诺。",
+          "source": "shipping_policy.txt",
+          "bm25_score": 20.32630058762048,
+          "rrf_score": 0.015384615384615385,
+          "rerank_score": -0.5394210815429688
+        }
+      ],
+      "answer": "不是。已付款且待发货的订单即可登记普通催单，无需等满72小时。来源：shipping_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确否定72小时门槛，并说明已付款且待发货即可登记普通催单，与参考答案一致；该事实由证据shipping_policy.txt-3直接支持，未编造。"
+      },
+      "generation_ms": 12101.148200104944,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "coupon_refund_policy-1",
+      "strategy": "vector",
+      "question": "优惠券退到账号时过期了，会自动续期吗？",
+      "answerable": true,
+      "reference_answer": "不会，返还不延长原有效期，过期不能继续用。",
+      "evidence": [
+        {
+          "id": "coupon_refund_policy.txt-3",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.5736020803451538
+        },
+        {
+          "id": "coupon_refund_policy.txt-4",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.6597880125045776
+        }
+      ],
+      "answer": "根据《coupon_refund_policy.txt》：优惠券退回时若已过期，不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。因此，不会自动续期。活动专享券是否有特别返还条件，需核实领取时的活动规则。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确说明优惠券退回时已过期不能继续使用、返还不等于自动延长有效期，与参考答案一致；并补充活动专享券需核实活动规则，未编造事实，实质内容均由证据支持。"
+      },
+      "generation_ms": 1945.279399980791,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "coupon_refund_policy-1",
+      "strategy": "hybrid",
+      "question": "优惠券退到账号时过期了，会自动续期吗？",
+      "answerable": true,
+      "reference_answer": "不会，返还不延长原有效期，过期不能继续用。",
+      "evidence": [
+        {
+          "id": "coupon_refund_policy.txt-3",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.5736020803451538,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 32.61451947309413
+        },
+        {
+          "id": "coupon_refund_policy.txt-4",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.6597880125045776,
+          "rrf_score": 0.03200204813108039,
+          "bm25_score": 18.242328699942526
+        },
+        {
+          "id": "refund_policy.txt-3",
+          "content": "SupportPilot 商城退款流程与到账政策\n\n4. 退款原则上按实际支付来源退回，混合支付需分别核实对应部分；优惠券抵扣不作为现金重复退还，其返还按券规则核实。",
+          "source": "refund_policy.txt",
+          "distance": 0.8460273146629333,
+          "rrf_score": 0.029877369007803793,
+          "bm25_score": 15.662978491718565
+        }
+      ],
+      "answer": "根据现有政策，优惠券退回时若已过期，不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。活动专享券可能有特别返还条件，需核实领取时的活动规则，具体券种需人工确认。\n\n来源：coupon_refund_policy.txt",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确说明返还不自动续期、过期不能继续使用，与参考答案一致；活动专享券需核实规则、具体券种需人工确认的补充也由证据支持，无重要错误。"
+      },
+      "generation_ms": 1957.023199996911,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "coupon_refund_policy-1",
+      "strategy": "hybrid_rerank",
+      "question": "优惠券退到账号时过期了，会自动续期吗？",
+      "answerable": true,
+      "reference_answer": "不会，返还不延长原有效期，过期不能继续用。",
+      "evidence": [
+        {
+          "id": "coupon_refund_policy.txt-3",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.5736020803451538,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 32.61451947309413,
+          "rerank_score": 6.193953037261963
+        },
+        {
+          "id": "membership_scope_policy.txt-0",
+          "content": "SupportPilot 商城会员权益适用与例外\n\n1. 会员等级、商品可退条件、运费优惠和优惠券是分别核实的条件；优先客服或延长退货并不自动附带免费退货运费。",
+          "source": "membership_scope_policy.txt",
+          "bm25_score": 18.018390979537777,
+          "rrf_score": 0.015625,
+          "rerank_score": -0.42450812458992004
+        },
+        {
+          "id": "coupon_refund_policy.txt-4",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.6597880125045776,
+          "rrf_score": 0.03200204813108039,
+          "bm25_score": 18.242328699942526,
+          "rerank_score": -1.036088228225708
+        }
+      ],
+      "answer": "不会自动续期。优惠券退回时若已过期，不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。活动专享券需按领取时的活动规则核实，具体券种和返还时效需人工确认。来源：coupon_refund_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确说明不会自动续期，过期退回不能使用，与参考答案一致；实质事实均由证据 coupon_refund_policy.txt-3 和 -4 支持，未编造；虽提及人工确认具体券种，但已给出核心答案，不构成拒答。"
+      },
+      "generation_ms": 2971.860000048764,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "return_fresh_policy-2",
+      "strategy": "vector",
+      "question": "买的生鲜变质，商家说不支持无理由就不管了吗？",
+      "answerable": true,
+      "reference_answer": "不应排除质量售后，保留证据人工核实。",
+      "evidence": [
+        {
+          "id": "return_fresh_policy.txt-1",
+          "content": "SupportPilot 商城生鲜与食品退货政策\n\n2. 食品存在破损、变质或其他质量争议时，不能以不支持无理由退货为由直接排除售后，应保留订单、商品状态等证据并联系人工核实。",
+          "source": "return_fresh_policy.txt",
+          "distance": 0.6423450112342834
+        }
+      ],
+      "answer": "不是。生鲜变质属于质量争议，商家不能仅以“不支持无理由退货”为由直接拒绝售后；应保留订单、商品状态等证据并联系人工核实。依据：return_fresh_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确否定商家以不支持无理由为由拒绝售后，指出生鲜变质属质量争议，并建议保留证据联系人工核实，与参考答案一致且实质事实均由证据支持。"
+      },
+      "generation_ms": 2015.7939000055194,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "return_fresh_policy-2",
+      "strategy": "hybrid",
+      "question": "买的生鲜变质，商家说不支持无理由就不管了吗？",
+      "answerable": true,
+      "reference_answer": "不应排除质量售后，保留证据人工核实。",
+      "evidence": [
+        {
+          "id": "return_fresh_policy.txt-1",
+          "content": "SupportPilot 商城生鲜与食品退货政策\n\n2. 食品存在破损、变质或其他质量争议时，不能以不支持无理由退货为由直接排除售后，应保留订单、商品状态等证据并联系人工核实。",
+          "source": "return_fresh_policy.txt",
+          "distance": 0.6423450112342834,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 36.4757679385824
+        },
+        {
+          "id": "return_fresh_policy.txt-0",
+          "content": "SupportPilot 商城生鲜与食品退货政策\n\n1. 鲜活易腐商品属于七日无理由退货例外；常温包装食品不应仅因属于食品就一概归为鲜活易腐，应核实性质和完好条件。",
+          "source": "return_fresh_policy.txt",
+          "distance": 0.8097625970840454,
+          "rrf_score": 0.03225806451612903,
+          "bm25_score": 19.34941405414056
+        },
+        {
+          "id": "return_hygiene_policy.txt-2",
+          "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n3. 卫生用品发生质量或履约问题时，应单独受理核实，不以无理由退货例外替代质量售后判断。",
+          "source": "return_hygiene_policy.txt",
+          "distance": 0.886299729347229,
+          "rrf_score": 0.03149801587301587,
+          "bm25_score": 13.296236578716847
+        }
+      ],
+      "answer": "不是。生鲜属于七日无理由退货例外，但食品变质属于质量争议，商家不能仅以“不支持无理由退货”为由拒绝处理售后。建议保留订单、商品状态等证据并联系人工核实。（来源：return_fresh_policy.txt）",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确否定商家以不支持无理由退货为由拒绝售后，指出变质属质量争议应保留证据并联系人工核实，与参考答案一致；实质事实由证据return_fresh_policy.txt-1支持；未拒答。"
+      },
+      "generation_ms": 1863.5839000344276,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "return_fresh_policy-2",
+      "strategy": "hybrid_rerank",
+      "question": "买的生鲜变质，商家说不支持无理由就不管了吗？",
+      "answerable": true,
+      "reference_answer": "不应排除质量售后，保留证据人工核实。",
+      "evidence": [
+        {
+          "id": "return_fresh_policy.txt-1",
+          "content": "SupportPilot 商城生鲜与食品退货政策\n\n2. 食品存在破损、变质或其他质量争议时，不能以不支持无理由退货为由直接排除售后，应保留订单、商品状态等证据并联系人工核实。",
+          "source": "return_fresh_policy.txt",
+          "distance": 0.6423450112342834,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 36.4757679385824,
+          "rerank_score": 3.8446884155273438
+        },
+        {
+          "id": "return_digital_policy.txt-2",
+          "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n3. 已激活价值显著贬损等特定商品的不适用无理由条款，须核实购买时的明确提示与确认，不能只凭售后新增口头说明拒绝。",
+          "source": "return_digital_policy.txt",
+          "distance": 0.9197848439216614,
+          "rrf_score": 0.029437229437229435,
+          "bm25_score": 12.365384859219267,
+          "rerank_score": -0.3143547773361206
+        },
+        {
+          "id": "membership_policy.txt-3",
+          "content": "SupportPilot 商城会员等级与退货权益\n\n4. 会员延长退货不取消商品完好条件，也不覆盖依法或按有效确认排除无理由退货的情形；会员身份不意味着定制、生鲜、已下载内容都能随意退。",
+          "source": "membership_policy.txt",
+          "bm25_score": 12.773096621128673,
+          "rrf_score": 0.015151515151515152,
+          "rerank_score": -0.5453993082046509
+        }
+      ],
+      "answer": "不是。生鲜变质属于质量争议，商家不能仅以“不支持无理由退货”为由直接拒绝处理；应保留订单、商品状态等证据并联系人工核实。依据：return_fresh_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确否定商家仅以不支持无理由为由拒绝处理，并给出保留证据、联系人工核实的建议，与参考答案一致；实质事实由证据return_fresh_policy.txt第2条直接支持；未拒答。"
+      },
+      "generation_ms": 1792.577699990943,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "return_custom_policy-3",
+      "strategy": "vector",
+      "question": "预售一台标准型号电脑，就天然不支持七天无理由吗？",
+      "answerable": true,
+      "reference_answer": "不是，预售与个性化定制不同。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认预售标准型号电脑是否天然不支持七天无理由退货。",
+      "judge": {
+        "correct": false,
+        "grounded": true,
+        "refusal": true,
+        "reason": "参考答案明确回答“不是”，待评答案未给出该结论，仅表示无法确认，故不正确；其拒答表述本身与无证据状态一致，可判grounded；且明确表示无依据、无法确认，构成拒答。"
+      },
+      "generation_ms": 1553.7963999668136,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "return_custom_policy-3",
+      "strategy": "hybrid",
+      "question": "预售一台标准型号电脑，就天然不支持七天无理由吗？",
+      "answerable": true,
+      "reference_answer": "不是，预售与个性化定制不同。",
+      "evidence": [
+        {
+          "id": "return_custom_policy.txt-2",
+          "content": "SupportPilot 商城定制商品退货政策\n\n3. 预售和个性化定制不是同一概念；普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格。",
+          "source": "return_custom_policy.txt",
+          "distance": 0.8793877363204956,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 35.1207292053285
+        },
+        {
+          "id": "return_digital_policy.txt-0",
+          "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n1. 手机、耳机、电脑等实物电子商品不能与下载的软件或数字内容混为一类；不能统一声称所有数码商品都不支持七日无理由。",
+          "source": "return_digital_policy.txt",
+          "distance": 0.8920228481292725,
+          "rrf_score": 0.03225806451612903,
+          "bm25_score": 34.38320189962916
+        },
+        {
+          "id": "return_policy.txt-4",
+          "content": "SupportPilot 商城退换货通用政策\n\n5. 无理由退货需要保持商品本身、配件、标识完整，并按要求退回赠品；为合理查验而打开包装不当然意味着商品不完好。",
+          "source": "return_policy.txt",
+          "distance": 0.9814416170120239,
+          "rrf_score": 0.030309988518943745,
+          "bm25_score": 12.903586114015148
+        }
+      ],
+      "answer": "不是。普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格；预售和个性化定制不是同一概念。电脑等实物电子商品也不能统一声称不支持七日无理由。\n\n依据：return_custom_policy.txt、return_digital_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确否定预售标准电脑天然不支持七天无理由，与参考答案一致；实质事实由证据 return_custom_policy.txt-2 和 return_digital_policy.txt-0 直接支持，未编造。"
+      },
+      "generation_ms": 1579.5322000049055,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "return_custom_policy-3",
+      "strategy": "hybrid_rerank",
+      "question": "预售一台标准型号电脑，就天然不支持七天无理由吗？",
+      "answerable": true,
+      "reference_answer": "不是，预售与个性化定制不同。",
+      "evidence": [
+        {
+          "id": "return_custom_policy.txt-2",
+          "content": "SupportPilot 商城定制商品退货政策\n\n3. 预售和个性化定制不是同一概念；普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格。",
+          "source": "return_custom_policy.txt",
+          "distance": 0.8793877363204956,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 35.1207292053285,
+          "rerank_score": 6.019694805145264
+        },
+        {
+          "id": "return_digital_policy.txt-0",
+          "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n1. 手机、耳机、电脑等实物电子商品不能与下载的软件或数字内容混为一类；不能统一声称所有数码商品都不支持七日无理由。",
+          "source": "return_digital_policy.txt",
+          "distance": 0.8920228481292725,
+          "rrf_score": 0.03225806451612903,
+          "bm25_score": 34.38320189962916,
+          "rerank_score": 3.3640050888061523
+        },
+        {
+          "id": "return_policy.txt-2",
+          "content": "SupportPilot 商城退换货通用政策\n\n3. 消费者定作、鲜活易腐、已交付报刊、在线下载或消费者拆封的音像软件等数字化商品不适用通常的七日无理由退货；质量或履约争议应另行核实。",
+          "source": "return_policy.txt",
+          "distance": 1.0097837448120117,
+          "rrf_score": 0.014925373134328358,
+          "rerank_score": 0.8585430383682251
+        }
+      ],
+      "answer": "不是。预售和个性化定制不是同一概念；普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格。电脑等实物电子商品也不能与下载的软件或数字内容混为一类。依据：return_custom_policy.txt、return_digital_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确否定预售标准电脑天然不支持七天无理由，与参考答案一致；实质事实（预售不等于个性化定制、标准商品预售不天然丧失七日无理由资格、电脑实物不能与数字内容混为一类）均由证据支持；未拒答。"
+      },
+      "generation_ms": 2141.5311000309885,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "membership_scope_policy-2",
+      "strategy": "vector",
+      "question": "商品可以七天退，会员卡也能无条件七天退吗？",
+      "answerable": true,
+      "reference_answer": "不同业务，当前未收录会员退费条件，不能直接套用。",
+      "evidence": [
+        {
+          "id": "membership_scope_policy.txt-2",
+          "content": "SupportPilot 商城会员权益适用与例外\n\n3. 会员服务本身的开通、续费、取消与商品订单退货是不同业务；当前资料没有会员退费条件，不能把商品七日无理由直接解释为会员可无条件退卡。",
+          "source": "membership_scope_policy.txt",
+          "distance": 0.5351102352142334
+        },
+        {
+          "id": "membership_policy.txt-3",
+          "content": "SupportPilot 商城会员等级与退货权益\n\n4. 会员延长退货不取消商品完好条件，也不覆盖依法或按有效确认排除无理由退货的情形；会员身份不意味着定制、生鲜、已下载内容都能随意退。",
+          "source": "membership_policy.txt",
+          "distance": 0.6737767457962036
+        },
+        {
+          "id": "return_policy.txt-1",
+          "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。",
+          "source": "return_policy.txt",
+          "distance": 0.6750260591506958
+        }
+      ],
+      "answer": "不能确认会员卡可无条件七天退。商品退货与会员服务开通、续费、取消是不同业务，资料没有会员退费条件，不能把商品七日无理由套用到会员退卡（来源：membership_scope_policy.txt）。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "回答正确指出商品退货与会员退费属不同业务，资料未收录会员退费条件，不能套用七日无理由，与参考答案一致；实质事实由证据membership_scope_policy.txt支持；并明确表示无法确认会员卡可无条件七天退，构成拒答。"
+      },
+      "generation_ms": 1987.2481999918818,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "membership_scope_policy-2",
+      "strategy": "hybrid",
+      "question": "商品可以七天退，会员卡也能无条件七天退吗？",
+      "answerable": true,
+      "reference_answer": "不同业务，当前未收录会员退费条件，不能直接套用。",
+      "evidence": [
+        {
+          "id": "membership_scope_policy.txt-2",
+          "content": "SupportPilot 商城会员权益适用与例外\n\n3. 会员服务本身的开通、续费、取消与商品订单退货是不同业务；当前资料没有会员退费条件，不能把商品七日无理由直接解释为会员可无条件退卡。",
+          "source": "membership_scope_policy.txt",
+          "distance": 0.5351102352142334,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 28.003427136119434
+        },
+        {
+          "id": "membership_policy.txt-3",
+          "content": "SupportPilot 商城会员等级与退货权益\n\n4. 会员延长退货不取消商品完好条件，也不覆盖依法或按有效确认排除无理由退货的情形；会员身份不意味着定制、生鲜、已下载内容都能随意退。",
+          "source": "membership_policy.txt",
+          "distance": 0.6737767457962036,
+          "rrf_score": 0.03200204813108039,
+          "bm25_score": 18.32435511979965
+        },
+        {
+          "id": "return_policy.txt-1",
+          "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。",
+          "source": "return_policy.txt",
+          "distance": 0.6750260591506958,
+          "rrf_score": 0.031024531024531024,
+          "bm25_score": 14.156958904224933
+        }
+      ],
+      "answer": "不能确认会员卡可以无条件七天退。现有资料明确说明：会员服务的开通、续费、取消与商品订单退货是不同业务，资料中没有会员退费条件，不能把商品七日无理由退货直接解释为会员可无条件退卡（来源：membership_scope_policy.txt）。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "回答明确表示无法确认会员卡可无条件七天退，并说明资料未收录会员退费条件、不能套用商品七日无理由规则，与参考答案一致且由证据支持，属于有依据的保守拒答。"
+      },
+      "generation_ms": 1795.8166999742389,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "membership_scope_policy-2",
+      "strategy": "hybrid_rerank",
+      "question": "商品可以七天退，会员卡也能无条件七天退吗？",
+      "answerable": true,
+      "reference_answer": "不同业务，当前未收录会员退费条件，不能直接套用。",
+      "evidence": [
+        {
+          "id": "membership_scope_policy.txt-2",
+          "content": "SupportPilot 商城会员权益适用与例外\n\n3. 会员服务本身的开通、续费、取消与商品订单退货是不同业务；当前资料没有会员退费条件，不能把商品七日无理由直接解释为会员可无条件退卡。",
+          "source": "membership_scope_policy.txt",
+          "distance": 0.5351102352142334,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 28.003427136119434,
+          "rerank_score": 6.4849419593811035
+        },
+        {
+          "id": "membership_policy.txt-0",
+          "content": "SupportPilot 商城会员等级与退货权益\n\n1. 普通会员享受适用商品的基础售后服务，通常适用七日无理由退货规则及其例外。",
+          "source": "membership_policy.txt",
+          "distance": 0.6825422644615173,
+          "rrf_score": 0.03055037313432836,
+          "bm25_score": 13.79454075046192,
+          "rerank_score": 4.318457126617432
+        },
+        {
+          "id": "return_policy.txt-1",
+          "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。",
+          "source": "return_policy.txt",
+          "distance": 0.6750260591506958,
+          "rrf_score": 0.031024531024531024,
+          "bm25_score": 14.156958904224933,
+          "rerank_score": 3.448263168334961
+        }
+      ],
+      "answer": "不能。商品七日无理由退货与会员卡退费是不同业务，现有资料没有会员退费条件，不能据此认定会员卡可无条件七天退。来源：membership_scope_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答正确指出商品退货与会员退费属不同业务，并说明现有资料未收录会员退费条件，不能直接套用七日无理由规则，与参考答案一致且由证据支持；虽未明确拒答，但给出了有依据的否定性结论，不构成编造。"
+      },
+      "generation_ms": 1827.620800002478,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "invoice_correction_policy-1",
+      "strategy": "vector",
+      "question": "已开出的电子发票抬头错了，能直接改原票吗？",
+      "answerable": true,
+      "reference_answer": "不能直接改原票，应联系开票方核实更正或红冲重开。",
+      "evidence": [
+        {
+          "id": "invoice_correction_policy.txt-1",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n2. 发票从个人抬头改为企业抬头等变更，需要核实实际交易与所需资料，不能保证任意订单均可无条件变更为任意发票类型。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.6452879309654236
+        },
+        {
+          "id": "invoice_correction_policy.txt-0",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n1. 发票开具前发现抬头或税号错误，应先更正资料；已开具后不能直接改写原发票，应联系开票方核实更正、红冲或重新开具流程。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.6514747142791748
+        }
+      ],
+      "answer": "不能直接改原票。已开具后发现抬头错误，应联系开票方核实更正、红冲或重新开具流程。来源：invoice_correction_policy.txt",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确说明不能直接改原票，并给出联系开票方核实更正、红冲或重开的处理方式，与参考答案一致；实质事实由证据 invoice_correction_policy.txt-0 直接支持，且未拒答。"
+      },
+      "generation_ms": 1548.5582000110298,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "invoice_correction_policy-1",
+      "strategy": "hybrid",
+      "question": "已开出的电子发票抬头错了，能直接改原票吗？",
+      "answerable": true,
+      "reference_answer": "不能直接改原票，应联系开票方核实更正或红冲重开。",
+      "evidence": [
+        {
+          "id": "invoice_correction_policy.txt-0",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n1. 发票开具前发现抬头或税号错误，应先更正资料；已开具后不能直接改写原发票，应联系开票方核实更正、红冲或重新开具流程。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.6514747142791748,
+          "rrf_score": 0.03252247488101534,
+          "bm25_score": 48.99036856587858
+        },
+        {
+          "id": "invoice_correction_policy.txt-1",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n2. 发票从个人抬头改为企业抬头等变更，需要核实实际交易与所需资料，不能保证任意订单均可无条件变更为任意发票类型。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.6452879309654236,
+          "rrf_score": 0.032018442622950824,
+          "bm25_score": 24.62978605034087
+        },
+        {
+          "id": "invoice_policy.txt-2",
+          "content": "SupportPilot 商城电子发票申请政策\n\n3. 电子发票申请需关联实际订单并核实抬头；企业抬头还需准确的纳税人识别信息，不能代填虚假税号或与交易不符的内容。",
+          "source": "invoice_policy.txt",
+          "distance": 0.799502968788147,
+          "rrf_score": 0.031754032258064516,
+          "bm25_score": 34.32655164340185
+        }
+      ],
+      "answer": "不能直接改原票。已开具后发现抬头错误，应联系开票方核实更正、红冲或重新开具流程（来源：invoice_correction_policy.txt）。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确说明不能直接改原票，并给出联系开票方核实更正、红冲或重开的处理方式，与参考答案一致；该结论由证据 invoice_correction_policy.txt-0 直接支持，事实有据；未拒答。"
+      },
+      "generation_ms": 1818.2749999687076,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "invoice_correction_policy-1",
+      "strategy": "hybrid_rerank",
+      "question": "已开出的电子发票抬头错了，能直接改原票吗？",
+      "answerable": true,
+      "reference_answer": "不能直接改原票，应联系开票方核实更正或红冲重开。",
+      "evidence": [
+        {
+          "id": "invoice_correction_policy.txt-0",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n1. 发票开具前发现抬头或税号错误，应先更正资料；已开具后不能直接改写原发票，应联系开票方核实更正、红冲或重新开具流程。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.6514747142791748,
+          "rrf_score": 0.03252247488101534,
+          "bm25_score": 48.99036856587858,
+          "rerank_score": 5.909424304962158
+        },
+        {
+          "id": "invoice_correction_policy.txt-1",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n2. 发票从个人抬头改为企业抬头等变更，需要核实实际交易与所需资料，不能保证任意订单均可无条件变更为任意发票类型。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.6452879309654236,
+          "rrf_score": 0.032018442622950824,
+          "bm25_score": 24.62978605034087,
+          "rerank_score": 2.258897542953491
+        },
+        {
+          "id": "invoice_correction_policy.txt-3",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n4. 商家自行开具的发票应联系对应销售方处理；不能把平台客服查询能力等同于能直接修改所有商家的税务记录。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.783982515335083,
+          "rrf_score": 0.03125763125763126,
+          "bm25_score": 23.82505266907867,
+          "rerank_score": 1.9326307773590088
+        }
+      ],
+      "answer": "不能直接改原票。已开具后发现抬头错误，应联系开票方核实更正、红冲或重新开具流程；商家自行开具的发票需联系对应销售方处理。（来源：invoice_correction_policy.txt）",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": false,
+        "reason": "回答明确说明不能直接改原票，并给出联系开票方核实更正、红冲或重开的处理方式，与参考答案一致；证据第1条直接支持该结论，第4条支持商家自开发票联系销售方，事实均有依据；未拒答。"
+      },
+      "generation_ms": 1539.1772999428213,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-5",
+      "strategy": "vector",
+      "question": "SupportPilot总部在哪条街几号？",
+      "answerable": false,
+      "reference_answer": "没有总部地址。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认SupportPilot总部所在街道及门牌号。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题不可答且无证据，回答明确拒答未编造，符合参考答案。"
+      },
+      "generation_ms": 1661.057599936612,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-5",
+      "strategy": "hybrid",
+      "question": "SupportPilot总部在哪条街几号？",
+      "answerable": false,
+      "reference_answer": "没有总部地址。",
+      "evidence": [
+        {
+          "id": "refund_policy.txt-4",
+          "content": "SupportPilot 商城退款流程与到账政策\n\n5. 超出预计到账区间时提供订单号联系人工核查退款状态和支付渠道；当前Agent可解释政策，但不能凭聊天回复声称已经执行真实退款。",
+          "source": "refund_policy.txt",
+          "distance": 1.0134543180465698,
+          "rrf_score": 0.03007688828584351,
+          "bm25_score": 2.790566192215275
+        },
+        {
+          "id": "invoice_amount_policy.txt-1",
+          "content": "SupportPilot 商城开票金额与优惠抵扣\n\n2. 商品标价、券后实付金额、配送费用和发票金额可能不同；运费是否在本张发票列示需核实开票方及订单信息，不能只凭商品标价判断少开。",
+          "source": "invoice_amount_policy.txt",
+          "distance": 1.0331249237060547,
+          "rrf_score": 0.028577260665441927,
+          "bm25_score": 2.395541909121119
+        },
+        {
+          "id": "membership_policy.txt-4",
+          "content": "SupportPilot 商城会员等级与退货权益\n\n5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。",
+          "source": "membership_policy.txt",
+          "bm25_score": 5.271136757804616,
+          "rrf_score": 0.01639344262295082
+        }
+      ],
+      "answer": "知识库暂无依据，无法确认SupportPilot总部所在街道及门牌号。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题不可回答，参考答案为没有总部地址；待评答案明确表示知识库无依据、无法确认，属于正确拒答，且证据中确实没有总部地址信息，因此 grounded 为真。"
+      },
+      "generation_ms": 1691.9944999972358,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-5",
+      "strategy": "hybrid_rerank",
+      "question": "SupportPilot总部在哪条街几号？",
+      "answerable": false,
+      "reference_answer": "没有总部地址。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认SupportPilot总部地址。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题不可答且无证据，回答明确拒答未编造，符合参考答案。"
+      },
+      "generation_ms": 1742.8854999598116,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-6",
+      "strategy": "vector",
+      "question": "你们会员优惠券每月固定送几张？",
+      "answerable": false,
+      "reference_answer": "未收录固定张数。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认会员优惠券每月固定赠送张数。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题无证据支持，参考答案为未收录固定张数；待评答案明确表示知识库无依据、无法确认，属于正确拒答，且未编造事实。"
+      },
+      "generation_ms": 1868.8438000390306,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-6",
+      "strategy": "hybrid",
+      "question": "你们会员优惠券每月固定送几张？",
+      "answerable": false,
+      "reference_answer": "未收录固定张数。",
+      "evidence": [
+        {
+          "id": "coupon_scope_policy.txt-3",
+          "content": "SupportPilot 商城优惠券限制与运费券政策\n\n4. 会员身份与优惠券适用范围是不同条件，拥有会员身份不能绕过券的有效期、店铺范围或活动限制。",
+          "source": "coupon_scope_policy.txt",
+          "distance": 0.8122607469558716,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 19.031238528787117
+        },
+        {
+          "id": "coupon_usage_policy.txt-3",
+          "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。",
+          "source": "coupon_usage_policy.txt",
+          "distance": 0.8283517956733704,
+          "rrf_score": 0.03200204813108039,
+          "bm25_score": 15.21547734478925
+        },
+        {
+          "id": "coupon_usage_policy.txt-4",
+          "content": "SupportPilot 商城商品优惠券使用政策\n\n5. 优惠券能否用于预售尾款，需要核实券面和预售活动条件；不能推断普通现货可用的券一定能支付定金或尾款。",
+          "source": "coupon_usage_policy.txt",
+          "distance": 0.9033616185188293,
+          "rrf_score": 0.030536130536130537,
+          "bm25_score": 12.478972595076003
+        }
+      ],
+      "answer": "知识库暂无依据，无法确认会员优惠券每月固定赠送几张。现有资料只说明会员身份不能绕过优惠券的有效期、店铺范围或活动限制（来源：coupon_scope_policy.txt），以及优惠券须在有效期内并符合适用条件才能使用（来源：coupon_usage_policy.txt）。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题所问固定张数未被证据收录，参考答案为未收录；待评答案明确表示知识库无依据、无法确认，并仅引用证据中关于会员身份与券适用范围、有效期条件的真实内容，未编造张数，符合拒答要求且事实有据。"
+      },
+      "generation_ms": 1658.494699979201,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-6",
+      "strategy": "hybrid_rerank",
+      "question": "你们会员优惠券每月固定送几张？",
+      "answerable": false,
+      "reference_answer": "未收录固定张数。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认会员优惠券每月固定赠送数量。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题无证据支持，参考答案为未收录固定张数；待评答案明确表示无依据、无法确认，属于正确拒答，且未编造事实。"
+      },
+      "generation_ms": 1699.9573000939563,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-8",
+      "strategy": "vector",
+      "question": "丢件一定赔三倍吗，具体赔多少？",
+      "answerable": false,
+      "reference_answer": "未收录赔付倍数和金额，需人工核实。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认丢件是否一定赔三倍及具体赔偿金额。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题无证据支持，参考答案要求人工核实；待评答案明确表示知识库无依据、无法确认，属于正确拒答，且未编造事实。"
+      },
+      "generation_ms": 1699.245100026019,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-8",
+      "strategy": "hybrid",
+      "question": "丢件一定赔三倍吗，具体赔多少？",
+      "answerable": false,
+      "reference_answer": "未收录赔付倍数和金额，需人工核实。",
+      "evidence": [
+        {
+          "id": "shipping_exception_policy.txt-3",
+          "content": "SupportPilot 商城物流异常与加急处理范围\n\n4. 运输停滞、包裹丢失、签收争议与待发货是不同场景；当前加急发货流程不能处理这些情况，也不自动承诺赔偿金额。",
+          "source": "shipping_exception_policy.txt",
+          "distance": 1.100783109664917,
+          "rrf_score": 0.03177805800756621,
+          "bm25_score": 8.071248403003045
+        },
+        {
+          "id": "return_apparel_policy.txt-1",
+          "content": "SupportPilot 商城服饰鞋包退货完好标准\n\n2. 服饰剪标、污损、破坏或明显使用痕迹可能影响商品完好认定；应结合具体状态核实，不能仅凭打开外包装就拒绝退货。",
+          "source": "return_apparel_policy.txt",
+          "distance": 1.176063060760498,
+          "rrf_score": 0.029513888888888888,
+          "bm25_score": 8.281197834224843
+        },
+        {
+          "id": "return_custom_policy.txt-1",
+          "content": "SupportPilot 商城定制商品退货政策\n\n2. 定制商品交付内容与已确认的规格、图案或尺寸约定不一致，应作为履约争议人工核实，不能与无理由退货混淆。",
+          "source": "return_custom_policy.txt",
+          "distance": 1.1644737720489502,
+          "rrf_score": 0.028790389395194696,
+          "bm25_score": 3.8762430433388584
+        }
+      ],
+      "answer": "知识库暂无依据确认“丢件一定赔三倍”或具体赔偿金额。现有资料仅说明：包裹丢失属于物流异常场景，当前加急发货流程不能处理，也不自动承诺赔偿金额（来源：shipping_exception_policy.txt）。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题所问赔付倍数和金额在证据中无依据，参考答案要求人工核实；待评答案明确表示知识库暂无依据确认，并准确引用证据说明不自动承诺赔偿金额，属于正确拒答且事实有据。"
+      },
+      "generation_ms": 2791.0291999578476,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-8",
+      "strategy": "hybrid_rerank",
+      "question": "丢件一定赔三倍吗，具体赔多少？",
+      "answerable": false,
+      "reference_answer": "未收录赔付倍数和金额，需人工核实。",
+      "evidence": [
+        {
+          "id": "shipping_exception_policy.txt-3",
+          "content": "SupportPilot 商城物流异常与加急处理范围\n\n4. 运输停滞、包裹丢失、签收争议与待发货是不同场景；当前加急发货流程不能处理这些情况，也不自动承诺赔偿金额。",
+          "source": "shipping_exception_policy.txt",
+          "distance": 1.100783109664917,
+          "rrf_score": 0.03177805800756621,
+          "bm25_score": 8.071248403003045,
+          "rerank_score": -1.806687831878662
+        }
+      ],
+      "answer": "根据现有证据，无法确认“丢件一定赔三倍”或具体赔偿金额。资料仅说明包裹丢失属于物流异常场景，当前加急发货流程不能处理，也不自动承诺赔偿金额（来源：shipping_exception_policy.txt）。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "证据未收录赔付倍数和金额，参考答案要求人工核实；待评答案明确表示无法确认三倍赔付及具体金额，并说明证据仅涉及物流异常场景且不自动承诺赔偿，属于有依据的保守拒答，符合正确性与grounded要求。"
+      },
+      "generation_ms": 1840.1260999962687,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-9",
+      "strategy": "vector",
+      "question": "优惠券退回一定五分钟到账吗？",
+      "answerable": false,
+      "reference_answer": "未收录统一返还分钟数，不作保证。",
+      "evidence": [
+        {
+          "id": "coupon_refund_policy.txt-4",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.5949209928512573
+        },
+        {
+          "id": "coupon_refund_policy.txt-2",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n3. 退款按实际支付及优惠分摊计算，不能把商品原价作为必然退回的现金金额，优惠券抵扣部分也不作为现金重复退还。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.6966000199317932
+        }
+      ],
+      "answer": "无法确认“一定五分钟到账”。知识库明确说明：不承诺统一到账分钟数，具体券种和返还时效需人工确认；活动专享券还可能另有返还条件。来源：coupon_refund_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "回答明确表示无法确认五分钟到账，符合参考答案的不作保证，且实质事实由证据第5条支持，属于明确拒答。"
+      },
+      "generation_ms": 1817.0370999723673,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-9",
+      "strategy": "hybrid",
+      "question": "优惠券退回一定五分钟到账吗？",
+      "answerable": false,
+      "reference_answer": "未收录统一返还分钟数，不作保证。",
+      "evidence": [
+        {
+          "id": "coupon_refund_policy.txt-4",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.5949209928512573,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 26.751523936632378
+        },
+        {
+          "id": "coupon_refund_policy.txt-2",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n3. 退款按实际支付及优惠分摊计算，不能把商品原价作为必然退回的现金金额，优惠券抵扣部分也不作为现金重复退还。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.6966000199317932,
+          "rrf_score": 0.03200204813108039,
+          "bm25_score": 18.566561900157378
+        },
+        {
+          "id": "coupon_refund_policy.txt-1",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n2. 商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.7097688913345337,
+          "rrf_score": 0.03125763125763126,
+          "bm25_score": 17.145515136496538
+        }
+      ],
+      "answer": "无法确认“一定五分钟到账”。知识库未承诺统一的优惠券返还到账分钟数，具体券种和返还时效需人工确认；活动专享券还可能另有特别返还条件。  \n来源：coupon_refund_policy.txt",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "回答明确表示无法确认五分钟到账，与参考答案一致；其依据（未承诺统一分钟数、需人工确认、活动券另有条件）均由证据第5条支持，属有据拒答。"
+      },
+      "generation_ms": 1975.2498000161722,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-9",
+      "strategy": "hybrid_rerank",
+      "question": "优惠券退回一定五分钟到账吗？",
+      "answerable": false,
+      "reference_answer": "未收录统一返还分钟数，不作保证。",
+      "evidence": [
+        {
+          "id": "coupon_refund_policy.txt-4",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.5949209928512573,
+          "rrf_score": 0.03278688524590164,
+          "bm25_score": 26.751523936632378,
+          "rerank_score": 5.627129077911377
+        },
+        {
+          "id": "refund_policy.txt-3",
+          "content": "SupportPilot 商城退款流程与到账政策\n\n4. 退款原则上按实际支付来源退回，混合支付需分别核实对应部分；优惠券抵扣不作为现金重复退还，其返还按券规则核实。",
+          "source": "refund_policy.txt",
+          "distance": 0.7602096199989319,
+          "rrf_score": 0.031054405392392875,
+          "bm25_score": 22.663487107794413,
+          "rerank_score": 0.9819207191467285
+        },
+        {
+          "id": "coupon_refund_policy.txt-2",
+          "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n3. 退款按实际支付及优惠分摊计算，不能把商品原价作为必然退回的现金金额，优惠券抵扣部分也不作为现金重复退还。",
+          "source": "coupon_refund_policy.txt",
+          "distance": 0.6966000199317932,
+          "rrf_score": 0.03200204813108039,
+          "bm25_score": 18.566561900157378,
+          "rerank_score": -0.10617256164550781
+        }
+      ],
+      "answer": "无法确认“一定五分钟到账”。知识库明确说明：未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数；活动专享券还可能另有返还条件。来源：coupon_refund_policy.txt。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题询问优惠券退回是否一定五分钟到账，参考答案为未收录统一返还分钟数、不作保证。待评答案明确表示无法确认一定五分钟到账，并引用证据说明未收录具体返还时效、不承诺统一到账分钟数，符合参考答案且未编造，属于明确拒答；其事实内容由证据coupon_refund_policy.txt-4支持。"
+      },
+      "generation_ms": 1641.814799979329,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-10",
+      "strategy": "vector",
+      "question": "会员退卡手续费固定百分之几？",
+      "answerable": false,
+      "reference_answer": "没有会员退款手续费标准。",
+      "evidence": [
+        {
+          "id": "membership_policy.txt-4",
+          "content": "SupportPilot 商城会员等级与退货权益\n\n5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。",
+          "source": "membership_policy.txt",
+          "distance": 0.676659345626831
+        }
+      ],
+      "answer": "知识库暂无依据，无法确认会员退卡手续费的固定比例。现有资料仅说明会员权益限本人使用，未收录相关费用信息（来源：membership_policy.txt）。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题不可答，参考答案指出没有会员退款手续费标准。待评答案明确表示知识库无依据、无法确认固定比例，并说明现有资料未收录相关费用，属于正确拒答且未编造，其实质事实由证据支持。"
+      },
+      "generation_ms": 1880.8574000140652,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-10",
+      "strategy": "hybrid",
+      "question": "会员退卡手续费固定百分之几？",
+      "answerable": false,
+      "reference_answer": "没有会员退款手续费标准。",
+      "evidence": [
+        {
+          "id": "membership_policy.txt-4",
+          "content": "SupportPilot 商城会员等级与退货权益\n\n5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。",
+          "source": "membership_policy.txt",
+          "distance": 0.676659345626831,
+          "rrf_score": 0.03252247488101534,
+          "bm25_score": 14.445336857546328
+        },
+        {
+          "id": "membership_scope_policy.txt-2",
+          "content": "SupportPilot 商城会员权益适用与例外\n\n3. 会员服务本身的开通、续费、取消与商品订单退货是不同业务；当前资料没有会员退费条件，不能把商品七日无理由直接解释为会员可无条件退卡。",
+          "source": "membership_scope_policy.txt",
+          "distance": 0.7070616483688354,
+          "rrf_score": 0.03252247488101534,
+          "bm25_score": 28.78833979795982
+        },
+        {
+          "id": "membership_policy.txt-1",
+          "content": "SupportPilot 商城会员等级与退货权益\n\n2. 金卡会员可享受优先客服服务；优先客服不等于所有商品延长退货、免除运费或自动批准退款。",
+          "source": "membership_policy.txt",
+          "distance": 0.7465308308601379,
+          "rrf_score": 0.031746031746031744,
+          "bm25_score": 13.916469184021556
+        }
+      ],
+      "answer": "知识库暂无会员退卡手续费比例的依据，无法确认固定百分之几。现有资料仅说明会员退费条件未收录，且会员退卡与商品退货是不同业务（来源：membership_scope_policy.txt、membership_policy.txt）。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题不可答，参考答案为无会员退款手续费标准。待评答案明确表示知识库无依据、无法确认固定比例，并引用证据说明会员退费条件未收录、退卡与商品退货不同，属于正确拒答且事实有证据支持。"
+      },
+      "generation_ms": 1482.781899976544,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-10",
+      "strategy": "hybrid_rerank",
+      "question": "会员退卡手续费固定百分之几？",
+      "answerable": false,
+      "reference_answer": "没有会员退款手续费标准。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认会员退卡手续费是否为固定比例及具体百分比。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题无证据支持，参考答案表明不存在会员退款手续费标准；待评答案明确表示知识库无依据、无法确认，属于正确拒答，且未编造事实。"
+      },
+      "generation_ms": 1650.0367000699043,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-11",
+      "strategy": "vector",
+      "question": "发票重开必须交多少元手续费？",
+      "answerable": false,
+      "reference_answer": "未收录重开手续费金额。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认发票重开需要交多少手续费。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题无证据支持，参考答案表明未收录手续费金额；待评答案明确拒答并说明无依据，未编造，符合正确与grounded要求。"
+      },
+      "generation_ms": 1716.5030000032857,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-11",
+      "strategy": "hybrid",
+      "question": "发票重开必须交多少元手续费？",
+      "answerable": false,
+      "reference_answer": "未收录重开手续费金额。",
+      "evidence": [
+        {
+          "id": "invoice_amount_policy.txt-1",
+          "content": "SupportPilot 商城开票金额与优惠抵扣\n\n2. 商品标价、券后实付金额、配送费用和发票金额可能不同；运费是否在本张发票列示需核实开票方及订单信息，不能只凭商品标价判断少开。",
+          "source": "invoice_amount_policy.txt",
+          "distance": 0.8448310494422913,
+          "rrf_score": 0.03252247488101534,
+          "bm25_score": 16.03972723822688
+        },
+        {
+          "id": "invoice_correction_policy.txt-2",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n3. 商品退款或部分退货可能需要调整已开票金额，发票处理与退款结果应一致；是否需要红冲或重开由实际开票方核实。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.8764828443527222,
+          "rrf_score": 0.03252247488101534,
+          "bm25_score": 16.63997101883771
+        },
+        {
+          "id": "invoice_correction_policy.txt-0",
+          "content": "SupportPilot 商城发票更正与退货处理\n\n1. 发票开具前发现抬头或税号错误，应先更正资料；已开具后不能直接改写原发票，应联系开票方核实更正、红冲或重新开具流程。",
+          "source": "invoice_correction_policy.txt",
+          "distance": 0.9009212851524353,
+          "rrf_score": 0.03125763125763126,
+          "bm25_score": 13.605602286522588
+        }
+      ],
+      "answer": "知识库暂无依据，无法确认发票重开需要交多少元手续费。现有资料只说明发票更正、红冲或重开需联系开票方核实流程（来源：invoice_correction_policy.txt），未提及手续费金额。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题不可答，参考答案为未收录手续费金额。待评答案明确表示知识库无依据、无法确认手续费金额，并正确引用证据说明仅需联系开票方核实流程而未提及费用，属于明确拒答且未编造，符合参考答案，实质事实由证据支持。"
+      },
+      "generation_ms": 1646.3826999533921,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    },
+    {
+      "case_id": "unknown-11",
+      "strategy": "hybrid_rerank",
+      "question": "发票重开必须交多少元手续费？",
+      "answerable": false,
+      "reference_answer": "未收录重开手续费金额。",
+      "evidence": [],
+      "answer": "知识库暂无依据，无法确认发票重开需要交多少手续费。",
+      "judge": {
+        "correct": true,
+        "grounded": true,
+        "refusal": true,
+        "reason": "问题无证据支持，参考答案表明未收录手续费金额；待评答案明确拒答并说明无法确认，未编造事实，符合正确性与证据约束。"
+      },
+      "generation_ms": 1496.008099988103,
+      "answer_model": "deepseek-flash",
+      "judge_model": "deepseek-flash"
+    }
+  ]
+}

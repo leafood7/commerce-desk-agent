@@ -1,0 +1,267 @@
+{
+  "version": "2026-10-21.1",
+  "reviewed_on": "2026-10-21",
+  "scope": "SupportPilot项目政策；公开规则参考与项目自行约定分开记录，不代表京东官方客服知识库",
+  "sources": {
+    "S1": {
+      "title": "市场监管总局：网络购买商品七日无理由退货暂行办法",
+      "url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2023/art_26ca8fe29e184edd899fa0a7a060d935.html",
+      "scope": "无理由退货的适用范围、完好标准、时限、返还；不等于所有商品质量责任的完整规定"
+    },
+    "S2": {
+      "title": "京东：定制、预售商品未按约定时间发货",
+      "url": "https://help.jd.com/user/issue/454-1578.html",
+      "scope": "参考承诺发货时间与催单流程，不迁移平台赔付规则"
+    },
+    "S3": {
+      "title": "京东：京东优惠券规则",
+      "url": "https://help.jd.com/user/issue/169-1077.html",
+      "scope": "参考商品券、运费券、券适用范围、全退返券与过期；不采用旧版京券规则"
+    },
+    "S4": {
+      "title": "京东：订单取消后优惠券返回",
+      "url": "https://help.jd.com/user/issue/59-118.html",
+      "scope": "仅参考活动例外、拆单和券有效期，不采用与S3不一致的旧券种细节"
+    },
+    "S5": {
+      "title": "京东：企业购发票说明",
+      "url": "https://help.jd.com/user/issue/978-4256.html",
+      "scope": "仅参考电子发票获取、抬头核实、更正、优惠抵扣与开票金额；不照搬企业购365天等时限；页面含2021-2023年旧条款，只选用不涉及这些特定时期的开票方与资料核实原则"
+    },
+    "S6": {
+      "title": "京东：PLUS会员用户协议",
+      "url": "https://help.jd.com/user/issue/894-4216.html",
+      "scope": "参考权益限本人、变更适用与公示；不把PLUS名称、费用、权益视为SupportPilot权益"
+    },
+    "S7": {
+      "title": "京东：PLUS会员退卡条件",
+      "url": "https://help.jd.com/user/issue/893-4379.html",
+      "scope": "参考会员服务退款与商品退货需区分；不将7天退卡移植成项目承诺"
+    },
+    "S8": {
+      "title": "京东：自营售后运费说明",
+      "url": "https://help.jd.com/user/issue/131-496.html",
+      "scope": "参考质量/非质量原因与会员运费权益需区分；不引入PLUS免费运费权益"
+    },
+    "S9": {
+      "title": "国家税务总局：推广应用全面数字化电子发票公告",
+      "url": "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5236067/content.html",
+      "scope": "开票有误、全部或部分销售退回按规定开具红字数电发票；不实现税务操作"
+    }
+  },
+  "excluded": [
+    {
+      "url": "https://help.jd.com/user/issue/169-4234.html",
+      "reason": "明确为2021-12-04前生效旧规则，不入库"
+    },
+    {
+      "url": "https://help.jd.com/user/issue/37-3347.html",
+      "reason": "2018年支付方式及APP版本规则，不采用"
+    }
+  ],
+  "documents": [
+    {
+      "file": "shipping_policy.txt",
+      "title": "SupportPilot 商城物流与承诺发货政策",
+      "source_ids": [
+        "S2"
+      ],
+      "origin": "原项目服务目标与现有业务代码统一",
+      "adaptation_notes": "48/72小时为项目约定；加急阈值依据 shipping.eligibility，不是京东官方承诺。",
+      "chunk_count": 5,
+      "sha256": "9df73d9978b72beaf63fb58311b6e93862e86920d1112fe6ffb69709f0ed339c"
+    },
+    {
+      "file": "presale_shipping_policy.txt",
+      "title": "SupportPilot 商城预售与定制发货政策",
+      "source_ids": [
+        "S2"
+      ],
+      "origin": "公开规则适配与项目执行前提",
+      "adaptation_notes": "现有订单模型不记录定金/尾款阶段；这里只提供问答规则，不宣称已实现预售订单支付校验。",
+      "chunk_count": 5,
+      "sha256": "b894ee60db8f2d58cb7f805d591573e340ac815012a61286e9bd85f99f8bf5d5"
+    },
+    {
+      "file": "shipping_exception_policy.txt",
+      "title": "SupportPilot 商城物流异常与加急处理范围",
+      "source_ids": [],
+      "origin": "现有程序行为",
+      "adaptation_notes": "用于让知识库描述与实际工具能力一致。",
+      "chunk_count": 4,
+      "sha256": "abd828ffa09e7628897dc6c108bcbcb1398e4a00540c939a4891bd65dcbb9abe"
+    },
+    {
+      "file": "coupon_usage_policy.txt",
+      "title": "SupportPilot 商城商品优惠券使用政策",
+      "source_ids": [
+        "S3"
+      ],
+      "origin": "参考商品满减券并统一为项目券种",
+      "adaptation_notes": "不引入旧版京券、京豆返还，也不照搬PLUS特殊叠加。",
+      "chunk_count": 5,
+      "sha256": "80e7bafe1faa0973291794870e5c42aa61a61ada88385cc2568dc337e23ed675"
+    },
+    {
+      "file": "coupon_refund_policy.txt",
+      "title": "SupportPilot 商城取消退货后的优惠券返还政策",
+      "source_ids": [
+        "S3",
+        "S4"
+      ],
+      "origin": "公开规则归纳并适配项目",
+      "adaptation_notes": "",
+      "chunk_count": 5,
+      "sha256": "b5228622efb27fd424045394329f968507f2babcc8387de1079729ab3c31ae6b"
+    },
+    {
+      "file": "coupon_scope_policy.txt",
+      "title": "SupportPilot 商城优惠券限制与运费券政策",
+      "source_ids": [
+        "S3"
+      ],
+      "origin": "公开规则归纳并适配项目",
+      "adaptation_notes": "",
+      "chunk_count": 4,
+      "sha256": "48af47db377929344114d7861ad0f0018dfc1155c749b120918b10efce44c6dd"
+    },
+    {
+      "file": "return_policy.txt",
+      "title": "SupportPilot 商城退换货通用政策",
+      "source_ids": [
+        "S1",
+        "S8"
+      ],
+      "origin": "官方适用条件与原项目规则消歧",
+      "adaptation_notes": "7天/15天分清基础与会员额外权益；质量售后不一刀切。",
+      "chunk_count": 7,
+      "sha256": "818bbe0395bba332057d6f41521939e05b9f0836a8e3a9d5bb92ac76199d2b63"
+    },
+    {
+      "file": "return_apparel_policy.txt",
+      "title": "SupportPilot 商城服饰鞋包退货完好标准",
+      "source_ids": [
+        "S1"
+      ],
+      "origin": "品类规则归纳",
+      "adaptation_notes": "",
+      "chunk_count": 3,
+      "sha256": "598c7daabc9e4ae3dc3741dc22690ed4bdf2d63728439d4d7b018d8ea40ce674"
+    },
+    {
+      "file": "return_digital_policy.txt",
+      "title": "SupportPilot 商城电子数码与数字内容退货政策",
+      "source_ids": [
+        "S1"
+      ],
+      "origin": "公开规则归纳并适配项目",
+      "adaptation_notes": "",
+      "chunk_count": 4,
+      "sha256": "fa71499bbd839aac8e867c15b4575cd113c421df41cdc2dade8798020624040e"
+    },
+    {
+      "file": "return_fresh_policy.txt",
+      "title": "SupportPilot 商城生鲜与食品退货政策",
+      "source_ids": [
+        "S1"
+      ],
+      "origin": "官方规则的品类化说明",
+      "adaptation_notes": "质量问题转人工核实，不自动给出赔偿倍数或受理时限。",
+      "chunk_count": 3,
+      "sha256": "86888c8830dc9cd858510decfd5c9a8d664a26ac08ecf0ed68f6cbf240e4371d"
+    },
+    {
+      "file": "return_custom_policy.txt",
+      "title": "SupportPilot 商城定制商品退货政策",
+      "source_ids": [
+        "S1",
+        "S2"
+      ],
+      "origin": "公开规则归纳并适配项目",
+      "adaptation_notes": "",
+      "chunk_count": 3,
+      "sha256": "96dbe542d7e1ea04dfe865a428e238dd83fd63d2e9a4e0e11b8f7ff2bfdad456"
+    },
+    {
+      "file": "return_hygiene_policy.txt",
+      "title": "SupportPilot 商城贴身与卫生用品退货政策",
+      "source_ids": [
+        "S1"
+      ],
+      "origin": "公开规则归纳并适配项目",
+      "adaptation_notes": "",
+      "chunk_count": 3,
+      "sha256": "b17af7c602856e959b1b857a800f4821029d90164e0b1fe620feadf9c74fb0de"
+    },
+    {
+      "file": "membership_policy.txt",
+      "title": "SupportPilot 商城会员等级与退货权益",
+      "source_ids": [
+        "S1",
+        "S6"
+      ],
+      "origin": "原项目会员等级保留并明确边界",
+      "adaptation_notes": "金卡、黑金、部分商品15天是项目约定，不是JD PLUS真实权益。",
+      "chunk_count": 5,
+      "sha256": "b7b8e708127096cdd5a8ab1e43b73506f2140ab5e9057c9af6111ebc9dc3b1e2"
+    },
+    {
+      "file": "membership_scope_policy.txt",
+      "title": "SupportPilot 商城会员权益适用与例外",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8"
+      ],
+      "origin": "参考适用范围区分，未引入新的收费权益",
+      "adaptation_notes": "",
+      "chunk_count": 4,
+      "sha256": "6f2c25fea59ea3589bc8267afeddbcb99b534daf86801d2e69efd1f19d9e057f"
+    },
+    {
+      "file": "invoice_policy.txt",
+      "title": "SupportPilot 商城电子发票申请政策",
+      "source_ids": [
+        "S5"
+      ],
+      "origin": "保留原项目30天/2工作日服务目标并补充条件",
+      "adaptation_notes": "30天与2工作日没有从京东来源证实，明确为原项目约定。",
+      "chunk_count": 4,
+      "sha256": "9f649768e87bf3a3b102e29143fcea6570f8bc02db3d6be6e8c978f4888b5a12"
+    },
+    {
+      "file": "invoice_correction_policy.txt",
+      "title": "SupportPilot 商城发票更正与退货处理",
+      "source_ids": [
+        "S5",
+        "S9"
+      ],
+      "origin": "参考开票方核实流程",
+      "adaptation_notes": "不宣称当前工具可开票、红冲或执行退款。",
+      "chunk_count": 4,
+      "sha256": "a596f4e06e5363bce2d16c9909a89d99e03cde61a6a9691d3bd76222ae71f328"
+    },
+    {
+      "file": "invoice_amount_policy.txt",
+      "title": "SupportPilot 商城开票金额与优惠抵扣",
+      "source_ids": [
+        "S5"
+      ],
+      "origin": "仅参考优惠折扣与实际交易核对",
+      "adaptation_notes": "不移植京东礼品卡等特定支付工具的税务口径。",
+      "chunk_count": 3,
+      "sha256": "0113152aefbb1d6e19bf8a0fe03b6f7454ef0c516031abbc1a59c71197980b54"
+    },
+    {
+      "file": "refund_policy.txt",
+      "title": "SupportPilot 商城退款流程与到账政策",
+      "source_ids": [
+        "S1"
+      ],
+      "origin": "保留原项目到账参考并区分阶段",
+      "adaptation_notes": "1-3、3-7工作日来自原项目，不是网上核实的跨平台统一承诺。",
+      "chunk_count": 5,
+      "sha256": "0d9ffb5ea15481233bfd6f04fadc5a05d80c0c144a22984bbec1f3bd3ef0f6d6"
+    }
+  ]
+}

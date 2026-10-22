@@ -1,0 +1,6 @@
+[
+  {"order_id": "A1001", "customer_name": "张三", "product_name": "无线蓝牙耳机", "payment_status": "已付款", "shipping_status": "等待仓库发货", "estimated_delivery": "预计 2 天内发货", "hours_since_payment": 72},
+  {"order_id": "A1002", "customer_name": "李四", "product_name": "机械键盘", "payment_status": "已付款", "shipping_status": "运输中", "estimated_delivery": "预计明天送达", "hours_since_payment": 30},
+  {"order_id": "A1003", "customer_name": "王五", "product_name": "27 英寸显示器", "payment_status": "已付款", "shipping_status": "已签收", "estimated_delivery": "已于昨日送达", "hours_since_payment": 96},
+  {"order_id": "A1004", "customer_name": "赵六", "product_name": "智能手环", "payment_status": "已付款", "shipping_status": "等待仓库发货", "estimated_delivery": "预计尽快发货", "hours_since_payment": 60}
+]
