@@ -25,7 +25,7 @@ from shipping_ui import draw_shipping_console
 # 应用主要通过 AgentClient 调用智能体的 FastAPI 接口
 
 
-APP_TITLE = "SupportPilot 智能客服"
+APP_TITLE = "CommerceDesk 智能客服"
 APP_ICON = "🧰"
 USER_ID_COOKIE = "user_id"
 
@@ -259,7 +259,7 @@ async def main() -> None:
                 WELCOME = """Hello! I'm an AI-powered Company Policy & HR assistant with access to AcmeTech's Employee Handbook.
                 I can help you find information about benefits, remote work, time-off policies, company values, and more. Ask me anything!"""
             case _:
-                WELCOME = "你好，我是 SupportPilot。你可以查询订单、咨询商城政策，或提出催发货和加急处理申请。"
+                WELCOME = "你好，我是 CommerceDesk。你可以查询订单、咨询商城政策，或提出催发货和加急处理申请。"
 
         with st.chat_message("ai"):
             st.write(WELCOME)

@@ -19,8 +19,6 @@ load_dotenv(ROOT / ".env")
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.checkpoint.memory import InMemorySaver
-from langgraph.graph import START, MessagesState, StateGraph
-from langgraph.prebuilt import ToolNode, tools_condition
 from business.knowledge import build_chunks, search_policies
 
 DATASET = ROOT / "data/evaluation/query_rewrite_cases.jsonl"
@@ -83,7 +81,7 @@ def extract_turn(messages):
         for call in getattr(message, "tool_calls", []) or []:
             pending[call["id"]] = call
             if call["name"] == "search_knowledge_base":
-                calls.append({"id": call["id"], "query": call["args"].get("query"), "args": call["args"]})
+                calls.append({"origin": "policy_check" if message.additional_kwargs.get("policy_preflight") else "model", "id": call["id"], "query": call["args"].get("query"), "args": call["args"]})
             else:
                 other_tools.append({"name": call["name"], "args": call["args"]})
         if getattr(message, "type", None) == "tool":
@@ -154,7 +152,7 @@ def summary(rows):
 
 
 async def main(args):
-    from agents.supportpilot_agent import TOOLS, call_model
+    from agents.supportpilot_agent import TOOLS, build_supportpilot_graph
     from core import get_model, settings
     from evaluate_rag_answers import ANSWER_PROMPT
     if os.getenv("SUPPORTPILOT_RETRIEVAL_STRATEGY") != "hybrid_rerank":
@@ -164,22 +162,18 @@ async def main(args):
         cases = cases[:args.limit]
     destination = ROOT / args.output
     destination.parent.mkdir(parents=True, exist_ok=True)
-    builder = StateGraph(MessagesState)
     safe_tools = []
     def blocked_shipping(order_id, kind="normal", reason=""):
         return json.dumps({"status": "blocked_evaluation", "message": "评测不执行业务写入。"}, ensure_ascii=False)
     for tool in TOOLS:
         safe_tools.append(tool.model_copy(update={"func": blocked_shipping}) if tool.name == "request_shipping" else tool)
-    builder.add_node("model", call_model)
-    builder.add_node("tools", ToolNode(safe_tools))
-    builder.add_edge(START, "model")
-    builder.add_conditional_edges("model", tools_condition)
-    builder.add_edge("tools", "model")
-    graph = builder.compile(checkpointer=InMemorySaver())
+    graph = build_supportpilot_graph(tools=safe_tools, checkpointer=InMemorySaver())
     model = get_model(settings.DEFAULT_MODEL).bind(temperature=0)
     corpus = {c["id"]: c["content"] for c in build_chunks()}
     rows = []
-    metadata = {"dataset_sha256": hashlib.sha256(DATASET.read_bytes()).hexdigest(),
+    metadata = {"agent_sha256": hashlib.sha256((ROOT / "src/agents/supportpilot_agent.py").read_bytes()).hexdigest(),
+                "checker_sha256": hashlib.sha256((ROOT / "src/agents/policy_evidence.py").read_bytes()).hexdigest(),
+                "dataset_sha256": hashlib.sha256(DATASET.read_bytes()).hexdigest(),
                 "corpus_sha256": hashlib.sha256(json.dumps(sorted(corpus.items()), ensure_ascii=False).encode()).hexdigest(),
                 "strategy": "hybrid_rerank", "threshold": float(os.getenv("SUPPORTPILOT_RERANK_THRESHOLD", "0")),
                 "pool_size": int(os.getenv("SUPPORTPILOT_RAG_POOL_SIZE", "12")),
@@ -187,8 +181,8 @@ async def main(args):
                 "limitations": "内部诊断集，部分题来自已讨论失败；单次运行，同模型家族裁判不是人工金标准，归因只是诊断线索。"}
     if args.resume and destination.exists():
         previous = json.loads(destination.read_text(encoding="utf-8"))
-        for key in ["dataset_sha256", "corpus_sha256", "strategy", "threshold", "pool_size"]:
-            if previous["metadata"][key] != metadata[key]:
+        for key in ["agent_sha256", "checker_sha256", "dataset_sha256", "corpus_sha256", "strategy", "threshold", "pool_size"]:
+            if previous["metadata"].get(key) != metadata[key]:
                 raise ValueError("续跑配置或数据已变化：" + key)
         rows = previous["rows"]
     def save():

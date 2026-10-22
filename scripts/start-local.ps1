@@ -28,7 +28,7 @@ if ((Test-LocalPort 8081) -or (Test-LocalPort 8501)) {
 
 & $python scripts/init_demo_orders.py
 if ($LASTEXITCODE -ne 0) {
-    throw 'Demo order database initialization failed.'
+    throw 'Order database initialization failed.'
 }
 
 & $python scripts/init_knowledge.py --if-missing

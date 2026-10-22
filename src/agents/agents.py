@@ -34,7 +34,7 @@ class Agent:
 
 agents: dict[str, Agent] = {
     "supportpilot": Agent(
-        description="SupportPilot 电商客服：查询本地订单，检索商城政策并标注来源。",
+        description="CommerceDesk 电商客服：查询本地订单，检索商城政策并标注来源。",
         graph_like=supportpilot_agent,
     ),
     "chatbot": Agent(description="A simple chatbot.", graph_like=chatbot),

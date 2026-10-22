@@ -1,5 +1,5 @@
 [project]
-name = "supportpilot-commerce-agent"
+name = "commerce-desk-agent"
 version = "0.1.0"
 description = "E-commerce support agent with hybrid RAG, order tools and human approval workflows"
 readme = "README.md"
@@ -67,7 +67,7 @@ supportpilot = [
 
 # Supply-chain cooldown: resolution only considers releases >=14 days old. Needs the
 # repo's pinned uv version (older uv ignores this and strips it from uv.lock on re-lock).
-# Policy and override procedure: .claude/skills/dependency-refresh/SKILL.md
+# Keep the uv version compatible with the existing lockfile.
 [tool.uv]
 exclude-newer = "14 days"
 
