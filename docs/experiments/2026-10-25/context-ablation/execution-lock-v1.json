@@ -1,0 +1,17 @@
+{
+  "locked_at": "2026-10-25T11:16:43.736663+00:00",
+  "protocol_sha256": "9d73508fe5cef4b24396b624a1891924c9f5daa356551326356fdc5f54c5d1a3",
+  "runner_sha256": "c679814a6a9043a9c95c3f71a58d94eb0c722a7c4fcd166c976dbd88da8c1706",
+  "fixed_prompt_sha256": "f8129bee03631fd59a7d1c39ced163d8ce47b34b03ca21b878198d0ad79d45ed",
+  "endpoint": "https://api.deepseek.com/v1",
+  "model_setting": "deepseek-chat",
+  "temperature": 0,
+  "stream": false,
+  "max_retries": 0,
+  "timeout_seconds": 90,
+  "repetitions": 1,
+  "multi_turn_backend": "Frozen LangGraph with local policy tool; read/write business tools blocked.",
+  "counterfactual": "On/off share all source and parameters. Single-turn shares anchors; multi-turn derived paths may differ.",
+  "safety": "No real orders, no business writes, no model judge calls. Keys not persisted.",
+  "timing": "warm retrieval; fixed-evidence pair order alternated; cold load separately recorded."
+}

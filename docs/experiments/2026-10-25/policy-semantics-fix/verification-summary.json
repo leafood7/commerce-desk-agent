@@ -1,0 +1,143 @@
+{
+  "method": "Same assistant post-run targeted semantic review. Not independent human/blind scoring; no claim of business accuracy.",
+  "scope": "Only shared ANSWER_GUIDANCE changed. No postprocessor, lexical ban, new model node, retrieval change or citation gate.",
+  "iterations": {
+    "iteration1": {
+      "paired": {
+        "before": {
+          "calls": 14,
+          "errors": 0,
+          "missing_usage": 0,
+          "input_tokens": 14029,
+          "output_tokens": 1359,
+          "total_tokens": 15388,
+          "median_generation_ms": 1661.8322000140324
+        },
+        "after": {
+          "calls": 14,
+          "errors": 0,
+          "missing_usage": 0,
+          "input_tokens": 17417,
+          "output_tokens": 1296,
+          "total_tokens": 18713,
+          "median_generation_ms": 1685.3895500535145
+        }
+      },
+      "fixed_regression": {
+        "calls": 26,
+        "errors": 0,
+        "missing_usage": 0,
+        "input_tokens": 51616,
+        "output_tokens": 3393,
+        "total_tokens": 55009,
+        "median_generation_ms": 1925.379599968437
+      },
+      "dialogues": {
+        "calls": 16,
+        "errors": 0,
+        "missing_usage": 0,
+        "input_tokens": 37090,
+        "output_tokens": 1827,
+        "total_tokens": 38917,
+        "median_generation_ms": null,
+        "turns": 8,
+        "policy_calls": 5,
+        "reuse_turns": 3,
+        "checker_errors": 0,
+        "blocked_business_calls": 0
+      },
+      "source_hashes": {
+        "answers.json": "63204b3a0aa9ecfd27867cb3c92a17fb27b8be04ed8c29e4a26381b04d5e81d0",
+        "dialogues.json": "0eeffa32fef34b1483513150a3c9fc1c27fd58c3d3d25f72f709dbc5e443ab3a",
+        "execution-lock.json": "50b02858c47a48ddef812473ebf1fd2700f7bcdcbf672ab7d96e0e2a92cd9928",
+        "paired-cases.json": "cbd6f2127aadb44dbc9f6d0687705cbebae664b429e3c20bf49a16ff11d8f69c",
+        "answer_policy.after.py": "fd7ae4077c3e8000c6dd2b9afa416f1a14c89f517dfb1f49acfc3c098a2e03e3"
+      },
+      "total_reported_tokens": 128027,
+      "total_model_calls": 70,
+      "targeted_pairs": {
+        "n": 14,
+        "before_pass": 13,
+        "after_pass": 13,
+        "new_directed_n": 12,
+        "interpretation": "Targeted modality checks only; not overall semantic pass or accuracy."
+      }
+    },
+    "iteration2": {
+      "paired": {
+        "before": {
+          "calls": 8,
+          "errors": 0,
+          "missing_usage": 0,
+          "input_tokens": 8584,
+          "output_tokens": 857,
+          "total_tokens": 9441,
+          "median_generation_ms": 1731.0354000073858
+        },
+        "after": {
+          "calls": 8,
+          "errors": 0,
+          "missing_usage": 0,
+          "input_tokens": 11592,
+          "output_tokens": 874,
+          "total_tokens": 12466,
+          "median_generation_ms": 1576.0995000600815
+        }
+      },
+      "fixed_regression": {
+        "calls": 26,
+        "errors": 0,
+        "missing_usage": 0,
+        "input_tokens": 55100,
+        "output_tokens": 3480,
+        "total_tokens": 58580,
+        "median_generation_ms": 1852.8353000292554
+      },
+      "dialogues": {
+        "calls": 16,
+        "errors": 0,
+        "missing_usage": 0,
+        "input_tokens": 37199,
+        "output_tokens": 1861,
+        "total_tokens": 39060,
+        "median_generation_ms": null,
+        "turns": 8,
+        "policy_calls": 5,
+        "reuse_turns": 3,
+        "checker_errors": 0,
+        "blocked_business_calls": 0
+      },
+      "source_hashes": {
+        "answers.json": "1d61cb22a965f090b59ff36df7ce52e300d9e04836e70a8656df438eafc8e994",
+        "dialogues.json": "4e1fa353e187af5795eae165d45856b35c936ac8ca0e76a3171db3e005545344",
+        "execution-lock.json": "359b1aabf4fd2d9a574d220c16e6fa4aa44358c25b81f8441d45187b0fe5098f",
+        "paired-cases.json": "109b64303880e992d4731aefd8fec21ee812f955d9b734aecd34d24f6b112958",
+        "answer_policy.after.py": "dda7d29de5b9568877a3d7be36d5820b696adb0d441a0588a05d09499ebc5082"
+      },
+      "total_reported_tokens": 119547,
+      "total_model_calls": 58,
+      "targeted_pairs": {
+        "n": 8,
+        "before_pass": 7,
+        "after_pass": 8,
+        "new_directed_n": 6,
+        "interpretation": "Targeted modality checks only; not overall semantic pass or accuracy."
+      }
+    }
+  },
+  "offline": {
+    "iteration1": {
+      "tests": 107,
+      "passed": 107,
+      "seconds": 8.176
+    },
+    "iteration2": {
+      "tests": 107,
+      "passed": 107,
+      "seconds": 8.716
+    },
+    "initial_sandbox_attempt": "Stopped after a stall; rerun with fake models and external tracing disabled passed. No silent test failure counted as pass."
+  },
+  "all_iterations_reported_tokens": 247574,
+  "all_iterations_model_calls": 128
+}

@@ -1,0 +1,1118 @@
+{
+  "method": "Post-run AI-assisted review by the same development assistant, no model judge API. Not independent human/blind ground truth. Numeric grades are provisional and reasoning retained.",
+  "source_hashes": {
+    "scorecards-30-v1.jsonl": "5f2eef7a933e7d9ad430b09b6ab2597c4fefba2cfc46111ca7214305f48f3f72",
+    "retrieval-v1.json": "851145678b4e9413fd3906aa218f9eb3a7f64daa3ece8dcf58adcdc31e76c707",
+    "answers-fixed-v1.json": "18b1b4894697e79567f5a16098234590027b50b4b3fa1626a7abba8285b3d677",
+    "answers-fixed-completed-v1.json": "f874090e258fccbbb5a8ad9b079874bc2df09215744b23c4c6f3038f7466b60c",
+    "answers-dialogues-v1.json": "0c377734b9afc6c504b16f1176d0f9a662b19231a674a9f42b21834437ffc6d2"
+  },
+  "fixed": [
+    {
+      "id": "ablation-001",
+      "category": "单条政策即可回答",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均先核实开具、邮箱与拦截，不重复申请；均额外解释2工作日目标，相关但非必需。"
+    },
+    {
+      "id": "ablation-002",
+      "category": "单条政策即可回答",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "membership_policy.txt",
+              "membership_scope_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "membership_policy.txt",
+              "membership_scope_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均不迁移其他平台PLUS权益与费用，也未编造本商城年费。"
+    },
+    {
+      "id": "ablation-003",
+      "category": "单条政策即可回答",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_correction_policy.txt",
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_correction_policy.txt",
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均否定个人转企业无条件更改；开启组额外说明已开票与商家开票边界，证据支持。"
+    },
+    {
+      "id": "ablation-004",
+      "category": "单条政策即可回答",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_usage_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_usage_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均不将购物篮总额当券面指定商品金额；开启组对结算算法的描述偏具体，但问题已明确指定商品满200，按题设解释，未给独立系统保证。"
+    },
+    {
+      "id": "ablation-005",
+      "category": "单条政策即可回答",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_amount_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_amount_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组完全同答，不保证运费统一列同票；开启并未增加片段（该文件三条已全在锚点）。"
+    },
+    {
+      "id": "ablation-006",
+      "category": "单条政策即可回答",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均保留活动特别条件。对普通规则仅适用于普通券的措辞偏宽，本题已明确另有活动条件，未改变结论。"
+    },
+    {
+      "id": "ablation-007",
+      "category": "同一政策内需联合多条规定",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "均否定逐段累加，区分7日与工作日。关闭组末句核查7日内发起弱于政策要求的返还；记措辞风险，不据此否定其已明确的主结论。原关闭组首次调用断连，补测结果另存。"
+    },
+    {
+      "id": "ablation-008",
+      "category": "同一政策内需联合多条规定",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均区分自助窗口与永久资格，并将2工作日表述为有条件服务目标。"
+    },
+    {
+      "id": "ablation-009",
+      "category": "同一政策内需联合多条规定",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt",
+              "coupon_scope_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt",
+              "coupon_scope_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均纠正地区与运费券返还。均额外引用普通商品券部分退货规则说明运费券，有跨券种套用风险；由于没有作额外肯定返还承诺，作为质量告警保留。"
+    },
+    {
+      "id": "ablation-010",
+      "category": "同一政策内需联合多条规定",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_usage_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_usage_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均承认活动叠加例外，同时保留券面范围和门槛。"
+    },
+    {
+      "id": "ablation-011",
+      "category": "同一政策内需联合多条规定",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "presale_shipping_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "presale_shipping_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "关闭缺预售承诺缺失条款；仍正确否定定金及尾款日推断并请求核实承诺。开启补出人工确认、不自行推算，更完整；按行为等价核实接受关闭回答，不将补证机械计为答对提升。"
+    },
+    {
+      "id": "ablation-012",
+      "category": "同一政策内需联合多条规定",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_fresh_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_fresh_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组核心结论正确。开启组追加食品安全或二次销售判据，实际返回食品和通用退货片段未明示此判据，严格证据支持记失败；不把一般常识自动视为商城政策。"
+    },
+    {
+      "id": "ablation-013",
+      "category": "同一政策内需联合多条规定",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_hygiene_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_hygiene_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "关闭缺专门卫生用品质量片段，但已返回通用质量与无理由区分条款，足以支持实际结论。保留原必要证据评分为未完整，另做等价证据敏感性分析，不改原标注。"
+    },
+    {
+      "id": "ablation-014",
+      "category": "同一政策内需联合多条规定",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_apparel_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_apparel_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "关闭缺试穿区别片段，仍保留期限/完好并使用用户明确磨损事实谨慎核实，未把实际磨损当合理试穿；开启依据更完整，主结论均正确。"
+    },
+    {
+      "id": "ablation-015",
+      "category": "需联合不同政策",
+      "arms": {
+        "off": {
+          "scorecard_pass": false,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt",
+              "invoice_amount_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": false,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt",
+              "invoice_amount_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "关闭把不承诺立即返整券写成整张券不会立即退回，过度确定；开启首句正确，但依据中全退完成后才按券返还也将非保证规则强化成必要条件。两组严格语义均未通过，不隐藏该平局失败。"
+    },
+    {
+      "id": "ablation-016",
+      "category": "需联合不同政策",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "refund_policy.txt",
+              "return_custom_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "refund_policy.txt",
+              "return_custom_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均区分定制履约争议与无理由，并未把退款申请当到账。"
+    },
+    {
+      "id": "ablation-017",
+      "category": "需联合不同政策",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt",
+              "refund_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt",
+              "refund_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均按无更优约定的非质量退货判断运费，退款按支付来源、券不折现金；无金额虚构。"
+    },
+    {
+      "id": "ablation-018",
+      "category": "需联合不同政策",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "presale_shipping_policy.txt",
+              "return_custom_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "presale_shipping_policy.txt",
+              "return_custom_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组核心判断均正确，但均在退货资格核实中引入券面条件；本题无优惠券，返回片段也没有以券面决定退货资格的规则，严格依据支持均失败。"
+    },
+    {
+      "id": "ablation-019",
+      "category": "关键信息不足，需要澄清",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "shipping_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "shipping_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均未将付款60小时直接当该订单超时；请求核实承诺，无申请或执行保证。"
+    },
+    {
+      "id": "ablation-020",
+      "category": "关键信息不足，需要澄清",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_amount_policy.txt",
+              "invoice_correction_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_amount_policy.txt",
+              "invoice_correction_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均保留退货范围、退款明细和开票方核实，不给金额及唯一红冲流程。"
+    },
+    {
+      "id": "ablation-021",
+      "category": "关键信息不足，需要澄清",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_custom_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_custom_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均不凭定制/预售标签排除退货。关闭组额外要求核实券面适用范围，与本题及返回证据无关；开启去掉该错位条件。"
+    },
+    {
+      "id": "ablation-022",
+      "category": "关键信息不足，需要澄清",
+      "arms": {
+        "off": {
+          "scorecard_pass": false,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_scope_policy.txt",
+              "coupon_usage_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_scope_policy.txt",
+              "coupon_usage_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "关闭组谨慎未编造，但遗漏判分卡要求的满减券默认不叠加/活动例外规则，自述证据未说明；开启补齐该规则。记必需点完整性改善，不将谨慎澄清误判成幻觉。"
+    },
+    {
+      "id": "ablation-023",
+      "category": "政策没有答案",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "两组均不猜PDF是否加密和密码位数；引用只用来说明现有政策范围，没有将邮箱规则当密码规则。"
+    },
+    {
+      "id": "ablation-024",
+      "category": "政策没有答案",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [],
+            "unavailable": [],
+            "has_citation": false
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "invoice_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "均不编下载期限/恢复收费，未混同30天申请窗口。开启多余建议提供券面截图，是场景串词，非新政策承诺，保留质量告警。"
+    },
+    {
+      "id": "ablation-025",
+      "category": "政策没有答案",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "shipping_exception_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_policy.txt",
+              "shipping_exception_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          }
+        }
+      },
+      "reason": "均不推断有无退货保险及赔付数值；借物流异常说明需核实，没有把运费责任变成保险承诺。"
+    },
+    {
+      "id": "ablation-026",
+      "category": "政策没有答案",
+      "arms": {
+        "off": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [],
+            "unavailable": [],
+            "has_citation": false
+          }
+        },
+        "on": {
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [],
+            "unavailable": [],
+            "has_citation": false
+          }
+        }
+      },
+      "reason": "均不编视频平台、时段或预约，没有把处理工作日误当夜间在线时间。"
+    }
+  ],
+  "dialogues": [
+    {
+      "id": "ablation-027",
+      "turns": [
+        {
+          "arm": "off",
+          "turn": 1,
+          "scorecard_pass": true,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "主规则正确，但以运费险作为订单权益例子，当前本轮片段没有该机制，记严格依据不充分；未保证确有保险。"
+        },
+        {
+          "arm": "off",
+          "turn": 2,
+          "scorecard_pass": true,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "正确应用新增订单商家承担运费的事实；额外期限和完好要求不在本轮授权复用的单片段中（虽历史有部分相关条款），记证据授权范围风险。"
+        },
+        {
+          "arm": "on",
+          "turn": 1,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_apparel_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "主规则有据；索取订单号确认免费退货权益，订单工具没有该字段，记能力暗示与多余查单邀请，不记已发生错误工具调用。"
+        },
+        {
+          "arm": "on",
+          "turn": 2,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_apparel_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "重新检索后正确应用订单明示约定，完整证据支持期限和完好提醒；比关闭多一次检索，但未带来结论改善。"
+        }
+      ]
+    },
+    {
+      "id": "ablation-028",
+      "turns": [
+        {
+          "arm": "on",
+          "turn": 1,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "正确保留取消假设及按券规则核实，并提示过期不自动延长；未保证返还。"
+        },
+        {
+          "arm": "on",
+          "turn": 2,
+          "scorecard_pass": false,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "更新事实成功，但同样写全部退货完成后才返券，仍有过度必要条件；平局失败。"
+        },
+        {
+          "arm": "off",
+          "turn": 1,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt",
+              "coupon_scope_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "正确按取消全部关联子单假设说明，但将运费券取消条款并列作为商品满减券依据，记引用适用范围风险。"
+        },
+        {
+          "arm": "off",
+          "turn": 2,
+          "scorecard_pass": false,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "更新取消前提成功；全部退货完成后才返券将不承诺立即返还强化成唯一条件，严格语义失败。"
+        }
+      ]
+    },
+    {
+      "id": "ablation-029",
+      "turns": [
+        {
+          "arm": "off",
+          "turn": 1,
+          "scorecard_pass": true,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_apparel_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "普通非质量运费结论正确，但运费险例子没有本轮片段支持，记严格依据不充分。"
+        },
+        {
+          "arm": "off",
+          "turn": 2,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_fresh_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "按质量争议更新费用判断，未核实责任不保证商家承担；附带食品条件说明与查单邀请冗余。"
+        },
+        {
+          "arm": "on",
+          "turn": 1,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "membership_scope_policy.txt",
+              "return_apparel_policy.txt",
+              "return_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "按非质量与订单更优约定回答，会员不自动免运费有对应片段支持；查单邀请仍多余。"
+        },
+        {
+          "arm": "on",
+          "turn": 2,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "return_fresh_policy.txt",
+              "return_policy.txt",
+              "return_return_fresh_policy.txt"
+            ],
+            "unavailable": [
+              "return_return_fresh_policy.txt"
+            ],
+            "has_citation": true
+          },
+          "reason": "质量争议与责任核实判断正确；引用拼成return_return_fresh_policy.txt，随后注明即正确文件名，仍记严格引用错误，不认定为完整有效引用。"
+        }
+      ]
+    },
+    {
+      "id": "ablation-030",
+      "turns": [
+        {
+          "arm": "on",
+          "turn": 1,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "商品券与有效期规则均有证据支持，无执行承诺。"
+        },
+        {
+          "arm": "on",
+          "turn": 2,
+          "scorecard_pass": false,
+          "grounded": false,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_scope_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "主结论不能认定返还正确，但只有在取消时才按券处理为未收录的排他条件；后续允许另有约定也不能消除该绝对化措辞，严格语义退化。"
+        },
+        {
+          "arm": "off",
+          "turn": 1,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_refund_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "按商品券全部退货后核实规则，没有保证到账；附带关联子单退货判断谨慎。"
+        },
+        {
+          "arm": "off",
+          "turn": 2,
+          "scorecard_pass": true,
+          "grounded": true,
+          "wrong_positive_promise": false,
+          "citation_check": {
+            "names": [
+              "coupon_scope_policy.txt"
+            ],
+            "unavailable": [],
+            "has_citation": true
+          },
+          "reason": "按更正后的运费券判断，商品退货不当然返还，未套用商品券结论。"
+        }
+      ]
+    }
+  ],
+  "annotation_audit": [
+    {
+      "id": "ablation-013",
+      "issue": "The old annotation requires a dedicated hygiene-quality passage, but return_policy.txt-3 in off evidence also supports the actual quality-vs-no-reason conclusion.",
+      "action": "Keep frozen primary coverage unchanged. Sensitivity: count this alternative once, off complete becomes19/22 instead of18/22. Not an after-the-fact primary relabel."
+    }
+  ]
+}

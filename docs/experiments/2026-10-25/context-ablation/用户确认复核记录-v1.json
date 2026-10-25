@@ -1,0 +1,57 @@
+{
+  "record_date": "2026-10-25",
+  "method": "Assistant presented selected policy passages and answer excerpts in chat; project owner explicitly agreed with each proposed judgment. This is targeted owner review, not independent blind review or full-dataset human scoring.",
+  "original_artifacts_preserved": true,
+  "application_changed": false,
+  "resume_updated": false,
+  "decisions": [
+    {
+      "id": "ablation-015",
+      "confirmed_by_user": true,
+      "off": "Semantic error: not guaranteeing immediate return was strengthened into definite non-return or an exclusive full-return prerequisite.",
+      "on": "Semantic error: the explanation also introduced a full-return prerequisite absent from the policy.",
+      "classification": "Answer interpretation error despite available evidence; both arms fail this boundary."
+    },
+    {
+      "id": "ablation-030",
+      "turn": 2,
+      "confirmed_by_user": true,
+      "off": "Accurately preserves that goods return does not automatically return a shipping coupon.",
+      "on": "Semantic error: only cancellation permits processing is an unsupported exclusive restriction.",
+      "causal_limit": "Both arms reused the same evidence in this turn. No direct causal attribution to expansion from this observation."
+    },
+    {
+      "id": "ablation-013",
+      "confirmed_by_user": true,
+      "annotation_revision": {
+        "original_evidence_groups": [["return_hygiene_policy.txt-1"], ["return_hygiene_policy.txt-2"]],
+        "accepted_evidence_groups": [["return_hygiene_policy.txt-1"], ["return_hygiene_policy.txt-2", "return_policy.txt-3"]]
+      },
+      "classification": "Accepted equivalent evidence was missing from the original annotation; off evidence suffices for this case.",
+      "scope": "Case-specific equivalence, not a global rule that general passages replace all category exceptions."
+    },
+    {
+      "id": "ablation-022",
+      "confirmed_by_user": true,
+      "off": "Reasonable clarification; no unsupported affirmative guarantee or fabricated rule.",
+      "on": "Same reasonable core conclusion plus supported default stacking rule and exception.",
+      "classification": "Explanation completeness improvement, not conclusion correctness improvement.",
+      "scoring_limit": "Original checklist score retained; must not relabel 24/26 to 25/26 as a human-confirmed accuracy gain."
+    }
+  ],
+  "confirmed_retrieval_result": {
+    "answerable_single_turn_cases": 22,
+    "original_off_complete": 18,
+    "original_on_complete": 22,
+    "equivalence_adjusted_off_complete": 19,
+    "equivalence_adjusted_on_complete": 22,
+    "adjusted_difference_cases": 3,
+    "adjusted_difference_percentage_points": 13.636363636363637
+  },
+  "not_confirmed": [
+    "Full 30-case human semantic scores",
+    "Independent or blind evaluation",
+    "Citation typo severity for ablation-029",
+    "Aggregate business accuracy or answer accuracy improvement"
+  ]
+}

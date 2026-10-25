@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-25",
+  "offline_tests_passed": 112,
+  "batches": [
+    103,
+    9
+  ],
+  "dataset_validation": {
+    "cases": 20,
+    "model_calls": 0
+  },
+  "archive_files_byte_compared": 49,
+  "online_experiments_rerun": false,
+  "scope": "policy semantics fix, controlled experiment archive, portable fixed-evidence evaluation runner",
+  "limitations": "Offline tests validate software behavior and dataset integrity, not online business accuracy."
+}

@@ -1,0 +1,932 @@
+{
+  "metadata": {
+    "started_at": "2026-10-25T14:41:36.022962+00:00",
+    "lock_sha256": "50b02858c47a48ddef812473ebf1fd2700f7bcdcbf672ab7d96e0e2a92cd9928",
+    "method": "Same evidence,model,temp and template; only shared guidance changes; alternating order; no hidden retry.",
+    "completed_at": "2026-10-25T14:43:13.395418+00:00"
+  },
+  "paired": [
+    {
+      "id": "modal-01",
+      "group": "uncertain",
+      "answers": {
+        "before": {
+          "answer": "结论：两个“肯定”断言都不能被政策支持。政策只规定：满减券对应商品全部退货完成后按券规则返还；只退部分商品时，不承诺立即退回整张券，退款金额按优惠分摊记录核算。\n\n依据：`coupon_refund_policy.txt`。\n\n待核实条件：具体订单是否属于部分退货、券面规则及优惠分摊记录，需人工核实后才能判断实际返还结果。",
+          "usage": {
+            "input_tokens": 942,
+            "output_tokens": 91,
+            "total_tokens": 1033,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 2788.111500092782
+        },
+        "after": {
+          "answer": "结论：两个“肯定断言”都不能支持。政策只说明：满减券对应商品全部退货完成后，按券规则返还；只退部分商品时，不承诺立即退回整张券。\n\n依据：coupon_refund_policy.txt。\n\n因此，“整券肯定马上返”和“整券绝不会马上返”都超出了证据表述。部分退货时，退款金额按优惠分摊记录核算；整券是否、何时返还，需按券规则及实际退货完成情况核实。",
+          "usage": {
+            "input_tokens": 1184,
+            "output_tokens": 103,
+            "total_tokens": 1287,
+            "input_token_details": {
+              "cache_read": 384
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1592.6433999557048
+        }
+      }
+    },
+    {
+      "id": "modal-02",
+      "group": "uncertain",
+      "answers": {
+        "after": {
+          "answer": "结论：不能把“3至7个工作日”当作保证。该区间只是预计参考，不承诺固定某天到账，因此不宜据此安排必须第7个工作日到账才能支付的账单。\n\n依据：refund_policy.txt 说明，银行卡退款通常到账参考为渠道退款发起后3至7个工作日，但属于预计区间，不承诺固定某天到账。",
+          "usage": {
+            "input_tokens": 1203,
+            "output_tokens": 83,
+            "total_tokens": 1286,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1747.8547999635339
+        },
+        "before": {
+          "answer": "结论：不能把“3至7个工作日”当作第7个工作日一定到账的保证。该区间只是预计参考，不承诺固定某天到账，因此不宜据此安排必须第7个工作日到账才能支付的账单。\n\n依据：refund_policy.txt 第3条明确，银行卡退款通常到账参考为渠道退款发起后3至7个工作日，但属于预计区间，不承诺固定某天到账。\n\n待核实条件：实际到账时间仍需以银行渠道处理结果为准；如需确认具体退款进度，建议联系人工核实。",
+          "usage": {
+            "input_tokens": 961,
+            "output_tokens": 121,
+            "total_tokens": 1082,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1656.229600077495
+        }
+      }
+    },
+    {
+      "id": "modal-03",
+      "group": "uncertain",
+      "answers": {
+        "before": {
+          "answer": "结论：不能把“2个工作日内收到发票”理解为绝对承诺。政策表述的是电子发票服务目标，并非保证。\n\n依据：invoice_policy.txt 规定，完整且有效的资料提交后，电子发票服务目标为2个工作日内处理；资料缺失、需要更正或异常订单应先核实，不保证提交任意信息后都能按时开具。\n\n待核实条件：你的资料是否完整有效、订单是否属于异常订单，仍需以实际处理情况为准。",
+          "usage": {
+            "input_tokens": 921,
+            "output_tokens": 96,
+            "total_tokens": 1017,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1554.5503000030294
+        },
+        "after": {
+          "answer": "结论：不能把“2个工作日内收到发票”理解为绝对承诺。资料完整有效时，电子发票的服务目标是2个工作日内处理，但政策明确为“不保证”，并非必然时限。\n\n依据：invoice_policy.txt 规定，完整且有效的资料提交后，电子发票服务目标为2个工作日内处理；资料缺失、需要更正或异常订单应先核实，不保证提交任意信息后都能按时开具。\n\n待核实条件：你的资料是否完整有效、订单是否属于异常订单，会影响实际处理时间。",
+          "usage": {
+            "input_tokens": 1163,
+            "output_tokens": 109,
+            "total_tokens": 1272,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1667.7054000319913
+        }
+      }
+    },
+    {
+      "id": "modal-04",
+      "group": "uncertain",
+      "answers": {
+        "after": {
+          "answer": "结论：客服“所有售后都一定不处理”的说法没有依据。使用痕迹只是可能影响完好认定，应结合具体状态核实，不能直接推出所有售后一律拒绝。\n\n依据：return_apparel_policy.txt 规定，服饰有明显使用痕迹可能影响商品完好认定，应结合具体状态核实；return_policy.txt 还说明，质量问题与无理由退货是不同售后依据，15天常规受理窗口不是全部质量责任的截止期。\n\n待核实条件：这件衣服使用痕迹的具体程度、所申请的是质量问题还是无理由退货，以及是否在相应受理范围内，仍需结合实际情况核实。",
+          "usage": {
+            "input_tokens": 1256,
+            "output_tokens": 126,
+            "total_tokens": 1382,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 2097.740800003521
+        },
+        "before": {
+          "answer": "结论：客服仅凭“使用痕迹可能影响完好”就断定所有售后一律不处理，依据不足。使用痕迹只是可能影响完好认定，仍需结合衣服具体状态核实，不能直接一概拒绝。\n\n依据：return_apparel_policy.txt 规定，明显使用痕迹“可能影响”完好认定，应结合具体状态核实；return_policy.txt 也区分了质量问题和无理由退货，质量问题不能仅按常规受理窗口简单排除。\n\n待核实条件：这件衣服使用痕迹的具体程度、属于质量问题还是无理由退货，以及签收时间等，都会影响最终处理结论。",
+          "usage": {
+            "input_tokens": 1014,
+            "output_tokens": 124,
+            "total_tokens": 1138,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1740.6041000504047
+        }
+      }
+    },
+    {
+      "id": "modal-05",
+      "group": "uncertain",
+      "answers": {
+        "before": {
+          "answer": "结论：不是。政策没有规定所有部分退货都必须采用同一种红冲重开流程；发票处理应与退款结果一致，是否需要红冲或重开应由实际开票方核实。\n\n依据：invoice_correction_policy.txt 第3条。\n\n待核实条件：具体采用哪种发票处理方式，需由实际开票方根据退款结果确认。",
+          "usage": {
+            "input_tokens": 935,
+            "output_tokens": 76,
+            "total_tokens": 1011,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1728.4092999761924
+        },
+        "after": {
+          "answer": "结论：不是。政策没有规定所有部分退货都必须采用同一种红冲重开流程；部分退货可能需要调整已开票金额，但是否红冲或重开应由实际开票方核实。\n\n依据：`invoice_correction_policy.txt` 明确，商品退款或部分退货可能需要调整已开票金额，发票处理应与退款结果一致，是否需要红冲或重开由实际开票方核实。\n\n待核实条件：具体订单的退款结果、原发票状态及开票方要求，需向实际开票方确认。",
+          "usage": {
+            "input_tokens": 1177,
+            "output_tokens": 116,
+            "total_tokens": 1293,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1700.9023999562487
+        }
+      }
+    },
+    {
+      "id": "modal-06",
+      "group": "uncertain",
+      "answers": {
+        "after": {
+          "answer": "结论：客服所称“不取消就永远不允许核实返还规则”的排除条件，知识库中没有依据，无法确认其成立。现有规则只说明：商品退货不当然返还已使用运费券；未拆分订单正常取消或关联子订单全部取消时，按券规则处理。\n\n依据：coupon_scope_policy.txt。\n\n待核实条件：这张运费券的具体返还规则，以及您这笔退货订单是否属于可返还情形，仍需人工核实。",
+          "usage": {
+            "input_tokens": 1179,
+            "output_tokens": 97,
+            "total_tokens": 1276,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1688.0753000732511
+        },
+        "before": {
+          "answer": "结论：客服所称“不取消就永远不允许核实返还规则”的排除条件，知识库中没有依据，无法确认其成立。按现有规则，商品退货并不当然返还已使用的运费券；能否返还仍要看该券的具体规则和订单处理情况。\n\n依据：coupon_scope_policy.txt 规定，运费券不抵减商品价款；未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。\n\n待核实条件：需要核实这张运费券的具体返还规则，以及该订单是否属于正常取消或关联子订单全部取消的情形。",
+          "usage": {
+            "input_tokens": 937,
+            "output_tokens": 130,
+            "total_tokens": 1067,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1637.1221999870613
+        }
+      }
+    },
+    {
+      "id": "modal-07",
+      "group": "explicit",
+      "answers": {
+        "before": {
+          "answer": "结论：应明确说不能用。券面已明确写“甲店专用”，属于店铺限定券，仅就跨店这一点，在乙店购买不符合使用范围，不需要再假设券可能不限店铺。\n\n依据：coupon_scope_policy.txt 规定，店铺限定券只能用于指定店铺符合条件的商品，不能因为同属商城就跨店铺使用。\n\n其他有效期和金额条件已满足，不影响这一跨店限制的结论。",
+          "usage": {
+            "input_tokens": 938,
+            "output_tokens": 92,
+            "total_tokens": 1030,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1433.5329999448732
+        },
+        "after": {
+          "answer": "结论：仅就跨店这一点，不能用。券面明确写“甲店专用”，属于店铺限定券，只能用于指定店铺符合条件的商品，不能跨店铺使用。\n\n依据：coupon_scope_policy.txt 规定，店铺限定券只能用于指定店铺符合条件的商品，不能因为同属商城就跨店铺使用。\n\n其他有效期和金额条件已满足，不影响这一判断。",
+          "usage": {
+            "input_tokens": 1180,
+            "output_tokens": 80,
+            "total_tokens": 1260,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 2078.1106000067666
+        }
+      }
+    },
+    {
+      "id": "modal-08",
+      "group": "explicit",
+      "answers": {
+        "after": {
+          "answer": "结论：不能继续使用。券面有效期已过，且无其他特殊规则，按一般规则该券已不在可使用期限内。\n\n依据：优惠券只有在有效期内并符合适用条件才可使用（来源：coupon_usage_policy.txt）。\n\n本回答仅针对“能否继续使用”，不涉及补发问题。",
+          "usage": {
+            "input_tokens": 1159,
+            "output_tokens": 67,
+            "total_tokens": 1226,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1565.2471999637783
+        },
+        "before": {
+          "answer": "结论：不能继续使用。优惠券须在有效期内且符合适用条件才可使用，超过券面有效期后即不符合使用条件。\n\n依据：《coupon_usage_policy.txt》第4条。\n\n你已明确没有其他特殊规则，因此无需再核实其他条件。",
+          "usage": {
+            "input_tokens": 917,
+            "output_tokens": 58,
+            "total_tokens": 975,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1600.9736999403685
+        }
+      }
+    },
+    {
+      "id": "modal-09",
+      "group": "explicit",
+      "answers": {
+        "before": {
+          "answer": "结论：有明确限制。会员权益限账号本人使用，不能转让给他人，因此不能直接把权益转给朋友用于其订单。\n\n依据：membership_policy.txt 第5条。\n\n待核实：你朋友的具体订单能否使用该权益，需按券面或活动规则另行确认。",
+          "usage": {
+            "input_tokens": 924,
+            "output_tokens": 63,
+            "total_tokens": 987,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1689.30100009311
+        },
+        "after": {
+          "answer": "结论：有明确限制。会员权益限账号本人使用，不能转让给他人，因此不能直接把权益转给朋友用于其订单。\n\n依据：membership_policy.txt 第5条明确写明“会员权益限账号本人使用，不作为可转让给他人的权益”。\n\n待核实条件：你朋友的具体订单能否使用该权益，还需以券面或权益说明中的适用范围为准。",
+          "usage": {
+            "input_tokens": 1166,
+            "output_tokens": 81,
+            "total_tokens": 1247,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1547.2939000464976
+        }
+      }
+    },
+    {
+      "id": "modal-10",
+      "group": "explicit",
+      "answers": {
+        "after": {
+          "answer": "结论：不受理。订单已发货后，催发货和加急发货申请不在受理范围内。\n\n依据：shipping_policy.txt 第5条明确，订单已发货或已签收时不受理催发货和加急发货；本地工单登记也不会实际通知仓库或快递。\n\n你已明确订单已付款且已发货，因此该申请不符合受理条件。如属运输异常，需另行人工核查。",
+          "usage": {
+            "input_tokens": 1170,
+            "output_tokens": 89,
+            "total_tokens": 1259,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1672.1513000084087
+        },
+        "before": {
+          "answer": "结论：不受理。订单已发货后，催发货和加急发货申请均不在受理范围内。\n\n依据：shipping_policy.txt 第5条明确，订单已发货或已签收时不受理催发货和加急发货；本地工单登记也不会实际通知仓库或快递。\n\n待核实条件：你已明确订单“已付款且已发货”，符合上述排除情形，无需再核实其他条件。如属运输异常，需另行人工核查。",
+          "usage": {
+            "input_tokens": 928,
+            "output_tokens": 99,
+            "total_tokens": 1027,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1704.5069000450894
+        }
+      }
+    },
+    {
+      "id": "modal-11",
+      "group": "explicit",
+      "answers": {
+        "before": {
+          "answer": "结论：不适用通常的七日无理由退货。您已在线下载软件，属于数字化商品，即使只是改变主意、不涉及下载失败或质量问题，也按该规则排除通常七日无理由退货。\n\n依据：return_digital_policy.txt 第4条规定，在线下载或消费者拆封的音像制品、计算机软件等数字化商品不适用通常的七日无理由退货；下载失败、无法履约等争议另行核实。",
+          "usage": {
+            "input_tokens": 932,
+            "output_tokens": 91,
+            "total_tokens": 1023,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1572.3621000070125
+        },
+        "after": {
+          "answer": "结论：不适用通常的七日无理由退货。您已在线下载软件，属于数字化商品，按政策不适用通常七日无理由退货；下载失败、无法履约等争议需另行核实，但您已说明不涉及这些情形。\n\n依据：return_digital_policy.txt 第4条。\n\n待核实条件：如您认为存在下载失败或无法履约等争议，可另行提供情况供人工核实。",
+          "usage": {
+            "input_tokens": 1174,
+            "output_tokens": 88,
+            "total_tokens": 1262,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1796.4248999487609
+        }
+      }
+    },
+    {
+      "id": "modal-12",
+      "group": "explicit",
+      "answers": {
+        "after": {
+          "answer": "结论：可以。商品优惠券只能用于抵减符合条件的商品金额，不能兑现，因此“不购买商品、直接把券面额兑换现金”不符合政策。\n\n依据：coupon_usage_policy.txt 明确写明商品优惠券不能兑现。\n\n待核实条件：无。",
+          "usage": {
+            "input_tokens": 1160,
+            "output_tokens": 58,
+            "total_tokens": 1218,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1437.3995999339968
+        },
+        "before": {
+          "answer": "结论：可以。商品优惠券只能用于抵减符合条件的商品金额，不能兑换现金；不购买商品而要求直接兑现，不符合该用途。\n\n依据：coupon_usage_policy.txt 明确写明“商品优惠券用于抵减符合条件的商品金额，不能兑现”。",
+          "usage": {
+            "input_tokens": 918,
+            "output_tokens": 57,
+            "total_tokens": 975,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1353.159899939783
+        }
+      }
+    },
+    {
+      "id": "known-015",
+      "group": "known_regression",
+      "answers": {
+        "before": {
+          "answer": "结论：这两点不能一起成立。只退其中一件商品时，整张满减券不承诺立即退回；部分退货也会影响对应发票金额，不能把退款前的全额发票当作退货后交易金额不变的依据。\n\n依据：满减券政策规定，商品满减券对应的商品全部退货完成后，才按券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算（coupon_refund_policy.txt）。开票金额政策规定，部分退货或优惠分摊会影响可退金额和对应发票金额（invoice_amount_policy.txt）。\n\n待核实条件：该券是否属于活动专享券及其领取时的特别返还规则，需人工确认；发票具体如何处理，需结合订单支付明细和最终开票明细核实。",
+          "usage": {
+            "input_tokens": 1764,
+            "output_tokens": 164,
+            "total_tokens": 1928,
+            "input_token_details": {
+              "cache_read": 1536
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1973.6439000116661
+        },
+        "after": {
+          "answer": "结论：这两点不能同时成立。部分退货时，退款按优惠分摊核算，但整张券不承诺立即退回；原全额发票也不能视为无需处理。\n\n依据：满减券对应商品全部退货完成后才按券规则返还，只退部分商品时不承诺立即退回整张券（coupon_refund_policy.txt）。部分退货或优惠分摊会影响可退金额和对应发票金额，不能把退款前的全额发票当作退货后交易金额不变的依据（invoice_amount_policy.txt）。\n\n待核实：该券是否属于活动专享券及其具体返还规则，需按领取时活动规则或人工确认。",
+          "usage": {
+            "input_tokens": 2006,
+            "output_tokens": 131,
+            "total_tokens": 2137,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1889.10140004009
+        }
+      }
+    },
+    {
+      "id": "known-030",
+      "group": "known_regression",
+      "answers": {
+        "after": {
+          "answer": "结论：不能当然认定返还。运费券不抵减商品价款；仅发生商品退货时，已使用的运费券不当然返还。\n\n依据：《coupon_scope_policy.txt》第3条。\n\n待核实：该券的具体返还规则，以及本次退货是否属于券规则约定的特殊处理情形，建议人工核实。",
+          "usage": {
+            "input_tokens": 1240,
+            "output_tokens": 68,
+            "total_tokens": 1308,
+            "input_token_details": {
+              "cache_read": 896
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1682.703800033778
+        },
+        "before": {
+          "answer": "结论：不能认定“当然返还”。按运费券政策，商品退货并不当然返还已使用的运费券；你已明确只发生商品退货、没有取消订单，因此不能仅凭退货要求返还。\n\n依据：`coupon_scope_policy.txt` 第3条明确，运费券不抵减商品价款，商品退货不当然返还已使用运费券。\n\n待核实条件：该券的具体返还规则仍需以券面说明或人工核实为准。",
+          "usage": {
+            "input_tokens": 998,
+            "output_tokens": 97,
+            "total_tokens": 1095,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1667.4347999505699
+        }
+      }
+    }
+  ],
+  "regression": [
+    {
+      "id": "ablation-001",
+      "answer": "结论：先不要马上重复申请。应先核实发票开具状态、申请时填写的接收邮箱是否正确，以及邮件是否被拦截或归入垃圾箱；确认后再联系人工处理。\n\n依据：电子发票按申请时确认的接收邮箱发送，未收到时应先核实开具状态、邮箱和拦截情况，再联系人工处理，不重复创建无关发票（来源：invoice_policy.txt）。\n\n待核实条件：需确认该申请当前的开具状态及实际接收邮箱；这些信息无法仅凭订单号补齐，建议联系人工核实。",
+      "usage": {
+        "input_tokens": 1565,
+        "output_tokens": 114,
+        "total_tokens": 1679,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1644.458300084807
+    },
+    {
+      "id": "ablation-002",
+      "answer": "结论：不能。其他平台 PLUS 会员的福利介绍不能直接认定为本商城黑金会员权益，其年费也不能作为本商城的收费标准。\n\n依据：会员权益适用与例外政策明确，不将其他平台的 PLUS 权益当成本商城黑金会员权益，也不把其他平台活动价格或会员费用当成本商城收费（membership_scope_policy.txt）。此外，知识库未收录本商城金卡或黑金会员的具体年费金额（membership_policy.txt）。\n\n待核实条件：如需了解黑金会员的实际权益和收费标准，请以本商城官方页面或客服确认为准。",
+      "usage": {
+        "input_tokens": 2031,
+        "output_tokens": 130,
+        "total_tokens": 2161,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1906.4177999971434
+    },
+    {
+      "id": "ablation-003",
+      "answer": "结论：客服“任何订单都能无条件换成指定发票类型”的说法不对。个人抬头改企业抬头需核实实际交易和所需资料，不能保证任意订单均可无条件变更；企业抬头还需准确的纳税人识别信息。\n\n依据：《invoice_correction_policy.txt》第2条；《invoice_policy.txt》第3条。\n\n待核实条件：具体订单是否已开票、是否在自助申请窗口内，以及企业抬头和税号等资料是否准确。",
+      "usage": {
+        "input_tokens": 1937,
+        "output_tokens": 98,
+        "total_tokens": 2035,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1634.0997000224888
+    },
+    {
+      "id": "ablation-004",
+      "answer": "结论：不能仅凭订单合计超过200元就认定券一定能用。该券要求“指定商品满200元”，而您同单中符合范围的指定商品只有120元，未达到券面门槛；不在适用范围的100元商品通常不能计入该券的门槛。\n\n依据：《SupportPilot 商城商品优惠券使用政策》第2条明确，商品满减券需达到券面门槛并满足指定商品、品类或店铺范围，订单总价达标不代表所有商品都属于可用范围。\n\n待核实条件：最终能否使用，还需以结算时系统按券面适用范围核算的可用结果为准。",
+      "usage": {
+        "input_tokens": 2187,
+        "output_tokens": 130,
+        "total_tokens": 2317,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1952.8688000282273
+    },
+    {
+      "id": "ablation-005",
+      "answer": "结论：不能直接保证配送费在所有订单里都必须与商品列在同一张发票上。运费是否在本张发票列示需核实开票方及订单信息。\n\n依据：`invoice_amount_policy.txt` 说明商品标价、券后实付金额、配送费用和发票金额可能不同，运费是否列示需核实开票方及订单信息，不能只凭商品标价判断。\n\n待核实条件：具体订单的开票方及订单开票信息，需人工核实后才能确认该单运费是否与商品同票列示。",
+      "usage": {
+        "input_tokens": 1483,
+        "output_tokens": 116,
+        "total_tokens": 1599,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2007.6029000338167
+    },
+    {
+      "id": "ablation-006",
+      "answer": "结论：不能。活动专享券可能约定特别的返还条件，应核实领取时的活动规则，不能直接套用普通商品满减券的规则来保证取消后必退。\n\n依据：coupon_refund_policy.txt 明确活动专享券可能另有特别返还条件；普通商品满减券的返还规则仅适用于该类券，且具体券种和返还时效仍需人工确认，不承诺统一到账时间。\n\n待核实条件：需查看该活动专享券领取时的活动说明，确认其退券条件；具体返还资格和时效建议人工核实。",
+      "usage": {
+        "input_tokens": 1715,
+        "output_tokens": 122,
+        "total_tokens": 1837,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1807.0600999053568
+    },
+    {
+      "id": "ablation-007",
+      "answer": "结论：该解释不成立。七日无理由且商品完好的退货，应在收到退回商品之日起7日内返还已支付商品价款；内部验收流程不得拖延这一要求，也不能把验收、发起退款、到账等预计区间逐段累加来延长退款期限。\n\n依据：refund_policy.txt 规定退货验收后退款发起服务目标为1至3个工作日，但适用七日无理由且商品完好时按收到退货之日起7日内返款处理；银行卡到账3至7个工作日只是预计区间，不承诺固定日期，且不得逐段累加延长适用退款期限。\n\n待核实条件：具体退款是否已在该期限内完成，需以订单实际退款状态和支付渠道记录为准；如超出预计到账区间，可提供订单号联系人工核查。",
+      "usage": {
+        "input_tokens": 2375,
+        "output_tokens": 167,
+        "total_tokens": 2542,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2288.9025999465957
+    },
+    {
+      "id": "ablation-008",
+      "answer": "结论：两种说法都不准确。订单签收35天已超过30天自助申请窗口，应联系人工核实，但政策并未说会永久失去开票资格；同时，完整有效资料提交后，电子发票服务目标是2个工作日内处理，并非“无论什么情况都保证2个工作日出”。\n\n依据：invoice_policy.txt 规定自助申请窗口为签收后30天，超窗应人工核实，不据此宣称永久失去资格；完整有效资料提交后服务目标为2个工作日内处理，资料缺失、需更正或异常订单应先核实，不保证任意信息都能按时开具。\n\n待核实条件：需人工核实该订单超窗后的具体开票资格；资料是否完整有效也会影响处理时效。",
+      "usage": {
+        "input_tokens": 2029,
+        "output_tokens": 153,
+        "total_tokens": 2182,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2033.452000003308
+    },
+    {
+      "id": "ablation-009",
+      "answer": "结论：这两个“肯定”都不成立。地区限定券更换收货地址可能影响可用性，应重新核实结算结果；商品退货也不当然返还已使用的运费券，只退一件商品时更不承诺立即退回整张券。\n\n依据：地区限定券需满足收货地区等条件，换地址可能影响可用性（coupon_scope_policy.txt）；运费券不抵减商品价款，商品退货不当然返还已使用运费券（coupon_scope_policy.txt）；只退部分商品时不承诺立即退回整张券，退款按优惠分摊记录核算（coupon_refund_policy.txt）。\n\n待核实条件：该券领取时的具体活动规则、订单是否拆分及关联子订单状态、券是否已过期，这些会影响实际返还结果，建议人工核实。",
+      "usage": {
+        "input_tokens": 2087,
+        "output_tokens": 166,
+        "total_tokens": 2253,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1742.588600027375
+    },
+    {
+      "id": "ablation-010",
+      "answer": "结论：不可以。活动允许叠加，不等于可以忽略单张券的适用范围；叠加时仍须同时满足活动条件和券面条件，最终以结算可用结果为准。\n\n依据：商品满减券需达到券面门槛，并满足指定商品、品类或店铺范围，订单总价达标不代表所有商品都属于可用范围；特殊活动明确允许叠加时，也须同时满足活动和券面条件（来源：coupon_usage_policy.txt）。\n\n待核实条件：该券具体限定的商品或品类范围，以及结算页实际可用结果。",
+      "usage": {
+        "input_tokens": 2175,
+        "output_tokens": 116,
+        "total_tokens": 2291,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1735.5380000080913
+    },
+    {
+      "id": "ablation-011",
+      "answer": "结论：不能。定金付款日不能直接认定为发货超时，尾款最后支付日也不能直接当成最迟发货日。\n\n依据：预售订单的尾款截止时间与承诺发货截止时间分别管理；支付定金不等于已完成全款，不能仅凭定金付款时间认定超时（来源：presale_shipping_policy.txt）。预售商品应按购买时确认的预售承诺日期执行，不套用现货付款后48小时发货的默认目标（来源：presale_shipping_policy.txt）。\n\n待核实：该订单已确认的预售发货约定日期；若页面或订单没有明确约定、时间缺失，应先联系人工确认，不自行推算。",
+      "usage": {
+        "input_tokens": 1696,
+        "output_tokens": 139,
+        "total_tokens": 1835,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1958.9841000270098
+    },
+    {
+      "id": "ablation-012",
+      "answer": "结论：不能仅因“不是鲜活易腐”就认定一定符合无理由退货的完好要求。常温密封食品不当然属于鲜活易腐例外，但食品必要的一次性密封包装损坏，可能影响商品完好认定；你已打开该密封，是否仍算完好需结合具体情况核实。\n\n依据：return_fresh_policy.txt 第1条、第3条；return_policy.txt 第5条（为合理查验打开包装不当然意味着不完好，但需保持商品本身、配件、标识完整）。\n\n待核实条件：打开的是否属于“必要的一次性密封包装”、打开方式与程度、商品本身及配件标识是否完整。",
+      "usage": {
+        "input_tokens": 2126,
+        "output_tokens": 139,
+        "total_tokens": 2265,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1944.3413999397308
+    },
+    {
+      "id": "ablation-013",
+      "answer": "结论：不能把两类诉求混在一起一并拒绝。你已确认拆封影响健康的无理由退货不适用条件，这主要影响“七日无理由退货”；但商品本身的质量问题应单独受理核实，商家不能以无理由退货例外替代质量售后判断。\n\n依据：卫生用品政策规定，卫生用品发生质量或履约问题时，应单独受理核实，不以无理由退货例外替代质量售后判断（return_hygiene_policy.txt）；通用政策也明确，质量问题与无理由退货是不同售后依据，不得仅以商品大类一概拒绝所有售后（return_policy.txt）。\n\n待核实条件：具体能否按质量问题退换，仍需核实商品实际质量问题的证据及商品状态；质量问题退货运费由责任方按核实结果承担。",
+      "usage": {
+        "input_tokens": 2146,
+        "output_tokens": 159,
+        "total_tokens": 2305,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2021.8516000313684
+    },
+    {
+      "id": "ablation-014",
+      "answer": "结论：不可以。尺码不合属于无理由退货理由，但仍需满足申请期限和商品完好条件，不能仅凭理由就直接按合理试穿处理，也不能跳过时间和完好核实。\n\n依据：服饰鞋包退货完好标准规定，因尺码不合申请无理由退货仍需满足申请期限和完好条件；剪标、污损、破坏或明显使用痕迹可能影响完好认定，应结合具体状态核实。通用政策也规定，七日无理由退货自签收次日起算7天，且商品须保持完好。\n\n待核实条件：实际签收日期（用于判断是否在申请期内）、鞋子磨损程度是否属于明显使用痕迹而非合理试穿，以及该订单是否标注了其他运费或期限权益。",
+      "usage": {
+        "input_tokens": 2119,
+        "output_tokens": 153,
+        "total_tokens": 2272,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2249.448799993843
+    },
+    {
+      "id": "ablation-015",
+      "answer": "结论：这两点不能同时成立。只退部分商品时，不承诺立即退回整张券；部分退货也会影响对应发票金额，不能把退款前的全额发票当作退货后交易金额不变的依据。\n\n依据：满减券对应商品全部退货完成后才按券规则返还，只退部分商品时退款金额按优惠分摊记录核算（coupon_refund_policy.txt）；部分退货或优惠分摊会影响可退金额和对应发票金额（invoice_amount_policy.txt）。\n\n待核实条件：该券是否属于活动专享券及其特别返还规则、订单是否拆分及关联子订单状态，需按券面规则或人工核实。",
+      "usage": {
+        "input_tokens": 2006,
+        "output_tokens": 136,
+        "total_tokens": 2142,
+        "input_token_details": {
+          "cache_read": 1792
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1817.8950999863446
+    },
+    {
+      "id": "ablation-016",
+      "answer": "结论：定制商品并非一律不受理。若交付图案与已确认稿不一致，属于履约争议，应人工核实，不能按七日无理由退货处理。提交退款申请也不等于钱已到账，退款审核、发起渠道退款和实际到账是不同阶段。\n\n依据：定制商品政策规定，交付内容与已确认的规格、图案或尺寸不一致，应作为履约争议人工核实；按个性化要求制作的商品不适用通常的七日无理由退货。退款政策规定，退货退款需先核实商品退回及验收状态，申请提交不能视为已到账。\n\n待核实条件：需核实该礼盒确属按你个性化要求制作、确认稿与实际图案的具体差异，以及后续退回和验收情况。",
+      "usage": {
+        "input_tokens": 1988,
+        "output_tokens": 153,
+        "total_tokens": 2141,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2231.9063999457285
+    },
+    {
+      "id": "ablation-017",
+      "answer": "结论：不能要求商家承担该普通非质量原因退货的运费，也不能把所有支付和券抵扣合并退成一笔现金。普通非质量原因退货运费由用户承担；退款按实际支付来源分别退回，优惠券抵扣部分不作为现金重复退还。\n\n依据：退换货通用政策规定，普通非质量原因退货运费由用户承担，有明确更有利运费权益的订单按该约定处理（return_policy.txt）。退款政策规定，退款原则上按实际支付来源退回，混合支付需分别核实对应部分，优惠券抵扣不作为现金重复退还，其返还按券规则核实（refund_policy.txt、coupon_refund_policy.txt）。\n\n待核实条件：券抵扣部分能否返还及返还方式，需按该券的具体规则核实；混合支付各部分的退款金额按实际支付及优惠分摊记录核算。",
+      "usage": {
+        "input_tokens": 2862,
+        "output_tokens": 178,
+        "total_tokens": 3040,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2246.0913999238983
+    },
+    {
+      "id": "ablation-018",
+      "answer": "结论：不是。标准化预售商品没有个性化制作，预售身份本身不意味着失去七日无理由退货资格；加急也不会因您提出就免审批、保证马上发出。\n\n依据：预售和个性化定制不是同一概念，普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格（return_custom_policy.txt）。已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单，但加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证（presale_shipping_policy.txt）。\n\n待核实条件：具体退货资格仍需按商品实际情况和七日无理由退货的一般条件核实；催单能否受理及加急审批结果，需以订单已确认的承诺发货时间和人工审批为准。",
+      "usage": {
+        "input_tokens": 1960,
+        "output_tokens": 163,
+        "total_tokens": 2123,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2175.3379999427125
+    },
+    {
+      "id": "ablation-019",
+      "answer": "结论：不能直接认定已超过承诺、符合加急条件。普通现货付款后48小时只是默认服务目标，是否超时须以订单记录中的承诺发货截止时间为准；加急还要求当前时间超过该截止时间并经人工审批。\n\n依据：shipping_policy.txt 第1条、第4条。\n\n待核实：该订单记录中的承诺发货截止时间。你暂时找不到，可联系人工核实；在此之前只能说明付款已60小时，不能确认已超承诺或符合加急条件。",
+      "usage": {
+        "input_tokens": 2166,
+        "output_tokens": 109,
+        "total_tokens": 2275,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1655.8493999764323
+    },
+    {
+      "id": "ablation-020",
+      "answer": "结论：退货后可能需要调整已开票金额，发票处理应与退款结果一致；但退全单还是部分退货、最终退款明细尚未明确，因此具体是否红冲或重开需由实际开票方核实。\n\n依据：发票更正政策规定，商品退款或部分退货可能需要调整已开票金额，发票处理与退款结果应一致，是否需要红冲或重开由实际开票方核实（invoice_correction_policy.txt）。开票金额政策也指出，部分退货或优惠分摊会影响可退金额和对应发票金额，不能以退款前的全额发票作为退货后交易金额不变的依据（invoice_amount_policy.txt）。\n\n待核实条件：需确认是退全单还是部分退货、最终退款金额及优惠分摊情况；商家自行开具的发票应联系对应销售方处理（invoice_correction_policy.txt）。",
+      "usage": {
+        "input_tokens": 1863,
+        "output_tokens": 179,
+        "total_tokens": 2042,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 2067.6567000336945
+    },
+    {
+      "id": "ablation-021",
+      "answer": "结论：不能仅凭商家页面出现“定制”或“预售”字样就直接认定不支持七日无理由退货。按一般规则，只有按消费者个性化要求制作的商品才不适用通常的七日无理由退货；普通现货不能仅因卖家标注“定制”二字就自动认定为个性化定作。预售与个性化定制也不是同一概念，普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格。\n\n依据：return_custom_policy.txt。\n\n待核实条件：该商品是否确实按你的个性化要求制作（如已确认的规格、图案或尺寸约定）。若交付内容与已确认约定不一致，属于履约争议，应人工核实，不能与无理由退货混淆。",
+      "usage": {
+        "input_tokens": 1842,
+        "output_tokens": 146,
+        "total_tokens": 1988,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1748.4502999577671
+    },
+    {
+      "id": "ablation-022",
+      "answer": "结论：无法确认这张券“肯定能抵本次商品价款”或“能与另一张券一起使用”。若它是运费券，则不抵减商品价款；若它是商品券，也须满足券面门槛及指定商品、品类或店铺范围，且同一商品不默认支持多张商品满减券叠加。\n\n依据：coupon_scope_policy.txt 规定运费券不抵减商品价款；coupon_usage_policy.txt 规定商品券与运费券用途不能混用，商品满减券需满足门槛和适用范围，多张商品满减券叠加须有特殊活动明确允许并以结算结果为准。\n\n待核实：请查看券面标注的券类型、适用范围、使用门槛和有效期，并在结算页确认实际可用结果。",
+      "usage": {
+        "input_tokens": 2048,
+        "output_tokens": 161,
+        "total_tokens": 2209,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1985.5363999959081
+    },
+    {
+      "id": "ablation-023",
+      "answer": "结论：知识库暂无依据，无法确认电子发票PDF附件是否需要密码，也无法确认默认密码由身份证、手机号或订单号的哪几位组成。\n\n依据：现有电子发票政策只涉及申请窗口、资料核实、处理时限和发送邮箱，未提及PDF附件密码规则（来源：invoice_policy.txt）。\n\n建议您直接联系商城人工客服核实密码规则。",
+      "usage": {
+        "input_tokens": 1565,
+        "output_tokens": 77,
+        "total_tokens": 1642,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1644.4191000191495
+    },
+    {
+      "id": "ablation-024",
+      "answer": "知识库暂无依据，无法确认电子发票下载链接的保留天数，也无法确认超过后恢复链接的具体收费金额。现有发票政策只涉及申请窗口、处理时限、抬头核实和发送邮箱，未提及下载链接保留期限或恢复费用。建议联系人工核实这两个数字。",
+      "usage": {
+        "input_tokens": 1929,
+        "output_tokens": 59,
+        "total_tokens": 1988,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1402.9003999894485
+    },
+    {
+      "id": "ablation-025",
+      "answer": "结论：知识库暂无依据确认商城提供统一的退货包裹保险，也无法确认固定保额或赔付比例。现有证据只说明包裹丢失属于物流异常场景，加急发货流程不能处理，也不自动承诺赔偿金额。\n\n依据：shipping_exception_policy.txt 第4条。\n\n待核实条件：退货包裹丢失后的具体赔付，需结合订单和适用保障人工核实。",
+      "usage": {
+        "input_tokens": 2198,
+        "output_tokens": 81,
+        "total_tokens": 2279,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1694.1294999560341
+    },
+    {
+      "id": "ablation-026",
+      "answer": "知识库暂无依据，无法确认商城发票专员使用的视频会议平台及每晚在线时间。现有发票政策仅涉及电子发票申请窗口、资料核实和发送邮箱，未提及视频核验安排。建议联系商城人工客服核实。",
+      "usage": {
+        "input_tokens": 1518,
+        "output_tokens": 49,
+        "total_tokens": 1567,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "generation_ms": 1468.99459999986
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+[
+  {
+    "id": "modal-01",
+    "group": "uncertain",
+    "question": "我只想退同一张满减券订单里的部分商品。客服给了两个断言：一是整券肯定马上返，二是整券绝不会马上返。政策能支持其中任何一个肯定断言吗？",
+    "evidence": [
+      {
+        "id": "coupon_refund_policy.txt-1",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n2. 商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。"
+      }
+    ],
+    "expected": "两种肯定断言都没有依据；部分退货不承诺立即返整券，按券规则核实。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-02",
+    "group": "uncertain",
+    "question": "我的银行卡退款已经发起，客服给了3至7个工作日这个区间。我想据此安排一笔必须第7个工作日到账才能支付的账单，这个区间能当作保证吗？",
+    "evidence": [
+      {
+        "id": "refund_policy.txt-2",
+        "source": "refund_policy.txt",
+        "content": "SupportPilot 商城退款流程与到账政策\n\n3. 本商城银行卡退款的通常到账参考为渠道退款发起后 3 至 7 个工作日，第三方支付为 1 至 3 个工作日；均为预计区间，不承诺固定某天到账，不得把这些预计区间逐段累加来延长适用的退款期限。"
+      }
+    ],
+    "expected": "只是预计参考，不能保证第7个工作日必到，不能累加预计区间延长适用期限。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-03",
+    "group": "uncertain",
+    "question": "我已提交完整有效的电子发票资料，客服建议我把2个工作日内收到发票当成绝对承诺，可以这样理解吗？",
+    "evidence": [
+      {
+        "id": "invoice_policy.txt-1",
+        "source": "invoice_policy.txt",
+        "content": "SupportPilot 商城电子发票申请政策\n\n2. 完整且有效的资料提交后，电子发票服务目标为 2 个工作日内处理；资料缺失、需要更正或异常订单应先核实，不保证提交任意信息后都能按时开具。"
+      }
+    ],
+    "expected": "2个工作日内处理为服务目标，不等于无条件的收到发票保证。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-04",
+    "group": "uncertain",
+    "question": "这件衣服有使用痕迹，商家还没有检查具体程度。客服仅依据“使用痕迹可能影响完好”就说所有售后都一定不给处理，这个结论有依据吗？",
+    "evidence": [
+      {
+        "id": "return_apparel_policy.txt-1",
+        "source": "return_apparel_policy.txt",
+        "content": "SupportPilot 商城服饰鞋包退货完好标准\n\n2. 服饰剪标、污损、破坏或明显使用痕迹可能影响商品完好认定；应结合具体状态核实，不能仅凭打开外包装就拒绝退货。"
+      },
+      {
+        "id": "return_policy.txt-3",
+        "source": "return_policy.txt",
+        "content": "SupportPilot 商城退换货通用政策\n\n4. 商品质量问题与无理由退货是不同售后依据。本商城签收后 15 天的常规受理窗口不作为全部质量责任的截止期；超过该窗口仍需依据适用保障和具体问题核实。"
+      }
+    ],
+    "expected": "可能影响完好要核实，不能直接排除所有售后，质量与无理由不同。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-05",
+    "group": "uncertain",
+    "question": "部分退货之后，财务说发票金额可能需要调整。商家让我不看实际退款情况，直接认定所有部分退货都必须用同一种红冲重开流程，这是否由政策明确规定？",
+    "evidence": [
+      {
+        "id": "invoice_correction_policy.txt-2",
+        "source": "invoice_correction_policy.txt",
+        "content": "SupportPilot 商城发票更正与退货处理\n\n3. 商品退款或部分退货可能需要调整已开票金额，发票处理与退款结果应一致；是否需要红冲或重开由实际开票方核实。"
+      }
+    ],
+    "expected": "可能调整，具体是否红冲重开由开票方核实，没有一律同流程的依据。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-06",
+    "group": "uncertain",
+    "question": "我只是退回商品而没有取消订单，用过的运费券能不能返还还在核实。客服说政策已经规定“不取消就永远不允许核实返还规则”，这个排除条件成立吗？",
+    "evidence": [
+      {
+        "id": "coupon_scope_policy.txt-2",
+        "source": "coupon_scope_policy.txt",
+        "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。"
+      }
+    ],
+    "expected": "原文未规定只有取消才处理；商品退货不当然返还，需要按券规则核实，不能反向保证一定返还。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-07",
+    "group": "explicit",
+    "question": "券面明确写甲店专用，我要在乙店购买；其他有效期和金额条件都已满足。仅就跨店这一点，应该明确说不能用，还是仍要假设券可能不限店铺？",
+    "evidence": [
+      {
+        "id": "coupon_scope_policy.txt-0",
+        "source": "coupon_scope_policy.txt",
+        "content": "SupportPilot 商城优惠券限制与运费券政策\n\n1. 店铺限定券只能用于指定店铺符合条件的商品，品类限定券只能用于指定品类；不能因为同属商城就跨店铺、跨品类使用。"
+      }
+    ],
+    "expected": "明确店铺限定不可跨店，不将已明确限制重新假设为未知。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-08",
+    "group": "explicit",
+    "question": "这张优惠券已经超过券面有效期，没有其他特殊规则。我只是问现在能否继续用，不是问能否申请补发。",
+    "evidence": [
+      {
+        "id": "coupon_usage_policy.txt-3",
+        "source": "coupon_usage_policy.txt",
+        "content": "SupportPilot 商城商品优惠券使用政策\n\n4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。"
+      }
+    ],
+    "expected": "已过有效期不能继续用，不将明确期限弱化为也许可用。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-09",
+    "group": "explicit",
+    "question": "我朋友要用我的会员账号权益去办他自己的订单，我想直接把权益转给他。就权益是否可转让，政策有明确限制吗？",
+    "evidence": [
+      {
+        "id": "membership_policy.txt-4",
+        "source": "membership_policy.txt",
+        "content": "SupportPilot 商城会员等级与退货权益\n\n5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。"
+      }
+    ],
+    "expected": "权益限账号本人，不可转让，费用未收录不影响回答转让限制。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-10",
+    "group": "explicit",
+    "question": "假设这张订单已付款但已经发货，我现在明确申请的是“催发货/加急发货”，不是运输异常核查。政策允许受理这个申请吗？",
+    "evidence": [
+      {
+        "id": "shipping_policy.txt-4",
+        "source": "shipping_policy.txt",
+        "content": "SupportPilot 商城物流与承诺发货政策\n\n5. 订单已发货或已签收时不受理催发货和加急发货；当前本地工单登记不会实际通知仓库或快递，运输异常需要另行人工核查。"
+      }
+    ],
+    "expected": "已发货不受理催发货和加急发货，不能把限制弱化为或许可申请。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-11",
+    "group": "explicit",
+    "question": "我已经在线下载了软件，只是改变主意想按普通七日无理由退货，不涉及下载失败或质量争议。能不能明确说明是否适用通常七日无理由？",
+    "evidence": [
+      {
+        "id": "return_digital_policy.txt-3",
+        "source": "return_digital_policy.txt",
+        "content": "SupportPilot 商城电子数码与数字内容退货政策\n\n4. 在线下载或消费者拆封的音像制品、计算机软件等数字化商品不适用通常的七日无理由退货；下载失败、无法履约等争议另行核实。"
+      }
+    ],
+    "expected": "已在线下载数字商品不适用通常七日无理由；不保证质量或履约争议也被排除。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "modal-12",
+    "group": "explicit",
+    "question": "我不购买任何商品，想把领到的商品优惠券面额直接兑换现金。政策能否直接否定这种用途？",
+    "evidence": [
+      {
+        "id": "coupon_usage_policy.txt-0",
+        "source": "coupon_usage_policy.txt",
+        "content": "SupportPilot 商城商品优惠券使用政策\n\n1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。"
+      }
+    ],
+    "expected": "商品券不能兑现，应直接否定，不以模态保守为由无依据弱化明确禁止。",
+    "required": [
+      "结论及依据不改变政策确定程度",
+      "不添加排他或必要条件",
+      "明确限制仍明确回答"
+    ],
+    "note": "修改前构造的定向验收，不是独立盲测；策略已由旧案例确定，规则来自已有政策。"
+  },
+  {
+    "id": "known-015",
+    "group": "known_regression",
+    "question": "我用一张满减券买了两件商品，现在只退其中一件。商家说现金退款按优惠分摊核算，这我理解；但原来已开的全额发票完全不用处理，整张券也应立即退回来。这两点能一起成立吗？",
+    "evidence": [
+      {
+        "id": "coupon_refund_policy.txt-1",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n2. 商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。",
+        "source": "coupon_refund_policy.txt",
+        "distance": 0.5847374796867371,
+        "rrf_score": 0.03252247488101534,
+        "bm25_score": 95.97779377126842,
+        "rerank_score": 6.833222389221191
+      },
+      {
+        "id": "coupon_refund_policy.txt-0",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n1. 普通商品满减券用于未拆分订单时，订单完整取消后按券的返还规则处理；拆分订单须核实全部关联子订单状态，不能因取消一个子单就认定整张券已返还。",
+        "context_of": "coupon_refund_policy.txt-1"
+      },
+      {
+        "id": "coupon_refund_policy.txt-3",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。",
+        "context_of": "coupon_refund_policy.txt-1"
+      },
+      {
+        "id": "coupon_refund_policy.txt-4",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+        "context_of": "coupon_refund_policy.txt-1"
+      },
+      {
+        "id": "invoice_amount_policy.txt-2",
+        "content": "SupportPilot 商城开票金额与优惠抵扣\n\n3. 部分退货或优惠分摊会影响可退金额和对应发票金额，不能将退款前的全额发票作为退货后交易金额不变的依据。",
+        "source": "invoice_amount_policy.txt",
+        "distance": 0.6399920582771301,
+        "rrf_score": 0.03149801587301587,
+        "bm25_score": 55.414953446534255,
+        "rerank_score": 4.053070068359375
+      },
+      {
+        "id": "invoice_amount_policy.txt-1",
+        "source": "invoice_amount_policy.txt",
+        "content": "SupportPilot 商城开票金额与优惠抵扣\n\n2. 商品标价、券后实付金额、配送费用和发票金额可能不同；运费是否在本张发票列示需核实开票方及订单信息，不能只凭商品标价判断少开。",
+        "context_of": "invoice_amount_policy.txt-2"
+      },
+      {
+        "id": "invoice_amount_policy.txt-0",
+        "source": "invoice_amount_policy.txt",
+        "content": "SupportPilot 商城开票金额与优惠抵扣\n\n1. 商品优惠券抵扣属于价格优惠，不把抵扣面额重复计入商品实际开票金额；应核对订单支付明细与最终开票明细。",
+        "context_of": "invoice_amount_policy.txt-2"
+      },
+      {
+        "id": "coupon_refund_policy.txt-2",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n3. 退款按实际支付及优惠分摊计算，不能把商品原价作为必然退回的现金金额，优惠券抵扣部分也不作为现金重复退还。",
+        "source": "coupon_refund_policy.txt",
+        "distance": 0.5776820778846741,
+        "rrf_score": 0.03252247488101534,
+        "bm25_score": 56.854906781999716,
+        "rerank_score": 3.653785228729248
+      }
+    ],
+    "expected": "部分退货不承诺整券立即返，不说必不返或只有全退才返；发票按实际影响核实。"
+  },
+  {
+    "id": "known-030",
+    "group": "known_regression",
+    "question": "我核对了券面，它实际是运费券，不是商品满减券。只发生商品退货，没有取消订单。请按这个更正重新判断，能认定运费券当然返还吗？",
+    "evidence": [
+      {
+        "id": "coupon_scope_policy.txt-2",
+        "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。",
+        "source": "coupon_scope_policy.txt",
+        "distance": 0.6751559972763062,
+        "rrf_score": 0.031024531024531024,
+        "bm25_score": 35.66831069251344,
+        "rerank_score": 3.529181480407715
+      }
+    ],
+    "expected": "运费券商品退货不当然返还，不添加只有取消才处理的排他条件。"
+  }
+]

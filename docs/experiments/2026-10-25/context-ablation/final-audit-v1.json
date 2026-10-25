@@ -1,0 +1,23 @@
+{
+  "verified": true,
+  "fixed_successful_answers": 52,
+  "dialogue_turns": 16,
+  "source_and_protocol_unchanged": true,
+  "raw_result_hashes_verified": true,
+  "business_calls": 0,
+  "external_response_model": "deepseek-flash",
+  "files": {
+    "scorecards-30-v1.jsonl": "5f2eef7a933e7d9ad430b09b6ab2597c4fefba2cfc46111ca7214305f48f3f72",
+    "protocol-30-v1.json": "9d73508fe5cef4b24396b624a1891924c9f5daa356551326356fdc5f54c5d1a3",
+    "execution-lock-v1.json": "b9bcc02adfb6ee8fbd944657e7eb120faa07b0e61aeec488284f584e9ea4be50",
+    "run_ablation_v1.py": "c679814a6a9043a9c95c3f71a58d94eb0c722a7c4fcd166c976dbd88da8c1706",
+    "resume_fixed_v1.py": "fc6da54c79c61fd5649163d230077dabfd91b4baff6231bd97556a8950924906",
+    "retrieval-v1.json": "851145678b4e9413fd3906aa218f9eb3a7f64daa3ece8dcf58adcdc31e76c707",
+    "answers-fixed-v1.json": "18b1b4894697e79567f5a16098234590027b50b4b3fa1626a7abba8285b3d677",
+    "answers-fixed-completed-v1.json": "f874090e258fccbbb5a8ad9b079874bc2df09215744b23c4c6f3038f7466b60c",
+    "answers-dialogues-v1.json": "0c377734b9afc6c504b16f1176d0f9a662b19231a674a9f42b21834437ffc6d2",
+    "semantic-review-v1.json": "2831bc24ae3605b899723150545806748edcc8042f2c667f647909fab47993a5",
+    "summary-v1.json": "f566f0082d80c12aabe1577090e96ba21765533cbfcce9e7645207667bbeea66",
+    "同源补证消融实验报告-v1.md": "52a6f0efeb14056c92a53037c2002eff9e9b1325a8491a53cd9c7c32ef930980"
+  }
+}

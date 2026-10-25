@@ -1,0 +1,101 @@
+[
+  {
+    "id": "fresh-01",
+    "group": "uncertain",
+    "question": "这包卫生用品只知道品类名称，我没提供密封状态或购买时确认。客服说这类商品全部禁止七日无理由，不必再核实。这能作为商城的统一规定吗？",
+    "evidence": [
+      {
+        "id": "return_hygiene_policy.txt-0",
+        "source": "return_hygiene_policy.txt",
+        "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n1. 贴身或卫生用品不应仅凭品类名称一律排除七日无理由；需要核实拆封是否影响人身安全、健康或商品品质，以及购买时的明确确认。"
+      }
+    ],
+    "expected": "不能按品类一律排除，需核实拆封对安全健康品质影响与购买确认。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-02",
+    "group": "uncertain",
+    "question": "订单里的预售发货日期没有记录，客服说为了方便就从定金日加48小时算最迟发货。既然缺日期，能这样自行补一个保证期限吗？",
+    "evidence": [
+      {
+        "id": "presale_shipping_policy.txt-0",
+        "source": "presale_shipping_policy.txt",
+        "content": "SupportPilot 商城预售与定制发货政策\n\n1. 预售商品的发货时间按购买时确认的预售承诺日期执行，不直接套用普通现货付款后 48 小时发货的默认目标。"
+      },
+      {
+        "id": "presale_shipping_policy.txt-2",
+        "source": "presale_shipping_policy.txt",
+        "content": "SupportPilot 商城预售与定制发货政策\n\n3. 预售或定制商品页面有发货约定时，应核对订单已确认的约定；没有明确约定或时间缺失时，先联系人工确认，不擅自推算日期。"
+      }
+    ],
+    "expected": "按预售确认承诺，缺失联系人工确认，不自行推算或套用现货48小时。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-03",
+    "group": "uncertain",
+    "question": "我的券是否返还仍待核实，客服先建议我等处理结果。我能不能反过来理解成系统已经确定这张券永远不会返还？",
+    "evidence": [
+      {
+        "id": "coupon_refund_policy.txt-1",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n2. 商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。"
+      },
+      {
+        "id": "coupon_refund_policy.txt-4",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。"
+      }
+    ],
+    "expected": "待核实和不承诺立即不意味着永远不返，应核实对应券与活动规则；不保证必返。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-04",
+    "group": "explicit",
+    "question": "我是普通会员，商品没有质量问题，已超过七天且没有订单延长权益。只问是否能自动获得无理由退货资格，别把我当黑金会员。",
+    "evidence": [
+      {
+        "id": "return_policy.txt-1",
+        "source": "return_policy.txt",
+        "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。"
+      }
+    ],
+    "expected": "普通会员超过7天不自动获得无理由资格，不弱化成自动延长。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-05",
+    "group": "explicit",
+    "question": "商家已核实这件物品确实按我个人指定的图案制作，我也确认交付完全符合约定、没有质量问题。只因不喜欢就想按通常七日无理由退，政策是否明确排除？",
+    "evidence": [
+      {
+        "id": "return_custom_policy.txt-0",
+        "source": "return_custom_policy.txt",
+        "content": "SupportPilot 商城定制商品退货政策\n\n1. 按消费者个性化要求制作的商品，不适用通常的七日无理由退货；普通现货不能仅因卖家标注定制二字就自动认定为个性化定作。"
+      },
+      {
+        "id": "return_custom_policy.txt-1",
+        "source": "return_custom_policy.txt",
+        "content": "SupportPilot 商城定制商品退货政策\n\n2. 定制商品交付内容与已确认的规格、图案或尺寸约定不一致，应作为履约争议人工核实，不能与无理由退货混淆。"
+      }
+    ],
+    "expected": "真实个性化定作不适用通常七日无理由；不能扩大排除履约争议。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-06",
+    "group": "explicit",
+    "question": "这张已返还的优惠券确实过期了，没有额外延期约定。我只想知道返还动作本身会不会自动延长它的有效期。",
+    "evidence": [
+      {
+        "id": "coupon_refund_policy.txt-3",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。"
+      }
+    ],
+    "expected": "返还不自动延期，过期不能继续用；不保证补发。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  }
+]

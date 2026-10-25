@@ -1,0 +1,24 @@
+{
+  "locked_at": "2026-10-25T14:47:45.936670+00:00",
+  "runner_sha256": "a535e79dca22331d6708eeabe39cca923fc6c1bc89a51e99ee851f6f151461b3",
+  "cases_sha256": "109b64303880e992d4731aefd8fec21ee812f955d9b734aecd34d24f6b112958",
+  "acceptance_lock_sha256": "d64bb894144c9409bd8fe2bc2f22406d043b1c4528a22bded5fef8bcadcc10b7",
+  "before_guidance_sha256": "fcc2e3f57e0c2025c1e8a019964fc7510e22bc560d9f738eef807380710a4bde",
+  "after_guidance_sha256": "dda7d29de5b9568877a3d7be36d5820b696adb0d441a0588a05d09499ebc5082",
+  "before_prompt_sha256": "f8129bee03631fd59a7d1c39ced163d8ce47b34b03ca21b878198d0ad79d45ed",
+  "after_prompt_sha256": "88cc70c82cabd10fbb19526a0336cdc28164da1dee245e3a748a61ee8ac5ce69",
+  "endpoint": "https://api.deepseek.com/v1",
+  "model_setting": "deepseek-chat",
+  "temperature": 0,
+  "stream": false,
+  "max_retries": 0,
+  "plan": "8 fresh baseline-vs-final fixed-evidence pairs (6 new directed cases,2 known);26 old fixed after-only regressions;4 old dialogues after-only. First iteration 12 acceptance cases are now known and are not reused as fresh tests.",
+  "limits": "Paired fixed evidence checks only guidance effect, not whole-Agent reasoning. Old after-only comparisons are historical, not fresh randomized causal pairs.",
+  "iteration": "2",
+  "previous_iteration_artifacts": {
+    "answers.json": "63204b3a0aa9ecfd27867cb3c92a17fb27b8be04ed8c29e4a26381b04d5e81d0",
+    "dialogues.json": "0eeffa32fef34b1483513150a3c9fc1c27fd58c3d3d25f72f709dbc5e443ab3a",
+    "answer_policy.after.py": "fd7ae4077c3e8000c6dd2b9afa416f1a14c89f517dfb1f49acfc3c098a2e03e3"
+  },
+  "limitations": "Not independent blind review. Directed new cases after generic repair strategy; known cases remain regression. Single sample, no extra judge model."
+}

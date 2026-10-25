@@ -1,0 +1,229 @@
+{
+  "metadata": {
+    "started_at": "2026-10-25T11:18:22.286802+00:00",
+    "retrieval_sha256": "851145678b4e9413fd3906aa218f9eb3a7f64daa3ece8dcf58adcdc31e76c707",
+    "execution_lock_sha256": "b9bcc02adfb6ee8fbd944657e7eb120faa07b0e61aeec488284f584e9ea4be50",
+    "method": "52 fixed-evidence answer calls, paired alternating order; no Agent/tool/checker/judge calls."
+  },
+  "rows": [
+    {
+      "id": "ablation-001",
+      "answers": {
+        "off": {
+          "answer": "结论：先不要马上重新申请。建议先核实发票开具状态、申请时填写的接收邮箱是否正确，以及邮件是否被拦截或归入垃圾箱；确认后再联系人工处理，避免重复创建无关发票。\n\n依据：电子发票按申请时确认的邮箱发送，未收到时应先核实开具状态、邮箱和拦截情况，再联系人工处理，不重复创建无关发票（invoice_policy.txt）。另外，资料完整有效时，电子发票服务目标为2个工作日内处理（invoice_policy.txt）。\n\n待核实条件：需确认申请是否已提交成功、当前开具状态、申请时填写的邮箱，以及垃圾邮件或拦截记录。",
+          "usage": {
+            "input_tokens": 1241,
+            "output_tokens": 138,
+            "total_tokens": 1379,
+            "input_token_details": {
+              "cache_read": 128
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 2432.9689000733197
+        },
+        "on": {
+          "answer": "结论：先不要马上重新申请。建议先核实发票开具状态、申请时填写的接收邮箱是否正确，以及邮件是否被拦截或归入垃圾箱；确认后再联系人工处理，避免重复创建无关发票。\n\n依据：电子发票按申请时确认的接收邮箱发送，未收到时应先核实开具状态、邮箱和拦截情况，再联系人工处理，不重复创建无关发票（来源：invoice_policy.txt）。另外，资料完整有效时，电子发票服务目标为2个工作日内处理（来源：invoice_policy.txt）。\n\n待核实条件：需确认当前申请是否已开具、收件邮箱是否填写正确，以及邮件是否被拦截。",
+          "usage": {
+            "input_tokens": 1323,
+            "output_tokens": 139,
+            "total_tokens": 1462,
+            "input_token_details": {
+              "cache_read": 768
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1887.2081000590697
+        }
+      }
+    },
+    {
+      "id": "ablation-002",
+      "answers": {
+        "on": {
+          "answer": "结论：不能。其他平台 PLUS 会员的权益和年费，不能直接当作本商城黑金会员的权益或收费标准。\n\n依据：会员权益适用与例外政策明确，不将其他平台的 PLUS 权益当成本商城黑金会员权益，也不把其他平台活动价格或会员费用当成本商城收费（membership_scope_policy.txt）。同时，知识库未收录黑金会员的具体年费金额，无法据此给出收费标准（membership_policy.txt）。\n\n如需确认黑金会员的实际权益和年费，建议以本商城官方页面或人工客服核实为准。",
+          "usage": {
+            "input_tokens": 1789,
+            "output_tokens": 123,
+            "total_tokens": 1912,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1568.301200051792
+        },
+        "off": {
+          "answer": "结论：不能。其他平台 PLUS 会员的权益和年费，不能直接认定为本商城黑金会员的权益或收费标准。\n\n依据：会员权益适用规则明确，不将其他平台 PLUS 权益当作本商城黑金会员权益，也不把其他平台活动价格或会员费用当作本商城收费（membership_scope_policy.txt）。同时，知识库未收录本商城黑金会员的具体年费金额，无法据此确认收费标准（membership_policy.txt）。\n\n如需了解黑金会员实际权益或费用，建议以本商城官方会员页面或人工客服核实为准。",
+          "usage": {
+            "input_tokens": 1257,
+            "output_tokens": 123,
+            "total_tokens": 1380,
+            "input_token_details": {
+              "cache_read": 768
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1799.8807999538258
+        }
+      }
+    },
+    {
+      "id": "ablation-003",
+      "answers": {
+        "off": {
+          "answer": "结论：客服的说法不对。个人抬头改企业抬头并非“改个名称、任何订单都能无条件换”，需要核实实际交易和所需资料，不能保证任意订单均可无条件变更。\n\n依据：发票更正政策明确，个人抬头改企业抬头等变更需核实实际交易与资料，不能保证任意订单无条件变更（invoice_correction_policy.txt）；企业抬头还需准确的纳税人识别信息，不能填写虚假税号或与交易不符的内容（invoice_policy.txt）。\n\n待核实条件：具体订单能否更正，需核实该笔实际交易及企业抬头、税号等资料；若发票已开具，还需按开票方核实更正、红冲或重新开具流程处理。",
+          "usage": {
+            "input_tokens": 1249,
+            "output_tokens": 144,
+            "total_tokens": 1393,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1885.189599939622
+        },
+        "on": {
+          "answer": "结论：客服的说法不对。个人抬头改企业抬头并非“改个名称、任何订单都能无条件换”，需要核实实际交易和所需资料，不能保证任意订单均可无条件变更为任意发票类型。\n\n依据：发票更正政策明确，个人抬头改企业抬头等变更需核实实际交易与资料，不能保证任意订单无条件变更（invoice_correction_policy.txt）；企业抬头还需准确的纳税人识别信息，不能填写与交易不符的内容（invoice_policy.txt）。若发票已开具，通常不能直接改写原发票，需联系开票方核实更正、红冲或重开流程（invoice_correction_policy.txt）。\n\n待核实条件：该订单是否已开票、实际交易信息及企业抬头所需税号等资料是否齐全；商家自行开具的发票还需联系对应销售方处理。",
+          "usage": {
+            "input_tokens": 1695,
+            "output_tokens": 171,
+            "total_tokens": 1866,
+            "input_token_details": {
+              "cache_read": 768
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1949.1227000253275
+        }
+      }
+    },
+    {
+      "id": "ablation-004",
+      "answers": {
+        "on": {
+          "answer": "结论：不能仅凭订单合计超过200元就认定券一定能用。该券要求“指定商品满200元”，而您同单中只有120元属于指定商品，另100元不在适用范围；订单总价达标不代表所有商品都属于可用范围。\n\n依据：商品满减券需同时达到券面门槛并满足指定商品、品类或店铺范围（coupon_usage_policy.txt）。\n\n待核实条件：结算时系统按符合范围的商品金额计算门槛，需以结算页显示的可用结果为准。",
+          "usage": {
+            "input_tokens": 1945,
+            "output_tokens": 109,
+            "total_tokens": 2054,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1569.8117999127135
+        },
+        "off": {
+          "answer": "结论：不能仅凭订单合计超过200元就认定券一定能用。商品满减券需同时满足券面门槛和指定商品、品类或店铺范围，订单总价达标不代表所有商品都在可用范围内。\n\n依据：`coupon_usage_policy.txt` 明确说明，商品满减券需要达到券面门槛，并满足指定商品、品类或店铺范围；订单总价达标不代表所有商品都属于可用范围。\n\n待核实条件：你买的指定商品金额为120元，未达到券面200元门槛；同单中100元商品不在适用范围，通常不能计入该券的门槛。最终能否使用，还需以结算页面的可用结果为准。",
+          "usage": {
+            "input_tokens": 1287,
+            "output_tokens": 143,
+            "total_tokens": 1430,
+            "input_token_details": {
+              "cache_read": 768
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1743.5918999835849
+        }
+      }
+    },
+    {
+      "id": "ablation-005",
+      "answers": {
+        "off": {
+          "answer": "结论：不能直接保证配送费在所有订单里都必须与商品列在同一张发票上。运费是否在本张发票列示，需要核实开票方及具体订单信息。\n\n依据：`invoice_amount_policy.txt` 说明商品标价、券后实付金额、配送费用和发票金额可能不同，运费是否列示需核实开票方及订单信息。\n\n待核实条件：具体订单的开票方规则和该订单的开票明细。",
+          "usage": {
+            "input_tokens": 1241,
+            "output_tokens": 96,
+            "total_tokens": 1337,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1340.4040000168607
+        },
+        "on": {
+          "answer": "结论：不能直接保证配送费在所有订单里都必须与商品列在同一张发票上。运费是否在本张发票列示，需要核实开票方及具体订单信息。\n\n依据：`invoice_amount_policy.txt` 说明商品标价、券后实付金额、配送费用和发票金额可能不同，运费是否列示需核实开票方及订单信息。\n\n待核实条件：具体订单的开票方规则和该订单的开票明细。",
+          "usage": {
+            "input_tokens": 1241,
+            "output_tokens": 96,
+            "total_tokens": 1337,
+            "input_token_details": {
+              "cache_read": 1024
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 2690.104699926451
+        }
+      }
+    },
+    {
+      "id": "ablation-006",
+      "answers": {
+        "on": {
+          "answer": "结论：不能。活动专享券可能约定特别返还条件，应核实领取时的活动规则，不能直接套用普通商品满减券的规则来保证取消后必退。\n\n依据：coupon_refund_policy.txt 明确活动专享券可能另有特别返还条件；普通商品满减券的返还规则仅适用于普通券场景。\n\n待核实条件：该活动专享券领取时说明中的具体返还条件，以及具体券种的返还时效（需人工确认，不承诺统一到账时间）。",
+          "usage": {
+            "input_tokens": 1473,
+            "output_tokens": 109,
+            "total_tokens": 1582,
+            "input_token_details": {
+              "cache_read": 640
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 1591.3868999341503
+        },
+        "off": {
+          "answer": "结论：不能。活动专享券可能约定特别的返还条件，应按领取时的活动规则核实，不能直接套用普通商品满减券的规则来保证取消后必退。\n\n依据：coupon_refund_policy.txt 第5条明确，活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账时间。普通商品满减券的返还规则见同文件第1、2条，但那是针对普通券的规则，不适用于活动专享券。\n\n待核实条件：这张券领取时活动说明中的具体退券条件，以及该券种是否属于知识库未收录、需人工确认的范围。",
+          "usage": {
+            "input_tokens": 1285,
+            "output_tokens": 154,
+            "total_tokens": 1439,
+            "input_token_details": {
+              "cache_read": 768
+            },
+            "output_token_details": {}
+          },
+          "model": "deepseek-flash",
+          "finish_reason": "stop",
+          "generation_ms": 2158.5073999594897
+        }
+      }
+    },
+    {
+      "id": "ablation-007",
+      "answers": {
+        "off": {
+          "error_type": "APIConnectionError",
+          "generation_ms": 3246.404999983497
+        }
+      }
+    }
+  ]
+}

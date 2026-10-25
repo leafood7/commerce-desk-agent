@@ -1,0 +1,183 @@
+[
+  {
+    "id": "fresh-01",
+    "group": "uncertain",
+    "question": "这包卫生用品只知道品类名称，我没提供密封状态或购买时确认。客服说这类商品全部禁止七日无理由，不必再核实。这能作为商城的统一规定吗？",
+    "evidence": [
+      {
+        "id": "return_hygiene_policy.txt-0",
+        "source": "return_hygiene_policy.txt",
+        "content": "SupportPilot 商城贴身与卫生用品退货政策\n\n1. 贴身或卫生用品不应仅凭品类名称一律排除七日无理由；需要核实拆封是否影响人身安全、健康或商品品质，以及购买时的明确确认。"
+      }
+    ],
+    "expected": "不能按品类一律排除，需核实拆封对安全健康品质影响与购买确认。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-02",
+    "group": "uncertain",
+    "question": "订单里的预售发货日期没有记录，客服说为了方便就从定金日加48小时算最迟发货。既然缺日期，能这样自行补一个保证期限吗？",
+    "evidence": [
+      {
+        "id": "presale_shipping_policy.txt-0",
+        "source": "presale_shipping_policy.txt",
+        "content": "SupportPilot 商城预售与定制发货政策\n\n1. 预售商品的发货时间按购买时确认的预售承诺日期执行，不直接套用普通现货付款后 48 小时发货的默认目标。"
+      },
+      {
+        "id": "presale_shipping_policy.txt-2",
+        "source": "presale_shipping_policy.txt",
+        "content": "SupportPilot 商城预售与定制发货政策\n\n3. 预售或定制商品页面有发货约定时，应核对订单已确认的约定；没有明确约定或时间缺失时，先联系人工确认，不擅自推算日期。"
+      }
+    ],
+    "expected": "按预售确认承诺，缺失联系人工确认，不自行推算或套用现货48小时。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-03",
+    "group": "uncertain",
+    "question": "我的券是否返还仍待核实，客服先建议我等处理结果。我能不能反过来理解成系统已经确定这张券永远不会返还？",
+    "evidence": [
+      {
+        "id": "coupon_refund_policy.txt-1",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n2. 商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。"
+      },
+      {
+        "id": "coupon_refund_policy.txt-4",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。"
+      }
+    ],
+    "expected": "待核实和不承诺立即不意味着永远不返，应核实对应券与活动规则；不保证必返。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-04",
+    "group": "explicit",
+    "question": "我是普通会员，商品没有质量问题，已超过七天且没有订单延长权益。只问是否能自动获得无理由退货资格，别把我当黑金会员。",
+    "evidence": [
+      {
+        "id": "return_policy.txt-1",
+        "source": "return_policy.txt",
+        "content": "SupportPilot 商城退换货通用政策\n\n2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。"
+      }
+    ],
+    "expected": "普通会员超过7天不自动获得无理由资格，不弱化成自动延长。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-05",
+    "group": "explicit",
+    "question": "商家已核实这件物品确实按我个人指定的图案制作，我也确认交付完全符合约定、没有质量问题。只因不喜欢就想按通常七日无理由退，政策是否明确排除？",
+    "evidence": [
+      {
+        "id": "return_custom_policy.txt-0",
+        "source": "return_custom_policy.txt",
+        "content": "SupportPilot 商城定制商品退货政策\n\n1. 按消费者个性化要求制作的商品，不适用通常的七日无理由退货；普通现货不能仅因卖家标注定制二字就自动认定为个性化定作。"
+      },
+      {
+        "id": "return_custom_policy.txt-1",
+        "source": "return_custom_policy.txt",
+        "content": "SupportPilot 商城定制商品退货政策\n\n2. 定制商品交付内容与已确认的规格、图案或尺寸约定不一致，应作为履约争议人工核实，不能与无理由退货混淆。"
+      }
+    ],
+    "expected": "真实个性化定作不适用通常七日无理由；不能扩大排除履约争议。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "fresh-06",
+    "group": "explicit",
+    "question": "这张已返还的优惠券确实过期了，没有额外延期约定。我只想知道返还动作本身会不会自动延长它的有效期。",
+    "evidence": [
+      {
+        "id": "coupon_refund_policy.txt-3",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。"
+      }
+    ],
+    "expected": "返还不自动延期，过期不能继续用；不保证补发。",
+    "note": "在iteration-1完成并按已知015/028修订后，运行前准备；新增定向合成题，规则仍为已知政策，不是独立盲测。"
+  },
+  {
+    "id": "known-015",
+    "group": "known_regression",
+    "question": "我用一张满减券买了两件商品，现在只退其中一件。商家说现金退款按优惠分摊核算，这我理解；但原来已开的全额发票完全不用处理，整张券也应立即退回来。这两点能一起成立吗？",
+    "evidence": [
+      {
+        "id": "coupon_refund_policy.txt-1",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n2. 商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算。",
+        "source": "coupon_refund_policy.txt",
+        "distance": 0.5847374796867371,
+        "rrf_score": 0.03252247488101534,
+        "bm25_score": 95.97779377126842,
+        "rerank_score": 6.833222389221191
+      },
+      {
+        "id": "coupon_refund_policy.txt-0",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n1. 普通商品满减券用于未拆分订单时，订单完整取消后按券的返还规则处理；拆分订单须核实全部关联子订单状态，不能因取消一个子单就认定整张券已返还。",
+        "context_of": "coupon_refund_policy.txt-1"
+      },
+      {
+        "id": "coupon_refund_policy.txt-3",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n4. 优惠券即使符合返还条件，退回时已经过期也不能继续使用；返还不等于自动延长有效期，普通过期券不保证补发。",
+        "context_of": "coupon_refund_policy.txt-1"
+      },
+      {
+        "id": "coupon_refund_policy.txt-4",
+        "source": "coupon_refund_policy.txt",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n5. 活动专享券可能约定特别返还条件，应核实领取时的活动规则；未收录的具体券种和返还时效需人工确认，不承诺统一到账分钟数。",
+        "context_of": "coupon_refund_policy.txt-1"
+      },
+      {
+        "id": "invoice_amount_policy.txt-2",
+        "content": "SupportPilot 商城开票金额与优惠抵扣\n\n3. 部分退货或优惠分摊会影响可退金额和对应发票金额，不能将退款前的全额发票作为退货后交易金额不变的依据。",
+        "source": "invoice_amount_policy.txt",
+        "distance": 0.6399920582771301,
+        "rrf_score": 0.03149801587301587,
+        "bm25_score": 55.414953446534255,
+        "rerank_score": 4.053070068359375
+      },
+      {
+        "id": "invoice_amount_policy.txt-1",
+        "source": "invoice_amount_policy.txt",
+        "content": "SupportPilot 商城开票金额与优惠抵扣\n\n2. 商品标价、券后实付金额、配送费用和发票金额可能不同；运费是否在本张发票列示需核实开票方及订单信息，不能只凭商品标价判断少开。",
+        "context_of": "invoice_amount_policy.txt-2"
+      },
+      {
+        "id": "invoice_amount_policy.txt-0",
+        "source": "invoice_amount_policy.txt",
+        "content": "SupportPilot 商城开票金额与优惠抵扣\n\n1. 商品优惠券抵扣属于价格优惠，不把抵扣面额重复计入商品实际开票金额；应核对订单支付明细与最终开票明细。",
+        "context_of": "invoice_amount_policy.txt-2"
+      },
+      {
+        "id": "coupon_refund_policy.txt-2",
+        "content": "SupportPilot 商城取消退货后的优惠券返还政策\n\n3. 退款按实际支付及优惠分摊计算，不能把商品原价作为必然退回的现金金额，优惠券抵扣部分也不作为现金重复退还。",
+        "source": "coupon_refund_policy.txt",
+        "distance": 0.5776820778846741,
+        "rrf_score": 0.03252247488101534,
+        "bm25_score": 56.854906781999716,
+        "rerank_score": 3.653785228729248
+      }
+    ],
+    "expected": "部分退货不承诺整券立即返，不说必不返或只有全退才返；发票按实际影响核实。"
+  },
+  {
+    "id": "known-030",
+    "group": "known_regression",
+    "question": "我核对了券面，它实际是运费券，不是商品满减券。只发生商品退货，没有取消订单。请按这个更正重新判断，能认定运费券当然返还吗？",
+    "evidence": [
+      {
+        "id": "coupon_scope_policy.txt-2",
+        "content": "SupportPilot 商城优惠券限制与运费券政策\n\n3. 运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。",
+        "source": "coupon_scope_policy.txt",
+        "distance": 0.6751559972763062,
+        "rrf_score": 0.031024531024531024,
+        "bm25_score": 35.66831069251344,
+        "rerank_score": 3.529181480407715
+      }
+    ],
+    "expected": "运费券商品退货不当然返还，不添加只有取消才处理的排他条件。"
+  }
+]

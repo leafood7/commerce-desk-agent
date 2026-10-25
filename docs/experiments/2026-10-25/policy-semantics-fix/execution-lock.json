@@ -1,0 +1,17 @@
+{
+  "locked_at": "2026-10-25T14:38:55.850756+00:00",
+  "runner_sha256": "a535e79dca22331d6708eeabe39cca923fc6c1bc89a51e99ee851f6f151461b3",
+  "cases_sha256": "cbd6f2127aadb44dbc9f6d0687705cbebae664b429e3c20bf49a16ff11d8f69c",
+  "acceptance_lock_sha256": "b2831bbf926985f308cf166fe2b5893c3972234e1f4c400392f8d441c0070930",
+  "before_guidance_sha256": "fcc2e3f57e0c2025c1e8a019964fc7510e22bc560d9f738eef807380710a4bde",
+  "after_guidance_sha256": "fd7ae4077c3e8000c6dd2b9afa416f1a14c89f517dfb1f49acfc3c098a2e03e3",
+  "before_prompt_sha256": "f8129bee03631fd59a7d1c39ced163d8ce47b34b03ca21b878198d0ad79d45ed",
+  "after_prompt_sha256": "6710b10bfbe31fd60f301689111f9e5aa31f3ed1d6f573b411d4e92531f2bab0",
+  "endpoint": "https://api.deepseek.com/v1",
+  "model_setting": "deepseek-chat",
+  "temperature": 0,
+  "stream": false,
+  "max_retries": 0,
+  "plan": "14 paired fixed-evidence cases (12 directed acceptance,2 known); 26 old fixed cases after-only regression;4 paired-dialogue cases after-only regression. No model judge.",
+  "limits": "Paired fixed evidence checks only guidance effect, not whole-Agent reasoning. Old after-only comparisons are historical, not fresh randomized causal pairs."
+}

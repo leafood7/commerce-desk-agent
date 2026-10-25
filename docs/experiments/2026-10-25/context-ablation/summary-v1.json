@@ -1,0 +1,187 @@
+{
+  "method": "Post-run AI-assisted review by the same development assistant, no model judge API. Not independent human/blind ground truth. Numeric grades are provisional and reasoning retained.",
+  "retrieval": {
+    "单条政策即可回答": {
+      "n": 6,
+      "off_complete": 6,
+      "on_complete": 6,
+      "off_mean_chars": 261.1666666666667,
+      "on_mean_chars": 551.8333333333334,
+      "improved": 0,
+      "regressed": 0
+    },
+    "同一政策内需联合多条规定": {
+      "n": 8,
+      "off_complete": 5,
+      "on_complete": 8,
+      "off_mean_chars": 270.625,
+      "on_mean_chars": 818.75,
+      "improved": 3,
+      "regressed": 0
+    },
+    "需联合不同政策": {
+      "n": 4,
+      "off_complete": 4,
+      "on_complete": 4,
+      "off_mean_chars": 262,
+      "on_mean_chars": 919.25,
+      "improved": 0,
+      "regressed": 0
+    },
+    "关键信息不足，需要澄清": {
+      "n": 4,
+      "off_complete": 3,
+      "on_complete": 4,
+      "off_mean_chars": 260,
+      "on_mean_chars": 688.5,
+      "improved": 1,
+      "regressed": 0
+    },
+    "政策没有答案": {
+      "n": 4,
+      "off_complete": null,
+      "on_complete": null,
+      "off_mean_chars": 237.25,
+      "on_mean_chars": 584,
+      "improved": 0,
+      "regressed": 0
+    },
+    "all_answerable": {
+      "n": 22,
+      "off_complete": 18,
+      "on_complete": 22,
+      "off_mean_chars": 264.54545454545456,
+      "on_mean_chars": 740.5454545454545,
+      "improved": 4,
+      "regressed": 0
+    }
+  },
+  "fixed": {
+    "off": {
+      "n": 26,
+      "scorecard_pass": 24,
+      "grounded": 23,
+      "wrong_positive_promise": 0,
+      "invalid_citation_answers": 0,
+      "input_tokens": 32615,
+      "output_tokens": 3208,
+      "total_tokens": 35823,
+      "missing_usage": 0,
+      "generation_total_ms": 48595.548599842004,
+      "generation_median_ms": 1820.9536999929696,
+      "model_names": [
+        "deepseek-flash"
+      ]
+    },
+    "on": {
+      "n": 26,
+      "scorecard_pass": 25,
+      "grounded": 23,
+      "wrong_positive_promise": 0,
+      "invalid_citation_answers": 0,
+      "input_tokens": 45324,
+      "output_tokens": 3474,
+      "total_tokens": 48798,
+      "missing_usage": 0,
+      "generation_total_ms": 49628.02910024766,
+      "generation_median_ms": 1906.247649982106,
+      "model_names": [
+        "deepseek-flash"
+      ]
+    }
+  },
+  "dialogues": {
+    "off": {
+      "n_dialogues": 4,
+      "n_turns": 8,
+      "scorecard_pass_turns": 7,
+      "final_turn_pass": 3,
+      "grounded_turns": 4,
+      "invalid_citation_turns": 0,
+      "checker_calls": 8,
+      "answer_model_calls": 8,
+      "search_calls": 5,
+      "reuse_turns": 3,
+      "checker_errors": 0,
+      "blocked_business_call_turns": 0,
+      "complete_evidence_turns": 8,
+      "total_tokens": 27883,
+      "missing_usage": 0,
+      "elapsed_total_ms": 31459.15099978447
+    },
+    "on": {
+      "n_dialogues": 4,
+      "n_turns": 8,
+      "scorecard_pass_turns": 6,
+      "final_turn_pass": 2,
+      "grounded_turns": 6,
+      "invalid_citation_turns": 1,
+      "checker_calls": 8,
+      "answer_model_calls": 8,
+      "search_calls": 6,
+      "reuse_turns": 2,
+      "checker_errors": 0,
+      "blocked_business_call_turns": 0,
+      "complete_evidence_turns": 8,
+      "total_tokens": 37830,
+      "missing_usage": 0,
+      "elapsed_total_ms": 34670.328599982895
+    }
+  },
+  "operational_failures": {
+    "original_transport_failures": [
+      {
+        "id": "ablation-007",
+        "arm": "off",
+        "error_type": "APIConnectionError",
+        "generation_ms": 3246.404999983497
+      }
+    ],
+    "original_first_attempt_successful_responses": 51,
+    "planned_successful_fixed_answers": 52,
+    "fixed_request_attempts": 53,
+    "unknown_usage_failed_requests": 1,
+    "retry": "One explicit retry after original APIConnectionError. All completed original answers retained."
+  },
+  "annotation_audit": [
+    {
+      "id": "ablation-013",
+      "issue": "The old annotation requires a dedicated hygiene-quality passage, but return_policy.txt-3 in off evidence also supports the actual quality-vs-no-reason conclusion.",
+      "action": "Keep frozen primary coverage unchanged. Sensitivity: count this alternative once, off complete becomes19/22 instead of18/22. Not an after-the-fact primary relabel."
+    }
+  ],
+  "fixed_pairs": {
+    "improved": [
+      "ablation-022"
+    ],
+    "regressed": [],
+    "tied": [
+      "ablation-001",
+      "ablation-002",
+      "ablation-003",
+      "ablation-004",
+      "ablation-005",
+      "ablation-006",
+      "ablation-007",
+      "ablation-008",
+      "ablation-009",
+      "ablation-010",
+      "ablation-011",
+      "ablation-012",
+      "ablation-013",
+      "ablation-014",
+      "ablation-015",
+      "ablation-016",
+      "ablation-017",
+      "ablation-018",
+      "ablation-019",
+      "ablation-020",
+      "ablation-021",
+      "ablation-023",
+      "ablation-024",
+      "ablation-025",
+      "ablation-026"
+    ]
+  },
+  "no_causal_overclaim": "Different generated wordings in a single sample are not proven caused by extra context, even at temperature=0. No repeated trials or independent blind review."
+}

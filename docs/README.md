@@ -11,6 +11,7 @@
 | [RAG 检索](rag-optimization.md) | 模型、检索参数与同源条款补全 |
 | [证据检查](policy-evidence-refresh.md) | 重新检索、复用与失败回退 |
 | [MCP 工具](mcp-tools.md) | 工具契约、启动与独立验证 |
+| [补证实验与语义修复](policy-semantics.md) | 对照收益、语义失败、成本及回归入口 |
 | [评测总览](evaluation.md) | 各批次结果与复现入口 |
 | [真实 MCP 回归](mcp-semantic-regression.md) | 最新23轮的结果、成本和逐案记录 |
 | [演示流程](demo-and-interview.md) | 三条业务流程与技术说明 |

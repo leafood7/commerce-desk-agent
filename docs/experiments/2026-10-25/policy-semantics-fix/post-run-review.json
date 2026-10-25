@@ -1,0 +1,400 @@
+{
+  "criteria": "Whether policy certainty, condition direction and exceptions are preserved; explicit valid prohibitions remain explicit. Other defects separately retained.",
+  "reviewer": "AI assistant; project-owner confirmations only apply to earlier015/030/013/022, not to these newly generated outputs.",
+  "iterations": {
+    "iteration1": [
+      {
+        "id": "modal-01",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-02",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-03",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-04",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-05",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-06",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-07",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-08",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-09",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": [
+          "第一轮modal-09两组都在否定转让后又提出朋友订单按券面核实，额外边界不严谨，目标禁止句正确不代表全回答通过。"
+        ]
+      },
+      {
+        "id": "modal-10",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-11",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "modal-12",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "known-015",
+        "before_target_pass": false,
+        "after_target_pass": false,
+        "reason": "首轮前后均出现全退后才按规则返券。",
+        "additional_flags": []
+      },
+      {
+        "id": "known-030",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      }
+    ],
+    "iteration2": [
+      {
+        "id": "fresh-01",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "fresh-02",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "fresh-03",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "fresh-04",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "fresh-05",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "fresh-06",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      },
+      {
+        "id": "known-015",
+        "before_target_pass": false,
+        "after_target_pass": true,
+        "reason": "最终版短引原句，移除新增必要条件；新鲜配对基线仍复现才字强化。",
+        "additional_flags": []
+      },
+      {
+        "id": "known-030",
+        "before_target_pass": true,
+        "after_target_pass": true,
+        "reason": "两组均保留该题所需的非保证或明确限制；不能据此宣称新版在新题更优。",
+        "additional_flags": []
+      }
+    ]
+  },
+  "final_regression": [
+    {
+      "id": "ablation-001",
+      "targeted_modality_pass": true,
+      "note": "邮件排查顺序保留，未承诺重新开票或发送。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-002",
+      "targeted_modality_pass": true,
+      "note": "不将其他平台会员权益及年费迁移成本商城。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-003",
+      "targeted_modality_pass": true,
+      "note": "个人改企业仍需核实，不承诺无条件变更。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-004",
+      "targeted_modality_pass": true,
+      "note": "未凭订单总额保证满减可用；多余核实系统金额认定但无错误肯定。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-005",
+      "targeted_modality_pass": true,
+      "note": "运费同票问题保留开票方核实。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-006",
+      "targeted_modality_pass": true,
+      "note": "不承诺活动专享券必返；普通规则不适用于活动券的概括仍略宽，应按特别规则核实而非全盘排除。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-007",
+      "targeted_modality_pass": true,
+      "note": "7日期限与工作日参考区间区分，未允许阶段累加；末句同时核查发起和到账，未只用发起替代返还。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-008",
+      "targeted_modality_pass": true,
+      "note": "自助窗口不等于永久失权，服务目标不等于无条件保证。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-009",
+      "targeted_modality_pass": true,
+      "note": "主结论正确，仍将普通商品券部分退货条款用于运费券解释，跨券种套用风险未修复。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-010",
+      "targeted_modality_pass": true,
+      "note": "允许叠加的活动仍需满足单券范围，没有弱化明确限制。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-011",
+      "targeted_modality_pass": true,
+      "note": "不把定金或尾款日当发货期限，缺承诺要求人工核实。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-012",
+      "targeted_modality_pass": true,
+      "note": "非生鲜不自动符合完好，必要密封破坏只记可能影响；引用为政策标题而非要求的来源文件名。",
+      "has_source_filename": false,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-013",
+      "targeted_modality_pass": true,
+      "note": "质量售后与无理由分开，未以例外排除全部售后。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-014",
+      "targeted_modality_pass": true,
+      "note": "尺码理由不覆盖期限与完好，使用痕迹仍需结合状态核实。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-015",
+      "targeted_modality_pass": true,
+      "note": "已确认错误未再出现：主结论不承诺立即返还，依据没有增加全退后才返的必要条件。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-016",
+      "targeted_modality_pass": true,
+      "note": "定制履约争议单独核实，申请不等于到账。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-017",
+      "targeted_modality_pass": true,
+      "note": "运费责任与支付来源正确，未把券折成现金；只用政策名称/条号，没有给来源文件名。",
+      "has_source_filename": false,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-018",
+      "targeted_modality_pass": true,
+      "note": "预售与加急主结论正确，但仍把券面引入退货资格，场景串词未修复。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-019",
+      "targeted_modality_pass": true,
+      "note": "60小时不能直接代替订单承诺，保留资格核实。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-020",
+      "targeted_modality_pass": true,
+      "note": "发票可能调整，不一律指定红冲重开。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-021",
+      "targeted_modality_pass": true,
+      "note": "不凭标签否定退货，本次没有增加只有个性化定制才不适用的全局排他条件。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-022",
+      "targeted_modality_pass": true,
+      "note": "未知券种不保证使用，解释默认叠加规则；该项属于完整性检查，不估计准确率改善。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-023",
+      "targeted_modality_pass": true,
+      "note": "不猜PDF密码及是否加密。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-024",
+      "targeted_modality_pass": true,
+      "note": "不编下载期限或恢复收费。",
+      "has_source_filename": false,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-025",
+      "targeted_modality_pass": true,
+      "note": "不编保险、保额或赔付比例。",
+      "has_source_filename": true,
+      "overall_semantic_pass": "not asserted"
+    },
+    {
+      "id": "ablation-026",
+      "targeted_modality_pass": true,
+      "note": "不编视频平台与在线时段。",
+      "has_source_filename": false,
+      "overall_semantic_pass": "not asserted"
+    }
+  ],
+  "final_dialogues": [
+    {
+      "id": "ablation-027",
+      "turn": 1,
+      "targeted_modality_pass": true,
+      "note": "027首轮仍邀请订单号确认运费权益，现有工具无该字段；不属于本次模态修复。"
+    },
+    {
+      "id": "ablation-027",
+      "turn": 2,
+      "targeted_modality_pass": true,
+      "note": "本轮未观察到目标模态强化或明确限制弱化；仍不视为全维度无错误。"
+    },
+    {
+      "id": "ablation-028",
+      "turn": 1,
+      "targeted_modality_pass": true,
+      "note": "本轮未观察到目标模态强化或明确限制弱化；仍不视为全维度无错误。"
+    },
+    {
+      "id": "ablation-028",
+      "turn": 2,
+      "targeted_modality_pass": true,
+      "note": "028最终轮已保留全退后按规则处理，没有新增才/只有。"
+    },
+    {
+      "id": "ablation-029",
+      "turn": 1,
+      "targeted_modality_pass": true,
+      "note": "本轮未观察到目标模态强化或明确限制弱化；仍不视为全维度无错误。"
+    },
+    {
+      "id": "ablation-029",
+      "turn": 2,
+      "targeted_modality_pass": true,
+      "note": "本轮未观察到目标模态强化或明确限制弱化；仍不视为全维度无错误。"
+    },
+    {
+      "id": "ablation-030",
+      "turn": 1,
+      "targeted_modality_pass": true,
+      "note": "本轮未观察到目标模态强化或明确限制弱化；仍不视为全维度无错误。"
+    },
+    {
+      "id": "ablation-030",
+      "turn": 2,
+      "targeted_modality_pass": true,
+      "note": "030最终轮仍说商品退货不当然返还，未增加仅取消可处理。"
+    }
+  ]
+}

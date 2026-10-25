@@ -1,0 +1,12 @@
+{
+  "final_guidance_sha256": "dda7d29de5b9568877a3d7be36d5820b696adb0d441a0588a05d09499ebc5082",
+  "only_application_change": "src/agents/answer_policy.py",
+  "all_prior_ablation_artifacts_unchanged": true,
+  "all_results_preserved": true,
+  "final_offline_tests_passed": 107,
+  "online_request_errors": 0,
+  "report_sha256": "6af6ed77f72507a19db66956d85fc051b2979486e17654d5011bb4c3ce0b12a7",
+  "resume_modified": false,
+  "committed": false,
+  "pushed": false
+}
