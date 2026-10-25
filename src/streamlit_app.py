@@ -248,18 +248,7 @@ async def main() -> None:
     messages: list[ChatMessage] = st.session_state.messages
 
     if len(messages) == 0:
-        match agent_client.agent:
-            case "chatbot":
-                WELCOME = "Hello! I'm a simple chatbot. Ask me anything!"
-            case "interrupt-agent":
-                WELCOME = "Hello! I'm an interrupt agent. Tell me your birthday and I will predict your personality!"
-            case "research-assistant":
-                WELCOME = "Hello! I'm an AI-powered research assistant with web search and a calculator. Ask me anything!"
-            case "rag-assistant":
-                WELCOME = """Hello! I'm an AI-powered Company Policy & HR assistant with access to AcmeTech's Employee Handbook.
-                I can help you find information about benefits, remote work, time-off policies, company values, and more. Ask me anything!"""
-            case _:
-                WELCOME = "你好，我是 CommerceDesk。你可以查询订单、咨询商城政策，或提出催发货和加急处理申请。"
+        WELCOME = "你好，我是 CommerceDesk。你可以查询订单、咨询商城政策，或提出催发货和加急处理申请。"
 
         with st.chat_message("ai"):
             st.write(WELCOME)
@@ -475,7 +464,7 @@ async def draw_messages(
                             status.update(state="complete")
 
             case "custom":
-                # bg-task-agent 使用的自定义数据示例
+                # 处理服务返回的自定义进度数据
                 # 参见：
                 # - src/agents/utils.py 中的 CustomData
                 # - 文件 src/agents/bg_task_agent/task.py

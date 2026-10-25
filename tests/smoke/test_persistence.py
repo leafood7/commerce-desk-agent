@@ -4,9 +4,7 @@ import pytest
 
 from client import AgentClient
 
-# 通过环境变量与 scripts/smoke_test.sh 共享，以便脚本确认
-# 这个对话的检查点确实写入了预期存储后端；单独运行测试时
-# 则回退使用固定编号
+# 可通过环境变量指定持久化测试会话编号。
 THREAD_ID = os.environ.get("SMOKE_THREAD_ID", "smoke-test-persistence-thread")
 
 
@@ -14,10 +12,6 @@ THREAD_ID = os.environ.get("SMOKE_THREAD_ID", "smoke-test-persistence-thread")
 def test_checkpointer_persists_history():
     """Confirm the configured checkpointer persists conversation state across turns.
 
-    Backend-agnostic: exercises whichever DATABASE_TYPE the service was started
-    with. scripts/smoke_test.sh runs this against both postgres and mongo, then
-    separately verifies the data actually landed in that backend (this test alone
-    can't tell the backends apart, since any working checkpointer would pass).
     Requires a running service (USE_FAKE_MODEL=true) backed by a live database.
 
     Uses the default agent for both invoke and get_history. Since /history is
