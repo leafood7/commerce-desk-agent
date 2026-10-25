@@ -1,12 +1,13 @@
 # 文档导航
 
-首次运行从[配置与运行](../LOCAL_SUPPORTPILOT.md)开始；了解实现看[架构](architecture.md)，核对效果看[评测总览](evaluation.md)。
+首次运行从[配置与运行](../LOCAL_SUPPORTPILOT.md)开始；了解实现看[架构](architecture.md)或[架构摘要](architecture-summary.md)，核对效果看[评测总览](evaluation.md)。
 
 ## 当前说明
 
 | 文档 | 用途 |
 | --- | --- |
 | [架构与调用链](architecture.md) | 对话图、MCP 工具与人工审批 |
+| [架构摘要](architecture-summary.md) | 调用链、数据层、配置边界与开发清单 |
 | [RAG 检索](rag-optimization.md) | 模型、检索参数与同源条款补全 |
 | [证据检查](policy-evidence-refresh.md) | 重新检索、复用与失败回退 |
 | [MCP 工具](mcp-tools.md) | 工具契约、启动与独立验证 |

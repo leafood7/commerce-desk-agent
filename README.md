@@ -40,6 +40,7 @@ powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1
 | --- | --- |
 | [配置与运行](LOCAL_SUPPORTPILOT.md) | 环境、模型缓存、启动、后端切换 |
 | [架构](docs/architecture.md) | 对话、工具与审批调用链 |
+| [架构摘要](docs/architecture-summary.md) | 调用链、数据层与下一步开发清单 |
 | [RAG 检索](docs/rag-optimization.md) | 召回、重排、补证与参数 |
 | [MCP 接入](docs/mcp-tools.md) | 工具契约、会话管理、独立客户端 |
 | [评测总览](docs/evaluation.md) | 最新结果、指标口径与复现命令 |
