@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "frozen_at": "2026-10-27T13:27:25.745676+00:00",
+  "baseline_ref": "571af81e15696fc278e555e39d8694ca4a051572",
+  "counts": {
+    "dev": 24,
+    "holdout": 24
+  },
+  "cases_per_category_per_split": 4,
+  "family_overlap": false,
+  "files": {
+    "data/evaluation/answer_trust/dev.jsonl": "dba88769307fa24d013798a13a57ccd82565b66d66b95a65d5a1b3fa9a230e6a",
+    "data/evaluation/answer_trust/holdout.jsonl": "4853c01ad29e784b0ca5dcefd33682d08a7b05bc4518f4c02a3221bf9a6e83f2",
+    "data/evaluation/answer_trust/categories.json": "75105a76c439f1c140492d59e8c1faa6886f1ce570c29adb04e32af8e8855ed5",
+    "docs/answer-trust/scoring.md": "bc62d93bedd5e6822868f1467d00db047b19de985542ac16603d3b9bce4e8c27",
+    "docs/answer-trust/protocol.md": "3e147c2f5fdbaf2bfbe406d879dcf49825d3fa812aa5cdf7e4ad075b50d95c88"
+  },
+  "corpus": {
+    "data/knowledge/coupon_refund_policy.txt": "b5228622efb27fd424045394329f968507f2babcc8387de1079729ab3c31ae6b",
+    "data/knowledge/coupon_scope_policy.txt": "48af47db377929344114d7861ad0f0018dfc1155c749b120918b10efce44c6dd",
+    "data/knowledge/coupon_usage_policy.txt": "80e7bafe1faa0973291794870e5c42aa61a61ada88385cc2568dc337e23ed675",
+    "data/knowledge/invoice_amount_policy.txt": "0113152aefbb1d6e19bf8a0fe03b6f7454ef0c516031abbc1a59c71197980b54",
+    "data/knowledge/invoice_correction_policy.txt": "a596f4e06e5363bce2d16c9909a89d99e03cde61a6a9691d3bd76222ae71f328",
+    "data/knowledge/invoice_policy.txt": "9f649768e87bf3a3b102e29143fcea6570f8bc02db3d6be6e8c978f4888b5a12",
+    "data/knowledge/membership_policy.txt": "b7b8e708127096cdd5a8ab1e43b73506f2140ab5e9057c9af6111ebc9dc3b1e2",
+    "data/knowledge/membership_scope_policy.txt": "6f2c25fea59ea3589bc8267afeddbcb99b534daf86801d2e69efd1f19d9e057f",
+    "data/knowledge/presale_shipping_policy.txt": "b894ee60db8f2d58cb7f805d591573e340ac815012a61286e9bd85f99f8bf5d5",
+    "data/knowledge/refund_policy.txt": "0d9ffb5ea15481233bfd6f04fadc5a05d80c0c144a22984bbec1f3bd3ef0f6d6",
+    "data/knowledge/return_apparel_policy.txt": "598c7daabc9e4ae3dc3741dc22690ed4bdf2d63728439d4d7b018d8ea40ce674",
+    "data/knowledge/return_custom_policy.txt": "96dbe542d7e1ea04dfe865a428e238dd83fd63d2e9a4e0e11b8f7ff2bfdad456",
+    "data/knowledge/return_digital_policy.txt": "fa71499bbd839aac8e867c15b4575cd113c421df41cdc2dade8798020624040e",
+    "data/knowledge/return_fresh_policy.txt": "86888c8830dc9cd858510decfd5c9a8d664a26ac08ecf0ed68f6cbf240e4371d",
+    "data/knowledge/return_hygiene_policy.txt": "b17af7c602856e959b1b857a800f4821029d90164e0b1fe620feadf9c74fb0de",
+    "data/knowledge/return_policy.txt": "818bbe0395bba332057d6f41521939e05b9f0836a8e3a9d5bb92ac76199d2b63",
+    "data/knowledge/shipping_exception_policy.txt": "abd828ffa09e7628897dc6c108bcbcb1398e4a00540c939a4891bd65dcbb9abe",
+    "data/knowledge/shipping_policy.txt": "9df73d9978b72beaf63fb58311b6e93862e86920d1112fe6ffb69709f0ed339c"
+  },
+  "limitations": [
+    "Synthetic scenarios authored with knowledge of existing project.",
+    "Families isolated by core decision/condition combination; policy documents may overlap.",
+    "Holdout not used for implementation or tuning after freeze; human review required."
+  ]
+}

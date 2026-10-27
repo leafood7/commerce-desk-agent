@@ -5,3 +5,8 @@
 
 # Preserve original experimental bytes and hashes.
 /docs/experiments/2026-10-25/** -text whitespace=cr-at-eol
+
+# The preregistered answer-trust data and rubric are byte-hashed across platforms.
+/data/evaluation/answer_trust/** -text whitespace=cr-at-eol
+/docs/answer-trust/protocol.md -text whitespace=cr-at-eol
+/docs/answer-trust/scoring.md -text whitespace=cr-at-eol

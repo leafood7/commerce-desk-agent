@@ -1,0 +1,39 @@
+[
+  {
+    "id": "semantic_strengthening",
+    "label": "语义强化",
+    "severity": "major",
+    "definition": "把非保证写为否定/保证，倒置条件，遗漏例外或弱化明确限制"
+  },
+  {
+    "id": "scope_mismatch",
+    "label": "适用范围",
+    "severity": "major",
+    "definition": "把政策、商品、券种、会员或售后原因规则套错场景"
+  },
+  {
+    "id": "unsupported_assertion",
+    "label": "无证据断言",
+    "severity": "major",
+    "definition": "在无依据时编造事实、金额、时效或系统行为"
+  },
+  {
+    "id": "capability_overclaim",
+    "label": "工具能力越界",
+    "severity": "major",
+    "definition": "暗示或声称工具可读取不存在字段或执行未实现动作"
+  },
+  {
+    "id": "citation_integrity",
+    "label": "引用有效性",
+    "severity": "major",
+    "definition": "来源不存在、未授权、缺失或不能支持所对应的断言"
+  },
+  {
+    "id": "fact_update",
+    "label": "多轮事实更新",
+    "severity": "major",
+    "definition": "忽略用户更正、沿用过期事实或让历史回答替代证据"
+  }
+]
+
