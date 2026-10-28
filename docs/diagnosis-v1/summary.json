@@ -1,6 +1,6 @@
 {
   "phase": "answer-diagnosis-v1",
-  "status": "awaiting_author_review",
+  "status": "key_error_classifications_author_confirmed",
   "baseline_ref": "571af81e15696fc278e555e39d8694ca4a051572",
   "model_alias": "deepseek-flash",
   "immutable_provider_model_version_available": false,
@@ -45,5 +45,12 @@
     "Manual evidence intervention is not a validated automatic mechanism.",
     "Model alias is not immutable weights; sampling temperature=0 does not ensure identical outputs.",
     "Two failed requests retain worst-case reservations; cost is not a provider invoice."
-  ]
+  ],
+  "human_review": {
+    "confirmed_first_pass_error_classifications": 3,
+    "repetitions_and_pairs_fully_reviewed": false,
+    "other_disputes_pending": true,
+    "independent_blind_review": false,
+    "record": "author-review.json"
+  }
 }

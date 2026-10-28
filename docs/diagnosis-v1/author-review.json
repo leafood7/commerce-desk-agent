@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "recorded_at": "2026-10-28T07:34:26.166141+00:00",
+  "reviewer": "用户（本次对话原文回复）",
+  "review_type": "author_participating_key_case_confirmation",
+  "independent_blind_review": false,
+  "scope": "Three directly presented first-pass error classifications only; no completion scores or implicit review of repetitions and paired answers.",
+  "reviews": [
+    {
+      "case_id": "ablation-018",
+      "source": "runs/baseline-01.json#/rows/0",
+      "answer_verbatim": "无依据的退货断言，并有前后不一致",
+      "confirmed_error_codes": [
+        "unsupported_claim",
+        "internal_inconsistency"
+      ]
+    },
+    {
+      "case_id": "ablation-009",
+      "source": "runs/baseline-01.json#/rows/1",
+      "answer_verbatim": "应记录这项适用范围错误",
+      "confirmed_error_codes": [
+        "scope_mismatch"
+      ]
+    },
+    {
+      "case_id": "ablation-015",
+      "source": "runs/baseline-02.json#/rows/1",
+      "answer_verbatim": "是，记录为语义强化错误",
+      "confirmed_error_codes": [
+        "condition_strengthening"
+      ]
+    }
+  ]
+}

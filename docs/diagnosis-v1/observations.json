@@ -14,10 +14,17 @@
     ],
     "ai_notes": [],
     "human_review": {
-      "status": "pending",
-      "reviewer": null,
-      "verdict": null,
-      "rationale": null
+      "status": "reviewed",
+      "scope": "first_pass_error_classification_only",
+      "reviewer": "用户（本次对话原文回复）",
+      "recorded_at": "2026-10-28T07:34:26.166141+00:00",
+      "verdict": "confirmed",
+      "confirmed_error_codes": [
+        "unsupported_claim",
+        "internal_inconsistency"
+      ],
+      "rationale": "无依据的退货断言，并有前后不一致",
+      "reference": "author-review.json"
     }
   },
   {
@@ -34,10 +41,16 @@
     ],
     "ai_notes": [],
     "human_review": {
-      "status": "pending",
-      "reviewer": null,
-      "verdict": null,
-      "rationale": null
+      "status": "reviewed",
+      "scope": "first_pass_error_classification_only",
+      "reviewer": "用户（本次对话原文回复）",
+      "recorded_at": "2026-10-28T07:34:26.166141+00:00",
+      "verdict": "confirmed",
+      "confirmed_error_codes": [
+        "scope_mismatch"
+      ],
+      "rationale": "应记录这项适用范围错误",
+      "reference": "author-review.json"
     }
   },
   {
@@ -132,10 +145,16 @@
     ],
     "ai_notes": [],
     "human_review": {
-      "status": "pending",
-      "reviewer": null,
-      "verdict": null,
-      "rationale": null
+      "status": "reviewed",
+      "scope": "first_pass_error_classification_only",
+      "reviewer": "用户（本次对话原文回复）",
+      "recorded_at": "2026-10-28T07:34:26.166141+00:00",
+      "verdict": "confirmed",
+      "confirmed_error_codes": [
+        "condition_strengthening"
+      ],
+      "rationale": "是，记录为语义强化错误",
+      "reference": "author-review.json"
     }
   },
   {
