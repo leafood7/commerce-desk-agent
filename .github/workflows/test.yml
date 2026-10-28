@@ -22,7 +22,7 @@ jobs:
         with:
           version: '0.12.5'
       - name: Install dependencies
-        run: uv sync --frozen --no-dev --extra supportpilot
+        run: uv sync --frozen --extra supportpilot
       - name: Run customer support tests
         env:
           PYTHONPATH: src:tests:tests/agents
@@ -34,4 +34,13 @@ jobs:
           test_query_rewrite_evaluation test_rag_evaluation test_rag_retrieval
           test_knowledge test_order_repository test_shipping
           test_supportpilot_agent test_policy_tool test_policy_context test_policy_fastpath
-          test_answer_quality_evaluation test_mcp_integration test_mcp_semantic_evaluation -v
+          test_answer_quality_evaluation test_mcp_integration test_mcp_semantic_evaluation
+          test_policy_modality_evaluation test_answer_guard test_answer_trust_evaluation -v
+      - name: Check answer publication boundaries
+        env:
+          USE_FAKE_MODEL: 'true'
+          HF_HUB_OFFLINE: '1'
+          LANGCHAIN_TRACING_V2: 'false'
+        run: >-
+          uv run --no-sync pytest tests/service/test_answer_publication.py
+          tests/service/test_service_streaming.py tests/service/test_agui.py -q
