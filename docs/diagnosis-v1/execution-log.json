@@ -1,0 +1,21 @@
+{
+  "entrypoint": "scripts/diagnose_answer_failures.py",
+  "commands": [
+    "prepare",
+    "baseline --online --output docs/diagnosis-v1/runs/baseline-01.json",
+    "baseline --online --ids trust-dev-014,ablation-015,ablation-030,trust-dev-013,trust-dev-017,phone,new-name --continued-from docs/diagnosis-v1/runs/baseline-01.json --output docs/diagnosis-v1/runs/baseline-02.json",
+    "baseline --online --ids ablation-018,ablation-009,ablation-015 --repetition 2 --output docs/diagnosis-v1/runs/repeat-02.json",
+    "baseline --online --ids ablation-009,ablation-015 --repetition 2 --continued-from docs/diagnosis-v1/runs/repeat-02.json --output docs/diagnosis-v1/runs/repeat-02-resumed.json",
+    "baseline --online --ids ablation-018,ablation-009,ablation-015 --repetition 3 --output docs/diagnosis-v1/runs/repeat-03.json",
+    "pairs --online --spec docs/diagnosis-v1/interventions.json --output docs/diagnosis-v1/runs/pairs-01.json"
+  ],
+  "environment": {
+    "PYTHONUTF8": "1",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "LANGCHAIN_TRACING_V2": "false",
+    "LANGSMITH_TRACING": "false"
+  },
+  "credential_source": "process DEEPSEEK_API_KEY; value not recorded",
+  "transport_note": "After two explicit failures, disable pooled keep-alive reuse. SDK max_retries remained zero."
+}

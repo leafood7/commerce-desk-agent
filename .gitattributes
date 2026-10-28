@@ -10,3 +10,4 @@
 /data/evaluation/answer_trust/** -text whitespace=cr-at-eol
 /docs/answer-trust/protocol.md -text whitespace=cr-at-eol
 /docs/answer-trust/scoring.md -text whitespace=cr-at-eol
+/docs/diagnosis-v1/** -text whitespace=cr-at-eol

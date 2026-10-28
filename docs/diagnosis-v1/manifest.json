@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "phase": "answer-diagnosis-v1",
+  "baseline_ref": "571af81e15696fc278e555e39d8694ca4a051572",
+  "created_at": "2026-10-28T04:48:56.261238+00:00",
+  "model": {
+    "model": "deepseek-flash",
+    "temperature": 0,
+    "max_tokens": 2048,
+    "thinking": "disabled",
+    "retries": 0,
+    "timeout": 60
+  },
+  "retrieval": {
+    "strategy": "hybrid_rerank",
+    "pool_size": 12,
+    "top_k": 3,
+    "threshold": -2,
+    "context_budget": 1800
+  },
+  "limit_cny": 20.0,
+  "answer_limit": 40,
+  "case_count": 10,
+  "initial_turns": 12,
+  "source_hashes": {
+    "docs/experiments/2026-10-25/context-ablation/scorecards-30-v1.jsonl": "5f2eef7a933e7d9ad430b09b6ab2597c4fefba2cfc46111ca7214305f48f3f72",
+    "data/evaluation/answer_trust/dev.jsonl": "dba88769307fa24d013798a13a57ccd82565b66d66b95a65d5a1b3fa9a230e6a",
+    "docs/mcp-semantic-final-v2.json": "8a45dfb7405ef04eca68cb3c6ae4cea3fccb34e64a13b027060521772cb72d02",
+    "docs/rag-miss-fix-offline.json": "f9e5211300cfd17b2789c90f6ddcd40886ef99971bd406b253fb99f456d14093",
+    "data/demo_orders.json": "cfb013675d3ed2215ba779226f055ee657ed40cbd70cc695d36ef45dcbafb75d",
+    "uv.lock": "2693ff394dac75fdd90e79de047d2d444a3432c9e4885de5bd473ed605ce46ba",
+    "data/knowledge/coupon_refund_policy.txt": "b5228622efb27fd424045394329f968507f2babcc8387de1079729ab3c31ae6b",
+    "data/knowledge/coupon_scope_policy.txt": "48af47db377929344114d7861ad0f0018dfc1155c749b120918b10efce44c6dd",
+    "data/knowledge/coupon_usage_policy.txt": "80e7bafe1faa0973291794870e5c42aa61a61ada88385cc2568dc337e23ed675",
+    "data/knowledge/invoice_amount_policy.txt": "0113152aefbb1d6e19bf8a0fe03b6f7454ef0c516031abbc1a59c71197980b54",
+    "data/knowledge/invoice_correction_policy.txt": "a596f4e06e5363bce2d16c9909a89d99e03cde61a6a9691d3bd76222ae71f328",
+    "data/knowledge/invoice_policy.txt": "9f649768e87bf3a3b102e29143fcea6570f8bc02db3d6be6e8c978f4888b5a12",
+    "data/knowledge/membership_policy.txt": "b7b8e708127096cdd5a8ab1e43b73506f2140ab5e9057c9af6111ebc9dc3b1e2",
+    "data/knowledge/membership_scope_policy.txt": "6f2c25fea59ea3589bc8267afeddbcb99b534daf86801d2e69efd1f19d9e057f",
+    "data/knowledge/presale_shipping_policy.txt": "b894ee60db8f2d58cb7f805d591573e340ac815012a61286e9bd85f99f8bf5d5",
+    "data/knowledge/refund_policy.txt": "0d9ffb5ea15481233bfd6f04fadc5a05d80c0c144a22984bbec1f3bd3ef0f6d6",
+    "data/knowledge/return_apparel_policy.txt": "598c7daabc9e4ae3dc3741dc22690ed4bdf2d63728439d4d7b018d8ea40ce674",
+    "data/knowledge/return_custom_policy.txt": "96dbe542d7e1ea04dfe865a428e238dd83fd63d2e9a4e0e11b8f7ff2bfdad456",
+    "data/knowledge/return_digital_policy.txt": "fa71499bbd839aac8e867c15b4575cd113c421df41cdc2dade8798020624040e",
+    "data/knowledge/return_fresh_policy.txt": "86888c8830dc9cd858510decfd5c9a8d664a26ac08ecf0ed68f6cbf240e4371d",
+    "data/knowledge/return_hygiene_policy.txt": "b17af7c602856e959b1b857a800f4821029d90164e0b1fe620feadf9c74fb0de",
+    "data/knowledge/return_policy.txt": "818bbe0395bba332057d6f41521939e05b9f0836a8e3a9d5bb92ac76199d2b63",
+    "data/knowledge/shipping_exception_policy.txt": "abd828ffa09e7628897dc6c108bcbcb1398e4a00540c939a4891bd65dcbb9abe",
+    "data/knowledge/shipping_policy.txt": "9df73d9978b72beaf63fb58311b6e93862e86920d1112fe6ffb69709f0ed339c"
+  },
+  "cases_sha256": "becf423db0d99fedec430bd61b5128c18f436c7acab840c4b29b6c3aec95c750",
+  "review": "AI-assisted diagnosis; author confirmation pending; no automatic semantic grades",
+  "pricing": {
+    "input_uncached_peak_cny_per_million": 2,
+    "output_peak_cny_per_million": 8,
+    "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+    "verified_date": "2026-10-28",
+    "basis": "conservative upper-rate estimate, not invoice"
+  },
+  "fixed_clock": "2026-10-28T04:48:56+00:00"
+}

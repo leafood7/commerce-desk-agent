@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "reason": "人工单因素诊断；正常对照与所有失败均保留；不运行新后审机制",
+  "targets": [
+    {
+      "case_id": "ablation-018",
+      "turn": 1,
+      "source": "docs/diagnosis-v1/runs/baseline-01.json",
+      "change": {
+        "kind": "add_missing",
+        "ids": [
+          "return_custom_policy.txt-2"
+        ]
+      }
+    },
+    {
+      "case_id": "ablation-009",
+      "turn": 1,
+      "source": "docs/diagnosis-v1/runs/baseline-01.json",
+      "change": {
+        "kind": "filter_sources",
+        "sources": [
+          "coupon_scope_policy.txt"
+        ]
+      }
+    },
+    {
+      "case_id": "ablation-015",
+      "turn": 1,
+      "source": "docs/diagnosis-v1/runs/baseline-02.json",
+      "change": {
+        "kind": "filter_ids",
+        "ids": [
+          "coupon_refund_policy.txt-1",
+          "invoice_amount_policy.txt-2"
+        ]
+      }
+    },
+    {
+      "case_id": "trust-dev-017",
+      "turn": 1,
+      "source": "docs/diagnosis-v1/runs/baseline-02.json",
+      "change": {
+        "kind": "filter_ids",
+        "ids": [
+          "invoice_policy.txt-3"
+        ]
+      },
+      "normal_control": true
+    }
+  ]
+}
