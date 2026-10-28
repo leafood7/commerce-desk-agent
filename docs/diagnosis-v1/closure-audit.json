@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-10-28T08:10:41.281054+00:00",
+  "frozen_inputs": "passed",
+  "raw_run_hashes": "passed",
+  "ten_scenarios_twelve_initial_turns": "passed",
+  "three_reproductions_each": "passed",
+  "sixteen_paired_answers": "passed",
+  "live_budget_matches_archive": "passed",
+  "budget_and_answer_caps": "passed",
+  "three_user_confirmations": "passed",
+  "new_paid_calls": 0,
+  "execution_complete": true,
+  "key_case_review_complete": true,
+  "exhaustive_semantic_review_complete": false,
+  "next_stage_implemented": false,
+  "reference": "completion.md"
+}

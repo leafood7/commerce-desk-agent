@@ -1,6 +1,6 @@
 {
   "phase": "answer-diagnosis-v1",
-  "status": "key_error_classifications_author_confirmed",
+  "status": "diagnosis_execution_complete_with_documented_review_limits",
   "baseline_ref": "571af81e15696fc278e555e39d8694ca4a051572",
   "model_alias": "deepseek-flash",
   "immutable_provider_model_version_available": false,
@@ -52,5 +52,7 @@
     "other_disputes_pending": true,
     "independent_blind_review": false,
     "record": "author-review.json"
-  }
+  },
+  "completion_record": "completion.md",
+  "closure_audit": "closure-audit.json"
 }
