@@ -1,0 +1,1953 @@
+{
+  "version": 1,
+  "limit_cny": 100.0,
+  "input_cny_per_million": 2.0,
+  "output_cny_per_million": 8.0,
+  "pricing_basis": "peak uncached estimate, not invoice",
+  "entries": [
+    {
+      "id": "b16fb44acf824ade98838167acea4dcf",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001562,
+      "started_at": "2026-10-28T04:50:04.621086+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 537,
+        "output_tokens": 61,
+        "total_tokens": 598,
+        "input_token_details": {
+          "cache_read": 256
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1875.1881001517177,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "2ea4521f2f624579be0a97e2964a2b59",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.009054,
+      "started_at": "2026-10-28T04:50:07.707734+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 3663,
+        "output_tokens": 216,
+        "total_tokens": 3879,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1880.3016000892967,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "2a9972ecd7324e148939bda902e34dd5",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00154,
+      "started_at": "2026-10-28T04:50:09.603459+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 530,
+        "output_tokens": 60,
+        "total_tokens": 590,
+        "input_token_details": {
+          "cache_read": 256
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 997.7182000875473,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "b13ba4053d8c41fc830667fff57fb004",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008102,
+      "started_at": "2026-10-28T04:50:11.481736+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 3287,
+        "output_tokens": 191,
+        "total_tokens": 3478,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1868.1779000908136,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "544765ad510a4cce82ab5222405e4d14",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001424,
+      "started_at": "2026-10-28T04:50:13.362855+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "ablation-027",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 512,
+        "output_tokens": 50,
+        "total_tokens": 562,
+        "input_token_details": {
+          "cache_read": 256
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 916.3633000571281,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "2602972563a048a5943b41ebd50d69f7",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008692,
+      "started_at": "2026-10-28T04:50:14.988058+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "ablation-027",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 3606,
+        "output_tokens": 185,
+        "total_tokens": 3791,
+        "input_token_details": {
+          "cache_read": 512
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1723.2562000863254,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "9134b9a65c85499da1a9570cb7f84872",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00417,
+      "started_at": "2026-10-28T04:50:16.723603+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "ablation-027",
+        "turn": 2,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 1741,
+        "output_tokens": 86,
+        "total_tokens": 1827,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1180.8790999930352,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "591db2d7a1844d398f20aed7227f28f2",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.009292,
+      "started_at": "2026-10-28T04:50:17.908786+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "ablation-027",
+        "turn": 2,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 3874,
+        "output_tokens": 193,
+        "total_tokens": 4067,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1659.052100032568,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "a47e8eef073049fdbd395caa98ae9eb3",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001428,
+      "started_at": "2026-10-28T04:50:19.582581+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "trust-dev-014",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 514,
+        "output_tokens": 50,
+        "total_tokens": 564,
+        "input_token_details": {
+          "cache_read": 256
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1459.5700001809746,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "9c5d7d205edf426e849f9a26b5717fdf",
+      "status": "unknown_usage",
+      "reserved_cny": 2.113536,
+      "charged_cny": 2.113536,
+      "started_at": "2026-10-28T04:50:21.047714+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+        "case_id": "trust-dev-014",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": null,
+      "error_type": "APIConnectionError",
+      "elapsed_ms": 6055.938599864021,
+      "response_model": null
+    },
+    {
+      "id": "d6b4aab4ce9f430aa5be60c7a61a572b",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001428,
+      "started_at": "2026-10-28T04:52:52.613211+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "trust-dev-014",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 514,
+        "output_tokens": 50,
+        "total_tokens": 564,
+        "input_token_details": {
+          "cache_read": 380
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1707.4890001676977,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "e0408aa8eff34dff9dc90dbcb78959d6",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00492,
+      "started_at": "2026-10-28T04:52:54.325795+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "trust-dev-014",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 2256,
+        "output_tokens": 51,
+        "total_tokens": 2307,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1369.811600074172,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "174ddfcc9b2348d1b28127fad1261668",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.005738,
+      "started_at": "2026-10-28T04:52:55.703553+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "trust-dev-014",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 2429,
+        "output_tokens": 110,
+        "total_tokens": 2539,
+        "input_token_details": {
+          "cache_read": 2176
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1495.0594999827445,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "a626c1f907c3411e83c90ee33a083d1c",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001648,
+      "started_at": "2026-10-28T04:52:57.210110+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 548,
+        "output_tokens": 69,
+        "total_tokens": 617,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1279.6750999987125,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "fc0429332659444aac8fd547890d379d",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.007786,
+      "started_at": "2026-10-28T04:52:59.528726+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 3241,
+        "output_tokens": 163,
+        "total_tokens": 3404,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1769.697800045833,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "3bc9fc0356cd4ed2b0d992cb6133be19",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001496,
+      "started_at": "2026-10-28T04:53:01.312711+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "ablation-030",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 516,
+        "output_tokens": 58,
+        "total_tokens": 574,
+        "input_token_details": {
+          "cache_read": 382
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1000.725100049749,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "6707a7db352047d08eb3e7ac08c69efe",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008242,
+      "started_at": "2026-10-28T04:53:03.196997+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "ablation-030",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 3265,
+        "output_tokens": 214,
+        "total_tokens": 3479,
+        "input_token_details": {
+          "cache_read": 512
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1934.184700017795,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "c83c99c9a5a842c58a562c4297561978",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.003544,
+      "started_at": "2026-10-28T04:53:05.141334+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "ablation-030",
+        "turn": 2,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 1552,
+        "output_tokens": 55,
+        "total_tokens": 1607,
+        "input_token_details": {
+          "cache_read": 896
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1158.828199841082,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "1e43a90c1bd043be9556991eda41ee90",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008204,
+      "started_at": "2026-10-28T04:53:06.303480+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "ablation-030",
+        "turn": 2,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 3522,
+        "output_tokens": 145,
+        "total_tokens": 3667,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1866.2431000266224,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "200f3063b9c24722a65e1de9182e949e",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001326,
+      "started_at": "2026-10-28T04:53:08.190112+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "trust-dev-013",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 511,
+        "output_tokens": 38,
+        "total_tokens": 549,
+        "input_token_details": {
+          "cache_read": 256
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 974.8038998804986,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "193af1ea8ec04535a014572b0bce26a1",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.004808,
+      "started_at": "2026-10-28T04:53:09.169800+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "trust-dev-013",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 2240,
+        "output_tokens": 41,
+        "total_tokens": 2281,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 893.0635000579059,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "e207dae116c644f9805e2265110dd339",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.005678,
+      "started_at": "2026-10-28T04:53:10.070820+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "trust-dev-013",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 2403,
+        "output_tokens": 109,
+        "total_tokens": 2512,
+        "input_token_details": {
+          "cache_read": 2176
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1365.8279001247138,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "11a1eab60db64c15a5e1aa8b730b04a8",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001484,
+      "started_at": "2026-10-28T04:53:11.449828+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "trust-dev-017",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 510,
+        "output_tokens": 58,
+        "total_tokens": 568,
+        "input_token_details": {
+          "cache_read": 256
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1114.2770000733435,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "43505389a59047959c0888a0ebfd408f",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.007058,
+      "started_at": "2026-10-28T04:53:13.363795+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "trust-dev-017",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 2821,
+        "output_tokens": 177,
+        "total_tokens": 2998,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1610.6208998244256,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "d83c4eae563d461ba706ba5f83db49e8",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001386,
+      "started_at": "2026-10-28T04:53:14.991447+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "phone",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 505,
+        "output_tokens": 47,
+        "total_tokens": 552,
+        "input_token_details": {
+          "cache_read": 256
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1052.6211999822408,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "3d9d9d36d1fc4b98a30d88d7f2caab49",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00919,
+      "started_at": "2026-10-28T04:53:16.743805+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "phone",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 3615,
+        "output_tokens": 245,
+        "total_tokens": 3860,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2017.8187999408692,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "b7eddf5f2dab47368f55ff07666c3bfd",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001506,
+      "started_at": "2026-10-28T04:53:18.774962+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "new-name",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 513,
+        "output_tokens": 60,
+        "total_tokens": 573,
+        "input_token_details": {
+          "cache_read": 379
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1185.0527001079172,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "256df46692774f38af15c205647ee330",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.005224,
+      "started_at": "2026-10-28T04:53:20.649774+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+        "case_id": "new-name",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 1
+      },
+      "usage": {
+        "input_tokens": 2364,
+        "output_tokens": 62,
+        "total_tokens": 2426,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1075.0596998259425,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "54d27ffdf53742e1a6b8f65a57ddbb87",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00189,
+      "started_at": "2026-10-28T04:55:20.488528+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02.json",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 2
+      },
+      "usage": {
+        "input_tokens": 537,
+        "output_tokens": 102,
+        "total_tokens": 639,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2053.562500048429,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "3b3f13375974427ea729fda3928778bb",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.009426,
+      "started_at": "2026-10-28T04:55:23.694349+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02.json",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 2
+      },
+      "usage": {
+        "input_tokens": 3773,
+        "output_tokens": 235,
+        "total_tokens": 4008,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2250.16100006178,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "ea24c30ce22f419fb5a0535e85eccd5c",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001556,
+      "started_at": "2026-10-28T04:55:25.959020+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02.json",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 2
+      },
+      "usage": {
+        "input_tokens": 530,
+        "output_tokens": 62,
+        "total_tokens": 592,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1135.0982000585645,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "6916eb1a11414c60999c896896828613",
+      "status": "unknown_usage",
+      "reserved_cny": 2.113536,
+      "charged_cny": 2.113536,
+      "started_at": "2026-10-28T04:55:27.899091+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02.json",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 2
+      },
+      "usage": null,
+      "error_type": "APIConnectionError",
+      "elapsed_ms": 9377.734799869359,
+      "response_model": null
+    },
+    {
+      "id": "fca347830fcc4fee881972ab713594ba",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001556,
+      "started_at": "2026-10-28T04:58:53.478942+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02-resumed.json",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 2
+      },
+      "usage": {
+        "input_tokens": 530,
+        "output_tokens": 62,
+        "total_tokens": 592,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1851.1357000097632,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "21da93cc5959477ab924e76661a92de2",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008706,
+      "started_at": "2026-10-28T04:58:56.320968+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02-resumed.json",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 2
+      },
+      "usage": {
+        "input_tokens": 3289,
+        "output_tokens": 266,
+        "total_tokens": 3555,
+        "input_token_details": {
+          "cache_read": 512
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2858.0914000049233,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "3774f8aeddf94a51b90d7f2e9a37058c",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001632,
+      "started_at": "2026-10-28T04:58:59.194928+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02-resumed.json",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 2
+      },
+      "usage": {
+        "input_tokens": 548,
+        "output_tokens": 67,
+        "total_tokens": 615,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1927.701700013131,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "85a51fc235654d80b613e681a51e65ba",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008084,
+      "started_at": "2026-10-28T04:59:02.025697+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02-resumed.json",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 2
+      },
+      "usage": {
+        "input_tokens": 3238,
+        "output_tokens": 201,
+        "total_tokens": 3439,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2582.9040999524295,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "f07fd6ac0790432f8548b2f048906b5a",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00161,
+      "started_at": "2026-10-28T05:00:48.025114+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 3
+      },
+      "usage": {
+        "input_tokens": 537,
+        "output_tokens": 67,
+        "total_tokens": 604,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1820.1668001711369,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "d67e072196904b509bcba64dd77d6f03",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.009924,
+      "started_at": "2026-10-28T05:00:50.914488+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 3
+      },
+      "usage": {
+        "input_tokens": 3902,
+        "output_tokens": 265,
+        "total_tokens": 4167,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2891.09140005894,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "ef9a4d01a3b14abcadee8f62f57edc45",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001564,
+      "started_at": "2026-10-28T05:00:53.835637+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 3
+      },
+      "usage": {
+        "input_tokens": 530,
+        "output_tokens": 63,
+        "total_tokens": 593,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1797.1790998708457,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "6d58289e6c054a4ca69e1c57127117f0",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008332,
+      "started_at": "2026-10-28T05:00:56.937036+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 3
+      },
+      "usage": {
+        "input_tokens": 3290,
+        "output_tokens": 219,
+        "total_tokens": 3509,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2788.068199995905,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "f421d5e87f2940dbb5c2febdc82effa4",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.001656,
+      "started_at": "2026-10-28T05:00:59.741543+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 3
+      },
+      "usage": {
+        "input_tokens": 548,
+        "output_tokens": 70,
+        "total_tokens": 618,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1749.219600111246,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "c09bdca15b9b4e30b3d8e2a8403ca262",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008262,
+      "started_at": "2026-10-28T05:01:02.843716+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "baseline",
+        "repetition": 3
+      },
+      "usage": {
+        "input_tokens": 3243,
+        "output_tokens": 222,
+        "total_tokens": 3465,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2358.5981000214815,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "8fb70154db6a4077839d8a253ae2f9c0",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.007888,
+      "started_at": "2026-10-28T05:01:40.790148+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "original",
+        "repetition": 1,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 3128,
+        "output_tokens": 204,
+        "total_tokens": 3332,
+        "input_token_details": {
+          "cache_read": 1536
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2543.3491999283433,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "739ac7b35e4d4ae49f6c321c5868d5f6",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008024,
+      "started_at": "2026-10-28T05:01:43.341331+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "intervention",
+        "repetition": 1,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 3196,
+        "output_tokens": 204,
+        "total_tokens": 3400,
+        "input_token_details": {
+          "cache_read": 2944
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2377.9265000484884,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "e90c1f5191654800ad3aa9966de6617e",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.007968,
+      "started_at": "2026-10-28T05:01:45.728653+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "intervention",
+        "repetition": 2,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 3196,
+        "output_tokens": 197,
+        "total_tokens": 3393,
+        "input_token_details": {
+          "cache_read": 2944
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2885.5004999786615,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "13b79efd0d444ea3aa56760e27f3ec5a",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.008016,
+      "started_at": "2026-10-28T05:01:48.625482+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-018",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "original",
+        "repetition": 2,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 3128,
+        "output_tokens": 220,
+        "total_tokens": 3348,
+        "input_token_details": {
+          "cache_read": 2944
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 5174.975200090557,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "ba8dcfb066d247759385121b3b99aa08",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.007016,
+      "started_at": "2026-10-28T05:01:53.814733+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "original",
+        "repetition": 1,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2752,
+        "output_tokens": 189,
+        "total_tokens": 2941,
+        "input_token_details": {
+          "cache_read": 1536
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2948.8405999727547,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "620ae537e0b740319efcf3d0970aa28b",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00563,
+      "started_at": "2026-10-28T05:01:56.776594+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "intervention",
+        "repetition": 1,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2283,
+        "output_tokens": 133,
+        "total_tokens": 2416,
+        "input_token_details": {
+          "cache_read": 1792
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 3650.839600013569,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "3020ec21017c4621b9869e72aa7c792e",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.005598,
+      "started_at": "2026-10-28T05:02:00.437208+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "intervention",
+        "repetition": 2,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2283,
+        "output_tokens": 129,
+        "total_tokens": 2412,
+        "input_token_details": {
+          "cache_read": 2048
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1916.7254001367837,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "bb644c5163c74cc1bb9526a5269e3dba",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.006864,
+      "started_at": "2026-10-28T05:02:02.363559+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-009",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "original",
+        "repetition": 2,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2752,
+        "output_tokens": 170,
+        "total_tokens": 2922,
+        "input_token_details": {
+          "cache_read": 2560
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2738.494300050661,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "bc4455f9645249e885b056ccdf4dd893",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00674,
+      "started_at": "2026-10-28T05:02:05.131641+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "original",
+        "repetition": 1,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2706,
+        "output_tokens": 166,
+        "total_tokens": 2872,
+        "input_token_details": {
+          "cache_read": 1536
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2135.1675000041723,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "5eacb18f5e654793a26e940d39d3a6e2",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.005502,
+      "started_at": "2026-10-28T05:02:07.276680+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "intervention",
+        "repetition": 1,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2131,
+        "output_tokens": 155,
+        "total_tokens": 2286,
+        "input_token_details": {
+          "cache_read": 1792
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2197.3464000038803,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "4e67273d03234411b232159e3b1063fe",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.00579,
+      "started_at": "2026-10-28T05:02:09.485487+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "intervention",
+        "repetition": 2,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2131,
+        "output_tokens": 191,
+        "total_tokens": 2322,
+        "input_token_details": {
+          "cache_read": 1920
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2413.5243999771774,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "780c4d5f73454df9ba3356bee4088d50",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.006588,
+      "started_at": "2026-10-28T05:02:11.912402+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "ablation-015",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "original",
+        "repetition": 2,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2706,
+        "output_tokens": 147,
+        "total_tokens": 2853,
+        "input_token_details": {
+          "cache_read": 2560
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2194.472699891776,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "b5fb983721da439989a63b25f7e6b922",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.005404,
+      "started_at": "2026-10-28T05:02:14.130553+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "trust-dev-017",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "original",
+        "repetition": 1,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2286,
+        "output_tokens": 104,
+        "total_tokens": 2390,
+        "input_token_details": {
+          "cache_read": 1536
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 1951.6193000599742,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "7279343d9dbf4d298a8a8a30e21a16e4",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.004786,
+      "started_at": "2026-10-28T05:02:16.093853+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "trust-dev-017",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "intervention",
+        "repetition": 1,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 1929,
+        "output_tokens": 116,
+        "total_tokens": 2045,
+        "input_token_details": {
+          "cache_read": 1792
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2938.1676998455077,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "9ec09f6b9e3044089ebf3c244c9d6cd8",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.004762,
+      "started_at": "2026-10-28T05:02:19.043772+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "trust-dev-017",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "intervention",
+        "repetition": 2,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 1929,
+        "output_tokens": 113,
+        "total_tokens": 2042,
+        "input_token_details": {
+          "cache_read": 1792
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2765.348199987784,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "3358155644fc439a9574bb4fd03224f7",
+      "status": "settled",
+      "reserved_cny": 2.113536,
+      "charged_cny": 0.005588,
+      "started_at": "2026-10-28T05:02:21.827015+00:00",
+      "metadata": {
+        "phase": "answer-diagnosis-v1",
+        "case_id": "trust-dev-017",
+        "turn": 1,
+        "kind": "fixed_pair",
+        "arm": "original",
+        "repetition": 2,
+        "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+      },
+      "usage": {
+        "input_tokens": 2286,
+        "output_tokens": 127,
+        "total_tokens": 2413,
+        "input_token_details": {
+          "cache_read": 2048
+        },
+        "output_token_details": {}
+      },
+      "error_type": null,
+      "elapsed_ms": 2369.787300005555,
+      "response_model": "deepseek-flash"
+    }
+  ],
+  "diagnostic_answers": [
+    {
+      "id": "44d45e4475364782bda8773734e3f882",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+      "case_id": "ablation-018",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "8ede0545ff9848f48d9c873ed1cd962e",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+      "case_id": "ablation-009",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "3852d3c9afc846eeab38f0c96eef60cf",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+      "case_id": "ablation-027",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "102e6411788a4bd0ab6d9bb3359225e5",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+      "case_id": "ablation-027",
+      "turn": 2,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "2d6dc9e77ba34c22aa739990b696e11e",
+      "status": "error",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-01.json",
+      "case_id": "trust-dev-014",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "19c59ad32d064816b77f1e5fd09ad690",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+      "case_id": "trust-dev-014",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "c55a58f848ba478fade998dd2733a4ac",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+      "case_id": "ablation-015",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "0485a90dcf774afda8fa8f4cb834b12d",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+      "case_id": "ablation-030",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "10688348aba443edb4317ae5fc2e874f",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+      "case_id": "ablation-030",
+      "turn": 2,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "dd26269142404043bf7c7488bb72d9f2",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+      "case_id": "trust-dev-013",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "deff3510c51f47589de7f7ddb2d162a1",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+      "case_id": "trust-dev-017",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "6989ccec265c4272a79df07ad47d4d1d",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+      "case_id": "phone",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "5334e44acc984a8fbca10811df16a065",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\baseline-02.json",
+      "case_id": "new-name",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 1
+    },
+    {
+      "id": "fedf73f644fc4914ab8553ed4806da18",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02.json",
+      "case_id": "ablation-018",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 2
+    },
+    {
+      "id": "c083f5e6b7734d5f90359ba3e2598179",
+      "status": "error",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02.json",
+      "case_id": "ablation-009",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 2
+    },
+    {
+      "id": "007a8778e8b34d5ca712e40cd7d1d891",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02-resumed.json",
+      "case_id": "ablation-009",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 2
+    },
+    {
+      "id": "2f6428e7b5764f10a6873f6bdfa51f78",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-02-resumed.json",
+      "case_id": "ablation-015",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 2
+    },
+    {
+      "id": "0a0b0e82a824490ba1722d69eb952a5f",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+      "case_id": "ablation-018",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 3
+    },
+    {
+      "id": "b5646070cec143738c5be1c26733b931",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+      "case_id": "ablation-009",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 3
+    },
+    {
+      "id": "7e6f845b2a8245b2964dea9930d44e4d",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\repeat-03.json",
+      "case_id": "ablation-015",
+      "turn": 1,
+      "kind": "baseline",
+      "repetition": 3
+    },
+    {
+      "id": "f3f706b9ccc04564944e81a4da11a43f",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-018",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "original",
+      "repetition": 1,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "b3eadb2461cb484b94a0153f412b4baa",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-018",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "intervention",
+      "repetition": 1,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "485d81a5188348cfb4c60603ceae4ae2",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-018",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "intervention",
+      "repetition": 2,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "4fd6068c2a0e46efb2fa32c94f257a83",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-018",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "original",
+      "repetition": 2,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "06fa854b4f0748ae98f913c7b2359758",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-009",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "original",
+      "repetition": 1,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "c659abbda6994c90abfb3717e821dade",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-009",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "intervention",
+      "repetition": 1,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "ed7f06e50c6447b3b988b351eeec210f",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-009",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "intervention",
+      "repetition": 2,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "f830bad4d8dc48be9443924b1d9c7780",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-009",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "original",
+      "repetition": 2,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "4337044a8e2946f9ae39d1caa22e3c52",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-015",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "original",
+      "repetition": 1,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "04c433391cfe427bac42f6ea16b2a05e",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-015",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "intervention",
+      "repetition": 1,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "d8f4eb390e9443fdbb69d6b861840950",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-015",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "intervention",
+      "repetition": 2,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "08670c64fd3c48d9bbb8481c7a18178a",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "ablation-015",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "original",
+      "repetition": 2,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "4491d848931444dbb25e52fbd3f534d5",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "trust-dev-017",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "original",
+      "repetition": 1,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "ba75e286d3084bfaa2705e6356f2b125",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "trust-dev-017",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "intervention",
+      "repetition": 1,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "3ee4ad1a65304075b1459cf85b147650",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "trust-dev-017",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "intervention",
+      "repetition": 2,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    },
+    {
+      "id": "53ec10c85ada406688d65ab3740d53aa",
+      "status": "complete",
+      "phase": "answer-diagnosis-v1",
+      "case_id": "trust-dev-017",
+      "turn": 1,
+      "kind": "fixed_pair",
+      "arm": "original",
+      "repetition": 2,
+      "run": "D:\\Users\\Administrator\\Codex\\2026-10-27\\grilling-c-users-administrator-codex-skills-4\\outputs\\commerce-desk-agent\\docs\\diagnosis-v1\\runs\\pairs-01.json"
+    }
+  ]
+}

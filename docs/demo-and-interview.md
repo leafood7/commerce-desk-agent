@@ -1,3 +1,5 @@
+> 历史兼容资料：主要描述原Agent演示。当前新工作台以[作品交付包](portfolio/README.md)、[实际架构](portfolio/architecture.md)和[三段演示](portfolio/demos.md)为准。
+
 # 三条演示流程
 
 按[运行说明](../LOCAL_SUPPORTPILOT.md)启动网页与 API，确认模型缓存和政策索引可用。每条流程使用新会话。在线输出有波动，演示前先预演；若改用保存的轨迹，注明为历史运行结果。

@@ -1,0 +1,40 @@
+# Local comparison/demo only. This service has no end-user account isolation.
+name: commercedesk-legacy
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.service
+      target: legacy
+    env_file: .env
+    environment:
+      COMMERCE_APP: legacy
+      HOST: 0.0.0.0
+      PORT: "8080"
+      MODE: production
+      DATABASE_TYPE: sqlite
+      SQLITE_DB_PATH: /app/data/supportpilot/checkpoints.sqlite3
+      SUPPORTPILOT_DB_PATH: /app/data/supportpilot/orders.sqlite3
+      SUPPORTPILOT_CHROMA_PATH: /app/data/supportpilot/chroma
+      HF_HOME: /app/work/huggingface
+      USE_FAKE_MODEL: ${USE_FAKE_MODEL:-false}
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - legacy_data:/app/data/supportpilot
+      - model_cache:/app/work/huggingface
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.app
+    ports:
+      - "127.0.0.1:8501:8501"
+    environment:
+      AGENT_URL: http://api:8080
+      AUTH_SECRET: ${AUTH_SECRET:-}
+    depends_on:
+      api:
+        condition: service_healthy
+volumes:
+  legacy_data:
+  model_cache:

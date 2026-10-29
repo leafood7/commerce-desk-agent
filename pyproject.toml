@@ -16,6 +16,10 @@ classifiers = [
 requires-python = ">=3.12,<3.15"
 
 dependencies = [
+    "python-multipart>=0.0.20,<1",
+    "sqlalchemy>=2.0.52,<2.1",
+    "alembic>=1.16,<2",
+    "pymysql[rsa]>=1.1,<2",
     "aiosqlite >=0.22.1",
     "docx2txt ~=0.8",
     "duckduckgo-search>=8.1.1",
@@ -73,6 +77,28 @@ supportpilot = [
 exclude-newer = "14 days"
 
 [dependency-groups]
+knowledge = [
+    {include-group = "workbench"},
+    "torch==2.14.1",
+    "chromadb==1.5.9",
+    "sentence-transformers>=5,<7",
+    "pypdf>=6.14.2,<6.20.0",
+]
+workbench = [
+    "mcp>=1.29,<2",
+    "httpx~=0.28.1",
+    "python-multipart>=0.0.20,<1",
+    "fastapi~=0.141.0",
+    "uvicorn~=0.52.0",
+    "sqlalchemy>=2.0.52,<2.1",
+    "alembic>=1.16,<2",
+    "pymysql[rsa]>=1.1,<2",
+    "pydantic~=2.13.4",
+    "pydantic-settings~=2.15.0",
+    "python-dotenv~=1.2.2",
+    "langgraph~=1.2.7",
+    "langgraph-checkpoint-sqlite~=3.1.0",
+]
 dev = [
     "langgraph-cli[inmem]",
     "pre-commit",
@@ -103,7 +129,7 @@ target-version = "py312"
 extend-select = ["I", "U"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 asyncio_default_fixture_loop_scope = "function"
 
 [tool.pytest_env]
@@ -130,3 +156,12 @@ preset = "default"
 # subclasses, so this fires on every agent's StateGraph(AgentState). It's a gap
 # in LangGraph's typing, not a real error, so disable it project-wide.
 bad-specialization = false
+
+# All deployed retrieval models run on CPU. Avoid Linux CUDA runtime downloads.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

@@ -1,0 +1,16 @@
+{
+  "split": "authored_development_replay",
+  "tasks": 40,
+  "expected_rows": 720,
+  "hashes": {
+    "catalog.json": "48b09170c63cec7628ad47f6c348291e822514168a3abff1cbf7922c7e179219",
+    "tasks.json": "5b5bd1a97f3195df692a8c48e1c0e6f9b6ab57416d6c59d60cbf1d37c6e90388"
+  },
+  "parent_trace_sha256": "37a28dfbe9fd6735a16a6c419c31e273a2de40feb23a9cf2aca3afe86950ffa3",
+  "parent_cases_sha256": "c374af92cf8090409742caa75129ae114cf21a64d25369223ddfcd403a22a26f",
+  "rubric_sha256": "a6317388fec81a71f36fff512e3dd9c1db263acd22e22cdb708833d03c516818",
+  "protocol_sha256": "1a79c94b10752e478554d767d266ed2c9a5f6989ce1e961ddb668f06c2641f06",
+  "new_model_calls": 0,
+  "source_sha256": "7b62daccb588df27056c3c3d585c879cdb3500e141576f0fa90b5e7eddb34906",
+  "context_selector_sha256": "457c37a317e9fc7c4dcd112413f2cac6b120c30b1ea36649e16cf30e85b65ec2"
+}

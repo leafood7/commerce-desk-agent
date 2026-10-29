@@ -1,55 +1,54 @@
 # CommerceDesk · 商询
 
-面向电商客服场景的 Agent 工作台，基于 LangGraph、FastAPI 和 Streamlit，支持政策问答、订单查询、催单与人工审批。
+面向电商售后的全栈Agent＋RAG工作台。主线是订单行级退货：政策核对、条件补问、更正、预览确认、独立审批和模拟受理。使用React/TypeScript、FastAPI、LangGraph、HTTP MCP、MySQL、Chroma和Docker。
 
-## 主要功能
+**[作品交付入口](docs/portfolio/README.md)** · [三段演示](docs/portfolio/demos.md) · [实际架构](docs/portfolio/architecture.md) · [启动排障](docs/portfolio/operations.md) · [证据与限制](docs/portfolio/evidence.md)
 
-- 政策问答：BGE 向量与 BM25 混合检索，经 RRF 融合、重排和同源条款补全后返回证据与来源。
-- 多轮对话：根据最新条件核对证据，支持用户更正和真实片段复用。
-- 订单工具：通过本地 stdio MCP Server 提供订单查询与政策检索，Agent 复用持久连接。
-- 催单审批：普通催单按业务条件登记；加急申请暂停等待人工批准，执行前复查订单，并通过事务与唯一约束防止重复建单。
+## 已实现的完整链路
 
-```text
-Streamlit → FastAPI → LangGraph
-                      ├─ MCP 客户端 → 只读订单／政策工具
-                      └─ 本地催单／人工审批 → SQLite
-```
+- 上传TXT/MD/PDF/DOCX，异步解析、结构切块、向量化，管理员发布/撤回政策版本。
+- BGE向量＋BM25召回、RRF融合、重排与来源复核；区分规则问答和办理分支的证据组装，保留条件、例外和更正的开发对照。
+- LangGraph根据工具观察选择有限动作，支持补查补问、原话确认、等待独立质检及中断恢复；模型建议可选，默认规则路径。
+- 退货落实到订单行、数量、资格与版本预览；独立角色审批后仅模拟受理，不执行真实退款。查单、催单和会话/受控配置版本继续保留。
+- React通过SSE展示实际步骤和结果；MySQL保存业务、运行、持久队列与图检查点，HTTP MCP工具有严格输入和角色作用域。
+- 本地Docker链路及独立恢复已验证：数据库/文件校验、空向量重建、同一暂停待办继续办理和重启后状态保留。
 
-## 运行
+## 本机演示
 
-需要 Python 3.12–3.14 和 uv。
+当前工程：`D:\VScodeProgects\commerce-desk-agent`。默认展示版本以`main`分支为准，`feat/fullstack-foundation`用于开发与审核；请以实际Git提交为准。实验清单保留当时的本地候选快照，不是发布标签。
+
+在已经配置好的本机Docker环境中：
 
 ```powershell
-uv sync --frozen --no-dev --extra supportpilot
-Copy-Item .env.example .env
-# 在 .env 填写模型接口配置
-powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1
+cd D:\VScodeProgects\commerce-desk-agent
+powershell -ExecutionPolicy Bypass -File scripts/run-container-acceptance.ps1 -Phase Start
+.venv\Scripts\python.exe scripts/run_portfolio_demo.py
 ```
 
-网页：<http://127.0.0.1:8501>；API：<http://127.0.0.1:8081/docs>。首次运行需下载检索模型，完整配置见[运行说明](LOCAL_SUPPORTPILOT.md)。
+页面：http://127.0.0.1:15173；API：http://127.0.0.1:18082/docs。演示命令新增隔离演示数据并重放三条浏览器场景，不调用付费模型。新机器依赖、私有配置、密码、D盘缓存和手动演示见 [运行说明](docs/portfolio/operations.md)，不要公开整个work目录。
 
-## 验证结果
+## 如何看待验证结果
 
-最新一批真实模型与 MCP 回归包含18条合成对话、23轮消息，完成15次政策检索和3次订单查询，未出现工具错误、检查回退或意外业务写入。107项离线测试在待提交内容的独立快照中通过。
+已有长文/有限规模RAG的768条检索记录、720条固定证据组装回放，以及真实页面和恢复后续办证据。各批次存在重叠，不能累计成独立样本或回答准确率；作者参与复核，未做独立盲审。检索改善、退化、成本和原始结果见 [证据索引](docs/portfolio/evidence.md)。
 
-这些题目参与过调试，用于回归验证；语义结果采用 AI 辅助复核，尚未独立人工盲审。详细方法、成本和失败记录见[评测总览](docs/evaluation.md)。
+默认不启用模型建议或跨条款引用扩展：模型策略收益未证实，RAG仍存在漏检。当前是本地工程作品，没有真实退款、Linux线上部署、企业生产容量、Redis长期记忆或通用无限自主Agent承诺。
 
-## 文档
+## 开发与历史入口
 
-| 文档 | 内容 |
-| --- | --- |
-| [配置与运行](LOCAL_SUPPORTPILOT.md) | 环境、模型缓存、启动、后端切换 |
-| [架构](docs/architecture.md) | 对话、工具与审批调用链 |
-| [架构摘要](docs/architecture-summary.md) | 调用链、数据层与下一步开发清单 |
-| [RAG 检索](docs/rag-optimization.md) | 召回、重排、补证与参数 |
-| [MCP 接入](docs/mcp-tools.md) | 工具契约、会话管理、独立客户端 |
-| [评测总览](docs/evaluation.md) | 最新结果、指标口径与复现命令 |
-| [演示流程](docs/demo-and-interview.md) | 政策问答、条件更正、加急审批 |
-| [知识库来源](docs/knowledge-sources.md) | 演示政策的来源与适配范围 |
-| [历史记录](docs/history/README.md) | 各阶段诊断、成本对照和争议案例 |
+|文档|内容|
+|---|---|
+|[全栈说明](docs/fullstack/README.md)|原生兼容启动、API、数据库、Docker与各模块|
+|[当前状态](docs/fullstack/STATUS.md)|最新验收及历史阶段记录|
+|[退货业务](docs/fullstack/returns.md)|领域规则、审批及模拟受理|
+|[受限Agent](docs/fullstack/return-agent.md)|动作集合、观察与实验开关|
+|[长文RAG](docs/fullstack/rag-long-scale-report.md)|切块、范围、引用补全及有限规模对照|
+|[完整恢复](docs/fullstack/full-recovery.md)|独立库/文件/索引和同一待办续办|
+|[面试讲解](docs/portfolio/interview.md)|机制取舍、可核实业绩与限制|
+|[旧版运行](LOCAL_SUPPORTPILOT.md)|原Streamlit、stdio MCP与SQLite演示|
+|[旧版评测](docs/evaluation.md)|原回答可信度、历史模型与回归记录|
 
-## 使用范围与来源
+原Streamlit服务是保留的兼容入口，不与新工作台的账号、数据、授权或部署拓扑混用。原回答契约/语义后审实验见 [answer-trust](docs/answer-trust/README.md)，不代表新工作台默认启用该架构。
 
-项目适用于本地演示和工程实践。订单与政策为演示数据，未接入真实仓库、退款或开票系统；当前没有多租户隔离，也未进行生产容量验证。
+## 来源与使用范围
 
-基于 [JoshuaC215/agent-service-toolkit](https://github.com/JoshuaC215/agent-service-toolkit) 二次开发，沿用服务、会话与模型接入基础，新增电商业务、政策检索、证据检查、MCP 接入及评测。版权与修改说明见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE.md)。
+基于 [JoshuaC215/agent-service-toolkit](https://github.com/JoshuaC215/agent-service-toolkit) 二次开发，沿用服务、会话与模型接入基础，增加电商业务、证据约束、MCP工具与全栈工作台。版权及修改说明见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE.md)。订单与政策用于隔离演示，未接入真实电商平台、仓库、退款或开票系统。

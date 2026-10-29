@@ -1,0 +1,23 @@
+{
+  "stage": "return_intake_v1",
+  "date": "2026-10-29",
+  "flow_version": "guided_v3",
+  "sqlite_full": {"passed": 212, "skipped": 6, "seconds": 405.01, "log": "work/return-intake-v1/regression.log"},
+  "final_focused": {"passed": 10, "seconds": 41.58, "overlaps_full_suite": true, "new_direct_api_cases": 3, "log": "work/return-intake-v1/final-focused.log"},
+  "mysql_affected": {"passed": 41, "seconds": 274.69, "log": "work/return-intake-v1/mysql.log"},
+  "mysql_new_bypass": {"passed": 3, "deselected": 7, "seconds": 16.37, "log": "work/return-intake-v1/mysql-bypass.log"},
+  "final_container": {"api_passed": 10, "api_seconds": 87.82, "browser_passed": 18, "browser_minutes": 1.2, "log": "work/return-intake-v1/container-tests-final.log"},
+  "offline_development": {"passed": 36, "samples": 36, "authored": true, "independent_blind_review": false, "result": "docs/fullstack/return-intake-evaluation/offline.json"},
+  "historical_model_replay": {"requests": 24, "counterfactual_skipped": 11, "counterfactual_historical_charge_cny": 0.009396, "measured_new_savings": false},
+  "new_paid_calls": 0,
+  "new_paid_cost_cny": 0,
+  "holdout_read": false,
+  "invalid_ids_rejected_before_output": true,
+  "ruff": "passed",
+  "typescript_vite_build": "passed",
+  "delivery": {"matching_source_files_per_service": 49, "services": ["api", "mcp", "run-worker"], "web_index_matches": true, "schema": "0007_return_applications", "tables": 32, "model_enabled": false, "model_key_present": false, "proof": "docs/fullstack/return-intake-evaluation/image-proof.json"},
+  "initial_failures_retained": ["Clarification null-description digest mismatch", "Browser condition selection not synchronized after quote confirmation", "Legacy observation test implicitly used new version"],
+  "limitations": ["Literal candidate parsing, not general NLU", "Explicit read-only patterns only", "Required facts manually mapped", "No newly measured provider performance", "No independent human semantic review", "No online accuracy claim"],
+  "commit": false,
+  "push": false
+}

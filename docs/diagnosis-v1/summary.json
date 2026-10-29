@@ -1,0 +1,58 @@
+{
+  "phase": "answer-diagnosis-v1",
+  "status": "diagnosis_execution_complete_with_documented_review_limits",
+  "baseline_ref": "571af81e15696fc278e555e39d8694ca4a051572",
+  "model_alias": "deepseek-flash",
+  "immutable_provider_model_version_available": false,
+  "scenario_count": 10,
+  "first_pass_complete_answers": 12,
+  "complete_answers": 34,
+  "failed_answer_attempts": 2,
+  "answer_slots": 36,
+  "answer_limit": 40,
+  "model_requests": 58,
+  "requests_with_usage": 56,
+  "requests_with_unknown_usage": 2,
+  "input_tokens_reported": 116906,
+  "output_tokens_reported": 7310,
+  "known_usage_upper_rate_estimate_cny": 0.292292,
+  "unknown_usage_reservation_cny": 4.227072,
+  "budget_committed_upper_cny": 4.5193639999999995,
+  "phase_limit_cny": 20,
+  "unexpected_write_attempts": 0,
+  "additional_model_judge_calls": 0,
+  "holdout_read": false,
+  "python": "3.13.12",
+  "raw_run_hashes": {
+    "runs/baseline-01.json": "33451159c76b76f68f80db9146d76c6a1323d18e12790e014317b7c466a3286f",
+    "runs/baseline-02.json": "2c04c45be7ed37e414a2a716abe4464fe259e36162d6bfe30d6929a0f0819b71",
+    "runs/pairs-01.json": "9049520b955eb7fa8cc539c509539ef1b5e65deed560a3e4dc85380e24922429",
+    "runs/repeat-02-resumed.json": "c17c74bffd831b8b92153c9af6d6cc02472add3ce8d476e5f7d0b9037472d635",
+    "runs/repeat-02.json": "84ce3aff0042cde1f431b89ddb595dac054dd5f46b70fdcd5b4d33bb6d9d71ed",
+    "runs/repeat-03.json": "ac4b6eca0933aaa77ab3646de20204b0b494b1647626d2ac3ce8f019eb048f86"
+  },
+  "cached_model_snapshots": {
+    "models--BAAI--bge-reranker-base": [
+      "2cfc18c9415c912f9d8155881c133215df768a70"
+    ],
+    "models--BAAI--bge-small-zh-v1.5": [
+      "7999e1d3359715c523056ef9478215996d62a620"
+    ]
+  },
+  "limitations": [
+    "Known historical/development synthetic cases, not unseen final test.",
+    "AI-assisted semantic observations await author confirmation.",
+    "Manual evidence intervention is not a validated automatic mechanism.",
+    "Model alias is not immutable weights; sampling temperature=0 does not ensure identical outputs.",
+    "Two failed requests retain worst-case reservations; cost is not a provider invoice."
+  ],
+  "human_review": {
+    "confirmed_first_pass_error_classifications": 3,
+    "repetitions_and_pairs_fully_reviewed": false,
+    "other_disputes_pending": true,
+    "independent_blind_review": false,
+    "record": "author-review.json"
+  },
+  "completion_record": "completion.md",
+  "closure_audit": "closure-audit.json"
+}

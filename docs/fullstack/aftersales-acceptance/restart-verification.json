@@ -1,0 +1,10 @@
+{
+  "id": "bcd84680-e6b6-46a6-94d1-68863e2e6927",
+  "pause_id": "6f2c303377395f8c3f94ff57b019183f",
+  "order_number": "AF82F076F3B4C",
+  "prepared": true,
+  "verified": true,
+  "final_run_status": "completed",
+  "actual_request_status": "rejected",
+  "credentials_persisted": false
+}

@@ -1,3 +1,5 @@
+> 历史兼容资料：主要描述原Agent演示。当前新工作台以[作品交付包](portfolio/README.md)、[实际架构](portfolio/architecture.md)和[三段演示](portfolio/demos.md)为准。
+
 # 架构摘要
 
 本文补充[架构与调用链](architecture.md)，供后续开发快速定位。详细节点、MCP 契约和评测口径仍以原文档为准。

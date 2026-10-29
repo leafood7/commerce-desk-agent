@@ -203,3 +203,11 @@ smoke_live_app_failure.png
 !.env.example
 *.sqlite3-*
 *.db-*
+
+# Reproducible frontend builds
+!/frontend/package-lock.json
+/frontend/dist/
+/frontend/playwright-report/
+
+# Runtime uploads and vector data
+/data/workbench/

@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-28",
+  "batch": "scoped-mcp-versioned-rag-local-v1",
+  "branch": "feat/fullstack-foundation",
+  "mysql": {
+    "tests": 40,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "sqlite": {
+    "tests": 40,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2
+  },
+  "mcp_http_subset_included_in_mysql": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "legacy_service_client_ui": {
+    "tests": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "legacy_customer_support_unittest": {
+    "tests": 118,
+    "failures": 0,
+    "errors": 0
+  },
+  "chromium_e2e": {
+    "tests": 4,
+    "failures": 0,
+    "real_embedding_and_chroma": true,
+    "real_mcp": true
+  },
+  "frontend_build": "passed",
+  "ruff_check": "passed",
+  "ruff_format": "passed",
+  "uv_lock_check": "passed",
+  "frozen_dev_dataset_validation": "passed",
+  "invalid_sample_id_rejected_before_execution": true,
+  "stop_start_process_ownership_and_listener_checks": "passed",
+  "compose_yaml_parse": "passed",
+  "ci_yaml_parse": "passed",
+  "docker_runtime": "deferred_by_user",
+  "remote_ci": "not_run",
+  "deployed": false,
+  "rag_experiment": {
+    "development_queries": 40,
+    "arms": 6,
+    "completed_retrievals": 240,
+    "summary": "rag-experiment/summary.json",
+    "first_attempt": "aborted and retained",
+    "all_policies_single_chunk_at_600": true,
+    "answer_generation_evaluation": false,
+    "holdout_opened": false
+  },
+  "paid_llm_calls": 0,
+  "paid_cost_cny": 0,
+  "committed": false,
+  "pushed": false,
+  "limitations": [
+    "source excerpts only; new LangGraph after-sales workflow pending",
+    "no independent blinded review or production accuracy claim",
+    "long-document chunking comparison and 100-document/10000-chunk capacity pending",
+    "existing dependency deprecation warnings remain"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-29",
+  "schema": "0006_profile_versions",
+  "tables": 29,
+  "mysql_full": {
+    "passed": 135,
+    "seconds": 577.8
+  },
+  "sqlite_full": {
+    "passed": 130,
+    "skipped": 5,
+    "seconds": 278.94
+  },
+  "final_targeted": {
+    "sqlite_passed": 2,
+    "mysql_passed": 2,
+    "one_overlaps_full": true
+  },
+  "container_api": {
+    "passed": 7,
+    "seconds": 51.47
+  },
+  "browser": {
+    "passed": 14,
+    "seconds": 35.5
+  },
+  "new_feature_tests": 20,
+  "live_provider_calls": 0,
+  "original_ledger_estimate_cny": 4.5462,
+  "defaults": {
+    "model": "rules",
+    "top_k": 3,
+    "context": "neighbors"
+  },
+  "image_proof": {
+    "api": {
+      "app.py": "7b578c1bea31a1994d53d77e0de753df0918521cf30b7c36a7ca4e01fb3bc8c4",
+      "runs.py": "3eb071ec95307dc0b10ae340a3025be5fc2c8043c45c5700fc97cc849e424cd7",
+      "aftersales.py": "2d9933744c3a3459669037a311f555fdc1e0c98bec79670b84c4ed1b72039d90",
+      "aftersales_graph.py": "54adb16b1ec7b8755cea2634205f2f078ee0b19bc75d23994db7d0a42d63edae",
+      "intent_router.py": "b986d0b086c6911c5c7d6c6aee90c93cb8b9a9e4638f978bd214d2a0528d64fa",
+      "profiles.py": "5be229eabd2dab482757ddd9068d307ca01d6388c0f56022435ca97900f95745",
+      "profile_models.py": "d7397975a821cfd2236fac4efbb4d12fcbf4a03ab6cb31224b1d28273f636fb5",
+      "profile_api.py": "a0a8b48c5b9610396734b3053a06cb1007d110e93f9d743560e16a8e378f1177",
+      "profile_schemas.py": "39f48966a024b8fdbee0977f32802041080b8728447204c62579330872bd77a7",
+      "config.py": "ce37efe1f3d113b788d6146c6995251e77dc1abcec783f1f64d14abb725e52ec"
+    },
+    "run_worker_profiles_sha256": "5be229eabd2dab482757ddd9068d307ca01d6388c0f56022435ca97900f95745",
+    "web_index_sha256": "ff9e062598ff3e72830304dfd69d2743de72a13fe477e3c45e2634cc9346f8ce"
+  },
+  "free_form_prompt_editing": false,
+  "semantic_long_term_memory": false,
+  "server_deployed": false
+}

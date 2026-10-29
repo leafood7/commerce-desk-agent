@@ -1,0 +1,734 @@
+{
+  "version": "guided_v3",
+  "split": "authored_development_only",
+  "samples": 36,
+  "passed": 36,
+  "new_paid_calls": 0,
+  "new_paid_cost_cny": 0,
+  "historical_calls": 24,
+  "counterfactual_skipped_calls": 11,
+  "counterfactual_historical_charge_cny": 0.009396,
+  "limitations": "Offline gate replay, not measured new model performance, latency or savings. No ledger refund. Literal parsing and explicit read-only patterns only.",
+  "traces": [
+    {
+      "id": "intake-dev-001",
+      "passed": true,
+      "actual": {
+        "candidate": "unused",
+        "label": "explicit_unused",
+        "source": {
+          "start": 0,
+          "end": 3,
+          "unit": "unicode_codepoint",
+          "quote": "没用过"
+        },
+        "description_sha256": "9b013b7321b433afb14de46ea0c66fba126a20995934576a92aa77516f71c7ea",
+        "scope_start": 0,
+        "requires_confirmation": true,
+        "proposal_hash": "2e9312114654297832e7b14220267243ce1b9034ebfd3f4f32a63ee077fa065a"
+      }
+    },
+    {
+      "id": "intake-dev-002",
+      "passed": true,
+      "actual": {
+        "candidate": "unused",
+        "label": "explicit_unused",
+        "source": {
+          "start": 2,
+          "end": 5,
+          "unit": "unicode_codepoint",
+          "quote": "未使用"
+        },
+        "description_sha256": "a0c7b71616477c9f2aefb0f4ef529aaeac4f966efc1d9416545dcb38a657198c",
+        "scope_start": 0,
+        "requires_confirmation": true,
+        "proposal_hash": "b7eaf5691a80a3bcce24c022fe168ac3889e6bc58f159f1626279ed6afe005cb"
+      }
+    },
+    {
+      "id": "intake-dev-003",
+      "passed": true,
+      "actual": {
+        "candidate": "unused",
+        "label": "explicit_unused",
+        "source": {
+          "start": 1,
+          "end": 5,
+          "unit": "unicode_codepoint",
+          "quote": "从未使用"
+        },
+        "description_sha256": "74a4ffeb00c34160f8f147b083ca5dbd8126103e447f64d31d5a5e633219e047",
+        "scope_start": 0,
+        "requires_confirmation": true,
+        "proposal_hash": "b372520c7576657417c336e681b9cd9017d7026ad60872b58ffd46157f4c13a5"
+      }
+    },
+    {
+      "id": "intake-dev-004",
+      "passed": true,
+      "actual": {
+        "candidate": "unused",
+        "label": "explicit_unused",
+        "source": {
+          "start": 0,
+          "end": 5,
+          "unit": "unicode_codepoint",
+          "quote": "没有使用过"
+        },
+        "description_sha256": "79944268207d38e1845e0054651f192982c16a95d68d37c89a38deacfb79f9c7",
+        "scope_start": 0,
+        "requires_confirmation": true,
+        "proposal_hash": "8b8799af9355cb40c4b05be10f9af094c2bc96b801fa8c8f27da4acbfd021f9f"
+      }
+    },
+    {
+      "id": "intake-dev-005",
+      "passed": true,
+      "actual": {
+        "candidate": "used",
+        "label": "explicit_used",
+        "source": {
+          "start": 0,
+          "end": 5,
+          "unit": "unicode_codepoint",
+          "quote": "已经使用过"
+        },
+        "description_sha256": "283ce67df451fd8d96fc598c46531fc44aa64c60204d896fc0fbe265f6fb931f",
+        "scope_start": 0,
+        "requires_confirmation": true,
+        "proposal_hash": "c79905b6ddda8465110c13d20cf9b22dc57f19b2006f8da6549d00141a3fda10"
+      }
+    },
+    {
+      "id": "intake-dev-006",
+      "passed": true,
+      "actual": {
+        "candidate": "used",
+        "label": "explicit_used",
+        "source": {
+          "start": 1,
+          "end": 3,
+          "unit": "unicode_codepoint",
+          "quote": "用过"
+        },
+        "description_sha256": "7f649d64a14c873e1d8b6f982d256c72d3ae75bcc13a13d33de2d8453c58b512",
+        "scope_start": 0,
+        "requires_confirmation": true,
+        "proposal_hash": "3e931a6077f1ee4ee35b9c8ed490ace8e6edfd971d5d548d81a9f3fcb36136f9"
+      }
+    },
+    {
+      "id": "intake-dev-007",
+      "passed": true,
+      "actual": {
+        "candidate": "used",
+        "label": "explicit_used",
+        "source": {
+          "start": 2,
+          "end": 5,
+          "unit": "unicode_codepoint",
+          "quote": "试用过"
+        },
+        "description_sha256": "64380cbd0bb062cc24a278ce2b247290db15d67b037e05a5cf635eb83c637758",
+        "scope_start": 0,
+        "requires_confirmation": true,
+        "proposal_hash": "154237f83f10306cd2897dfbab879efeacf672c64644f0429867237a9c3a1380"
+      }
+    },
+    {
+      "id": "intake-dev-008",
+      "passed": true,
+      "actual": {
+        "candidate": "used",
+        "label": "explicit_used",
+        "source": {
+          "start": 0,
+          "end": 3,
+          "unit": "unicode_codepoint",
+          "quote": "使用过"
+        },
+        "description_sha256": "7f741c9fe925a02b087882dd1977686b38bd4f6d1035d0e8271cfba03ef6afc1",
+        "scope_start": 0,
+        "requires_confirmation": true,
+        "proposal_hash": "b3f74801486345d03163910132975f840dd22fb836e727fc373df8b4b1f8e039"
+      }
+    },
+    {
+      "id": "intake-dev-009",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "uncertain",
+        "source": null,
+        "description_sha256": "1cc1593f4c7af24b3c97d9da07d9d6dde6341940db60c22521ff12112e639107",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "f3f2e3e0b91f5e4ac16d5464010c5622063beb6aa764b4bcdf57f36601663e38"
+      }
+    },
+    {
+      "id": "intake-dev-010",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "uncertain",
+        "source": null,
+        "description_sha256": "c9757184eb219714e371f00397027a1e990e48fcfeaa7ff88b9edb6b6ac1b22e",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "29b4ca722524ca4f50eb99a6bc7245699c49dfa35ce401af29803af0e3662ca3"
+      }
+    },
+    {
+      "id": "intake-dev-011",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "uncertain",
+        "source": null,
+        "description_sha256": "b8b566b96d4e6937718cd0ef541b60c20217a78cdf2ba2e7160e875f11245e82",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "adc663bba46f9f260ea64dbd9635e2145f056e04ad05987ceb13f1489abf0888"
+      }
+    },
+    {
+      "id": "intake-dev-012",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "uncertain",
+        "source": null,
+        "description_sha256": "c1864833d71f43df88f26a8eff312dee332bb320bd430c6331e7d9d2d120d5a4",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "2c9a0f57f0f8afd4d73f5ca41d772584835b92d395212e5e8a64370913a094e9"
+      }
+    },
+    {
+      "id": "intake-dev-013",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "hypothetical",
+        "source": null,
+        "description_sha256": "74808264292f1a2eb5216a445ba605d35409812cac6ecdba65e2abc3b4297748",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "39b0e60165cd798d8d737f3f575f924e3919d98e953b24dcd749c08457c93d77"
+      }
+    },
+    {
+      "id": "intake-dev-014",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "hypothetical",
+        "source": null,
+        "description_sha256": "bdb793d37ce4d8649164ff841632c6a2e8b3c0d2766c267832606d61d2791a8f",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "234a58c1fc1a3af1f623ac367e3ac46f36313a782f24716ee6478bca4df6083b"
+      }
+    },
+    {
+      "id": "intake-dev-015",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "hypothetical",
+        "source": null,
+        "description_sha256": "f9431dd0e6c765f135fa5641ab443be982239916f2a1eb84e0e865fbb922a31d",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "2a34a9081bf09caae994ae8134a1b599d91a83d5e6ea2d328b7b9d60f9047530"
+      }
+    },
+    {
+      "id": "intake-dev-016",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "complex_negation",
+        "source": null,
+        "description_sha256": "2e6d1ba1d1c9a1ba4a0c70943d449afa5f1a4b065d0851b24d9cd7bf93e1d3a2",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "8fb59f72dd19ca197c7fcc3f367dd6703e8b3db83396965cbdb55bc222add824"
+      }
+    },
+    {
+      "id": "intake-dev-017",
+      "passed": true,
+      "actual": {
+        "candidate": "used",
+        "label": "latest_correction",
+        "source": {
+          "start": 13,
+          "end": 15,
+          "unit": "unicode_codepoint",
+          "quote": "用过"
+        },
+        "description_sha256": "7953f576c41b26349b8e785c990c45f5f8bd1e160785ff34a9c26d74bd4fd388",
+        "scope_start": 10,
+        "requires_confirmation": true,
+        "proposal_hash": "22bcfb4da966f7fca3f29325ab4fceded516d8538ac92f6e803f8f090b610417"
+      }
+    },
+    {
+      "id": "intake-dev-018",
+      "passed": true,
+      "actual": {
+        "candidate": "unused",
+        "label": "latest_correction",
+        "source": {
+          "start": 14,
+          "end": 17,
+          "unit": "unicode_codepoint",
+          "quote": "没用过"
+        },
+        "description_sha256": "e7a7bd6caf558b6dd836d727da6f4cc665969d5c90c1edec092bd81d707976a0",
+        "scope_start": 12,
+        "requires_confirmation": true,
+        "proposal_hash": "a8b4a6e262c63ecaabb82ec76b98faedf55097659309f6dbcc60f8895d4b1673"
+      }
+    },
+    {
+      "id": "intake-dev-019",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "uncertain",
+        "source": null,
+        "description_sha256": "93c89c1d4710607559cdc4f69f8f023403b4ab8ef3b8c4fa95d7457dc0955f31",
+        "scope_start": 3,
+        "requires_confirmation": false,
+        "proposal_hash": "51b7becd898e3d4eff566173ef9a5dc55a9291b17910775ddc7a1a7543106419"
+      }
+    },
+    {
+      "id": "intake-dev-020",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "conflicting",
+        "source": null,
+        "description_sha256": "f8b34453ba04f9d94d0b93b817d6b257098ffc654058853d860afdaa32c5f06e",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "9f98d91c39ce12788ec44c9892cac7871e66eb34f2421f123924f4c52c14283a"
+      }
+    },
+    {
+      "id": "intake-dev-021",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "insufficient",
+        "source": null,
+        "description_sha256": "31fa7ec2b63876dd56e6c6de4544f3aae7a53cf910925a1b39dff06646d5cac9",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "fce894e89ddaf381c164f97378264b143263a000131f49bad82c3b131b0746aa"
+      }
+    },
+    {
+      "id": "intake-dev-022",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "insufficient",
+        "source": null,
+        "description_sha256": "84c85c58e8fa838306751f0111b7365a230d1e03839799f18b07b270ce614565",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "2b3e23084a151991721d1cfeb21a650eb9e9702d99c9e8cef7da5dabaf6ac67e"
+      }
+    },
+    {
+      "id": "intake-dev-023",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "insufficient",
+        "source": null,
+        "description_sha256": "97fa25c8e9b6b5ae1b7959b5d1196c255e4619e3d25054aca40c7f40f8194ae7",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "7625724486ef6f62449cc8146baed2c30d941975b90fc6fb106b281704cae794"
+      }
+    },
+    {
+      "id": "intake-dev-024",
+      "passed": true,
+      "actual": {
+        "candidate": null,
+        "label": "instruction_not_fact",
+        "source": null,
+        "description_sha256": "dac034a1ad27e1805d0a4aa2ec7c250a3ecd779b5a5381efb44fe3ab9512e7fe",
+        "scope_start": 0,
+        "requires_confirmation": false,
+        "proposal_hash": "168488436564d0f35bd881d853efd5154b700f43450bbbd7396e469214e297b1"
+      }
+    },
+    {
+      "id": "fact-dev-001",
+      "passed": true,
+      "actual": {
+        "requested": [
+          {
+            "field": "signed_at",
+            "request_quote": "只查实际签收",
+            "start": 0,
+            "end": 6
+          }
+        ],
+        "read_only": true
+      }
+    },
+    {
+      "id": "fact-dev-002",
+      "passed": true,
+      "actual": {
+        "requested": [],
+        "read_only": false
+      }
+    },
+    {
+      "id": "fact-dev-003",
+      "passed": true,
+      "actual": {
+        "requested": [
+          {
+            "field": "refund_amount",
+            "request_quote": "实际退款金额",
+            "start": 4,
+            "end": 10
+          }
+        ],
+        "read_only": true
+      }
+    },
+    {
+      "id": "fact-dev-004",
+      "passed": true,
+      "actual": {
+        "requested": [
+          {
+            "field": "bank_received",
+            "request_quote": "银行是否到账",
+            "start": 10,
+            "end": 16
+          }
+        ],
+        "read_only": false
+      }
+    },
+    {
+      "id": "fact-dev-005",
+      "passed": true,
+      "actual": {
+        "requested": [
+          {
+            "field": "activation_status",
+            "request_quote": "查激活",
+            "start": 2,
+            "end": 5
+          }
+        ],
+        "read_only": true
+      }
+    },
+    {
+      "id": "fact-dev-006",
+      "passed": true,
+      "actual": {
+        "requested": [],
+        "read_only": false
+      }
+    },
+    {
+      "id": "fact-dev-007",
+      "passed": true,
+      "actual": {
+        "requested": [
+          {
+            "field": "member_entitlement",
+            "request_quote": "核实这单有没有15天权益标识",
+            "start": 0,
+            "end": 14
+          }
+        ],
+        "read_only": false
+      }
+    },
+    {
+      "id": "fact-dev-008",
+      "passed": true,
+      "actual": {
+        "requested": [],
+        "read_only": false
+      }
+    },
+    {
+      "id": "fact-dev-009",
+      "passed": true,
+      "actual": {
+        "requested": [
+          {
+            "field": "quality_verdict",
+            "request_quote": "质检结果",
+            "start": 3,
+            "end": 7
+          }
+        ],
+        "read_only": false
+      }
+    },
+    {
+      "id": "fact-dev-010",
+      "passed": true,
+      "actual": {
+        "requested": [],
+        "read_only": false
+      }
+    },
+    {
+      "id": "fact-dev-011",
+      "passed": true,
+      "actual": {
+        "requested": [
+          {
+            "field": "signed_at",
+            "request_quote": "核对实际签收",
+            "start": 7,
+            "end": 13
+          },
+          {
+            "field": "refund_amount",
+            "request_quote": "实际退款金额",
+            "start": 14,
+            "end": 20
+          }
+        ],
+        "read_only": false
+      }
+    },
+    {
+      "id": "fact-dev-012",
+      "passed": true,
+      "actual": {
+        "requested": [],
+        "read_only": true
+      }
+    }
+  ],
+  "replay": [
+    {
+      "id": "decision-dev-01",
+      "allowed_actions": [
+        "read_order",
+        "search_policy"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.00047
+    },
+    {
+      "id": "decision-dev-02",
+      "allowed_actions": [
+        "search_policy",
+        "check_return"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000474
+    },
+    {
+      "id": "decision-dev-03",
+      "allowed_actions": [
+        "ask_condition"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.000474
+    },
+    {
+      "id": "decision-dev-04",
+      "allowed_actions": [
+        "read_order",
+        "search_policy"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000484
+    },
+    {
+      "id": "decision-dev-05",
+      "allowed_actions": [
+        "supplement"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.000466
+    },
+    {
+      "id": "decision-dev-06",
+      "allowed_actions": [
+        "stop"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.000462
+    },
+    {
+      "id": "decision-dev-07",
+      "allowed_actions": [
+        "review"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.000456
+    },
+    {
+      "id": "decision-dev-08",
+      "allowed_actions": [
+        "stop"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.000458
+    },
+    {
+      "id": "flow-normal-model",
+      "allowed_actions": [
+        "read_order",
+        "search_policy"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.00088
+    },
+    {
+      "id": "flow-normal-model",
+      "allowed_actions": [
+        "search_policy",
+        "check_return"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000926
+    },
+    {
+      "id": "flow-normal-model",
+      "allowed_actions": [
+        "check_return"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.00118
+    },
+    {
+      "id": "flow-normal-model",
+      "allowed_actions": [
+        "review"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.00117
+    },
+    {
+      "id": "flow-ask_condition-model",
+      "allowed_actions": [
+        "read_order",
+        "search_policy"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000878
+    },
+    {
+      "id": "flow-ask_condition-model",
+      "allowed_actions": [
+        "search_policy",
+        "check_return"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000924
+    },
+    {
+      "id": "flow-ask_condition-model",
+      "allowed_actions": [
+        "check_return"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.001178
+    },
+    {
+      "id": "flow-ask_condition-model",
+      "allowed_actions": [
+        "ask_condition"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.001202
+    },
+    {
+      "id": "flow-ask_condition-model",
+      "allowed_actions": [
+        "read_order",
+        "search_policy"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.00088
+    },
+    {
+      "id": "flow-ask_condition-model",
+      "allowed_actions": [
+        "search_policy",
+        "check_return"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000926
+    },
+    {
+      "id": "flow-correction-model",
+      "allowed_actions": [
+        "read_order",
+        "search_policy"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.00088
+    },
+    {
+      "id": "flow-correction-model",
+      "allowed_actions": [
+        "search_policy",
+        "check_return"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000926
+    },
+    {
+      "id": "flow-correction-model",
+      "allowed_actions": [
+        "check_return"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.00118
+    },
+    {
+      "id": "flow-correction-model",
+      "allowed_actions": [
+        "review"
+      ],
+      "would_call_model": false,
+      "historical_charged_cny": 0.00117
+    },
+    {
+      "id": "flow-correction-model",
+      "allowed_actions": [
+        "read_order",
+        "search_policy"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000878
+    },
+    {
+      "id": "flow-correction-model",
+      "allowed_actions": [
+        "search_policy",
+        "check_return"
+      ],
+      "would_call_model": true,
+      "historical_charged_cny": 0.000924
+    }
+  ]
+}

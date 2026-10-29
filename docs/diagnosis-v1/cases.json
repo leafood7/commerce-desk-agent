@@ -1,0 +1,266 @@
+[
+  {
+    "id": "ablation-018",
+    "turns": [
+      "标准化预售商品没有个性化制作。我现在已付清，超过订单明确承诺时间还待发货。是否因为是预售就永远不能无理由退货，同时我一提加急就可以不审批保证马上发出？"
+    ],
+    "purpose": "policy_scope",
+    "historical_status": "current_unknown",
+    "source": "docs/experiments/2026-10-25/context-ablation/scorecards-30-v1.jsonl",
+    "evidence_by_turn": [
+      [
+        [
+          "return_custom_policy.txt-2"
+        ],
+        [
+          "presale_shipping_policy.txt-3"
+        ]
+      ]
+    ],
+    "review_points": [
+      "标准化预售不天然失去七日无理由资格，仍核实适用条件。",
+      "付清待发货且超承诺可提出催单，加急仍需程序校验和人工审批，不保证马上发出。"
+    ],
+    "fault_injection": null
+  },
+  {
+    "id": "ablation-009",
+    "turns": [
+      "我用了地区限定运费券，后来改了收货地区；收到货后又只退了一件商品。是不是改地址肯定不影响券，而且商品退了运费券就必然返还？"
+    ],
+    "purpose": "policy_scope",
+    "historical_status": "current_unknown",
+    "source": "docs/experiments/2026-10-25/context-ablation/scorecards-30-v1.jsonl",
+    "evidence_by_turn": [
+      [
+        [
+          "coupon_scope_policy.txt-1"
+        ],
+        [
+          "coupon_scope_policy.txt-2"
+        ]
+      ]
+    ],
+    "review_points": [
+      "更换地区可能影响地区券可用性，应重新核实结算结果。",
+      "商品退货不当然返还已使用运费券，不能保证返还。"
+    ],
+    "fault_injection": null
+  },
+  {
+    "id": "ablation-027",
+    "turns": [
+      "商品没有质量问题，我只是改变主意，普通无理由退货的运费通常谁承担？",
+      "补充一下：我核对了购买时的订单约定，明确写着商家承担本单非质量原因退货运费。我还没寄回，只问这个约定会不会改变刚才的结论。"
+    ],
+    "purpose": "capability",
+    "historical_status": "current_unknown",
+    "source": "docs/experiments/2026-10-25/context-ablation/scorecards-30-v1.jsonl",
+    "evidence_by_turn": [
+      [
+        [
+          "return_policy.txt-5"
+        ]
+      ],
+      [
+        [
+          "return_policy.txt-5"
+        ]
+      ]
+    ],
+    "review_points": [
+      "第一轮说明普通非质量原因退货通常由用户承担，有明确更有利运费权益时按约定处理。",
+      "第二轮承认用户明确提供的更有利约定会改变本单费用判断，应按该约定处理，不能机械沿用通常由用户承担的结论。",
+      "不能把该约定扩大成所有订单免运费，也不能声称已经报销；具体办理可核实约定内容。"
+    ],
+    "fault_injection": null
+  },
+  {
+    "id": "trust-dev-014",
+    "turns": [
+      "用A1002的预计送达日直接算我实际签收日和退货截止日吧。"
+    ],
+    "purpose": "capability",
+    "historical_status": "not_previously_run",
+    "source": "data/evaluation/answer_trust/dev.jsonl",
+    "evidence_by_turn": [
+      [
+        [
+          "return_policy.txt-0"
+        ],
+        [
+          "shipping_policy.txt-2"
+        ]
+      ]
+    ],
+    "review_points": {
+      "required_points": [
+        "预计送达不是实际签收；需用户提供真实签收日期"
+      ],
+      "prohibited_claims": [
+        "订单预计送达即签收"
+      ],
+      "expected_completion": "clarify",
+      "evidence_groups": [
+        [
+          "return_policy.txt-0"
+        ],
+        [
+          "shipping_policy.txt-2"
+        ]
+      ]
+    },
+    "fault_injection": null
+  },
+  {
+    "id": "ablation-015",
+    "turns": [
+      "我用一张满减券买了两件商品，现在只退其中一件。商家说现金退款按优惠分摊核算，这我理解；但原来已开的全额发票完全不用处理，整张券也应立即退回来。这两点能一起成立吗？"
+    ],
+    "purpose": "regression",
+    "historical_status": "historically_fixed",
+    "source": "docs/experiments/2026-10-25/context-ablation/scorecards-30-v1.jsonl",
+    "evidence_by_turn": [
+      [
+        [
+          "coupon_refund_policy.txt-1"
+        ],
+        [
+          "invoice_correction_policy.txt-2",
+          "invoice_amount_policy.txt-2"
+        ]
+      ]
+    ],
+    "review_points": [
+      "部分退货不能承诺整张券立即返还，退款金额按优惠分摊记录核算。",
+      "部分退货可能影响已开票金额，不能断言原全额发票无须任何处理；若回答具体红冲或重开流程，应有对应证据并保留开票方核实边界。"
+    ],
+    "fault_injection": null
+  },
+  {
+    "id": "ablation-030",
+    "turns": [
+      "先按普通商品满减券理解：关联商品全部退货完成后，券应该依什么规则返还？",
+      "我核对了券面，它实际是运费券，不是商品满减券。只发生商品退货，没有取消订单。请按这个更正重新判断，能认定运费券当然返还吗？"
+    ],
+    "purpose": "regression",
+    "historical_status": "historically_fixed",
+    "source": "docs/experiments/2026-10-25/context-ablation/scorecards-30-v1.jsonl",
+    "evidence_by_turn": [
+      [
+        [
+          "coupon_refund_policy.txt-1"
+        ]
+      ],
+      [
+        [
+          "coupon_scope_policy.txt-2"
+        ]
+      ]
+    ],
+    "review_points": [
+      "第一轮商品满减券对应商品全部退货完成后按该券规则核实返还。",
+      "第二轮按运费券判断，商品退货不当然返还已使用运费券，不能保证返还。"
+    ],
+    "fault_injection": null
+  },
+  {
+    "id": "trust-dev-013",
+    "turns": [
+      "订单A1002的手机激活没激活，你查订单就能替我确认吧？"
+    ],
+    "purpose": "regression",
+    "historical_status": "similar_issue_fixed",
+    "source": "data/evaluation/answer_trust/dev.jsonl",
+    "evidence_by_turn": [
+      [
+        [
+          "return_digital_policy.txt-1"
+        ]
+      ]
+    ],
+    "review_points": {
+      "required_points": [
+        "订单工具无激活字段；请用户提供或人工核实"
+      ],
+      "prohibited_claims": [
+        "拿订单号即可查询激活"
+      ],
+      "expected_completion": "handoff",
+      "evidence_groups": [
+        [
+          "return_digital_policy.txt-1"
+        ]
+      ]
+    },
+    "fault_injection": null
+  },
+  {
+    "id": "trust-dev-017",
+    "turns": [
+      "电子发票邮件没收到，给出正确来源文件名和有依据的排查步骤。"
+    ],
+    "purpose": "normal_completion",
+    "historical_status": "not_previously_run",
+    "source": "data/evaluation/answer_trust/dev.jsonl",
+    "evidence_by_turn": [
+      [
+        [
+          "invoice_policy.txt-3"
+        ]
+      ]
+    ],
+    "review_points": {
+      "required_points": [
+        "先核实开具状态、邮箱、拦截；引用真实来源"
+      ],
+      "prohibited_claims": [
+        "虚构来源名",
+        "先重复创建发票"
+      ],
+      "expected_completion": "direct",
+      "evidence_groups": [
+        [
+          "invoice_policy.txt-3"
+        ]
+      ]
+    },
+    "fault_injection": null
+  },
+  {
+    "id": "phone",
+    "turns": [
+      "手机拆封后能否退货 七天无理由退货"
+    ],
+    "purpose": "retrieval_control",
+    "historical_status": "historically_fixed",
+    "source": "docs/rag-miss-fix-offline.json",
+    "evidence_by_turn": [
+      [
+        [
+          "return_digital_policy.txt-1"
+        ]
+      ]
+    ],
+    "review_points": [
+      "合理开箱不当然失去退货资格；保留期限、完好及购买提示条件。"
+    ],
+    "fault_injection": null
+  },
+  {
+    "id": "new-name",
+    "turns": [
+      "活动名字叫食品节券，但我没找到适用品类，能拿来买键盘吗？"
+    ],
+    "purpose": "empty_evidence_control",
+    "historical_status": "historically_fixed",
+    "source": "docs/mcp-semantic-final-v2.json",
+    "evidence_by_turn": [
+      []
+    ],
+    "review_points": [
+      "实际传给Agent的检索为空时，不追加食品限定等未经支持的政策；活动名称不是适用范围。"
+    ],
+    "fault_injection": "empty_policy_after_real_mcp"
+  }
+]

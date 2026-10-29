@@ -1,0 +1,225 @@
+"""Frozen authored same-document branch comparison; no generation/provider calls."""
+
+import argparse
+import hashlib
+import json
+import statistics
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from workbench.return_context import project_policy_context  # noqa: E402
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("command", choices=["validate", "run"])
+    p.add_argument("--dataset", type=Path, default=ROOT / "data/evaluation/quality_return_v1")
+    p.add_argument("--version", choices=["policy_scoped", "clause_bound", "all"], default="all")
+    p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--baseline", type=Path)
+    p.add_argument("--case-id", action="append")
+    a = p.parse_args()
+    m = json.loads((a.dataset / "manifest.json").read_text(encoding="utf-8"))
+    for name, digest in m["hashes"].items():
+        if hashlib.sha256((a.dataset / name).read_bytes()).hexdigest() != digest:
+            p.error("Fixture hash mismatch")
+    if (
+        hashlib.sha256(
+            (ROOT / "docs/fullstack/quality-return-protocol.md").read_bytes()
+        ).hexdigest()
+        != m["protocol_sha256"]
+    ):
+        p.error("Protocol hash mismatch")
+    data = {
+        name[:-5]: json.loads((a.dataset / name).read_text(encoding="utf-8"))
+        for name in m["hashes"]
+    }
+    valid = {r["id"] for r in data["cases"]}
+    if len(valid) != m["cases"] or (
+        a.case_id and (len(set(a.case_id)) != len(a.case_id) or set(a.case_id) - valid)
+    ):
+        p.error("Invalid or duplicate case ID")
+    if a.baseline and not a.baseline.is_file():
+        p.error("Missing baseline report")
+    if a.command == "validate":
+        print(json.dumps({"cases": len(valid), "frozen": True}))
+        return
+    if a.output.exists():
+        p.error("Output exists; retain old experiments")
+    import chromadb
+    from business.rag_retrieval import (
+        BM25Index,
+        reciprocal_rank_fusion,
+        rerank,
+        reranker,
+        RERANKER_MODEL,
+        RERANKER_REVISION,
+    )
+    from workbench.knowledge_index import embedding_function, EMBEDDING_MODEL, EMBEDDING_REVISION
+    from workbench.document_parsing import chunks_from_blocks, text_blocks
+    from workbench.evidence_context import expand_context
+
+    a.output.mkdir(parents=True)
+    config = {
+        "chunk": "structural",
+        "size": 300,
+        "overlap": 40,
+        "top_k": 3,
+        "pool": 12,
+        "context_chars": 1200,
+        "distance": 0.65,
+        "rerank_threshold": -2.0,
+    }
+    embedding = embedding_function()
+    reranker()
+    collection = chromadb.PersistentClient(path=str(a.output / "index")).get_or_create_collection(
+        "quality_return_dev", embedding_function=embedding, metadata={"hnsw:space": "cosine"}
+    )
+    docs = []
+    for doc in data["corpus"]:
+        for c in chunks_from_blocks(
+            text_blocks(doc["text"]),
+            strategy=config["chunk"],
+            size=config["size"],
+            overlap=config["overlap"],
+        ):
+            docs.append({**c, "id": doc["id"] + "-" + str(c["position"]), "version_id": doc["id"]})
+    collection.upsert(
+        ids=[d["id"] for d in docs],
+        documents=[d["content"] for d in docs],
+        metadatas=[{"version_id": d["version_id"]} for d in docs],
+    )
+    by_id = {d["id"]: d for d in docs}
+    operator_refs = {}
+    for basis, binding in data["bindings"].items():
+        refs = []
+        for quote in binding["clauses"]:
+            source = next(
+                d
+                for d in docs
+                if d["version_id"] == binding["version_id"] and quote in d["content"]
+            )
+            refs.append({"chunk_id": source["id"], "quote": quote})
+        operator_refs[basis] = refs
+    sparse = {
+        v: BM25Index([d for d in docs if d["version_id"] == v])
+        for v in {d["version_id"] for d in docs}
+    }
+    arms = ["policy_scoped", "clause_bound"] if a.version == "all" else [a.version]
+    rows = []
+    for i, case in enumerate(c for c in data["cases"] if not a.case_id or c["id"] in a.case_id):
+        binding = data["bindings"][case["latest_binding"]]
+        version = binding["version_id"]
+        candidates = [d for d in docs if d["version_id"] == version]
+        for arm in arms if i % 2 == 0 else arms[::-1]:
+            started = time.perf_counter()
+            dense_raw = collection.query(
+                query_texts=[case["question"]],
+                n_results=min(config["pool"], len(candidates)),
+                where={"version_id": version},
+            )
+            dense = [
+                {**by_id[key], "distance": distance}
+                for key, distance in zip(dense_raw["ids"][0], dense_raw["distances"][0])
+                if distance <= config["distance"]
+            ]
+            sr = sparse[version].search(case["question"], config["pool"])
+            fusion = reciprocal_rank_fusion([dense, sr], config["pool"])
+            ranked = [
+                r
+                for r in rerank(case["question"], fusion)
+                if r["rerank_score"] >= config["rerank_threshold"]
+            ]
+            raw = expand_context(
+                ranked[: config["top_k"]], candidates, config["context_chars"], "neighbors"
+            )
+            context = (
+                project_policy_context(raw, operator_refs[case["latest_binding"]])
+                if arm == "clause_bound"
+                else raw
+            )
+            text = "\n".join(r["content"] for r in context)
+            required = case["required_quotes"]
+            metrics = {
+                "necessary_coverage": sum(q in text for q in required) / len(required)
+                if required
+                else None,
+                "wrong_branch_hits": sum(q in text for q in case["wrong_branch_quotes"]),
+                "unknown_fact_returns_policy": bool(context) if not case["answerable"] else None,
+            }
+            row = {
+                "case_id": case["id"],
+                "family": case["family"],
+                "arm": arm,
+                "question": case["question"],
+                "latest_binding": case["latest_binding"],
+                "metrics": metrics,
+                "elapsed_ms": (time.perf_counter() - started) * 1000,
+                "context_chars": len(text),
+                "trace": {
+                    "dense": [d["id"] for d in dense],
+                    "sparse": [d["id"] for d in sr],
+                    "fusion": [d["id"] for d in fusion],
+                    "reranked": [d["id"] for d in ranked],
+                },
+                "raw_context": raw,
+                "actual_context": context,
+            }
+            rows.append(row)
+            with (a.output / "traces.jsonl").open("a", encoding="utf-8") as f:
+                f.write(json.dumps(row, ensure_ascii=False) + "\n")
+        print(f"{i + 1} done", flush=True)
+    summary = {
+        "authored_development_only": True,
+        "cases": len(rows) // len(arms),
+        "new_paid_calls": 0,
+        "arms": {},
+        "limits": [
+            "Operator business binding supplied, not inferred",
+            "Coverage and branch filtering are not answer accuracy",
+            "Policy excerpts do not establish actual order facts",
+            "Not independent blind review",
+        ],
+    }
+    for arm in arms:
+        selected = [r for r in rows if r["arm"] == arm]
+        positive = [r for r in selected if r["metrics"]["necessary_coverage"] is not None]
+        negative = [r for r in selected if r["metrics"]["unknown_fact_returns_policy"] is not None]
+        summary["arms"][arm] = {
+            "positive_cases": len(positive),
+            "full_coverage": sum(r["metrics"]["necessary_coverage"] == 1 for r in positive),
+            "mean_coverage": statistics.mean(r["metrics"]["necessary_coverage"] for r in positive)
+            if positive
+            else None,
+            "wrong_branch_cases": sum(r["metrics"]["wrong_branch_hits"] > 0 for r in positive),
+            "unknown_fact_cases": len(negative),
+            "unknown_fact_still_returns_policy": sum(
+                r["metrics"]["unknown_fact_returns_policy"] for r in negative
+            ),
+            "mean_context_chars": statistics.mean(r["context_chars"] for r in selected),
+            "median_ms": statistics.median(r["elapsed_ms"] for r in selected),
+        }
+    manifest = {
+        **m,
+        "config": config,
+        "embedding": [EMBEDDING_MODEL, EMBEDDING_REVISION],
+        "reranker": [RERANKER_MODEL, RERANKER_REVISION],
+        "chunks": len(docs),
+        "algorithm_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "baseline": str(a.baseline) if a.baseline else None,
+        "baseline_sha256": hashlib.sha256(a.baseline.read_bytes()).hexdigest()
+        if a.baseline
+        else None,
+    }
+    for name, value in [("summary.json", summary), ("manifest.json", manifest)]:
+        (a.output / name).write_text(
+            json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+    print(json.dumps(summary, ensure_ascii=False), flush=True)
+
+
+if __name__ == "__main__":
+    main()

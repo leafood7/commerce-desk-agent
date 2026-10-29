@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      docker_smoke:
+        description: Build and run the full MySQL/API/React Compose stack
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -13,6 +18,11 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      USE_FAKE_MODEL: 'true'
+      HF_HUB_OFFLINE: '1'
+      LANGCHAIN_TRACING_V2: 'false'
+      LANGSMITH_TRACING: 'false'
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -21,17 +31,89 @@ jobs:
       - uses: astral-sh/setup-uv@v10.0.1
         with:
           version: '0.12.5'
-      - name: Install dependencies
-        run: uv sync --frozen --no-dev --extra supportpilot
-      - name: Run customer support tests
+      - run: uv sync --frozen --extra supportpilot
+      - name: Customer support regression
         env:
           PYTHONPATH: src:tests:tests/agents
-          USE_FAKE_MODEL: 'true'
-          HF_HUB_OFFLINE: '1'
         run: >-
           uv run --no-sync python -m unittest
           test_policy_evidence test_policy_refresh_evaluation
           test_query_rewrite_evaluation test_rag_evaluation test_rag_retrieval
           test_knowledge test_order_repository test_shipping
           test_supportpilot_agent test_policy_tool test_policy_context test_policy_fastpath
-          test_answer_quality_evaluation test_mcp_integration test_mcp_semantic_evaluation -v
+          test_answer_quality_evaluation test_mcp_integration test_mcp_semantic_evaluation
+          test_policy_modality_evaluation test_answer_guard test_answer_trust_evaluation -q
+      - name: Service, client and foundation regression
+        run: >-
+          uv run --no-sync pytest tests/service tests/client tests/app
+          tests/agents/test_agent_loading.py tests/workbench tests/test_answer_diagnosis.py -q
+      - name: Offline experiment integrity
+        env:
+          PYTHONPATH: src
+        run: |
+          uv run --no-sync python scripts/evaluate_answer_trust.py validate
+          uv run --no-sync python scripts/evaluate_workbench_rag.py validate
+  mysql:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: commercedesk_test
+          MYSQL_USER: commerce
+          MYSQL_PASSWORD: ci-only-password
+          MYSQL_ROOT_PASSWORD: ci-only-root-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 --silent"
+          --health-interval=5s --health-timeout=5s --health-retries=30
+    env:
+      WORKBENCH_TEST_MYSQL_URL: mysql+pymysql://commerce:ci-only-password@127.0.0.1:3306/commercedesk_test?charset=utf8mb4
+      USE_FAKE_MODEL: 'true'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - uses: astral-sh/setup-uv@v10.0.1
+        with:
+          version: '0.12.5'
+      - run: uv sync --frozen --extra supportpilot
+      - run: uv run --no-sync pytest tests/workbench -q
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm --prefix frontend ci --ignore-scripts
+      - run: npm --prefix frontend run build
+  docker:
+    if: github.event_name == 'workflow_dispatch' && inputs.docker_smoke
+    runs-on: ubuntu-latest
+    env:
+      WORKBENCH_MYSQL_PASSWORD: ci-only-app-password
+      WORKBENCH_MYSQL_ROOT_PASSWORD: ci-only-root-password
+      WORKBENCH_DOCKER_DATABASE_URL: mysql+pymysql://commerce:ci-only-app-password@mysql:3306/commercedesk?charset=utf8mb4
+      WORKBENCH_TEST_PASSWORD: ci-only-demo-password
+      USE_FAKE_MODEL: 'true'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - uses: astral-sh/setup-uv@v10.0.1
+        with:
+          version: '0.12.5'
+      - run: uv sync --frozen --extra supportpilot
+      - run: docker compose up --build -d --wait
+      - run: >-
+          docker compose exec -T -e WORKBENCH_DEMO_PASSWORD=ci-only-demo-password
+          api python -m workbench.cli seed
+      - run: uv run --no-sync pytest --run-docker tests/integration/test_workbench_docker.py -q
+      - if: always()
+        run: docker compose logs --no-color && docker compose down

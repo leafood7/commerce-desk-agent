@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-29",
+  "phase": "agent-rag-v1",
+  "mysql": {
+    "passed": 75
+  },
+  "sqlite": {
+    "passed": 73,
+    "skipped": 2
+  },
+  "container_api": {
+    "passed": 3
+  },
+  "container_browser": {
+    "passed": 8
+  },
+  "model_calls": 40,
+  "stage_cost_estimate_cny": 0.026836,
+  "cumulative_estimate_cny": 4.5462,
+  "default_router": "rules",
+  "default_context": "neighbors",
+  "quality_claim": "correlated development results only"
+}

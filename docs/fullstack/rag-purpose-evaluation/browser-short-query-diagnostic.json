@@ -1,0 +1,13 @@
+{
+  "source": "actual_local_container_browser_initial_failure",
+  "query": "只查照片能自动证明缺陷吗？不要申请。",
+  "purpose": "policy_question",
+  "retrieval_strategy": "hybrid_rerank",
+  "fusion_candidate_count": 1,
+  "anchor_count_after_rerank": 0,
+  "published_evidence_count": 0,
+  "application_created": false,
+  "answer": "已按只读需求核对，未进入申请确认，未提交退货申请。当前检索没有可引用的政策原文；实际业务字段单独列示，未知项仍待核实。",
+  "conclusion": "原短问句漏检未解决；最终浏览器有证据用例使用更明确条件问句，不构成召回修复。",
+  "run_id_prefix": "c2ed3a81"
+}

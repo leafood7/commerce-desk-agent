@@ -1,0 +1,265 @@
+{
+  "split": "authored_development_only",
+  "cases": 32,
+  "documents": 180,
+  "hashes": {
+    "corpus.json": "996174fa88d2e9b6f85f48c3bbb4c46d4182df5cf7852fdf7e027cb93c410f83",
+    "cases.json": "c374af92cf8090409742caa75129ae114cf21a64d25369223ddfcd403a22a26f",
+    "bindings.json": "500de81b1dd30b5812da75f071e5b5ed14875d94efd4851ef46a6aeaec347740",
+    "config.json": "68810eb4efbff21cf8d8180160eacc5dac7f71625aaf47471ea04a13d57c0ed4"
+  },
+  "protocol_sha256": "4d3bc03b6f5ada3c27f743b13ce59640fc972052ae983f6227b1c60692fc16c2",
+  "long_document_chars": [
+    14652,
+    14652,
+    14648,
+    14648,
+    14648,
+    14648
+  ],
+  "paid_calls": 0,
+  "holdout_read": false,
+  "template_corpus": true,
+  "dataset": "D:\\VScodeProgects\\commerce-desk-agent\\data\\evaluation\\rag_long_scale_v2",
+  "selected_cases": [
+    "long-dev-001",
+    "long-dev-002",
+    "long-dev-003",
+    "long-dev-004",
+    "long-dev-005",
+    "long-dev-006",
+    "long-dev-007",
+    "long-dev-008",
+    "long-dev-009",
+    "long-dev-010",
+    "long-dev-011",
+    "long-dev-012",
+    "long-dev-013",
+    "long-dev-014",
+    "long-dev-015",
+    "long-dev-016",
+    "long-dev-017",
+    "long-dev-018",
+    "long-dev-019",
+    "long-dev-020",
+    "long-dev-021",
+    "long-dev-022",
+    "long-dev-023",
+    "long-dev-024",
+    "long-dev-025",
+    "long-dev-026",
+    "long-dev-027",
+    "long-dev-028",
+    "long-dev-029",
+    "long-dev-030",
+    "long-dev-031",
+    "long-dev-032"
+  ],
+  "tiers": [
+    12,
+    60,
+    180
+  ],
+  "arms": [
+    "global_struct600",
+    "global_fixed600",
+    "global_struct300",
+    "global_pool24",
+    "global_top5",
+    "global_no_rerank",
+    "scoped_struct600",
+    "scoped_references"
+  ],
+  "config": {
+    "tiers": [
+      12,
+      60,
+      180
+    ],
+    "seed": 20261029,
+    "budget": 2400,
+    "distance": 0.65,
+    "rerank_threshold": -2.0,
+    "arms": {
+      "global_struct600": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_fixed600": {
+        "chunk": "fixed",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_struct300": {
+        "chunk": "structural",
+        "size": 300,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_pool24": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 24,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_top5": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 5,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_no_rerank": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": false,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "scoped_struct600": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": true,
+        "context": "neighbors"
+      },
+      "scoped_references": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": true,
+        "context": "references"
+      }
+    }
+  },
+  "embedding": [
+    "BAAI/bge-small-zh-v1.5",
+    "7999e1d3359715c523056ef9478215996d62a620"
+  ],
+  "reranker": [
+    "BAAI/bge-reranker-base",
+    "2cfc18c9415c912f9d8155881c133215df768a70"
+  ],
+  "model_startup_ms": 11552.48089999077,
+  "source_sha256": "3b3e5a1f4df2ae75b037b0b63e247ba222371649914783a87bbb8bf1e236e678",
+  "reference_helper_sha256": "5411adab366b6e50cc3f728c4c45001c63838d5d9ef374b1758ebce61261dd39",
+  "baseline_reference": "docs\\fullstack\\quality-return-evaluation\\summary.json",
+  "baseline_sha256": "c00e46f1de471f46bd38033f7669399681ad7b604ad88952f7cd12d92a7f3df5",
+  "max_seconds": 2400,
+  "indexing": [
+    {
+      "tier_documents": 12,
+      "layout": "fixed600",
+      "total_chunks": 168,
+      "active_chunks": 59,
+      "active_documents": 7,
+      "new_chunks": 168,
+      "incremental_index_ms": 13150.160799996229,
+      "characters": 89644
+    },
+    {
+      "tier_documents": 12,
+      "layout": "structural300",
+      "total_chunks": 444,
+      "active_chunks": 151,
+      "active_documents": 7,
+      "new_chunks": 444,
+      "incremental_index_ms": 12106.965200000559,
+      "characters": 89644
+    },
+    {
+      "tier_documents": 12,
+      "layout": "structural600",
+      "total_chunks": 300,
+      "active_chunks": 103,
+      "active_documents": 7,
+      "new_chunks": 300,
+      "incremental_index_ms": 12641.96360000642,
+      "characters": 89644
+    },
+    {
+      "tier_documents": 60,
+      "layout": "fixed600",
+      "total_chunks": 216,
+      "active_chunks": 95,
+      "active_documents": 43,
+      "new_chunks": 48,
+      "incremental_index_ms": 1743.051800003741,
+      "characters": 103758
+    },
+    {
+      "tier_documents": 60,
+      "layout": "structural300",
+      "total_chunks": 492,
+      "active_chunks": 187,
+      "active_documents": 43,
+      "new_chunks": 48,
+      "incremental_index_ms": 1744.8551999987103,
+      "characters": 103758
+    },
+    {
+      "tier_documents": 60,
+      "layout": "structural600",
+      "total_chunks": 348,
+      "active_chunks": 139,
+      "active_documents": 43,
+      "new_chunks": 48,
+      "incremental_index_ms": 1819.7612000076333,
+      "characters": 103758
+    },
+    {
+      "tier_documents": 180,
+      "layout": "fixed600",
+      "total_chunks": 336,
+      "active_chunks": 186,
+      "active_documents": 134,
+      "new_chunks": 120,
+      "incremental_index_ms": 4980.244999998831,
+      "characters": 139206
+    },
+    {
+      "tier_documents": 180,
+      "layout": "structural300",
+      "total_chunks": 612,
+      "active_chunks": 278,
+      "active_documents": 134,
+      "new_chunks": 120,
+      "incremental_index_ms": 4826.402299993788,
+      "characters": 139206
+    },
+    {
+      "tier_documents": 180,
+      "layout": "structural600",
+      "total_chunks": 468,
+      "active_chunks": 230,
+      "active_documents": 134,
+      "new_chunks": 120,
+      "incremental_index_ms": 4725.193999998737,
+      "characters": 139206
+    }
+  ],
+  "index_bytes": 13360308
+}

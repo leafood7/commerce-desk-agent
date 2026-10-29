@@ -1,0 +1,715 @@
+[
+  {
+    "case_id": "ablation-018",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-01.json#/rows/0",
+    "answer": "**结论：** 这两个说法都不成立。预售身份不会让商品“永远不能无理由退货”；提出加急也不等于免审批、保证马上发出。\n\n**依据：**\n- 加急方面：已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单；但“加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证”。加急申请会先保存为待审批，批准前不创建加急工单（来源：presale_shipping_policy.txt、shipping_exception_policy.txt）。\n- 退货方面：本轮检索到的片段只涉及预售发货与催单，未包含预售商品无理由退货资格的规定，因此这部分知识库暂无依据，无法确认。\n\n**待核实条件：** 退货资格需按具体商品与订单情况人工核实；加急是否受理，需以该订单实际承诺发货截止时间（promised_ship_at）及审批结果为准。如需我查询具体订单，请提供订单号。",
+    "ai_assisted_flags": [
+      "unsupported_claim",
+      "internal_inconsistency"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "reviewed",
+      "scope": "first_pass_error_classification_only",
+      "reviewer": "用户（本次对话原文回复）",
+      "recorded_at": "2026-10-28T07:34:26.166141+00:00",
+      "verdict": "confirmed",
+      "confirmed_error_codes": [
+        "unsupported_claim",
+        "internal_inconsistency"
+      ],
+      "rationale": "无依据的退货断言，并有前后不一致",
+      "reference": "author-review.json"
+    }
+  },
+  {
+    "case_id": "ablation-009",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-01.json#/rows/1",
+    "answer": "**结论：这两个“必然”都不成立。**\n\n**依据：**\n- 地区限定券需满足使用入口、收货地区等条件；更换收货地址**可能影响可用性**，应重新核实结算结果（coupon_scope_policy.txt）。\n- 运费券不抵减商品价款；商品退货**不当然返还**已使用的运费券（coupon_scope_policy.txt）。\n- 关于部分退货：只退部分商品时**不承诺立即退回整张券**，退款金额按优惠分摊记录核算（coupon_refund_policy.txt）。\n\n**待核实条件：** 您这张券的具体券面规则（是否含特别返还约定）、改地址后实际结算是否仍可用，以及该券退回时是否仍在有效期内——这些需按券规则或人工核实，无法保证一定返还。\n\n来源：coupon_scope_policy.txt、coupon_refund_policy.txt",
+    "ai_assisted_flags": [
+      "scope_mismatch"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "reviewed",
+      "scope": "first_pass_error_classification_only",
+      "reviewer": "用户（本次对话原文回复）",
+      "recorded_at": "2026-10-28T07:34:26.166141+00:00",
+      "verdict": "confirmed",
+      "confirmed_error_codes": [
+        "scope_mismatch"
+      ],
+      "rationale": "应记录这项适用范围错误",
+      "reference": "author-review.json"
+    }
+  },
+  {
+    "case_id": "ablation-027",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-01.json#/rows/2",
+    "answer": "**结论**：商品没有质量问题、仅因改变主意而退货，属于普通非质量原因退货，退货运费通常由您承担；如果您的订单有明确更有利的运费权益，则按该约定处理。\n\n**依据**：退换货通用政策规定，质量问题的合理退货运费由责任方按核实结果承担；普通非质量原因退货运费由用户承担，有明确更有利运费权益的订单按该约定处理（来源：return_policy.txt）。服饰因尺码不合申请无理由退货，费用同样按非质量原因规则或订单明确运费权益处理（来源：return_apparel_policy.txt）。\n\n**待核实条件**：您的具体订单是否附带免费退货运费权益，需按该订单的约定核实；会员等级或延长退货权益并不自动附带免费退货运费（来源：membership_scope_policy.txt）。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-027",
+    "turn": 2,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-01.json#/rows/3",
+    "answer": "**结论**：会改变。既然您的订单在购买时明确约定由商家承担本单非质量原因退货运费，那么本单就按该约定处理，不再适用“非质量原因退货运费由用户承担”的一般规则。\n\n**依据**：退换货通用政策规定，普通非质量原因退货运费由用户承担，**有明确更有利运费权益的订单按该约定处理**（来源：return_policy.txt）；服饰类无理由退货的费用也按非质量原因规则或订单明确运费权益处理（来源：return_apparel_policy.txt）。会员权益政策也说明，会员等级、商品可退条件、运费优惠是分别核实的条件（来源：membership_scope_policy.txt）。\n\n**待核实条件**：该约定只解决运费由谁承担，退货仍需满足申请期限和商品完好等条件；具体以订单约定和实际退货情况核实为准。",
+    "ai_assisted_flags": [
+      "citation_outside_reuse_whitelist"
+    ],
+    "ai_notes": [
+      "历史来源真实、主结论正确；问题是未按本轮批准片段限制引用。"
+    ],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "trust-dev-014",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "error",
+    "source": "runs/baseline-01.json#/rows/4",
+    "answer": "",
+    "ai_assisted_flags": [
+      "transport_error_not_semantic_failure"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "trust-dev-014",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-02.json#/rows/0",
+    "answer": "A1002 订单信息：机械键盘，已付款，记录显示运输中，预计明天送达（承诺发货时间 2026-10-28 22:48）。\n\n但预计送达日不能用来推算实际签收日：预计送达只是预估，不等于实际签收时间；订单工具也不提供签收日期/时刻字段，无法据此计算。因此退货截止日也无法由预计送达日推算。\n\n需要您提供实际签收日期（或签收凭证），我再结合退货政策帮您确认退货截止日。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-015",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-02.json#/rows/1",
+    "answer": "**结论：这两点不能同时成立。**\n\n**依据：**\n- 优惠券方面：满减券对应的商品**全部退货完成后**，才按该券规则返还；**只退部分商品时不承诺立即退回整张券**，退款金额按优惠分摊记录核算（coupon_refund_policy.txt）。\n- 发票方面：部分退货或优惠分摊会影响可退金额和对应发票金额，**不能把退款前的全额发票当作退货后交易金额不变的依据**（invoice_amount_policy.txt）。\n\n**待核实条件：** 这张券的具体返还规则（含活动专享券的特别约定、返还时效）需按领取时的活动规则或人工确认；发票具体如何处理（是否需红冲或重开）需以开票方核实为准。",
+    "ai_assisted_flags": [
+      "condition_strengthening"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "reviewed",
+      "scope": "first_pass_error_classification_only",
+      "reviewer": "用户（本次对话原文回复）",
+      "recorded_at": "2026-10-28T07:34:26.166141+00:00",
+      "verdict": "confirmed",
+      "confirmed_error_codes": [
+        "condition_strengthening"
+      ],
+      "rationale": "是，记录为语义强化错误",
+      "reference": "author-review.json"
+    }
+  },
+  {
+    "case_id": "ablation-030",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-02.json#/rows/2",
+    "answer": "**结论**：普通商品满减券对应的商品全部退货完成后，按该券自身的规则返还；如果只退部分商品，则不承诺立即退回整张券。退款金额按优惠分摊记录核算，优惠券抵扣部分不会作为现金重复退还。\n\n**依据**：知识库《取消退货后的优惠券返还政策》第2条写明“商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算”；第3条说明退款按实际支付及优惠分摊计算，优惠券抵扣部分不作为现金重复退还。另外，如果订单被拆分，需要核实全部关联子订单的状态，不能因为取消一个子单就认定整张券已返还。\n\n**待核实条件**：具体返还时效和券种细节，知识库未收录统一标准，需要人工确认；如果券在退回时已经过期，也不能继续使用，返还不等于自动延长有效期。\n\n来源：coupon_refund_policy.txt",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-030",
+    "turn": 2,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-02.json#/rows/3",
+    "answer": "**结论**：不能认定运费券当然返还。商品退货并不当然返还已使用的运费券。\n\n**依据**：知识库《优惠券限制与运费券政策》第3条写明“运费券不抵减商品价款。未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券”。您的情况是只发生商品退货、没有取消订单，不属于“正常取消”或“关联子订单全部取消”，因此不能据此认定运费券会返还。\n\n**待核实条件**：这张运费券本身的具体返还规则（含时效）需按券面或人工核实确认。\n\n来源：coupon_scope_policy.txt",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "trust-dev-013",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-02.json#/rows/4",
+    "answer": "订单 A1002 的查询结果如下：\n\n- 商品：机械键盘（不是手机）\n- 支付状态：已付款\n- 物流状态：记录显示运输中\n- 预计送达：明天\n- 承诺发货时间：2026-10-28 22:48:56\n\n关于激活状态：订单查询工具不提供手机激活状态，也无法通过订单号核实。而且这笔订单的商品是机械键盘，并非手机。如需确认激活情况，请提供设备相关信息，或联系人工核实。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "trust-dev-017",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-02.json#/rows/5",
+    "answer": "**结论**：电子发票按申请时确认的接收邮箱发送。如果没收到，请先核实开具状态、邮箱地址和邮件拦截情况，再联系人工处理；不要重复创建无关发票。\n\n**依据**：来源文件为 `invoice_policy.txt`（第4条）。该条明确：未收到时先核实开具状态、邮箱和拦截情况，再联系人工处理，不重复创建无关发票。另据同一文件第2条，资料完整有效时，电子发票服务目标为2个工作日内处理；资料缺失、需要更正或订单异常时，应先核实，不保证按时开具。\n\n**待核实条件**：需要确认发票是否已开具、申请时填写的邮箱是否正确，以及垃圾邮件或拦截记录中是否有该邮件。这些信息我无法通过订单查询获取，请您提供或联系人工核实。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "phone",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-02.json#/rows/6",
+    "answer": "**结论：手机拆封本身不会直接导致失去七天无理由退货资格。** 合理开箱查验不当然算商品不完好；但若已激活、授权，或存在难以恢复的使用痕迹、擅自维修改动，可能影响“完好”认定，需按实际情况核实。\n\n**依据：**\n- 实物电子商品合理开箱查验不当然失去退货资格；激活、授权或不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响完好认定（return_digital_policy.txt）。\n- 无理由退货需商品本身、配件、标识完整并按要求退回赠品；为合理查验打开包装不当然意味着商品不完好（return_policy.txt）。\n- 手机等实物电子商品不能与下载的软件或数字内容混为一类，不能统一声称所有数码商品都不支持七日无理由（return_digital_policy.txt）。\n\n**待核实条件：** 是否已激活、是否有明显使用痕迹或改动、配件标识是否齐全，以及是否在签收次日起 7 天申请期内（return_policy.txt）。另外，若购买时已明确提示并确认某类不适用情形，需另行核实。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "new-name",
+    "turn": 1,
+    "repetition": 1,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/baseline-02.json#/rows/7",
+    "answer": "知识库暂无依据，无法确认“食品节券”的适用品类范围，因此不能判断能否用于购买键盘。\n\n仅凭活动名称“食品节”也不能推定它只限食品或全品类通用。建议您查看券面说明或活动页的适用范围，或联系人工客服核实。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-018",
+    "turn": 1,
+    "repetition": 1,
+    "arm": "original",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/0",
+    "answer": "**结论：** 预售身份不会导致“永远不能无理由退货”；但加急也不能免审批、不能保证马上发出。\n\n**依据：**\n- 预售商品发货时间按购买时确认的预售承诺日期执行，不套用现货付款后48小时的默认目标（presale_shipping_policy.txt）。\n- 已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单；加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证（presale_shipping_policy.txt）。\n- 加急申请先保存为待审批，批准前不创建加急工单（shipping_exception_policy.txt）。\n\n**待核实：** 本轮知识库片段未涉及预售商品的无理由退货资格，这部分暂无依据，无法确认，建议人工核实。另外，是否已超过承诺时间，需以该订单的 promised_ship_at 为准；如需我查询，请提供订单号。",
+    "ai_assisted_flags": [
+      "unsupported_claim",
+      "internal_inconsistency"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-018",
+    "turn": 1,
+    "repetition": 1,
+    "arm": "intervention",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/1",
+    "answer": "**结论：** 预售身份本身不会让标准化商品永久失去无理由退货资格；加急也不能免审批、不能保证马上发出。\n\n**依据：**\n- 预售和个性化定制不是同一概念，普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格（return_custom_policy.txt）。\n- 已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单；加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证（presale_shipping_policy.txt）。\n- 加急申请先保存为待审批，批准前不创建加急工单（shipping_exception_policy.txt）。\n\n**待核实条件：** 具体退货资格需按商品性质及签收后的实际情况核实；加急是否受理，需以订单记录中的承诺发货截止时间 promised_ship_at 为准，并走人工审批。如需我查询该订单，请提供订单号。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-018",
+    "turn": 1,
+    "repetition": 2,
+    "arm": "intervention",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/2",
+    "answer": "**结论：** 预售身份本身不会让标准化商品永久失去无理由退货资格；加急也不能免审批、不能保证马上发出。\n\n**依据：**\n- 预售和个性化定制不是同一概念，普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格（return_custom_policy.txt）。\n- 已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单；加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证（presale_shipping_policy.txt）。\n- 加急申请先保存为待审批，批准前不创建加急工单（shipping_exception_policy.txt）。\n\n**待核实条件：** 具体退货资格需按商品类别和签收情况核实；是否超时以订单记录中的承诺发货截止时间为准。如需我查询该订单或提交催单/加急，请提供订单号。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-018",
+    "turn": 1,
+    "repetition": 2,
+    "arm": "original",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/3",
+    "answer": "**结论：** 预售身份不会导致“永远不能无理由退货”；提出加急也不代表可以跳过审批、保证马上发出。\n\n**依据：**\n- 预售商品的发货时间按购买时确认的预售承诺日期执行，不套用普通现货付款后48小时的默认目标（presale_shipping_policy.txt）。\n- 已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单；加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证（presale_shipping_policy.txt）。\n- 加急申请先保存为待审批，批准前不创建加急工单（shipping_exception_policy.txt）。\n\n**待核实条件：** 关于“预售是否影响无理由退货”，本轮知识库片段未涉及退货规则，暂无依据，无法确认；需人工核实。加急能否受理，还需核对您订单的承诺发货截止时间（promised_ship_at）及是否仍为待发货状态。如需我查询，请提供订单号。",
+    "ai_assisted_flags": [
+      "unsupported_claim",
+      "internal_inconsistency"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-009",
+    "turn": 1,
+    "repetition": 1,
+    "arm": "original",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/4",
+    "answer": "**结论：** 这两个“必然”都不成立。改收货地区可能影响地区限定运费券的可用性，需要重新核实结算结果；商品退货也不当然返还已使用的运费券，只退一件更不承诺立即退回整张券。\n\n**依据：** 知识库指出，渠道或地区限定券需满足收货地区等条件，“更换收货地址可能影响可用性，应重新核实结算结果”；运费券方面，“商品退货不当然返还已使用运费券”；退货返还规则中，“只退部分商品时不承诺立即退回整张券”，具体按券规则处理。\n\n**待核实条件：** 这张券的券面规则、改地址后的实际结算结果，以及该订单是否拆分、退货后券是否仍在有效期内，都会影响最终结果；具体返还时效需人工确认。\n\n来源：coupon_scope_policy.txt、coupon_refund_policy.txt",
+    "ai_assisted_flags": [
+      "scope_mismatch"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-009",
+    "turn": 1,
+    "repetition": 1,
+    "arm": "intervention",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/5",
+    "answer": "结论：两个“必然”都不成立。改收货地区可能影响地区限定运费券的可用性，需重新核实结算结果；商品退货也不当然返还已使用的运费券，部分退货更不承诺返还。\n\n依据：知识库《SupportPilot 商城优惠券限制与运费券政策》说明，渠道或地区限定券需满足收货地区等条件，“更换收货地址可能影响可用性，应重新核实结算结果”；同时“商品退货不当然返还已使用运费券”。\n\n待核实条件：这张券的具体券面规则，以及您改地址后的结算结果和退货订单的券处理结果，需人工核实。",
+    "ai_assisted_flags": [
+      "possible_condition_strengthening"
+    ],
+    "ai_notes": [
+      "不再混引普通商品券；‘部分退货更不承诺返还’是否程度强化仍待复核。"
+    ],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-009",
+    "turn": 1,
+    "repetition": 2,
+    "arm": "intervention",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/6",
+    "answer": "结论：两个“必然”都不成立。改收货地区可能影响地区限定运费券的可用性，需重新核实结算结果；商品退货也不当然返还已使用的运费券，部分退货更无法确认会返还。\n\n依据：知识库《coupon_scope_policy.txt》说明，地区限定券需满足收货地区等条件，“更换收货地址可能影响可用性，应重新核实结算结果”；运费券方面，“商品退货不当然返还已使用运费券”。\n\n待核实条件：这张券的具体券面规则，以及您改地址后的结算结果和退货订单的券处理记录，建议人工核实。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-009",
+    "turn": 1,
+    "repetition": 2,
+    "arm": "original",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/7",
+    "answer": "结论：两个“必然”都不成立。改收货地区可能影响地区限定运费券的可用性，需重新核实结算结果；商品退货也不当然返还已使用的运费券，只退一件更不承诺立即退回整张券。\n\n依据：地区限定券需满足收货地区等条件，“更换收货地址可能影响可用性，应重新核实结算结果”；“商品退货不当然返还已使用运费券”；满减券规则为“只退部分商品时不承诺立即退回整张券”，具体按券规则处理（来源：coupon_scope_policy.txt、coupon_refund_policy.txt）。\n\n待核实条件：这张券的券面规则、改地址后的实际结算结果，以及该订单是否拆分、退货后券是否仍在有效期内，都会影响最终结果，建议人工核实。",
+    "ai_assisted_flags": [
+      "scope_mismatch"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-015",
+    "turn": 1,
+    "repetition": 1,
+    "arm": "original",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/8",
+    "answer": "**结论：这两点不能一起成立。**\n\n**依据：**\n- 优惠券方面：知识库明确“只退部分商品时不承诺立即退回整张券”，满减券对应的商品全部退货完成后，才按该券规则返还（coupon_refund_policy.txt）。因此“整张券立即退回”没有依据。\n- 发票方面：部分退货或优惠分摊会影响可退金额和对应发票金额，不能把退款前的全额发票当作退货后交易金额不变的依据（invoice_amount_policy.txt）。因此“全额发票完全不用处理”也不成立。\n\n**待核实条件：** 这张券的具体返还规则和时效需按券种或活动规则人工确认；发票具体如何处理（是否需红冲或重开）需结合开票方和订单信息核实。",
+    "ai_assisted_flags": [
+      "condition_strengthening"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-015",
+    "turn": 1,
+    "repetition": 1,
+    "arm": "intervention",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/9",
+    "answer": "**结论：这两点不能一起成立。**\n\n**依据：**\n- 优惠券方面：知识库说明，满减券对应商品**全部退货完成后**才按券规则返还；**只退部分商品时不承诺立即退回整张券**，退款金额按优惠分摊记录核算（coupon_refund_policy.txt）。\n- 发票方面：部分退货或优惠分摊会影响可退金额和对应发票金额，**不能把退款前的全额发票当作退货后交易金额不变的依据**（invoice_amount_policy.txt）。\n\n**待核实条件：** 您这张券的具体返还规则（是否部分退、何时退）需按券面规则或人工核实；发票是否需要冲红或重开，也建议向商家财务确认。",
+    "ai_assisted_flags": [
+      "condition_strengthening"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-015",
+    "turn": 1,
+    "repetition": 2,
+    "arm": "intervention",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/10",
+    "answer": "**结论：这两点不能一起成立。**\n\n**依据：**\n- 优惠券方面：知识库《coupon_refund_policy.txt》说明，满减券对应的商品**全部退货完成后**，才按该券规则返还；**只退部分商品时不承诺立即退回整张券**，退款金额按优惠分摊记录核算。您只退一件，属于部分退货，因此“整张券立即退回”没有依据。\n- 发票方面：《invoice_amount_policy.txt》说明，部分退货或优惠分摊会影响可退金额和对应发票金额，**不能把退款前的全额发票当作退货后交易金额不变的依据**。因此“全额发票完全不用处理”也不成立。\n\n**待核实条件：** 这张券具体何时、以何种方式返还，需按该券自身规则核实；发票具体如何处理（是否需冲红或重开），建议由人工或财务进一步确认。",
+    "ai_assisted_flags": [
+      "condition_strengthening"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-015",
+    "turn": 1,
+    "repetition": 2,
+    "arm": "original",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/11",
+    "answer": "结论：这两点不能一起成立。部分退货时，整张券不承诺立即退回；已开的全额发票也不能视为无需处理。\n\n依据：\n- 优惠券：商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券，退款金额按优惠分摊记录核算（coupon_refund_policy.txt）。\n- 发票：部分退货或优惠分摊会影响可退金额和对应发票金额，不能将退款前的全额发票作为退货后交易金额不变的依据（invoice_amount_policy.txt）。\n\n待核实：这张券的具体返还规则和时效需人工确认；发票具体如何处理，需结合订单支付明细与开票明细核实。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "trust-dev-017",
+    "turn": 1,
+    "repetition": 1,
+    "arm": "original",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/12",
+    "answer": "结论：电子发票按申请时确认的接收邮箱发送；未收到时，先核实开具状态、邮箱和拦截情况，再联系人工处理，不要重复创建无关发票。\n\n依据：以上内容来自知识库文件 **invoice_policy.txt**（第4条）。\n\n待核实条件：需确认发票是否已开具、申请时填写的邮箱是否正确，以及邮件是否被垃圾箱或安全软件拦截；这些信息我无法通过订单查询获取，建议您核对后联系人工进一步处理。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "trust-dev-017",
+    "turn": 1,
+    "repetition": 1,
+    "arm": "intervention",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/13",
+    "answer": "结论：电子发票未收到时，先核实发票开具状态、接收邮箱和邮件拦截情况；确认无误后仍未收到，再联系人工处理，不要重复创建无关发票。\n\n依据：知识库《invoice_policy.txt》第4条：电子发票按申请时确认的接收邮箱发送；未收到时先核实开具状态、邮箱和拦截情况，再联系人工处理，不重复创建无关发票。\n\n待核实条件：需确认发票是否已开具、申请时填写的邮箱是否正确，以及垃圾邮件或拦截记录中是否有该邮件。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "trust-dev-017",
+    "turn": 1,
+    "repetition": 2,
+    "arm": "intervention",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/14",
+    "answer": "结论：电子发票未收到时，先核实发票开具状态、接收邮箱和邮件拦截情况，再联系人工处理；不要重复创建无关发票。\n\n依据：知识库文件 `invoice_policy.txt` 第4条说明，电子发票按申请时确认的接收邮箱发送；未收到时先核实开具状态、邮箱和拦截情况，再联系人工处理，不重复创建无关发票。\n\n待核实条件：需要确认发票是否已开具、申请时填写的邮箱是否正确，以及垃圾邮件或拦截记录中是否有该邮件。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "trust-dev-017",
+    "turn": 1,
+    "repetition": 2,
+    "arm": "original",
+    "kind": "fixed_request_pairs",
+    "status": "complete",
+    "source": "runs/pairs-01.json#/rows/15",
+    "answer": "结论：电子发票未收到时，先核实开具状态、接收邮箱和邮件拦截情况；确认无误后仍未收到，再联系人工处理，不要重复创建无关发票。\n\n依据：知识库《invoice_policy.txt》第4条写明：“电子发票按申请时确认的接收邮箱发送；未收到时先核实开具状态、邮箱和拦截情况，再联系人工处理，不重复创建无关发票。”\n\n待核实条件：需要确认发票是否已开具、申请时填写的邮箱是否正确，以及垃圾邮件或拦截记录中是否有该邮件。若这些均无异常，建议转人工核实。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-009",
+    "turn": 1,
+    "repetition": 2,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/repeat-02-resumed.json#/rows/0",
+    "answer": "这两个“必然”都不成立。\n\n**结论**\n1. 改收货地区**不一定不影响**这张券：地区限定券需满足收货地区等条件，更换地址可能影响可用性，需重新核实结算结果。\n2. 只退一件商品，运费券**不必然返还**：商品退货不当然返还已使用运费券；部分退货也不承诺立即退回整张券。\n\n**依据**\n- 《coupon_scope_policy.txt》：渠道或地区限定券还需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果。\n- 《coupon_scope_policy.txt》：运费券不抵减商品价款；未拆分订单正常取消或关联子订单全部取消时按券规则处理；商品退货不当然返还已使用运费券。\n- 《coupon_refund_policy.txt》：商品满减券对应商品全部退货完成后按该券规则返还；只退部分商品时不承诺立即退回整张券。\n\n**待核实条件**\n这张券的具体券面规则（是否限定地区、返还条件）、订单是否拆分、剩余商品状态，以及券是否已过期（过期券即使符合返还条件也不能继续使用）。如需确认，请提供订单号或券面规则，也可转人工核实。",
+    "ai_assisted_flags": [
+      "scope_mismatch"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-015",
+    "turn": 1,
+    "repetition": 2,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/repeat-02-resumed.json#/rows/1",
+    "answer": "**结论：这两点不能同时成立。**\n\n- **发票**：部分退货会影响可退金额和对应发票金额，不能把退款前的全额发票当作退货后交易金额不变的依据。因此“全额发票完全不用处理”这一说法与知识库不符，发票金额需要按退货后的实际交易金额核对处理。\n- **优惠券**：只退部分商品时，不承诺立即退回整张券；商品满减券对应的商品全部退货完成后，才按该券规则返还。因此“整张券应立即退回”没有依据。\n- **现金退款**：按实际支付及优惠分摊计算，优惠券抵扣部分不作为现金重复退还；这一点与商家的说法一致。\n\n依据：coupon_refund_policy.txt（第2、3条）、invoice_amount_policy.txt（第3条）。\n\n待核实：这张券的具体券种和活动规则（活动专享券可能有特别返还条件），以及发票的具体处理方式，建议人工确认。",
+    "ai_assisted_flags": [
+      "condition_strengthening"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-018",
+    "turn": 1,
+    "repetition": 2,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/repeat-02.json#/rows/0",
+    "answer": "**结论：** 这两个说法都不成立。标准化预售商品不会仅因“预售”身份就永久失去七日无理由退货资格；加急申请也不能免审批、保证立即发出。\n\n**依据：**\n- 《定制商品退货政策》第3条：预售和个性化定制不是同一概念，普通标准化商品采用预售方式，不意味着天然失去七日无理由退货资格；第1条：只有按消费者个性化要求制作的商品，才不适用通常的七日无理由退货。\n- 《预售与定制发货政策》第4条：已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单；加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证。\n\n**待核实条件：** 具体能否无理由退货，还需看签收时间是否在申请期内、商品是否保持完好（含配件、标识、赠品）；加急能否受理，需按订单实际承诺发货时间与程序校验结果确认。如需我查具体订单，请提供订单号。\n\n来源：return_custom_policy.txt、presale_shipping_policy.txt",
+    "ai_assisted_flags": [
+      "possible_condition_strengthening"
+    ],
+    "ai_notes": [
+      "退货证据已覆盖；定制政策‘只有…才…’为争议项，未直接判整段正确。"
+    ],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-009",
+    "turn": 1,
+    "repetition": 2,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "error",
+    "source": "runs/repeat-02.json#/rows/1",
+    "answer": "",
+    "ai_assisted_flags": [
+      "transport_error_not_semantic_failure"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-018",
+    "turn": 1,
+    "repetition": 3,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/repeat-03.json#/rows/0",
+    "answer": "**结论：** 这两个说法都不成立。预售身份本身并不等于“永远不能无理由退货”；提出加急也不等于无需审批、保证马上发出。\n\n**依据：**\n- 退货方面：政策规定，消费者定作等特定情形不适用通常的七日无理由退货；电子数码、服饰、生鲜、定制及卫生用品须结合具体品类规则和完好状态核实，不得仅以商品大类一概拒绝所有售后（return_policy.txt）。您说明这是标准化预售、没有个性化制作，因此不属于“定作”情形；但能否无理由退货，仍需按该商品适用的品类规则和商品完好状态核实。\n- 加急方面：已付清且仍待发货的预售订单，超过有效承诺发货时间后可以提出催单；加急仍需程序校验和人工审批，预售身份不会自动获得提前发货保证（presale_shipping_policy.txt）。加急还要求当前时间超过该订单的承诺发货截止时间，并须人工审批（shipping_policy.txt）。\n\n**待核实条件：** 具体订单是否已超过承诺发货截止时间，需以订单记录中的 promised_ship_at 为准；退货资格还需核实商品品类规则和商品完好状态。如需我查询，请提供订单号。",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-009",
+    "turn": 1,
+    "repetition": 3,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/repeat-03.json#/rows/1",
+    "answer": "这两个“肯定”都不成立：\n\n**1. 改收货地区不一定不影响券**\n- 依据：地区限定券需满足使用入口、收货地区等条件；更换收货地址可能影响可用性，应重新核实结算结果（coupon_scope_policy.txt）。\n- 也就是说，改地址后这张券是否仍可用，需要按新地址重新核实，不能默认不受影响。\n\n**2. 退货不必然返还运费券**\n- 依据：商品退货不当然返还已使用运费券；未拆分订单正常取消或关联子订单全部取消时，才按券规则处理（coupon_scope_policy.txt）。\n- 你只退了一件商品，属于部分退货，不承诺立即退回整张券，具体按该券规则核实（coupon_refund_policy.txt）。\n\n**待核实条件**：这张券的具体券面规则（地区范围、返还条件），以及订单是否拆分、剩余商品状态。如需确认，可提供订单号，我帮你查订单记录；券的返还资格需人工核实。",
+    "ai_assisted_flags": [
+      "scope_mismatch",
+      "condition_strengthening"
+    ],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  },
+  {
+    "case_id": "ablation-015",
+    "turn": 1,
+    "repetition": 3,
+    "arm": null,
+    "kind": "baseline_mcp",
+    "status": "complete",
+    "source": "runs/repeat-03.json#/rows/2",
+    "answer": "**结论：这两点不能同时成立。**\n\n**依据：**\n- 优惠券方面：知识库说明“商品满减券对应的商品全部退货完成后，按该券规则返还；只退部分商品时不承诺立即退回整张券”。您只退一件，属于部分退货，因此商家“整张券应立即退回”的说法没有依据。\n- 发票方面：知识库说明“部分退货或优惠分摊会影响可退金额和对应发票金额，不能将退款前的全额发票作为退货后交易金额不变的依据”。因此，全额发票并非“完全不用处理”，需要按退货后的实际交易金额核对。\n- 现金退款按优惠分摊核算，这一点与知识库一致：“退款按实际支付及优惠分摊计算……优惠券抵扣部分也不作为现金重复退还”。\n\n**待核实条件：** 这张券的具体返还规则（含活动专享券的特别约定）以及发票是否需要冲红或重开，需按券面规则和开票方要求人工确认。\n\n来源：coupon_refund_policy.txt、invoice_amount_policy.txt",
+    "ai_assisted_flags": [],
+    "ai_notes": [],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "verdict": null,
+      "rationale": null
+    }
+  }
+]

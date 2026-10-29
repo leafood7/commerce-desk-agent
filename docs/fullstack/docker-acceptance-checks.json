@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-28",
+  "status": "local_container_acceptance_passed",
+  "complete_container_acceptance": true,
+  "windows_build": "26200",
+  "physical_memory_GiB": 15.8,
+  "firmware_virtualization": true,
+  "installation": {
+    "stage": "installed_awaiting_reboot",
+    "restartRequired": true,
+    "completed": true,
+    "errors": [],
+    "paths": {
+      "app": "D:\\Docker\\app",
+      "temp": "D:\\Docker\\temp",
+      "data": "D:\\Docker\\data"
+    },
+    "virtualMachinePlatformBefore": "Disabled",
+    "wslExitCode": 0,
+    "dockerExitCode": 0,
+    "virtualMachinePlatformAfter": "Enabled",
+    "dockerCliInstalled": true
+  },
+  "docker_desktop": "4.96.3",
+  "docker_cli": "29.9.2",
+  "compose": "5.6.1",
+  "wsl": "3.0.3.0",
+  "actual_data_vhdx_on_D_verified": true,
+  "actual_container_build": "passed_five_project_images",
+  "actual_stack_start": "six_services_ready",
+  "api_tests": {
+    "passed": 3,
+    "executed": 3
+  },
+  "browser_tests": {
+    "passed": 8,
+    "executed_in_containers": 8
+  },
+  "compose_parse": "passed_real_cli",
+  "powershell_syntax": "passed",
+  "ruff": "passed",
+  "frontend_build": "passed",
+  "uv_lock_check": "passed",
+  "cpu_dependencies": {
+    "linux_cpu_torch": [
+      {
+        "version": "2.14.1+cpu",
+        "source": "https://download.pytorch.org/whl/cpu"
+      }
+    ],
+    "unused_gpu_packages_removed": 19,
+    "packages_before": 284,
+    "packages_after": 266,
+    "container_build_verified": false
+  },
+  "installer_files_removed_MB": 962.6,
+  "paid_model_calls": 0,
+  "committed": false,
+  "pushed": false,
+  "next": "User restarts Windows, then read DOCKER-RESUME.md, verify engine/data disk before build/start/tests/recovery.",
+  "reboot_confirmed": true,
+  "recovery": {
+    "container_recreation_without_volume_delete": true,
+    "published_document_and_original_preserved": true,
+    "vector_retrieval_after_recreation": true,
+    "same_graph_pause_preserved": true,
+    "approval_after_recreation": true,
+    "mcp_outage_reported_as_failure": true,
+    "query_after_mcp_recovery": true,
+    "run_id": "97405419-06b3-4157-bab6-75cc7333f227",
+    "document_version": "0822349a-a69f-43f4-b850-de666ec8659d",
+    "paid_model_calls": 0
+  },
+  "proxy_fix": "Docker host manual proxy plus Windows build client process proxy using existing local 7897",
+  "production_deployment": false
+}

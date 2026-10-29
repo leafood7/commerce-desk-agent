@@ -1,0 +1,89 @@
+[
+  {
+    "id": "fact-dev-001",
+    "question": "只查实际签收，不要申请退货。",
+    "requested_facts": [
+      "signed_at"
+    ],
+    "read_only": true
+  },
+  {
+    "id": "fact-dev-002",
+    "question": "实际签收后7天的规则是什么？",
+    "requested_facts": [],
+    "read_only": false
+  },
+  {
+    "id": "fact-dev-003",
+    "question": "只想知道实际退款金额是多少，不要提交。",
+    "requested_facts": [
+      "refund_amount"
+    ],
+    "read_only": true
+  },
+  {
+    "id": "fact-dev-004",
+    "question": "申请退货，顺便查一下银行是否到账。",
+    "requested_facts": [
+      "bank_received"
+    ],
+    "read_only": false
+  },
+  {
+    "id": "fact-dev-005",
+    "question": "帮我查激活时间，不要办理申请。",
+    "requested_facts": [
+      "activation_status"
+    ],
+    "read_only": true
+  },
+  {
+    "id": "fact-dev-006",
+    "question": "已激活的商品能否退货？",
+    "requested_facts": [],
+    "read_only": false
+  },
+  {
+    "id": "fact-dev-007",
+    "question": "核实这单有没有15天权益标识。",
+    "requested_facts": [
+      "member_entitlement"
+    ],
+    "read_only": false
+  },
+  {
+    "id": "fact-dev-008",
+    "question": "会员15天退货规则是什么？",
+    "requested_facts": [],
+    "read_only": false
+  },
+  {
+    "id": "fact-dev-009",
+    "question": "帮我查质检结果。",
+    "requested_facts": [
+      "quality_verdict"
+    ],
+    "read_only": false
+  },
+  {
+    "id": "fact-dev-010",
+    "question": "退款一般怎么算？",
+    "requested_facts": [],
+    "read_only": false
+  },
+  {
+    "id": "fact-dev-011",
+    "question": "申请退货，同时核对实际签收和实际退款金额。",
+    "requested_facts": [
+      "signed_at",
+      "refund_amount"
+    ],
+    "read_only": false
+  },
+  {
+    "id": "fact-dev-012",
+    "question": "不要申请，只想看退货政策。",
+    "requested_facts": [],
+    "read_only": true
+  }
+]

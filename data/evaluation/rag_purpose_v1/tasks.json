@@ -1,0 +1,202 @@
+[
+  {
+    "task_id": "qa-001",
+    "source_case_id": "long-dev-001",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-002",
+    "source_case_id": "long-dev-002",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-003",
+    "source_case_id": "long-dev-003",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-004",
+    "source_case_id": "long-dev-004",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-005",
+    "source_case_id": "long-dev-005",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-006",
+    "source_case_id": "long-dev-006",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-007",
+    "source_case_id": "long-dev-007",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-008",
+    "source_case_id": "long-dev-008",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-009",
+    "source_case_id": "long-dev-009",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-010",
+    "source_case_id": "long-dev-010",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-011",
+    "source_case_id": "long-dev-011",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-012",
+    "source_case_id": "long-dev-012",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-013",
+    "source_case_id": "long-dev-013",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-014",
+    "source_case_id": "long-dev-014",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-015",
+    "source_case_id": "long-dev-015",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-016",
+    "source_case_id": "long-dev-016",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-017",
+    "source_case_id": "long-dev-017",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-018",
+    "source_case_id": "long-dev-018",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-019",
+    "source_case_id": "long-dev-019",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-020",
+    "source_case_id": "long-dev-020",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-021",
+    "source_case_id": "long-dev-021",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-022",
+    "source_case_id": "long-dev-022",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-023",
+    "source_case_id": "long-dev-023",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-024",
+    "source_case_id": "long-dev-024",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-025",
+    "source_case_id": "long-dev-025",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-026",
+    "source_case_id": "long-dev-026",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-027",
+    "source_case_id": "long-dev-027",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-028",
+    "source_case_id": "long-dev-028",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-029",
+    "source_case_id": "long-dev-029",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-030",
+    "source_case_id": "long-dev-030",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-031",
+    "source_case_id": "long-dev-031",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "qa-032",
+    "source_case_id": "long-dev-032",
+    "purpose": "policy_question"
+  },
+  {
+    "task_id": "app-005",
+    "source_case_id": "long-dev-005",
+    "purpose": "application"
+  },
+  {
+    "task_id": "app-009",
+    "source_case_id": "long-dev-009",
+    "purpose": "application"
+  },
+  {
+    "task_id": "app-013",
+    "source_case_id": "long-dev-013",
+    "purpose": "application"
+  },
+  {
+    "task_id": "app-017",
+    "source_case_id": "long-dev-017",
+    "purpose": "application"
+  },
+  {
+    "task_id": "app-021",
+    "source_case_id": "long-dev-021",
+    "purpose": "application"
+  },
+  {
+    "task_id": "app-022",
+    "source_case_id": "long-dev-022",
+    "purpose": "application"
+  },
+  {
+    "task_id": "app-023",
+    "source_case_id": "long-dev-023",
+    "purpose": "application"
+  },
+  {
+    "task_id": "app-024",
+    "source_case_id": "long-dev-024",
+    "purpose": "application"
+  }
+]

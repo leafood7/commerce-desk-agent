@@ -28,7 +28,15 @@ from langgraph.types import Command, Interrupt
 from langsmith import Client as LangsmithClient
 from langsmith import uuid7
 
-from agents import DEFAULT_AGENT, AgentGraph, close_agents, get_agent, get_all_agent_info, load_agent
+from agents import (
+    DEFAULT_AGENT,
+    AgentGraph,
+    close_agents,
+    get_agent,
+    get_all_agent_info,
+    load_agent,
+)
+from agents.answer_guard import answer_guard_mode
 from core import settings
 from memory import initialize_database, initialize_store
 from schema import (
@@ -44,13 +52,16 @@ from schema import (
     UserThreadsInput,
 )
 from service.agui import router as agui_router
-from service.threads import list_user_threads
 from service.shipping_api import router as shipping_router
+from service.threads import list_user_threads
 from service.utils import (
     convert_message_content_to_string,
     ensure_model_available,
     langchain_to_chat_message,
     messages_from_checkpoint,
+    private_answer_event,
+    public_message,
+    public_messages,
     remove_tool_calls,
 )
 
@@ -180,6 +191,10 @@ async def _handle_input(
         run_id=run_id,
         callbacks=callbacks,
     )
+    try:
+        answer_guard_mode(config)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     # 检查是否有等待恢复的中断
     state = await agent.aget_state(config=config)
@@ -234,7 +249,24 @@ async def invoke(user_input: UserInput, agent_id: str = DEFAULT_AGENT) -> ChatMe
             )
         elif response_type == "values":
             # 正常响应，智能体已成功完成本轮执行
-            output = langchain_to_chat_message(response["messages"][-1])
+            guarded = answer_guard_mode(kwargs["config"]) != "off"
+            visible = public_messages(response["messages"], guarded=guarded)
+            if guarded:
+                # 未发布的本轮不能误返回上一轮已通过检查的答案。
+                last_user = max(
+                    (i for i, message in enumerate(visible) if isinstance(message, HumanMessage)),
+                    default=-1,
+                )
+                visible = [
+                    message
+                    for message in visible[last_user + 1 :]
+                    if isinstance(message, AIMessage)
+                    and message.additional_kwargs.get("answer_guard_published")
+                    and not message.tool_calls
+                ]
+            if not visible:
+                raise ValueError("No published response")
+            output = langchain_to_chat_message(visible[-1])
         else:
             raise ValueError(f"Unexpected response type: {response_type}")
 
@@ -255,6 +287,8 @@ async def message_generator(
     """
     agent: AgentGraph = get_agent(agent_id)
     kwargs, run_id = await _handle_input(user_input, agent, agent_id)
+    guarded = answer_guard_mode(kwargs["config"]) != "off"
+    published = False
 
     try:
         # 处理执行图产生的流式事件，并通过 SSE 逐步发送消息
@@ -298,6 +332,9 @@ async def message_generator(
                     new_messages.extend(update_messages)
 
             if stream_mode == "custom":
+                if guarded:
+                    # 自定义事件不属于公开回答契约；进度通过真实工具消息展示。
+                    continue
                 new_messages = [event]
 
             # LangGraph 流式输出可能产生元组：(字段名, 字段值)
@@ -323,6 +360,13 @@ async def message_generator(
                 processed_messages.append(_create_ai_message(current_message))
 
             for message in processed_messages:
+                message = public_message(message, guarded=guarded)
+                if message is None:
+                    continue
+                if isinstance(message, AIMessage) and not message.tool_calls:
+                    published = published or bool(
+                        message.additional_kwargs.get("answer_guard_published")
+                    )
                 try:
                     chat_message = langchain_to_chat_message(message)
                     chat_message.run_id = str(run_id)
@@ -336,10 +380,10 @@ async def message_generator(
                 yield f"data: {json.dumps({'type': 'message', 'content': chat_message.model_dump()})}\n\n"
 
             if stream_mode == "messages":
-                if not user_input.stream_tokens:
+                if guarded or not user_input.stream_tokens:
                     continue
                 msg, metadata = event
-                if "skip_stream" in metadata.get("tags", []):
+                if private_answer_event(metadata):
                     continue
                 # astream("messages") 有时也会让非模型节点产生额外消息，
                 # 这里将其过滤掉
@@ -351,6 +395,8 @@ async def message_generator(
                     # 模型正在请求调用工具，
                     # 因此只输出非空的正文内容
                     yield f"data: {json.dumps({'type': 'token', 'content': convert_message_content_to_string(content)})}\n\n"
+        if guarded and not published:
+            yield f"data: {json.dumps({'type': 'error', 'content': 'No published response'})}\n\n"
     except Exception as e:
         logger.error(f"Error in message generator: {e}")
         yield f"data: {json.dumps({'type': 'error', 'content': 'Internal server error'})}\n\n"
@@ -445,7 +491,9 @@ async def history(input: ChatHistoryInput, agent_id: str = DEFAULT_AGENT) -> Cha
         if not messages:
             state_snapshot = await agent.aget_state(config=config)
             messages = state_snapshot.values["messages"]
-        chat_messages: list[ChatMessage] = [langchain_to_chat_message(m) for m in messages]
+        chat_messages: list[ChatMessage] = [
+            langchain_to_chat_message(m) for m in public_messages(messages)
+        ]
         return ChatHistory(messages=chat_messages)
     except Exception as e:
         logger.error(f"An exception occurred: {e}")

@@ -1,0 +1,14 @@
+{
+  "version": "author_review_v1",
+  "date": "2026-10-29",
+  "type": "author_participant_review",
+  "independent_blind_review": false,
+  "retrieval_inputs_changed": false,
+  "original_labels_retained": true,
+  "parent_dataset": "rag_long_scale_v2",
+  "confirmed_decisions": [
+    {"issue": "photo_question_classification", "human_answer": "是，归为规则问题单独重评分", "case_id": "long-dev-032", "reviewed_type": "policy_rule_question", "minimum_quote": "用户自述或照片本身不等于确认缺陷"},
+    {"issue": "process_bundle_vs_question_sufficiency", "human_answer": "同意，两个指标分开记录", "case_ids": ["long-dev-001", "long-dev-002", "long-dev-003", "long-dev-004"], "reviewed_type": "scope_question", "minimum_from_case": "long-dev-001", "minimum_quote_index": 0}
+  ],
+  "limit": "Only these five question-evidence criteria were reviewed. Other question-minimum criteria and generated answer correctness remain unreviewed."
+}

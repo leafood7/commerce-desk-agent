@@ -1,0 +1,183 @@
+{
+  "mysql_version": "8.4.13",
+  "synthetic": true,
+  "orders": 10000,
+  "organizations": 50,
+  "queries": [
+    {
+      "name": "recent_conversations",
+      "index": "ix_wb_conversation_recent",
+      "without_target_index": {
+        "plan": [
+          {
+            "id": 1,
+            "select_type": "SIMPLE",
+            "table": "wb_conversations",
+            "partitions": null,
+            "type": "ALL",
+            "possible_keys": null,
+            "key": null,
+            "key_len": null,
+            "ref": null,
+            "rows": 9870,
+            "filtered": 0.21,
+            "Extra": "Using where; Using filesort"
+          }
+        ],
+        "median_ms": 3.3782999962568283,
+        "rows_returned": 20,
+        "timings_ms": [
+          3.2025000546127558,
+          3.3782999962568283,
+          3.4137999173253775,
+          3.6319000646471977,
+          3.2156999222934246
+        ]
+      },
+      "with_available_indexes": {
+        "plan": [
+          {
+            "id": 1,
+            "select_type": "SIMPLE",
+            "table": "wb_conversations",
+            "partitions": null,
+            "type": "ref",
+            "possible_keys": "ix_wb_conversation_recent",
+            "key": "ix_wb_conversation_recent",
+            "key_len": "292",
+            "ref": "const,const",
+            "rows": 200,
+            "filtered": 100.0,
+            "Extra": "Backward index scan"
+          }
+        ],
+        "median_ms": 0.6005000323057175,
+        "rows_returned": 20,
+        "timings_ms": [
+          0.6066998466849327,
+          0.6007000338286161,
+          0.5951998755335808,
+          0.598300015553832,
+          0.6005000323057175
+        ]
+      }
+    },
+    {
+      "name": "pending_approvals",
+      "index": "ix_wb_shipping_pending",
+      "without_target_index": {
+        "plan": [
+          {
+            "id": 1,
+            "select_type": "SIMPLE",
+            "table": "wb_shipping_requests",
+            "partitions": null,
+            "type": "ref",
+            "possible_keys": "uq_wb_shipping_kind,uq_wb_shipping_idempotency",
+            "key": "uq_wb_shipping_kind",
+            "key_len": "146",
+            "ref": "const",
+            "rows": 200,
+            "filtered": 10.0,
+            "Extra": "Using where; Using filesort"
+          }
+        ],
+        "median_ms": 1.1559000704437494,
+        "rows_returned": 20,
+        "timings_ms": [
+          1.227700151503086,
+          1.1632000096142292,
+          1.1382000520825386,
+          1.1209000367671251,
+          1.1559000704437494
+        ]
+      },
+      "with_available_indexes": {
+        "plan": [
+          {
+            "id": 1,
+            "select_type": "SIMPLE",
+            "table": "wb_shipping_requests",
+            "partitions": null,
+            "type": "ref",
+            "possible_keys": "uq_wb_shipping_kind,uq_wb_shipping_idempotency,ix_wb_shipping_pending",
+            "key": "ix_wb_shipping_pending",
+            "key_len": "244",
+            "ref": "const,const",
+            "rows": 29,
+            "filtered": 100.0,
+            "Extra": "Backward index scan"
+          }
+        ],
+        "median_ms": 0.6796999368816614,
+        "rows_returned": 20,
+        "timings_ms": [
+          0.6830999627709389,
+          0.7309999782592058,
+          0.6794000510126352,
+          0.6760999094694853,
+          0.6796999368816614
+        ]
+      }
+    },
+    {
+      "name": "order_ticket_history",
+      "index": "ix_wb_ticket_history",
+      "without_target_index": {
+        "plan": [
+          {
+            "id": 1,
+            "select_type": "SIMPLE",
+            "table": "wb_shipping_tickets",
+            "partitions": null,
+            "type": "ref",
+            "possible_keys": "order_id",
+            "key": "order_id",
+            "key_len": "146",
+            "ref": "const",
+            "rows": 1,
+            "filtered": 5.0,
+            "Extra": "Using where; Using filesort"
+          }
+        ],
+        "median_ms": 0.36170007660984993,
+        "rows_returned": 1,
+        "timings_ms": [
+          0.3667999990284443,
+          0.36170007660984993,
+          0.3581999335438013,
+          0.3579000476747751,
+          0.3662998788058758
+        ]
+      },
+      "with_available_indexes": {
+        "plan": [
+          {
+            "id": 1,
+            "select_type": "SIMPLE",
+            "table": "wb_shipping_tickets",
+            "partitions": null,
+            "type": "ref",
+            "possible_keys": "order_id,ix_wb_ticket_history",
+            "key": "order_id",
+            "key_len": "146",
+            "ref": "const",
+            "rows": 1,
+            "filtered": 5.0,
+            "Extra": "Using where; Using filesort"
+          }
+        ],
+        "median_ms": 0.3775001969188452,
+        "rows_returned": 1,
+        "timings_ms": [
+          0.3720999229699373,
+          0.4618000239133835,
+          0.3775001969188452,
+          0.3737998194992542,
+          0.4186001606285572
+        ]
+      }
+    }
+  ],
+  "limitations": "Local warm runs, five timings per arm; IGNORE INDEX excludes only the target index. No production latency or statistical significance claim."
+}

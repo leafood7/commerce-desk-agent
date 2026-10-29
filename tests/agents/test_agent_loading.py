@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
 
-from agents.agents import agents, get_agent, load_agent
+from agents.agents import Agent, agents, get_agent, load_agent
 from agents.lazy_agent import LazyLoadingAgent
 
 
@@ -15,7 +15,8 @@ class TestAgentLoading:
     async def test_load_agent_static_agent(self):
         """Test loading a static agent (no-op)."""
         # 静态智能体不需要额外加载
-        await load_agent("chatbot")
+        with patch.dict(agents, {"static-test": Agent("fixture", Mock())}):
+            await load_agent("static-test")
         # 不应抛出任何异常
 
     @pytest.mark.asyncio
@@ -38,7 +39,8 @@ class TestAgentLoading:
 
     def test_get_agent_static_agent(self):
         """Test getting a static agent."""
-        agent = get_agent("chatbot")
+        with patch.dict(agents, {"static-test": Agent("fixture", Mock())}):
+            agent = get_agent("static-test")
         assert agent is not None
 
     def test_get_agent_lazy_agent_not_loaded(self):

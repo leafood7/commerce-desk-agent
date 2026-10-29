@@ -15,6 +15,61 @@ from langchain_core.messages import (
 from core import settings
 from schema import ChatMessage
 
+PRIVATE_ANSWER_STATE_KEYS = frozenset(
+    {"answer_draft", "answer_audit", "answer_public", "policy_check"}
+)
+
+
+def private_answer_event(metadata: Mapping[str, Any] | None = None, tags=()) -> bool:
+    """内部检查与草稿事件不能成为公开文本，包括旧模式的前置检查。"""
+    metadata = metadata or {}
+    event_tags = set(tags or ()) | set(metadata.get("tags") or ())
+    return bool(
+        metadata.get("answer_guard_private")
+        or "answer_guard_private" in event_tags
+        or "skip_stream" in event_tags
+        or metadata.get("langgraph_node") == "policy_check"
+    )
+
+
+def public_message(message: Any, *, guarded: bool = False) -> BaseMessage | None:
+    """只返回可公开消息；工具调用保留参数，但绝不携带生成中的正文。"""
+    if not isinstance(message, BaseMessage):
+        return None
+    private = bool(message.additional_kwargs.get("answer_guard_private"))
+    if isinstance(message, AIMessage):
+        published = bool(message.additional_kwargs.get("answer_guard_published"))
+        if message.tool_calls and (guarded or private):
+            return message.model_copy(
+                update={"content": "", "additional_kwargs": {}, "response_metadata": {}}
+            )
+        if private or (guarded and not published):
+            return None
+        if published:
+            # 发布文本由程序生成，供应商元数据不属于公开回答契约。
+            return message.model_copy(update={"response_metadata": {}})
+    elif private:
+        return None
+    elif guarded and not isinstance(message, (HumanMessage, ToolMessage)):
+        return None
+    return message
+
+
+def public_messages(messages, *, guarded: bool = False) -> list[BaseMessage]:
+    return [
+        visible
+        for message in messages
+        if (visible := public_message(message, guarded=guarded)) is not None
+    ]
+
+
+def public_state(state: Mapping[str, Any]) -> dict[str, Any]:
+    """模式切回 off 时也隐藏检查点里残留的私有数据。"""
+    result = {key: value for key, value in state.items() if key not in PRIVATE_ANSWER_STATE_KEYS}
+    if "messages" in result:
+        result["messages"] = public_messages(result["messages"] or [])
+    return result
+
 
 def ensure_model_available(model: Any) -> None:
     """Raise 400 if `model` isn't in the operator's AVAILABLE_MODELS allowlist."""

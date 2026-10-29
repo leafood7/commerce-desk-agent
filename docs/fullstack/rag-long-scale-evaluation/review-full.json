@@ -1,0 +1,1173 @@
+{
+  "review_type": "author_participant_review",
+  "independent_blind_review": false,
+  "original_results_changed": false,
+  "reviewed_case_ids": [
+    "long-dev-001",
+    "long-dev-002",
+    "long-dev-003",
+    "long-dev-004",
+    "long-dev-032"
+  ],
+  "results": [
+    {
+      "tier": 12,
+      "arm": "global_fixed600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 12,
+      "arm": "global_no_rerank",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 1,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 7
+    },
+    {
+      "tier": 12,
+      "arm": "global_pool24",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct300",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 12,
+      "arm": "global_top5",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 3,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_references",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 4,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_struct600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 4,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 60,
+      "arm": "global_fixed600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 60,
+      "arm": "global_no_rerank",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 7
+    },
+    {
+      "tier": 60,
+      "arm": "global_pool24",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct300",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 60,
+      "arm": "global_top5",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_references",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 4,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_struct600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 4,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 180,
+      "arm": "global_fixed600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 180,
+      "arm": "global_no_rerank",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 1,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 7
+    },
+    {
+      "tier": 180,
+      "arm": "global_pool24",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct300",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 180,
+      "arm": "global_top5",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 2,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_references",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 4,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_struct600",
+      "reviewed_question_cases": 5,
+      "reviewed_question_evidence_hits": 4,
+      "corrected_negative_cases": 7,
+      "corrected_negative_returns_policy": 2
+    }
+  ],
+  "traces": [
+    {
+      "tier": 12,
+      "arm": "global_top5",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.4,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_references",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.8,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct300",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_pool24",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_references",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct300",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_pool24",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_top5",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.6,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_references",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 1.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct300",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_pool24",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_top5",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_references",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct300",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_pool24",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_top5",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_pool24",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_top5",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "scoped_references",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 12,
+      "arm": "global_struct300",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_top5",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.4,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_references",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.8,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct300",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_pool24",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_references",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct300",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_pool24",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_top5",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.6,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_references",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 1.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct300",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_pool24",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_top5",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_references",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct300",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_pool24",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_top5",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_pool24",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_top5",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "scoped_references",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 60,
+      "arm": "global_struct300",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_top5",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.4,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_references",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.8,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct300",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_pool24",
+      "case_id": "long-dev-001",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_references",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct300",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_pool24",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_top5",
+      "case_id": "long-dev-002",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.6,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_references",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 1.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct300",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_pool24",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_top5",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-003",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_references",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": 0.2,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct300",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_pool24",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_top5",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-004",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": 0.0,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_pool24",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_top5",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_no_rerank",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_struct600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "scoped_references",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_fixed600",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": false,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    },
+    {
+      "tier": 180,
+      "arm": "global_struct300",
+      "case_id": "long-dev-032",
+      "reviewed_question_evidence_hit": true,
+      "original_process_bundle_coverage": null,
+      "generated_answer_correctness": null
+    }
+  ],
+  "limit": "Only these five question-evidence criteria were reviewed. Other question-minimum criteria and generated answer correctness remain unreviewed.",
+  "parent_manifest_sha256": "07dc043c001d53fd3da07d87700f80ad5f04ef7d674e207911d0d71794d5b86e",
+  "cases_sha256": "c374af92cf8090409742caa75129ae114cf21a64d25369223ddfcd403a22a26f",
+  "input_sha256": "37a28dfbe9fd6735a16a6c419c31e273a2de40feb23a9cf2aca3afe86950ffa3",
+  "rubric_sha256": "a6317388fec81a71f36fff512e3dd9c1db263acd22e22cdb708833d03c516818"
+}

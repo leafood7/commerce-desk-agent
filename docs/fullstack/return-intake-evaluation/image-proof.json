@@ -1,0 +1,75 @@
+{
+  "host": {
+    "src/workbench/__init__.py": "a89f0309eee5027c43b1595680078018842c76a0705d4f4cabe85885d466b625",
+    "src/workbench/aftersales.py": "0308241ab9fe6b59efc822645b4894a8978d72388fb9ebebb0075a3c09d050d2",
+    "src/workbench/aftersales_graph.py": "322e493cf2d70c9293cd7adc37f9bbcb1f8b49100bdbfd28a8ef6350761e15fe",
+    "src/workbench/aftersales_schemas.py": "0450ff38f60e927a936b71368b3394790f679f5d44c603ea5947b2c716df9afc",
+    "src/workbench/app.py": "6881ee2b28fe687e0e56ae0ba8dc2b43a98a92b8749d14d1f8a03b1fcef7260f",
+    "src/workbench/checkpoints.py": "af7c1933be808f33134065b7c6d62c69fb967cc331ce203c1aa0db0f3ccf6b6f",
+    "src/workbench/cli.py": "c5eccd576429e4c63c60680fe245c45d9c67044fa76abf75bfd8df7a92a68960",
+    "src/workbench/config.py": "ee1c05b4493040920f9af80cc55354b51e69d69a5e20cedcb8b19ba74c8723d9",
+    "src/workbench/database.py": "e369e2c3c9b0d0f5038484d4dcac65a1fa0fe53e90105311a067044f5c7c60d3",
+    "src/workbench/document_parsing.py": "199f7133c532421bc10740dc4f8e0e7a708775723634292d38af7272fdf4cf7d",
+    "src/workbench/domain.py": "ba5954189c897cb409a8f2f9514f90de49ef9398a0f004c6bb87bda091276894",
+    "src/workbench/evidence_context.py": "b54c382969c927d76eca445c17f1efb14ec37d2bb24582eb5b5f3784ead3b58a",
+    "src/workbench/execution_limits.py": "668a6b0db5d5fe1b6016c9ebf8ba030e9742997fa47a043f5ab6cc2522dec655",
+    "src/workbench/flow_models.py": "06cdbdf522908ffd6516ccd690cb7438ae173cec938b70f848bfb3963b10f88f",
+    "src/workbench/ingestion.py": "f69ac7165f62790552711c8246d9a48bed8c73633fc9c63b412839a73f523c3d",
+    "src/workbench/intent_router.py": "b986d0b086c6911c5c7d6c6aee90c93cb8b9a9e4638f978bd214d2a0528d64fa",
+    "src/workbench/job_models.py": "e34ae6bcea367ed29e8873c23afb95ccb9ccf9e9aea647c43cd0639240b897c8",
+    "src/workbench/knowledge_api.py": "0453dcf5a014e4e8fb296073c81ed4a55b101da9fb952917b30d15ce2368284f",
+    "src/workbench/knowledge_index.py": "cff60bcd58274b41db659a31cd0dc2c6c98cb00ea72acb6bc70e40470f38288a",
+    "src/workbench/knowledge_models.py": "a2fedbb2ccd719d6b16e57fcb6f33b92cf19325d9a6f021b18eabf35ec91742e",
+    "src/workbench/knowledge_schemas.py": "d19da7a9c5638b21a8ada60b698e6a4f9071bbc3b3bb60763326bdfd7b608290",
+    "src/workbench/knowledge_service.py": "f8f9871a83397b4ceb9401d407c8a9c139dd0d237172a4f6bccbdd5920729d9d",
+    "src/workbench/mcp_gateway.py": "6b6d71228e809d448e2698ca4a95c57d1a94dde56e3ece628655d2b2fa1480e6",
+    "src/workbench/mcp_server.py": "4a53aca473d6fe0a463ec32424027dcfaa427074e1b50fdce8238519fb871bfd",
+    "src/workbench/models.py": "4d31f787dd3538ccceafd1599856be0e22983c62dc440af0e91197f05152e6a8",
+    "src/workbench/profile_api.py": "a0a8b48c5b9610396734b3053a06cb1007d110e93f9d743560e16a8e378f1177",
+    "src/workbench/profile_models.py": "d7397975a821cfd2236fac4efbb4d12fcbf4a03ab6cb31224b1d28273f636fb5",
+    "src/workbench/profile_schemas.py": "e839b7e9b865ad0f76661ff79e232e08928ccecb379e0d4fce0b300fb10c7801",
+    "src/workbench/profiles.py": "f851cda8f2899d997426dd34ad7b4a10b759f617a638dfab1cf233c1ed32b959",
+    "src/workbench/quota_models.py": "84a3946ffbc65609c51bd69907a84a59a36d5406952426f22fd5fafd38a6e66c",
+    "src/workbench/quotas.py": "55c644962c9e33a152dcbe576a13c7609f1207eed1cb01f63ac7532cab16f183",
+    "src/workbench/retrieval.py": "3a29bdb052831486537c5299b7442739a6012847b82f0cc565171cff1077f861",
+    "src/workbench/return_api.py": "22a6ac8288fdd6af5c95ed4c992faca9e9c7cae38930c28ef6041eef622acf18",
+    "src/workbench/return_decisions.py": "9fc7c5a25bf52ae25cfc739a8ae9aa9e83e964d90bec96ac4714e52f6bf04c8f",
+    "src/workbench/return_fact_checks.py": "296201da0db1a5e04718abe2f1e4800acb6d6d0ebc79090b29b7c2d5031669bb",
+    "src/workbench/return_graph.py": "2897b5f9d7f1da37261444671c5ab1659360b471633cc68b696553f282f12008",
+    "src/workbench/return_intake.py": "a82064d7cad2326733d89edbb79e993d022704670a95225772b834270f3ad7a5",
+    "src/workbench/return_models.py": "059506e95ecdcfd6b0218eb2e86b92afd357d92a77f65387abd68358bf1ac396",
+    "src/workbench/return_observation_graph.py": "9a37b5e13886e48056b987dcde49ceaaffa530486e3c25d2d78e039c4fa9249f",
+    "src/workbench/return_observations.py": "3f4af7c939a41a709665480b0f78af307583c42c2688cd41e8f3dc99a87e62cf",
+    "src/workbench/return_schemas.py": "5d1af271f68d92676c818ff911fd732231d5aee0132400960ec39c55a2b2c20a",
+    "src/workbench/returns.py": "8c9b8ad1b379075286cfa1b96bbb46c2679c65701321abb052b610de28558791",
+    "src/workbench/run_worker.py": "9234d6a1725c53a378a0c22071bf4eca9acace797415ed3f11385f3fa970d24b",
+    "src/workbench/runs.py": "28bca25e6f23527cd8c0f0adebf40d17351f885c3f46c0019d9cf4937a2a0d45",
+    "src/workbench/schemas.py": "627d75f419af5f17eb549370c84bd8e64eb60ea577a648a253ebc57fced89aff",
+    "src/workbench/security.py": "35cec924aadc947477b1239e31dcb59372babdfb485f472d04f888cbd9580757",
+    "src/workbench/seed.py": "1eba778b53b126ca464b3072b6e52fa8102ef4d1bb709fda64156e4361f1d561",
+    "src/workbench/tool_contracts.py": "f9a2e0f6c90ce2812af0741ee50787bea04a9bb48d81b1b4d0e4b56800aa7bbe",
+    "src/workbench/tool_plans.py": "0e91e5231c72fe6af6c2bdac3dca18cc748ccd74837bac50c4336e485a517ad5"
+  },
+  "services": {
+    "api": {
+      "matches": true,
+      "files": 49
+    },
+    "mcp": {
+      "matches": true,
+      "files": 49
+    },
+    "run-worker": {
+      "matches": true,
+      "files": 49
+    }
+  },
+  "runtime": {
+    "schema": "0007_return_applications",
+    "tables": 32,
+    "agent_router_mode": "rules",
+    "return_decision_mode": "rules",
+    "model_key_present": false
+  },
+  "web_index_sha256": "90f2142d3970a6368cabe6ff1566f3a0d13be5a6884445bc5968400cf0efbbef"
+}

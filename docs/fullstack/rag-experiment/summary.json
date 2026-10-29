@@ -1,0 +1,66 @@
+{
+  "manifest_sha256": "26826b6117a88e840743ac2d1da564e760b0a1e01163b8d19681afd04312daca",
+  "paid_model_calls": 0,
+  "arms": {
+    "fixed/vector": {
+      "answerable": 36,
+      "unanswerable": 4,
+      "source_hit": 0.9722222222222222,
+      "necessary_clause_coverage": 0.9722222222222222,
+      "anchor_clause_coverage": 0.9722222222222222,
+      "unsupported_retrieval": 1,
+      "p50_ms": 21.986050065606833,
+      "p95_ms": 33.126199850812554
+    },
+    "fixed/hybrid": {
+      "answerable": 36,
+      "unanswerable": 4,
+      "source_hit": 0.9722222222222222,
+      "necessary_clause_coverage": 0.9722222222222222,
+      "anchor_clause_coverage": 0.9722222222222222,
+      "unsupported_retrieval": 1,
+      "p50_ms": 22.178800078108907,
+      "p95_ms": 29.118699952960014
+    },
+    "fixed/hybrid_rerank": {
+      "answerable": 36,
+      "unanswerable": 4,
+      "source_hit": 0.9722222222222222,
+      "necessary_clause_coverage": 0.9722222222222222,
+      "anchor_clause_coverage": 0.9722222222222222,
+      "unsupported_retrieval": 0.5,
+      "p50_ms": 3391.5014000376686,
+      "p95_ms": 4003.46040003933
+    },
+    "structural/vector": {
+      "answerable": 36,
+      "unanswerable": 4,
+      "source_hit": 0.9722222222222222,
+      "necessary_clause_coverage": 0.9722222222222222,
+      "anchor_clause_coverage": 0.9722222222222222,
+      "unsupported_retrieval": 1,
+      "p50_ms": 23.01669993903488,
+      "p95_ms": 32.21590002067387
+    },
+    "structural/hybrid": {
+      "answerable": 36,
+      "unanswerable": 4,
+      "source_hit": 0.9722222222222222,
+      "necessary_clause_coverage": 0.9722222222222222,
+      "anchor_clause_coverage": 0.9722222222222222,
+      "unsupported_retrieval": 1,
+      "p50_ms": 23.23365001939237,
+      "p95_ms": 26.64509997703135
+    },
+    "structural/hybrid_rerank": {
+      "answerable": 36,
+      "unanswerable": 4,
+      "source_hit": 0.9722222222222222,
+      "necessary_clause_coverage": 0.9722222222222222,
+      "anchor_clause_coverage": 0.9722222222222222,
+      "unsupported_retrieval": 0.5,
+      "p50_ms": 3370.9491500630975,
+      "p95_ms": 3945.878100115806
+    }
+  }
+}

@@ -49,20 +49,17 @@ def mock_settings(mock_env):
 
 @pytest.fixture
 def mock_httpx():
-    """Patch httpx.stream and httpx.get to use our test client."""
+    """Exercise HTTP serialization without starting production model/MCP lifespans."""
+    client = TestClient(app)
 
-    with TestClient(app) as client:
+    def mock_stream(method: str, url: str, **kwargs):
+        return client.stream(method, url.replace("http://0.0.0.0", ""), **kwargs)
 
-        def mock_stream(method: str, url: str, **kwargs):
-            # 去掉基础网址，因为 TestClient 只需要路径
-            path = url.replace("http://0.0.0.0", "")
-            return client.stream(method, path, **kwargs)
+    def mock_get(url: str, **kwargs):
+        return client.get(url.replace("http://0.0.0.0", ""), **kwargs)
 
-        def mock_get(url: str, **kwargs):
-            # 去掉基础网址，因为 TestClient 只需要路径
-            path = url.replace("http://0.0.0.0", "")
-            return client.get(path, **kwargs)
-
-        with patch("httpx.stream", mock_stream):
-            with patch("httpx.get", mock_get):
-                yield
+    try:
+        with patch("httpx.stream", mock_stream), patch("httpx.get", mock_get):
+            yield
+    finally:
+        client.close()

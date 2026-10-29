@@ -1,0 +1,70 @@
+[
+  {
+    "id": "decision-dev-01",
+    "stage": "initial",
+    "allowed": [
+      "read_order",
+      "search_policy"
+    ],
+    "latest_condition": "unknown"
+  },
+  {
+    "id": "decision-dev-02",
+    "stage": "order_read",
+    "allowed": [
+      "search_policy",
+      "check_return"
+    ],
+    "latest_condition": "unused"
+  },
+  {
+    "id": "decision-dev-03",
+    "stage": "need_condition",
+    "allowed": [
+      "ask_condition"
+    ],
+    "latest_condition": "unknown"
+  },
+  {
+    "id": "decision-dev-04",
+    "stage": "corrected",
+    "allowed": [
+      "read_order",
+      "search_policy"
+    ],
+    "latest_condition": "used",
+    "prior_condition": "unused"
+  },
+  {
+    "id": "decision-dev-05",
+    "stage": "missing_evidence",
+    "allowed": [
+      "supplement"
+    ],
+    "latest_condition": "unused"
+  },
+  {
+    "id": "decision-dev-06",
+    "stage": "empty_after_supplement",
+    "allowed": [
+      "stop"
+    ],
+    "latest_condition": "unused"
+  },
+  {
+    "id": "decision-dev-07",
+    "stage": "all_checked",
+    "allowed": [
+      "review"
+    ],
+    "latest_condition": "unused"
+  },
+  {
+    "id": "decision-dev-08",
+    "stage": "missing_receipt",
+    "allowed": [
+      "stop"
+    ],
+    "latest_condition": "unused"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "python": "3.13.12 (tags/v3.13.12:1cbe481, Feb  3 2026, 18:22:25) [MSC v.1944 64 bit (AMD64)]",
+  "packages": {
+    "chromadb": "1.5.9",
+    "torch": "2.14.1",
+    "sentence-transformers": "6.1.0",
+    "transformers": "5.17.0",
+    "numpy": "2.5.2",
+    "SQLAlchemy": "2.0.52",
+    "mcp": "1.29.0"
+  },
+  "local_only": true,
+  "paid_calls": 0
+}

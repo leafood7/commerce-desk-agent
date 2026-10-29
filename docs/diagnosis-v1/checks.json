@@ -1,0 +1,12 @@
+{
+  "diagnostic_unit_tests": {
+    "passed": 6,
+    "failed": 0,
+    "command": "python -m unittest test_answer_diagnosis -v"
+  },
+  "ruff": "passed",
+  "frozen_inputs": "passed",
+  "candidate_runtime_modified_this_stage": false,
+  "holdout_accessed": false,
+  "human_review": "pending"
+}
