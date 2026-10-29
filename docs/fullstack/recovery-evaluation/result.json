@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-29T10:44:57.381253+00:00",
+  "completed": true,
+  "scope": "same-host same-version local demonstration, paused workflow only",
+  "backup_restore_seconds": 91.81355389999226,
+  "index_rebuild_seconds": 35.297669999999925,
+  "restored_tables": 34,
+  "backup_sql_sha256": "3d4e263cad110ab4ec730a5f154aadcd9ed4e0dd2b4902a689b140dd8e80a0ad",
+  "source_unchanged_after_restore": true,
+  "original_pause_preserved": true,
+  "source_run_still_waiting": true,
+  "recovered_run_completed": true,
+  "application_count_for_demo_item": 1,
+  "simulated_receipt_event_count": 1,
+  "repeated_resume_keys_checked": true,
+  "independent_approval_checked": true,
+  "organization_isolation_checked": true,
+  "source_file_hash_checked": true,
+  "restored_withdrawal_checked": true,
+  "restart_preserved_receipt": true,
+  "actual_refund_executed": false,
+  "model_provider_calls": 0,
+  "image_ids": {
+    "api": "sha256:28fd39d7ef74e727ff7f72b1300c20f5d4839c6627d4254d299e8163db60b607",
+    "mcp": "sha256:8e1787ea3db3f1a4e810a8a7d6735eb227f759f523c65924e185f585cbd6eff4",
+    "run-worker": "sha256:90914532e05a4a0c96cef4832e4cf9c123c7a9197089844a08529abd02b48319",
+    "chroma": "sha256:45824f04df0119565e8f0c4e587bf0993beb7a213228f14c17e12e7c8b60dd2f"
+  },
+  "index": {
+    "database": "commercedesk_verify_58c6bde59e49",
+    "fresh_index_verified": true,
+    "original_files_verified": 62,
+    "published_versions_rebuilt": 30,
+    "chunks_rebuilt": 30,
+    "chunk_inventory_sha256": "28f8d8b45d57d2c4bdb9e649984de41feab376d382db6214a91a62b32c88cf50",
+    "embedding_revision": "7999e1d3359715c523056ef9478215996d62a620",
+    "model_provider_calls": 0
+  },
+  "limits": [
+    "Shared Docker/MySQL engine; not offsite disaster recovery",
+    "No live model, production capacity, running-write crash, RTO/RPO or cutover claim",
+    "Index rebuilt from restored immutable SQL chunks; no parser/chunker migration"
+  ],
+  "total_seconds_excluding_final_stop": 214.11791770000127,
+  "isolated_services_stopped": true,
+  "source_database_select_denied": true
+}

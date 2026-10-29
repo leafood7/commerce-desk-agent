@@ -1,0 +1,1472 @@
+[
+  {
+    "type": "run.queued",
+    "payload": {},
+    "sequence": 9443
+  },
+  {
+    "type": "run.started",
+    "payload": {
+      "engine": "langgraph"
+    },
+    "sequence": 9444
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "gather"
+    },
+    "sequence": 9445
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "prepare_condition"
+    },
+    "sequence": 9446
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "decide"
+    },
+    "sequence": 9447
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "get_order_status",
+      "write": false,
+      "attempt": 1,
+      "transport": "mcp"
+    },
+    "sequence": 9448
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "get_order_status",
+      "status": "found",
+      "transport": "mcp"
+    },
+    "sequence": 9449
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "read_order"
+    },
+    "sequence": 9450
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "decide"
+    },
+    "sequence": 9451
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "evaluate_return",
+      "write": false,
+      "attempt": 2,
+      "transport": "mcp"
+    },
+    "sequence": 9452
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "evaluate_return",
+      "status": "found",
+      "transport": "mcp"
+    },
+    "sequence": 9453
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "check_return"
+    },
+    "sequence": 9454
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "decide"
+    },
+    "sequence": 9455
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "search_knowledge_base",
+      "write": false,
+      "attempt": 3,
+      "transport": "mcp"
+    },
+    "sequence": 9456
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "search_knowledge_base",
+      "status": "found",
+      "transport": "mcp"
+    },
+    "sequence": 9457
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "search_policy"
+    },
+    "sequence": 9458
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "decide"
+    },
+    "sequence": 9459
+  },
+  {
+    "type": "answer.published",
+    "payload": {
+      "known": {
+        "reason": "完整隔离恢复演练",
+        "order_number": "RET-NORMAL-9DE68B6241",
+        "return_basis": null,
+        "return_item_id": "1dca0912-39ef-47e6-ac8b-de2ce2bb81ce",
+        "return_quantity": 1,
+        "return_condition": "unknown",
+        "return_policy_id": "cc796789-b590-4fdd-b1a6-1681fe1726da",
+        "return_description": null
+      },
+      "answer": "请核实商品是否使用；未知状态不能直接认定满足退货条件。\n同时核对：实际签收时间：2026-10-28T10:41:24.152276",
+      "engine": "langgraph",
+      "missing": [
+        "return_condition"
+      ],
+      "evidence": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "title": "退货规则演示 9DE68B6241",
+          "content": "# 演示商家退货规则\n\n本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。\n\n仅在管理员登记的需质检分支，必须取得同一订单商品行及申请数量的有效质检通过结论；其他分支不新增该项要求。\n\n质量问题退货分支限实际签收30天内；不能延长无理由退货的7天窗口。\n\n质量问题分支允许已使用商品，但必须由独立处理人明确登记同商品行同数量的存在缺陷结论；质检未通过、用户自述或照片不能代替。\n\n受理为本地模拟，不执行真实退款。",
+          "section": "演示商家退货规则",
+          "version": 1,
+          "filename": "demo-return-9DE68B6241.md",
+          "page_end": null,
+          "page_start": null,
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "document_id": "0e5d47ba-d618-4eb9-9f81-b7a7937a6d82",
+          "policy_scope": "returns"
+        }
+      ],
+      "pause_id": "171c03df8a2e28281ecda331db01c8f3",
+      "decisions": [
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "ask_condition"
+        }
+      ],
+      "execution": {
+        "tool_attempts": 3
+      },
+      "retrieval": {
+        "strategy": "hybrid_rerank",
+        "dense_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "anchor_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "elapsed_ms": 450.12583200878,
+        "fusion_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "sparse_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "version_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613"
+        ],
+        "context_mode": "neighbors",
+        "snapshot_builds": 15,
+        "reference_expansion": null
+      },
+      "transport": "mcp",
+      "pause_kind": "condition_clarification",
+      "flow_version": "guided_v3",
+      "planner_mode": "rules",
+      "profile_guard": "snapshot",
+      "policy_context": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "content": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+          "excerpts": [
+            {
+              "end": 61,
+              "quote": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。",
+              "start": 12,
+              "purpose": "scope_clause"
+            },
+            {
+              "end": 102,
+              "quote": "申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。",
+              "start": 63,
+              "purpose": "window_clause"
+            },
+            {
+              "end": 145,
+              "quote": "仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+              "start": 104,
+              "purpose": "condition_clause"
+            }
+          ],
+          "projection": "operator_bound_quotes",
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "offset_unit": "unicode_codepoint",
+          "source_sha256": "e9eaf1b83258be2480521004ba5917d0cc4ef648c952a02cb45184472dfcd355"
+        }
+      ],
+      "tool_plan_mode": "fixed",
+      "business_checks": {
+        "blocked": [],
+        "missing": [
+          "item_condition"
+        ],
+        "eligibility": "needs_information"
+      },
+      "context_purpose": "application",
+      "fact_assessment": {
+        "items": [
+          {
+            "end": 17,
+            "field": "signed_at",
+            "label": "实际签收时间",
+            "start": 6,
+            "value": "2026-10-28T10:41:24.152276",
+            "status": "available",
+            "message": "2026-10-28T10:41:24.152276",
+            "provenance": {
+              "kind": "tool_field",
+              "tool": "get_order_status",
+              "field": "signed_at"
+            },
+            "request_quote": "核对适用商品、实际签收",
+            "policy_snippets_are_not_fact_proof": false
+          }
+        ],
+        "read_only": false,
+        "related_policy_sources": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "all_requested_facts_available": true
+      },
+      "write_in_flight": false,
+      "condition_origin": {
+        "kind": "structured_input",
+        "value": "unknown"
+      },
+      "condition_proposal": {
+        "label": "insufficient",
+        "source": null,
+        "candidate": null,
+        "scope_start": 0,
+        "proposal_hash": "7b3850f8496a8642ddbd05479229db91fe27b9dffd29f7e8d0d210e9e98cf01b",
+        "description_sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+        "requires_confirmation": false
+      }
+    },
+    "sequence": 9460
+  },
+  {
+    "type": "run.paused",
+    "payload": {
+      "status": "awaiting_input"
+    },
+    "sequence": 9461
+  },
+  {
+    "type": "run.resumed",
+    "payload": {
+      "action": "supply"
+    },
+    "sequence": 9462
+  },
+  {
+    "type": "run.started",
+    "payload": {
+      "engine": "langgraph"
+    },
+    "sequence": 9463
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "ask_condition"
+    },
+    "sequence": 9464
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "gather"
+    },
+    "sequence": 9465
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "prepare_condition"
+    },
+    "sequence": 9466
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "decide"
+    },
+    "sequence": 9467
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "get_order_status",
+      "write": false,
+      "attempt": 1,
+      "transport": "mcp"
+    },
+    "sequence": 9468
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "get_order_status",
+      "status": "found",
+      "transport": "mcp"
+    },
+    "sequence": 9469
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "read_order"
+    },
+    "sequence": 9470
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "decide"
+    },
+    "sequence": 9471
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "evaluate_return",
+      "write": false,
+      "attempt": 2,
+      "transport": "mcp"
+    },
+    "sequence": 9472
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "evaluate_return",
+      "status": "found",
+      "transport": "mcp"
+    },
+    "sequence": 9473
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "check_return"
+    },
+    "sequence": 9474
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "decide"
+    },
+    "sequence": 9475
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "search_knowledge_base",
+      "write": false,
+      "attempt": 3,
+      "transport": "mcp"
+    },
+    "sequence": 9476
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "search_knowledge_base",
+      "status": "found",
+      "transport": "mcp"
+    },
+    "sequence": 9477
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "search_policy"
+    },
+    "sequence": 9478
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "decide"
+    },
+    "sequence": 9479
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "review"
+    },
+    "sequence": 9480
+  },
+  {
+    "type": "answer.published",
+    "payload": {
+      "answer": "请确认本版本退货申请，确认后仅提交独立审批，不执行退款。\n同时核对：实际签收时间：2026-10-28T10:41:24.152276",
+      "engine": "langgraph",
+      "evidence": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "title": "退货规则演示 9DE68B6241",
+          "content": "# 演示商家退货规则\n\n本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。\n\n仅在管理员登记的需质检分支，必须取得同一订单商品行及申请数量的有效质检通过结论；其他分支不新增该项要求。\n\n质量问题退货分支限实际签收30天内；不能延长无理由退货的7天窗口。\n\n质量问题分支允许已使用商品，但必须由独立处理人明确登记同商品行同数量的存在缺陷结论；质检未通过、用户自述或照片不能代替。\n\n受理为本地模拟，不执行真实退款。",
+          "section": "演示商家退货规则",
+          "version": 1,
+          "filename": "demo-return-9DE68B6241.md",
+          "page_end": null,
+          "page_start": null,
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "document_id": "0e5d47ba-d618-4eb9-9f81-b7a7937a6d82",
+          "policy_scope": "returns"
+        }
+      ],
+      "pause_id": "c43388c1c6247ab2518d7c4b50595da0",
+      "proposal": {
+        "reason": "完整隔离恢复演练",
+        "order_number": "RET-NORMAL-9DE68B6241",
+        "return_basis": "no_reason",
+        "external_mode": "simulation",
+        "return_item_id": "1dca0912-39ef-47e6-ac8b-de2ce2bb81ce",
+        "return_quantity": 1,
+        "return_condition": "unused",
+        "return_policy_id": "cc796789-b590-4fdd-b1a6-1681fe1726da",
+        "goods_value_cents": 12345,
+        "return_description": null,
+        "refund_amount_cents": null
+      },
+      "decisions": [
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "ask_condition"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "review"
+        }
+      ],
+      "execution": {
+        "tool_attempts": 3
+      },
+      "retrieval": {
+        "mode": "clause_bound",
+        "complete": true,
+        "strategy": "hybrid_rerank",
+        "dense_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "anchor_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "elapsed_ms": 493.0764989985619,
+        "fusion_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "sparse_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "version_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613"
+        ],
+        "context_mode": "neighbors",
+        "snapshot_builds": 1,
+        "covered_source_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "reference_expansion": null,
+        "required_source_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "supplemental_searches": 0
+      },
+      "transport": "mcp",
+      "flow_version": "guided_v3",
+      "planner_mode": "rules",
+      "profile_guard": "snapshot",
+      "policy_context": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "content": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+          "excerpts": [
+            {
+              "end": 61,
+              "quote": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。",
+              "start": 12,
+              "purpose": "scope_clause"
+            },
+            {
+              "end": 102,
+              "quote": "申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。",
+              "start": 63,
+              "purpose": "window_clause"
+            },
+            {
+              "end": 145,
+              "quote": "仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+              "start": 104,
+              "purpose": "condition_clause"
+            }
+          ],
+          "projection": "operator_bound_quotes",
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "offset_unit": "unicode_codepoint",
+          "source_sha256": "e9eaf1b83258be2480521004ba5917d0cc4ef648c952a02cb45184472dfcd355"
+        }
+      ],
+      "tool_plan_mode": "fixed",
+      "business_checks": {
+        "blocked": [],
+        "missing": [],
+        "eligibility": "eligible"
+      },
+      "context_purpose": "application",
+      "fact_assessment": {
+        "items": [
+          {
+            "end": 17,
+            "field": "signed_at",
+            "label": "实际签收时间",
+            "start": 6,
+            "value": "2026-10-28T10:41:24.152276",
+            "status": "available",
+            "message": "2026-10-28T10:41:24.152276",
+            "provenance": {
+              "kind": "tool_field",
+              "tool": "get_order_status",
+              "field": "signed_at"
+            },
+            "request_quote": "核对适用商品、实际签收",
+            "policy_snippets_are_not_fact_proof": false
+          }
+        ],
+        "read_only": false,
+        "related_policy_sources": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "all_requested_facts_available": true
+      },
+      "write_in_flight": false,
+      "condition_origin": {
+        "kind": "explicit_clarification",
+        "value": "unused"
+      }
+    },
+    "sequence": 9481
+  },
+  {
+    "type": "run.paused",
+    "payload": {
+      "status": "awaiting_confirmation"
+    },
+    "sequence": 9482
+  },
+  {
+    "type": "run.resumed",
+    "payload": {
+      "action": "confirm"
+    },
+    "sequence": 9483
+  },
+  {
+    "type": "run.started",
+    "payload": {
+      "engine": "langgraph"
+    },
+    "sequence": 9484
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "confirmation"
+    },
+    "sequence": 9485
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "evaluate_return",
+      "write": false,
+      "attempt": 1,
+      "transport": "mcp"
+    },
+    "sequence": 9486
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "evaluate_return",
+      "status": "found",
+      "transport": "mcp"
+    },
+    "sequence": 9487
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "create_return_draft",
+      "write": true,
+      "attempt": 2,
+      "transport": "mcp"
+    },
+    "sequence": 9488
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "create_return_draft",
+      "status": "success",
+      "transport": "mcp"
+    },
+    "sequence": 9489
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "confirm_return_application",
+      "write": true,
+      "attempt": 3,
+      "transport": "mcp"
+    },
+    "sequence": 9490
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "confirm_return_application",
+      "status": "success",
+      "transport": "mcp"
+    },
+    "sequence": 9491
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "submit"
+    },
+    "sequence": 9492
+  },
+  {
+    "type": "answer.published",
+    "payload": {
+      "answer": "退货申请已提交独立审批，尚未受理或退款。审批后刷新核实。\n同时核对：实际签收时间：2026-10-28T10:41:24.152276",
+      "engine": "langgraph",
+      "request": {
+        "id": "75984682-064e-4706-a964-d5686f8f70b6",
+        "events": [
+          {
+            "action": "drafted",
+            "details": {},
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:23.504489"
+          },
+          {
+            "action": "confirmed",
+            "details": {
+              "preview_hash": "b119f01ee41fa91af9b62aeb0aa4b56aca0649b471edc2c4fd597b0611275fce"
+            },
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:23.697639"
+          }
+        ],
+        "reason": "完整隔离恢复演练",
+        "status": "pending_approval",
+        "item_id": "1dca0912-39ef-47e6-ac8b-de2ce2bb81ce",
+        "quantity": 1,
+        "revision": 1,
+        "policy_id": "cc796789-b590-4fdd-b1a6-1681fe1726da",
+        "created_by": "73ab0560-5520-4f28-a2fd-df7345374537",
+        "decided_by": null,
+        "receipt_id": null,
+        "order_number": "RET-NORMAL-9DE68B6241",
+        "return_basis": "no_reason",
+        "external_mode": "simulation",
+        "item_condition": "unused",
+        "decision_reason": null,
+        "goods_value_cents": 12345,
+        "refund_amount_cents": null,
+        "actual_refund_executed": false
+      },
+      "evidence": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "title": "退货规则演示 9DE68B6241",
+          "content": "# 演示商家退货规则\n\n本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。\n\n仅在管理员登记的需质检分支，必须取得同一订单商品行及申请数量的有效质检通过结论；其他分支不新增该项要求。\n\n质量问题退货分支限实际签收30天内；不能延长无理由退货的7天窗口。\n\n质量问题分支允许已使用商品，但必须由独立处理人明确登记同商品行同数量的存在缺陷结论；质检未通过、用户自述或照片不能代替。\n\n受理为本地模拟，不执行真实退款。",
+          "section": "演示商家退货规则",
+          "version": 1,
+          "filename": "demo-return-9DE68B6241.md",
+          "page_end": null,
+          "page_start": null,
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "document_id": "0e5d47ba-d618-4eb9-9f81-b7a7937a6d82",
+          "policy_scope": "returns"
+        }
+      ],
+      "pause_id": "91be0814303e6c11ce811e590c22ca36",
+      "decisions": [
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "ask_condition"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "review"
+        }
+      ],
+      "execution": {
+        "tool_attempts": 3
+      },
+      "retrieval": {
+        "mode": "clause_bound",
+        "complete": true,
+        "strategy": "hybrid_rerank",
+        "dense_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "anchor_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "elapsed_ms": 493.0764989985619,
+        "fusion_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "sparse_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "version_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613"
+        ],
+        "context_mode": "neighbors",
+        "snapshot_builds": 1,
+        "covered_source_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "reference_expansion": null,
+        "required_source_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "supplemental_searches": 0
+      },
+      "transport": "mcp",
+      "flow_version": "guided_v3",
+      "planner_mode": "rules",
+      "profile_guard": "snapshot",
+      "policy_context": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "content": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+          "excerpts": [
+            {
+              "end": 61,
+              "quote": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。",
+              "start": 12,
+              "purpose": "scope_clause"
+            },
+            {
+              "end": 102,
+              "quote": "申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。",
+              "start": 63,
+              "purpose": "window_clause"
+            },
+            {
+              "end": 145,
+              "quote": "仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+              "start": 104,
+              "purpose": "condition_clause"
+            }
+          ],
+          "projection": "operator_bound_quotes",
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "offset_unit": "unicode_codepoint",
+          "source_sha256": "e9eaf1b83258be2480521004ba5917d0cc4ef648c952a02cb45184472dfcd355"
+        }
+      ],
+      "tool_plan_mode": "fixed",
+      "business_checks": {
+        "blocked": [],
+        "missing": [],
+        "eligibility": "eligible"
+      },
+      "context_purpose": "application",
+      "fact_assessment": {
+        "items": [
+          {
+            "end": 17,
+            "field": "signed_at",
+            "label": "实际签收时间",
+            "start": 6,
+            "value": "2026-10-28T10:41:24.152276",
+            "status": "available",
+            "message": "2026-10-28T10:41:24.152276",
+            "provenance": {
+              "kind": "tool_field",
+              "tool": "get_order_status",
+              "field": "signed_at"
+            },
+            "request_quote": "核对适用商品、实际签收",
+            "policy_snippets_are_not_fact_proof": false
+          }
+        ],
+        "read_only": false,
+        "related_policy_sources": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "all_requested_facts_available": true
+      },
+      "write_in_flight": false,
+      "condition_origin": {
+        "kind": "explicit_clarification",
+        "value": "unused"
+      }
+    },
+    "sequence": 9493
+  },
+  {
+    "type": "run.paused",
+    "payload": {
+      "status": "awaiting_approval"
+    },
+    "sequence": 9494
+  },
+  {
+    "type": "run.resumed",
+    "payload": {
+      "action": "refresh"
+    },
+    "sequence": 9495
+  },
+  {
+    "type": "run.started",
+    "payload": {
+      "engine": "langgraph"
+    },
+    "sequence": 9496
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "wait_approval"
+    },
+    "sequence": 9497
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "get_return_status",
+      "write": false,
+      "attempt": 1,
+      "transport": "mcp"
+    },
+    "sequence": 9498
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "get_return_status",
+      "status": "found",
+      "transport": "mcp"
+    },
+    "sequence": 9499
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "refresh"
+    },
+    "sequence": 9500
+  },
+  {
+    "type": "answer.published",
+    "payload": {
+      "answer": "本版本已获批准。是否提交本地模拟受理？不会执行真实退款。\n同时核对：实际签收时间：2026-10-28T10:41:24.152276",
+      "engine": "langgraph",
+      "request": {
+        "id": "75984682-064e-4706-a964-d5686f8f70b6",
+        "events": [
+          {
+            "action": "drafted",
+            "details": {},
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:23.504489"
+          },
+          {
+            "action": "confirmed",
+            "details": {
+              "preview_hash": "b119f01ee41fa91af9b62aeb0aa4b56aca0649b471edc2c4fd597b0611275fce"
+            },
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:23.697639"
+          },
+          {
+            "action": "approved",
+            "details": {
+              "reason": "恢复演练独立审批"
+            },
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:24.160217"
+          }
+        ],
+        "reason": "完整隔离恢复演练",
+        "status": "approved",
+        "item_id": "1dca0912-39ef-47e6-ac8b-de2ce2bb81ce",
+        "quantity": 1,
+        "revision": 1,
+        "policy_id": "cc796789-b590-4fdd-b1a6-1681fe1726da",
+        "created_by": "73ab0560-5520-4f28-a2fd-df7345374537",
+        "decided_by": "9c0ac54f-0d4b-4d9a-b6bc-5a41271d0d46",
+        "receipt_id": null,
+        "order_number": "RET-NORMAL-9DE68B6241",
+        "return_basis": "no_reason",
+        "external_mode": "simulation",
+        "item_condition": "unused",
+        "decision_reason": "恢复演练独立审批",
+        "goods_value_cents": 12345,
+        "refund_amount_cents": null,
+        "actual_refund_executed": false
+      },
+      "pause_id": "4d73f5593945ee3595b5622925bf4168",
+      "proposal": {
+        "external_mode": "simulation"
+      },
+      "decisions": [
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "ask_condition"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "review"
+        }
+      ],
+      "execution": {
+        "tool_attempts": 1
+      },
+      "retrieval": {
+        "mode": "clause_bound",
+        "complete": true,
+        "strategy": "hybrid_rerank",
+        "dense_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "anchor_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "elapsed_ms": 493.0764989985619,
+        "fusion_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "sparse_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "version_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613"
+        ],
+        "context_mode": "neighbors",
+        "snapshot_builds": 1,
+        "covered_source_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "reference_expansion": null,
+        "required_source_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "supplemental_searches": 0
+      },
+      "transport": "mcp",
+      "flow_version": "guided_v3",
+      "planner_mode": "rules",
+      "profile_guard": "snapshot",
+      "policy_context": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "content": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+          "excerpts": [
+            {
+              "end": 61,
+              "quote": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。",
+              "start": 12,
+              "purpose": "scope_clause"
+            },
+            {
+              "end": 102,
+              "quote": "申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。",
+              "start": 63,
+              "purpose": "window_clause"
+            },
+            {
+              "end": 145,
+              "quote": "仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+              "start": 104,
+              "purpose": "condition_clause"
+            }
+          ],
+          "projection": "operator_bound_quotes",
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "offset_unit": "unicode_codepoint",
+          "source_sha256": "e9eaf1b83258be2480521004ba5917d0cc4ef648c952a02cb45184472dfcd355"
+        }
+      ],
+      "tool_plan_mode": "fixed",
+      "business_checks": {
+        "blocked": [],
+        "missing": [],
+        "eligibility": "eligible"
+      },
+      "context_purpose": "application",
+      "fact_assessment": {
+        "items": [
+          {
+            "end": 17,
+            "field": "signed_at",
+            "label": "实际签收时间",
+            "start": 6,
+            "value": "2026-10-28T10:41:24.152276",
+            "status": "available",
+            "message": "2026-10-28T10:41:24.152276",
+            "provenance": {
+              "kind": "tool_field",
+              "tool": "get_order_status",
+              "field": "signed_at"
+            },
+            "request_quote": "核对适用商品、实际签收",
+            "policy_snippets_are_not_fact_proof": false
+          }
+        ],
+        "read_only": false,
+        "related_policy_sources": [],
+        "all_requested_facts_available": true
+      },
+      "write_in_flight": false,
+      "condition_origin": {
+        "kind": "explicit_clarification",
+        "value": "unused"
+      }
+    },
+    "sequence": 9501
+  },
+  {
+    "type": "run.paused",
+    "payload": {
+      "status": "awaiting_confirmation"
+    },
+    "sequence": 9502
+  },
+  {
+    "type": "run.resumed",
+    "payload": {
+      "action": "confirm"
+    },
+    "sequence": 9503
+  },
+  {
+    "type": "run.started",
+    "payload": {
+      "engine": "langgraph"
+    },
+    "sequence": 9504
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "confirm_external"
+    },
+    "sequence": 9505
+  },
+  {
+    "type": "tool.started",
+    "payload": {
+      "name": "submit_simulated_return",
+      "write": true,
+      "attempt": 1,
+      "transport": "mcp"
+    },
+    "sequence": 9506
+  },
+  {
+    "type": "tool.finished",
+    "payload": {
+      "name": "submit_simulated_return",
+      "status": "success",
+      "transport": "mcp"
+    },
+    "sequence": 9507
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "external"
+    },
+    "sequence": 9508
+  },
+  {
+    "type": "graph.step",
+    "payload": {
+      "node": "result"
+    },
+    "sequence": 9509
+  },
+  {
+    "type": "answer.published",
+    "payload": {
+      "order": {
+        "id": "16986fa7-7865-41d7-8ee5-ce33d558abe9",
+        "items": [
+          {
+            "id": "1dca0912-39ef-47e6-ac8b-de2ce2bb81ce",
+            "sku": "DEMO-RETURN-9DE68B6241",
+            "quantity": 3,
+            "product_name": "演示未使用商品",
+            "unit_price_cents": 12345
+          }
+        ],
+        "number": "RET-NORMAL-9DE68B6241",
+        "paid_at": null,
+        "currency": "CNY",
+        "signed_at": "2026-10-28T10:41:24.152276",
+        "data_source": "demo_return_seed",
+        "customer_name": "退货隔离演示",
+        "payment_status": "paid",
+        "shipping_status": "delivered",
+        "promised_ship_at": null,
+        "estimated_delivery": "演示预计信息，非签收事实"
+      },
+      "answer": "退货申请状态：accepted_simulated。外部受理为本地模拟，真实退款未执行。\n同时核对：实际签收时间：2026-10-28T10:41:24.152276",
+      "engine": "langgraph",
+      "request": {
+        "id": "75984682-064e-4706-a964-d5686f8f70b6",
+        "events": [
+          {
+            "action": "drafted",
+            "details": {},
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:23.504489"
+          },
+          {
+            "action": "confirmed",
+            "details": {
+              "preview_hash": "b119f01ee41fa91af9b62aeb0aa4b56aca0649b471edc2c4fd597b0611275fce"
+            },
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:23.697639"
+          },
+          {
+            "action": "approved",
+            "details": {
+              "reason": "恢复演练独立审批"
+            },
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:24.160217"
+          },
+          {
+            "action": "accepted_simulated",
+            "details": {
+              "receipt_id": "SIM-RETURN-75984682-064e-4706-a964-d5686f8f70b6"
+            },
+            "revision": 1,
+            "created_at": "2026-10-29T10:44:25.724413"
+          }
+        ],
+        "reason": "完整隔离恢复演练",
+        "status": "accepted_simulated",
+        "item_id": "1dca0912-39ef-47e6-ac8b-de2ce2bb81ce",
+        "quantity": 1,
+        "revision": 1,
+        "policy_id": "cc796789-b590-4fdd-b1a6-1681fe1726da",
+        "created_by": "73ab0560-5520-4f28-a2fd-df7345374537",
+        "decided_by": "9c0ac54f-0d4b-4d9a-b6bc-5a41271d0d46",
+        "receipt_id": "SIM-RETURN-75984682-064e-4706-a964-d5686f8f70b6",
+        "order_number": "RET-NORMAL-9DE68B6241",
+        "return_basis": "no_reason",
+        "external_mode": "simulation",
+        "item_condition": "unused",
+        "decision_reason": "恢复演练独立审批",
+        "goods_value_cents": 12345,
+        "refund_amount_cents": null,
+        "actual_refund_executed": false
+      },
+      "evidence": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "title": "退货规则演示 9DE68B6241",
+          "content": "# 演示商家退货规则\n\n本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。\n\n仅在管理员登记的需质检分支，必须取得同一订单商品行及申请数量的有效质检通过结论；其他分支不新增该项要求。\n\n质量问题退货分支限实际签收30天内；不能延长无理由退货的7天窗口。\n\n质量问题分支允许已使用商品，但必须由独立处理人明确登记同商品行同数量的存在缺陷结论；质检未通过、用户自述或照片不能代替。\n\n受理为本地模拟，不执行真实退款。",
+          "section": "演示商家退货规则",
+          "version": 1,
+          "filename": "demo-return-9DE68B6241.md",
+          "page_end": null,
+          "page_start": null,
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "document_id": "0e5d47ba-d618-4eb9-9f81-b7a7937a6d82",
+          "policy_scope": "returns"
+        }
+      ],
+      "warnings": [],
+      "decisions": [
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "ask_condition"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "read_order"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "check_return"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "search_policy"
+        },
+        {
+          "mode": "fixed_action",
+          "action": "review"
+        }
+      ],
+      "execution": {
+        "tool_attempts": 1
+      },
+      "retrieval": {
+        "mode": "clause_bound",
+        "complete": true,
+        "strategy": "hybrid_rerank",
+        "dense_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "anchor_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "elapsed_ms": 493.0764989985619,
+        "fusion_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "sparse_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "version_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613"
+        ],
+        "context_mode": "neighbors",
+        "snapshot_builds": 1,
+        "covered_source_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "reference_expansion": null,
+        "required_source_ids": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "supplemental_searches": 0
+      },
+      "transport": "mcp",
+      "audit_status": "recorded",
+      "flow_version": "guided_v3",
+      "planner_mode": "rules",
+      "profile_guard": "snapshot",
+      "policy_context": [
+        {
+          "id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0",
+          "content": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。\n申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。\n仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+          "excerpts": [
+            {
+              "end": 61,
+              "quote": "本演示规则仅适用于商品 DEMO-RETURN-9DE68B6241，不适用于其他商品或真实平台。",
+              "start": 12,
+              "purpose": "scope_clause"
+            },
+            {
+              "end": 102,
+              "quote": "申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。",
+              "start": 63,
+              "purpose": "window_clause"
+            },
+            {
+              "end": 145,
+              "quote": "仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+              "start": 104,
+              "purpose": "condition_clause"
+            }
+          ],
+          "projection": "operator_bound_quotes",
+          "version_id": "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613",
+          "offset_unit": "unicode_codepoint",
+          "source_sha256": "e9eaf1b83258be2480521004ba5917d0cc4ef648c952a02cb45184472dfcd355"
+        }
+      ],
+      "tool_plan_mode": "fixed",
+      "business_checks": {
+        "blocked": [],
+        "missing": [],
+        "eligibility": "eligible"
+      },
+      "context_purpose": "application",
+      "fact_assessment": {
+        "items": [
+          {
+            "end": 17,
+            "field": "signed_at",
+            "label": "实际签收时间",
+            "start": 6,
+            "value": "2026-10-28T10:41:24.152276",
+            "status": "available",
+            "message": "2026-10-28T10:41:24.152276",
+            "provenance": {
+              "kind": "tool_field",
+              "tool": "get_order_status",
+              "field": "signed_at"
+            },
+            "request_quote": "核对适用商品、实际签收",
+            "policy_snippets_are_not_fact_proof": false
+          }
+        ],
+        "read_only": false,
+        "related_policy_sources": [
+          "844f5ea1-8ed8-45d6-bfe8-6f685bcf7613-0"
+        ],
+        "all_requested_facts_available": true
+      },
+      "write_in_flight": false,
+      "condition_origin": {
+        "kind": "explicit_clarification",
+        "value": "unused"
+      }
+    },
+    "sequence": 9510
+  },
+  {
+    "type": "run.finished",
+    "payload": {
+      "status": "completed"
+    },
+    "sequence": 9511
+  }
+]

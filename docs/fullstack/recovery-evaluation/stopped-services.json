@@ -1,0 +1,9 @@
+{
+  "recovery_services": {
+    "restore-api": "exited",
+    "restore-chroma": "exited",
+    "restore-mcp": "exited",
+    "restore-run-worker": "exited"
+  },
+  "persistent_data_retained": true
+}

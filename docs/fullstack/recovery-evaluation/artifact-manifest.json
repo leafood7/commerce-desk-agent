@@ -1,0 +1,20 @@
+{
+  "files": {
+    "candidate.json": "5ff15c4adac8c3f08e7cc2cc17a22337fecc666c591fdd853e4700e15dd56b77",
+    "index-proof.json": "3390c6e18c7007ab788bed70400342bd1e7d7ed2b2dbbc269a5df1151e191dd5",
+    "isolation-proof.json": "6eee2ec91c98baf9ef6dd72384864d19cdacfb51850471a0b9141718080f46c6",
+    "rebuild_recovery_index.py.executed.txt": "d6d301d79fe7eb0fb56f471278ed879873420b33b104afbdb79afc56785b2cee",
+    "recovered-demo-events.json": "ffca34ac4a69570de0137ef57b347ae16b4640ecca0ccaabaeadc2a3a6b01ff9",
+    "recovered-demo-run.json": "33360c6cdd487d883d48b0d2909134fc95093538626a77f5d61833fa748f2011",
+    "recovered-demo-tools.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "result.json": "924df390fe2d1c66fa38337a92b48315330c96c6421b644adb290573e8e2e7d6",
+    "stopped-services.json": "2617e7a945bb2be8a50ae5122f1124a5ab6b04142b66515b8682866753c6bc8a",
+    "verify_full_recovery.py.executed.txt": "5b99e2b7972743ab37c34fecea76b82f2d7f73283131a7f4e2daf052790faa35"
+  },
+  "final_scripts": {
+    "verify_full_recovery.py": "682f17e9746fca7d079997c8765ed66a0e607fa996ecd0b22e05b574f07ad708",
+    "rebuild_recovery_index.py": "d6d301d79fe7eb0fb56f471278ed879873420b33b104afbdb79afc56785b2cee"
+  },
+  "public_demo_only": true,
+  "private_sql_auth_and_checkpoints_exported": false
+}

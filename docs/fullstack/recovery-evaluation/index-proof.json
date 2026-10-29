@@ -1,0 +1,10 @@
+{
+  "database": "commercedesk_verify_58c6bde59e49",
+  "fresh_index_verified": true,
+  "original_files_verified": 62,
+  "published_versions_rebuilt": 30,
+  "chunks_rebuilt": 30,
+  "chunk_inventory_sha256": "28f8d8b45d57d2c4bdb9e649984de41feab376d382db6214a91a62b32c88cf50",
+  "embedding_revision": "7999e1d3359715c523056ef9478215996d62a620",
+  "model_provider_calls": 0
+}

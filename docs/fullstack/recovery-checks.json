@@ -1,0 +1,33 @@
+{
+  "stage": "full_recovery",
+  "completed": true,
+  "tests": {
+    "passed": 12,
+    "seconds": 27.65,
+    "log": "work/recovery-stage/tests-final.log"
+  },
+  "new_paid_calls": 0,
+  "holdout_read": false,
+  "runtime_schema_changed": false,
+  "restored_tables": 34,
+  "original_files_verified": 62,
+  "current_effective_versions_rebuilt": 30,
+  "chunks_rebuilt": 30,
+  "same_host_shared_mysql_engine": true,
+  "verified_resume_noop": true,
+  "ruff": "passed",
+  "commit_created": false,
+  "pushed": false,
+  "raw_private_directory": "D:\\VScodeProgects\\commerce-desk-agent\\work\\recovery\\20261029T104123Z_be491a4b",
+  "public_result": "recovery-evaluation/result.json",
+  "public_trace": "recovery-evaluation/recovered-demo-run.json",
+  "executed_source_candidate": "recovery-evaluation/candidate.json",
+  "final_script_difference": "After successful full execution: validate directory before mkdir; completed --phase resume becomes no-op. Actual no-op checked separately; executed snapshots retained.",
+  "earlier_overlapping_tests": {
+    "passed": 11,
+    "seconds": 35.91,
+    "log": "work/recovery-stage/tests.log"
+  },
+  "tool_audit_run_correlation_complete": false,
+  "run_event_count": 69
+}
