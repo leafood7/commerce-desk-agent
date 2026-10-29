@@ -1,0 +1,27 @@
+{
+  "captured_at": "2026-10-29T11:12:44.246538+00:00",
+  "services": {
+    "api": {
+      "source_files": 54,
+      "migration_matches": true
+    },
+    "mcp": {
+      "source_files": 54,
+      "migration_matches": true
+    },
+    "run-worker": {
+      "source_files": 54,
+      "migration_matches": true
+    }
+  },
+  "runtime": {
+    "schema": "0009_quality_return_basis",
+    "tables": 34,
+    "agent_router_mode": "rules",
+    "return_decision_mode": "rules",
+    "retrieval_context_mode": "neighbors",
+    "model_key_present": false
+  },
+  "web_index_sha256": "3fae34a7eecdba0793bec2c33c10070fe050e6cf539e3cb097704c237444559b",
+  "local_links_checked": 80
+}

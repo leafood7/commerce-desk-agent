@@ -1,0 +1,44 @@
+{
+  "created_at": "2026-10-29T10:55:32.316811+00:00",
+  "all_three_passed": true,
+  "new_paid_calls": 0,
+  "model_disabled_preflight": true,
+  "trace_and_video": "off",
+  "retries": 0,
+  "main_replay_stats": {
+    "startTime": "2026-10-29T10:54:45.418Z",
+    "duration": 46867.07,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "stories": {
+    "normal_return": {
+      "title": "return agent asks, corrects, persists, approves and simulates",
+      "status": "passed",
+      "duration_ms": 20992,
+      "screenshot": "normal-return.png"
+    },
+    "unknown_facts": {
+      "title": "guided return confirms source quote and separates unknown facts",
+      "status": "passed",
+      "duration_ms": 10718,
+      "screenshot": "unknown-facts.png"
+    },
+    "branch_correction": {
+      "title": "used item after ten days needs explicit defect branch and rechecks correction",
+      "status": "passed",
+      "duration_ms": 14272,
+      "screenshot": "branch-correction.png"
+    }
+  },
+  "screenshot_review": "Assistant visually inspected each of the3published images; no auth/login content. Not independent human review.",
+  "framing_followup": {
+    "case": "unknown_facts",
+    "passed": 1,
+    "seconds": 11.6,
+    "overlaps_main": true,
+    "only_change": "scroll result heading into view for ending screenshot"
+  }
+}

@@ -1,3 +1,5 @@
+> Historical checkpoint below. Current delivery and recovery status: [STATUS](STATUS.md), [portfolio operations](../portfolio/operations.md). Do not treat the old next-step paragraph as current work.
+
 # Latest checkpoint: local Docker acceptance PASSED
 
 2026-10-28: Five project images built, six services running, real container API3 and browser8 passed. Full down/up without deleting volumes preserved documents/vector retrieval and same LangGraph pause; independent approval continued. MCP outage correctly failed queries and recovery succeeded. Actual VHDX files in D:\Docker\data. Proxy requires Desktop manual proxy and Windows client HTTP_PROXY/HTTPS_PROXY; runner now reads enabled local system proxy. Do not reinstall or repeat acceptance without a new reason. No paid model calls, commits or pushes. Read docker-acceptance-report.md and docker-acceptance-checks.json. Obsidian summary saved. Next: bounded model capability and long-document RAG; server deployment/capacity/outbox remain future work.

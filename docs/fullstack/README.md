@@ -1,16 +1,14 @@
-# CommerceDesk 全栈升级：基础版本
+# CommerceDesk 全栈运行与模块说明
 
-当前开发目录：`D:\VScodeProgects\commerce-desk-agent`。开发分支：`feat/fullstack-foundation`，起点提交：`3229b57`。
+当前工程：`D:\VScodeProgects\commerce-desk-agent`。新React工作台是主交付入口；[作品交付包](../portfolio/README.md)、[实际架构](../portfolio/architecture.md)、[启动排障](../portfolio/operations.md)和[当前状态](STATUS.md)优先于旧阶段文字。
 
-## 当前交付入口（2026-10-29）
+## 当前本地候选（2026-10-29）
 
-最新新增：[订单行级退货申请](returns.md) 与 [实施报告](returns-implementation-report.md)。上传政策、人工映射适用条款、Agent补问、更正、独立审批和本地模拟受理已贯通；不是模型自主多轮ReAct，也不执行真实退款。当前数据库0007，验收以 [returns-checks.json](returns-checks.json) 为准。
+已贯通上传发布与RAG、HTTP MCP、订单行级退货、条件更正、独立质检、审批及模拟受理、SSE、会话/配置快照和持久任务。最新0009迁移、34表。默认规则与neighbors；受限模型和引用扩展保留实验开关，没有真实退款或Linux线上部署。
 
-以 [STATUS.md](STATUS.md) 为实际状态，原roadmap.md保留历史方案。当前新工作台已有身份权限、MySQL业务、HTTP MCP、上传发布与RAG、LangGraph售后确认/审批/恢复、SSE重连和持久作业调度。模型只读计划为可选实验，默认仍rules + neighbors；不是完整多轮自主ReAct，没有真实退款或外部仓库通知。
+本地Docker推荐页面http://127.0.0.1:15173，API http://127.0.0.1:18082。7服务包括MySQL、API、Chroma、MCP、文档worker、运行worker和Web。恢复演练已完成，见[操作](full-recovery.md)和[报告](full-recovery-report.md)。三段作品演示及证据见[交付包](../portfolio/README.md)。
 
-本地Docker已实机验证。推荐演示入口 http://127.0.0.1:15173 ，API http://127.0.0.1:18082 。运行和队列恢复说明见 [dispatch.md](dispatch.md)，准入及累计用量见 [quotas.md](quotas.md)，会话和受控配置版本见 [profiles-conversations.md](profiles-conversations.md)。镜像与缓存优先D盘；没有Linux服务器，本轮不购买、不部署。
-
-以下主机启动方式作为兼容模式保留；其进程内执行不同于Docker队列模式。升级后先运行 .venv/Scripts/python.exe -m workbench.cli migrate，再启动旧脚本。历史首批实施记录不代表当前能力边界。
+作品交付分支为`feat/fullstack-foundation`，以实际Git提交为准；历史候选清单与“未提交”记录描述其运行时状态。以下原生启动为兼容路径，使用另一套端口/私有凭据；不要与容器演示清单混用。更早分阶段记录保留在STATUS及各报告，不能将历史待办当作最新状态。
 
 ## 启动本机版本
 
@@ -111,7 +109,7 @@ npm --prefix frontend run build
 
 ## Docker
 
-默认 compose.yaml 为 MySQL + 新 API + React/Nginx；数据库不公开宿主端口，工作台只绑定本机。服务镜像的 workbench target 使用独立依赖组，基础 API 不打包 GPU/检索模型。legacy target 包含原有业务、MCP、政策与检索依赖。
+默认 compose.yaml 包含MySQL、API、Chroma、MCP、文档worker、run-worker和React/Nginx；数据库不公开宿主端口，工作台只绑定本机。服务镜像的 workbench target 使用独立依赖组，基础 API 不打包 GPU/检索模型。legacy target 包含原有业务、MCP、政策与检索依赖。
 
 设置本机 .env 中的 WORKBENCH_MYSQL_PASSWORD、WORKBENCH_MYSQL_ROOT_PASSWORD，以及 URL 编码后的 WORKBENCH_DOCKER_DATABASE_URL：
 
@@ -139,3 +137,12 @@ CI 已增加真实 MySQL、前端构建和可手动触发的 Docker 完整链路
 ## LangGraph 售后闭环
 
 新增“售后助手”和独立“加急审批”。真实 StateGraph 与 MySQL 检查点支持补充、更正、确认、等待审批及恢复，运行在已有 MCP 和业务服务之上。详情、边界及复现见 [aftersales.md](aftersales.md)，本批次验收见 aftersales-checks.json。默认使用规则意图路由，无付费模型调用；可选单次模型分类不负责业务授权。
+# 最新业务深化
+
+第11次精进补充长文档和12／60／180份合成资料的规模RAG验证、有界跨条款引用，以及管理员长文来源分页。768条实验记录和作者参与复核分开保留；引用模式默认关闭。见 [使用说明](rag-long-scale.md)、[阶段报告](rag-long-scale-report.md)、[验收记录](rag-long-scale-checks.json) 和 [完整对照与匿名证据](rag-long-scale-evaluation/report.md)。
+
+第10次精进已完成显式质量问题退货分支、独立缺陷判定与同文档条件／例外证据投影。见 [操作说明](quality-return.md)、[阶段报告](quality-return-report.md)、[验收记录](quality-return-checks.json)。迁移0009仍34表，未增加付费调用；RAG投影与补检结果分开报告。
+
+第9次精进已完成演示质检工单、只读 MCP 查询及退货 Agent 等待刷新闭环。见 [操作说明](quality-inspections.md)、[阶段报告](quality-implementation-report.md)、[验收记录](quality-checks.json)。数据库为0008、34表，运行时保持规则模式。
+
+第8次精进已完成原话候选确认、事实边界核对和唯一动作免模型调用。见 [操作说明](return-intake.md)、[阶段报告](return-intake-report.md)、[验收记录](return-intake-checks.json)。本轮没有新增付费请求。

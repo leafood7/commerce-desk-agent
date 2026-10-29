@@ -1,3 +1,5 @@
+> 历史安装过程记录，文内“未完成/需重启”是当时状态。当前本地Docker与完整恢复已通过，参见[当前状态](STATUS.md)与[交付运行说明](../portfolio/operations.md)，不要因此重复安装。
+
 ---
 date: 2026-10-28
 project: commerce-desk-agent

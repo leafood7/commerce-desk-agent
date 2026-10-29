@@ -1,0 +1,36 @@
+{
+  "stage": "portfolio_delivery",
+  "date": "2026-10-29",
+  "completed": true,
+  "three_story_browser_passed": 3,
+  "retries": 0,
+  "framing_followup_passed": 1,
+  "framing_followup_overlaps_main": true,
+  "new_paid_calls": 0,
+  "runtime_business_logic_changed": false,
+  "new_schema_migration": false,
+  "sealed_holdout_read": false,
+  "ruff": "passed",
+  "typescript_vite": "passed",
+  "screenshots_reviewed": 3,
+  "independent_human_review": false,
+  "initial_failures_retained": [
+    "Initial demo CLI used unsupported --video/--screenshot flags; no browser cases executed, fixed via environment-controlled Playwright config.",
+    "First screenshot-framing followup read credentials relative to frontend with a wrong path; failed before scenario. Correct path and fail-fast then passed."
+  ],
+  "private_logs": "work/portfolio-stage/",
+  "private_main_replay": "D:\\VScodeProgects\\commerce-desk-agent\\work\\portfolio\\20261029T105441Z_7c0da5c6",
+  "commit_created": false,
+  "pushed": false,
+  "limits": [
+    "Local candidate, uncommitted changes; not GitHub release",
+    "No new semantic/model quality evaluation",
+    "Uses existing browser cases, not new independent scenarios",
+    "No production deployment or actual refund"
+  ],
+  "three_story_duration_ms": 46867.07,
+  "runtime_workbench_files_per_service": 54,
+  "schema": "0009_quality_return_basis",
+  "table_count": 34,
+  "web_build_matches": true
+}
