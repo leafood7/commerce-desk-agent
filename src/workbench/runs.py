@@ -58,7 +58,12 @@ def create_run(session, actor, body, key=None, *, enqueue_job=None, settings=Non
 
     settings = settings or WorkbenchSettings()
     acquire_admission(session)
-    input_hash = fingerprint(body.model_dump())
+    hash_input = body.model_dump()
+    if hash_input.get("return_basis") in {None, "no_reason"}:
+        hash_input.pop("return_basis", None)
+    if hash_input.get("return_description") is None:
+        hash_input.pop("return_description", None)  # Preserve stage7 idempotency hashes.
+    input_hash = fingerprint(hash_input)
     if key:
         existing = session.scalar(
             select(Run).where(
@@ -101,10 +106,15 @@ def create_run(session, actor, body, key=None, *, enqueue_job=None, settings=Non
     session.add(run)
     try:
         session.flush()
-        ensure_usage(session, run, settings, legacy=False)
         from workbench.profiles import snapshot_run
 
-        snapshot_run(session, run, actor, settings)
+        snapshot = snapshot_run(session, run, actor, settings)
+        if body.return_description and snapshot.values.get("return_flow_version") != "guided_v3":
+            raise HTTPException(
+                409,
+                "Current return workflow does not support description review; publish a guided profile",
+            )
+        ensure_usage(session, run, settings, legacy=False)
         session.add(
             Message(
                 organization_id=actor.organization_id,
@@ -114,8 +124,7 @@ def create_run(session, actor, body, key=None, *, enqueue_job=None, settings=Non
                 content=(
                     "查询订单 " + body.order_number
                     if body.kind == "order_lookup"
-                    else ("售后协助 " if body.kind == "aftersales" else "政策咨询 ")
-                    + body.query
+                    else ("售后协助 " if body.kind == "aftersales" else "政策咨询 ") + body.query
                 ),
             )
         )
@@ -237,6 +246,10 @@ def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
                     matches = validated_evidence(session, actor, payload["matches"])
                 except HTTPException as exc:
                     raise ToolFailure("invalid_or_expired_evidence") from exc
+                from workbench.return_context import select_policy_context
+
+                context = select_policy_context(matches, [], purpose="policy_question")
+                matches = context["context"]
                 answer = (
                     "已找到已发布的政策原文，以下为依据摘录。请结合适用范围与条件核对。"
                     if matches
@@ -248,6 +261,8 @@ def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
                     "retrieval": payload.get("trace", {}),
                     "transport": "mcp",
                     "generation": "source_excerpts",
+                    "context_purpose": context["purpose"],
+                    "context_selection": context["selection"],
                 }
             event(
                 session, run, "tool.finished", name=tool, status=payload["status"], transport="mcp"

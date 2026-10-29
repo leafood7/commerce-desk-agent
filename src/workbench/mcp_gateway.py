@@ -66,7 +66,44 @@ class MCPGateway:
                     data.get("items"), list
                 ):
                     raise ToolFailure("invalid_response")
+            if name == "get_quality_inspection":
+                data = payload.get("quality", {})
+                row = data.get("inspection")
+                if (
+                    any(
+                        data.get(k) != getattr(body, k)
+                        for k in ("order_number", "item_id", "quantity")
+                    )
+                    or data.get("external_mode") != "simulation"
+                    or data.get("data_source") != "operator_recorded_demo"
+                    or type(data.get("known")) is not bool
+                ):
+                    raise ToolFailure("invalid_response")
+                if row is not None and (
+                    not isinstance(row, dict)
+                    or not isinstance(row.get("id"), str)
+                    or row.get("item_id") != body.item_id
+                    or row.get("quantity") != body.quantity
+                    or type(row.get("revision")) is not int
+                    or row["revision"] < 1
+                    or row.get("status") not in {"requested", "in_progress", "completed", "voided"}
+                    or row.get("verdict") not in {None, "passed", "failed", "inconclusive"}
+                    or row.get("finding") not in {None, "defect_confirmed", "no_defect", "unclear"}
+                    or row.get("external_mode") != "simulation"
+                    or row.get("data_source") != "operator_recorded_demo"
+                ):
+                    raise ToolFailure("invalid_response")
+                if data["known"] != bool(
+                    row and row["status"] == "completed" and row["verdict"] in {"passed", "failed"}
+                ):
+                    raise ToolFailure("invalid_response")
             if name == "search_knowledge_base" and not isinstance(payload.get("matches"), list):
+                raise ToolFailure("invalid_response")
+            if (
+                name == "search_knowledge_base"
+                and body.version_id
+                and any(row.get("version_id") != body.version_id for row in payload["matches"])
+            ):
                 raise ToolFailure("invalid_response")
             if name == "evaluate_return":
                 preview = payload.get("preview", {})
@@ -104,6 +141,8 @@ class MCPGateway:
                         "item_condition",
                     )
                 ):
+                    raise ToolFailure("invalid_response")
+                if name == "create_return_draft" and request.get("return_basis", "no_reason") != body.return_basis:
                     raise ToolFailure("invalid_response")
             return payload
         except ToolFailure:

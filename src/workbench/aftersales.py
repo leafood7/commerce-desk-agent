@@ -39,28 +39,58 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
     run = owned_run(session, actor, identifier, lock=True)
     if run.kind != "aftersales":
         raise HTTPException(409, "Not an after-sales run")
-    return_fields = (body.return_item_id, body.return_quantity, body.return_condition)
+    return_fields = (
+        body.return_item_id,
+        body.return_quantity,
+        body.return_condition,
+        body.return_policy_id,
+        body.return_description,
+        body.return_basis,
+    )
     if not run.input.get("return_policy_id") and any(v is not None for v in return_fields):
         raise HTTPException(422, "Return fields require a return workflow")
     if run.input.get("return_policy_id") and body.shipping_kind is not None:
         raise HTTPException(422, "Shipping fields cannot modify a return workflow")
+    if body.return_description is not None:
+        from workbench.profile_models import RunProfile
+
+        snapshot = session.get(RunProfile, run.id)
+        if not snapshot or snapshot.values.get("return_flow_version") != "guided_v3":
+            raise HTTPException(409, "This saved workflow does not support description review")
     previous = session.get(FlowAction, (run.id, key))
     body_data = body.model_dump(mode="json")
-    body_hash = fingerprint(body_data)
+    body_hash = fingerprint(
+        {
+            k: v
+            for k, v in body_data.items()
+            if k not in {"return_description", "condition_proposal_hash", "return_basis"}
+            or v is not None
+        }
+    )
     if previous:
         if previous.input_hash != body_hash:
             raise HTTPException(409, "Continuation key belongs to different input")
         return run, False
     allowed = {
-        "awaiting_input": {"supply"},
+        "awaiting_input": {"supply", "accept_condition"},
         "awaiting_confirmation": {"confirm", "correct", "cancel"},
         "awaiting_approval": {"refresh"},
         "interrupted": {"retry"},
     }
+    if (run.output or {}).get("pause_kind") == "quality_wait":
+        allowed["awaiting_input"] = {"refresh"}
     if body.action not in allowed.get(run.status, set()):
         raise HTTPException(409, "Action is not valid for the current pause")
     if run.status in WAITING and body.pause_id != (run.output or {}).get("pause_id"):
         raise HTTPException(409, "Pause has changed; reload the current run")
+    if body.action == "accept_condition":
+        proposal = (run.output or {}).get("condition_proposal") or {}
+        if (
+            (run.output or {}).get("pause_kind") != "condition_confirmation"
+            or proposal.get("candidate") not in {"used", "unused"}
+            or body.condition_proposal_hash != proposal.get("proposal_hash")
+        ):
+            raise HTTPException(409, "Condition proposal changed or is unavailable")
     if body.action == "cancel":
         session.add(FlowAction(run_id=run.id, key=key, input_hash=body_hash, body=body_data))
         return cancel_run(session, actor, identifier), False
@@ -223,6 +253,8 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                     "return_item_id",
                     "return_quantity",
                     "return_condition",
+                    "return_description",
+                    "return_basis",
                 }
             }
             action = session.get(FlowAction, (run_id, action_key)).body if action_key else None
@@ -231,20 +263,47 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
         from workbench.intent_router import route_once
 
         graph_builder = build_graph
+
+        def planner(query):
+            return route_once(database, run_id, run_settings, query)
+
         if run.input.get("return_policy_id"):
+            from workbench.return_decisions import choose_return_action
             from workbench.return_graph import build_return_graph
+            from workbench.tool_contracts import verify_grant
+
+            def model_guard(session, record):
+                ensure_actor(session, record)
+                user, _ = verify_grant(session, token, run_settings)
+                if user.id != record.owner_id or user.role != "support":
+                    raise ToolFailure("forbidden")
+
+            def return_planner(observation):
+                result = choose_return_action(
+                    database, run_id, run_settings, observation, limits=limits, guard=model_guard
+                )
+                with database.sessions() as session:
+                    record = session.scalar(select(Run).where(Run.id == run_id).with_for_update())
+                    model_guard(session, record)
+                    if record.status != "running":
+                        raise FlowStopped()
+                    event(
+                        session,
+                        record,
+                        "agent.decision",
+                        action=result["action"],
+                        mode=result["mode"],
+                    )
+                    session.commit()
+                return result
 
             graph_builder = build_return_graph
+            planner = return_planner
         graph = graph_builder(
             SQLCheckpointSaver(database, run_id, execution_guard=execution_guard),
             tools,
             validate,
-            lambda query: route_once(
-                database,
-                run_id,
-                run_settings,
-                query,
-            ),
+            planner,
             profile=profile,
         )
         config = {"configurable": {"thread_id": run_id}, "recursion_limit": 64}
@@ -307,6 +366,31 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                 }
                 status = state.get("terminal", "completed")
             public["answer"] = render_answer(public["answer"], profile)
+            public.setdefault("retrieval", state.get("retrieval", {}))
+            if profile.get("return_retrieval_mode") == "clause_bound" and not public.get(
+                "warnings"
+            ):
+                public["policy_context"] = state.get("policy_context", [])
+                public["context_purpose"] = state.get("context_purpose", "application")
+            if profile.get("return_flow_version") == "guided_v3":
+                from workbench.return_fact_checks import fact_checks, render_fact_checks
+
+                assessment = fact_checks(
+                    state.get("query"),
+                    state.get("order") or {},
+                    evidence=public.get("evidence"),
+                    quality=state.get("quality_info"),
+                )
+                public.update(
+                    fact_assessment=assessment,
+                    condition_origin=state.get("condition_origin"),
+                    flow_version="guided_v3",
+                )
+                preview = state.get("preview") or {}
+                public["business_checks"] = {
+                    key: preview.get(key) for key in ("eligibility", "missing", "blocked")
+                }
+                public["answer"] += render_fact_checks(assessment)
             public["profile_guard"] = profile_guard
             public["execution"] = {"tool_attempts": limits.attempts}
             public.update(
@@ -315,6 +399,7 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                 write_in_flight=False,
                 planner_mode=state.get("planner_mode", "rules"),
                 tool_plan_mode=state.get("tool_plan_mode", "fixed"),
+                decisions=state.get("decisions", []),
             )
             old_pause = (run.output or {}).get("pause_id")
             run.output, run.status, run.error_code, run.updated_at = public, status, None, now()

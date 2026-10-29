@@ -19,7 +19,11 @@ from workbench.return_schemas import (
 def attach_return_routes(app, session_dependency, actor_dependency, require, key_dependency):
     @app.get("/api/v1/returns/policy-sources/{version_id}")
     def policy_sources(
-        version_id: str, user=Depends(require("admin")), session=Depends(session_dependency)
+        version_id: str,
+        offset: int = Query(0, ge=0),
+        limit: int = Query(20, ge=1, le=20),
+        user=Depends(require("admin")),
+        session=Depends(session_dependency),
     ):
         from fastapi import HTTPException
 
@@ -39,7 +43,8 @@ def attach_return_routes(app, session_dependency, actor_dependency, require, key
                 KnowledgeChunk.organization_id == user.organization_id,
             )
             .order_by(KnowledgeChunk.position)
-            .limit(100)
+            .offset(offset)
+            .limit(limit + 1)
         ).all()
         from workbench.knowledge_service import validated_evidence
 
@@ -48,11 +53,16 @@ def attach_return_routes(app, session_dependency, actor_dependency, require, key
             user,
             [
                 {"id": chunk.id, "version_id": version.id, "content": chunk.content}
-                for chunk in chunks[:20]
+                for chunk in chunks[:limit]
             ],
         )
         # Bound the picker, not a full-document export. Existing file download remains available.
-        return {"items": evidence, "limit": 20, "has_more": len(chunks) > 20}
+        return {
+            "items": evidence,
+            "limit": limit,
+            "offset": offset,
+            "has_more": len(chunks) > limit,
+        }
 
     @app.post("/api/v1/returns/policies", status_code=201)
     def register(

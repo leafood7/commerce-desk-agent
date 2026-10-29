@@ -49,7 +49,7 @@ def main():
             print(
                 json.dumps(
                     {
-                        "schema": "0007_return_applications",
+                        "schema": "0009_quality_return_basis",
                         "ready": True,
                         "dialect": database.engine.dialect.name,
                     }

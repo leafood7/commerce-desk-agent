@@ -133,7 +133,7 @@ export function PolicySearch({token}:{token:string}) {
     finally {setBusy(false);}
   }
   return <section className="knowledge"><h2>政策检索</h2>
-    <p className="muted">展示已发布原文与来源。未标注范围的资料仍需人工核对适用条件。</p>
+    <p className="muted">此入口用于规则问答，展示已发布原文与来源。办理退货请进入退货申请；原文不代表订单事实已确认。未标注范围的资料仍需核对适用条件。</p>
     <form onSubmit={search}><label>政策问题<textarea value={query} onChange={e=>setQuery(e.target.value)}
       placeholder="例如：运费券可以用于抵扣商品金额吗？" required maxLength={1200}/></label>
       <label>问题涉及的范围<select aria-label="问题涉及的范围" value={scope} onChange={e=>setScope(e.target.value)}>

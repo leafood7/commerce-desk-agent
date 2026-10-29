@@ -2,7 +2,15 @@
 
 from typing import Annotated, Literal
 
-from pydantic import Field, StrictBool, StrictInt, StrictStr, field_validator
+from pydantic import (
+    Field,
+    StrictBool,
+    StrictInt,
+    StrictStr,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
 
 from workbench.schemas import Input
 
@@ -23,6 +31,12 @@ class ReturnPolicyInput(Input):
     window_clause: Clause
     condition_clause: Clause
     administrator_verified: Literal[True]
+    return_basis: Literal["no_reason", "quality_issue"] = "no_reason"
+    quality_requirement: Literal["recorded", "passed", "defect_confirmed"] = "recorded"
+    quality_clause: Clause | None = None
+    required_facts: list[Literal["activation_status", "member_entitlement", "quality_verdict"]] = (
+        Field(default_factory=list, max_length=3)
+    )
 
     @field_validator("skus")
     @classmethod
@@ -30,6 +44,29 @@ class ReturnPolicyInput(Input):
         if len(value) != len(set(value)):
             raise ValueError("Duplicate SKU")
         return value
+
+    @field_validator("required_facts")
+    @classmethod
+    def distinct_facts(cls, value):
+        if len(value) != len(set(value)):
+            raise ValueError("Duplicate required fact")
+        return value
+
+    @model_validator(mode="after")
+    def branch_contract(self):
+        if self.return_basis == "quality_issue":
+            if (
+                self.requires_unused
+                or "quality_verdict" not in self.required_facts
+                or self.quality_requirement != "defect_confirmed"
+                or self.quality_clause is None
+            ):
+                raise ValueError(
+                    "Quality-issue rules require explicit defect evidence and cannot require unused"
+                )
+        elif self.quality_requirement == "defect_confirmed":
+            raise ValueError("Defect-confirmed requirement belongs to quality-issue branch")
+        return self
 
 
 class ReturnInput(Input):
@@ -39,6 +76,14 @@ class ReturnInput(Input):
     quantity: StrictInt = Field(ge=1, le=10000)
     reason: StrictStr = Field(min_length=1, max_length=500)
     item_condition: Literal["unknown", "unused", "used"] = "unknown"
+    return_basis: Literal["no_reason", "quality_issue"] = "no_reason"
+
+    @model_serializer(mode="wrap")
+    def compatibility_payload(self, handler):
+        data = handler(self)
+        if self.return_basis == "no_reason":
+            data.pop("return_basis", None)
+        return data
 
     @field_validator("reason")
     @classmethod

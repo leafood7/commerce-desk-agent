@@ -44,7 +44,12 @@ def policy_evidence(session, actor, policy, *, lock=False):
     if not document or document.active_version_id != version.id:
         raise HTTPException(409, "Return policy publication changed")
     clauses, matches = [], {}
-    for name in ("scope_clause", "window_clause", "condition_clause"):
+    purposes = ["scope_clause", "window_clause", "condition_clause"]
+    if "quality_verdict" in policy.rules.get("required_facts", []) and policy.rules.get(
+        "quality_clause"
+    ):
+        purposes.append("quality_clause")
+    for name in purposes:
         ref = policy.rules[name]
         chunk = session.scalar(
             select(KnowledgeChunk).where(
@@ -152,6 +157,8 @@ def evaluate(session, actor, body, *, excluding=None, lock=False):
     remaining = max(0, item.quantity - sum(row.quantity for row in rows))
     missing, blocked = [], []
     applicable = item.sku in policy.rules["skus"]
+    if body.return_basis != policy.rules.get("return_basis", "no_reason"):
+        blocked.append("policy_basis_mismatch")
     if not applicable:
         missing.append("applicable_policy_for_sku")
     if order.signed_at is None:
@@ -167,6 +174,32 @@ def evaluate(session, actor, body, *, excluding=None, lock=False):
             missing.append("item_condition")
         elif body.item_condition == "used":
             blocked.append("configured_unused_condition_not_met")
+    if applicable:
+        missing.extend(f for f in policy.rules.get("required_facts", []) if f != "quality_verdict")
+    inspection = None
+    if applicable and "quality_verdict" in policy.rules.get("required_facts", []):
+        from workbench.quality import lookup
+        from workbench.quality_schemas import QualityLookup
+
+        inspection = lookup(
+            session,
+            actor,
+            QualityLookup(order_number=body.order_number, item_id=item.id, quantity=body.quantity),
+            lock=lock,
+        )
+        if not inspection["known"]:
+            missing.append("quality_verdict")
+        elif body.return_basis == "quality_issue":
+            finding = inspection["inspection"].get("finding")
+            if finding in {None, "unclear"}:
+                missing.append("quality_defect_finding")
+            elif finding != "defect_confirmed":
+                blocked.append("confirmed_defect_requirement_not_met")
+        elif (
+            policy.rules.get("quality_requirement", "recorded") == "passed"
+            and inspection["inspection"]["verdict"] != "passed"
+        ):
+            blocked.append("configured_quality_pass_not_met")
     if body.quantity > remaining:
         blocked.append("quantity_exceeds_available")
     facts = {
@@ -194,6 +227,8 @@ def evaluate(session, actor, body, *, excluding=None, lock=False):
         "external_mode": "simulation",
         "notice": "仅演示商家规则；商品金额为单价乘数量参考值，不是实际退款承诺。",
     }
+    if inspection is not None:
+        preview["quality"] = inspection
     preview["preview_hash"] = fingerprint(preview)
     return order, item, preview
 
@@ -207,6 +242,7 @@ def input_for(session, row):
         quantity=row.quantity,
         reason=row.reason,
         item_condition=row.item_condition,
+        return_basis=row.return_basis,
     )
 
 
@@ -240,6 +276,7 @@ def create_request(session, actor, body, key):
         quantity=body.quantity,
         reason=body.reason,
         item_condition=body.item_condition,
+        return_basis=body.return_basis,
         created_by=actor.id,
         status="draft",
         revision=1,
@@ -289,6 +326,7 @@ def correct_request(session, actor, identifier, body):
     row.item_id, row.policy_id = item.id, body.application.policy_id
     row.quantity, row.reason = body.application.quantity, body.application.reason
     row.item_condition = body.application.item_condition
+    row.return_basis = body.application.return_basis
     row.goods_value_cents, row.confirmed_hash = preview["goods_value_cents"], None
     row.revision += 1
     record(session, actor, row, "corrected")
@@ -394,6 +432,7 @@ def request_view(session, actor, row):
         "quantity": row.quantity,
         "reason": row.reason,
         "item_condition": row.item_condition,
+        "return_basis": row.return_basis,
         "status": row.status,
         "revision": row.revision,
         "created_by": row.created_by,

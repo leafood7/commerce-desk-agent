@@ -244,6 +244,11 @@ def attach_knowledge_routes(
             from workbench.knowledge_service import validated_evidence
 
             result["matches"] = validated_evidence(session, user, result["matches"])
+            from workbench.return_context import select_policy_context
+
+            context = select_policy_context(result["matches"], [], purpose="policy_question")
+            result["context_purpose"] = context["purpose"]
+            result["context_selection"] = context["selection"]
             return result
         except ToolFailure as exc:
             raise HTTPException(

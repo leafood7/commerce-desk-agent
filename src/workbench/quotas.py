@@ -72,6 +72,16 @@ def ensure_usage(session, run, settings, *, legacy=True):
         model = session.get(FlowAction, (run.id, "__intent_router__"))
     usage = (model.body.get("result") or {}).get("usage") if model else None
     known = observed_tokens(usage)
+    from workbench.profile_models import RunProfile
+
+    profile = session.get(RunProfile, run.id)
+    return_model = (
+        not legacy
+        and run.input.get("return_policy_id")
+        and profile
+        and profile.values.get("return_decisions") == "model"
+        and settings.return_decision_mode == "model"
+    )
     row = RunUsage(
         run_id=run.id,
         tool_attempts=tools,
@@ -80,7 +90,7 @@ def ensure_usage(session, run, settings, *, legacy=True):
         model_observed_tokens=known or 0,
         unknown_model_attempts=int(model is not None and known is None),
         max_tools=settings.run_tool_limit,
-        max_model_attempts=1,
+        max_model_attempts=settings.return_model_limit if return_model else 1,
         max_model_tokens=settings.run_model_token_limit,
         legacy_estimate=legacy,
     )

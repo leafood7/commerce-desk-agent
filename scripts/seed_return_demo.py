@@ -33,6 +33,9 @@ def main():
         "scope_clause": f"本演示规则仅适用于商品 {sku}，不适用于其他商品或真实平台。",
         "window_clause": "申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。",
         "condition_clause": "仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
+        "quality_clause": "仅在管理员登记的需质检分支，必须取得同一订单商品行及申请数量的有效质检通过结论；其他分支不新增该项要求。",
+        "quality_issue_window": "质量问题退货分支限实际签收30天内；不能延长无理由退货的7天窗口。",
+        "quality_issue_condition": "质量问题分支允许已使用商品，但必须由独立处理人明确登记同商品行同数量的存在缺陷结论；质检未通过、用户自述或照片不能代替。",
     }
     text = (
         "# 演示商家退货规则\n\n"
@@ -47,7 +50,7 @@ def main():
         admin = session.scalar(
             select(User).where(User.organization_id == org.id, User.role == "admin")
         )
-        for label, days in (("normal", 1), ("missing_receipt", None), ("expired", 8)):
+        for label, days in (("normal", 1), ("missing_receipt", None), ("expired", 8), ("quality_window", 10)):
             order = Order(
                 organization_id=org.id,
                 number="RET-" + label.upper() + "-" + suffix,
@@ -114,11 +117,48 @@ def main():
                 window_days=7,
                 requires_unused=True,
                 administrator_verified=True,
-                **refs,
+                **{k: refs[k] for k in ("scope_clause", "window_clause", "condition_clause")},
+            ),
+        )
+        quality_policy = register_policy(
+            session,
+            admin,
+            ReturnPolicyInput(
+                version_id=version_id,
+                skus=[sku],
+                window_days=7,
+                requires_unused=True,
+                required_facts=["quality_verdict"],
+                quality_requirement="passed",
+                administrator_verified=True,
+                **{
+                    k: refs[k]
+                    for k in ("scope_clause", "window_clause", "condition_clause", "quality_clause")
+                },
+            ),
+        )
+        defect_policy = register_policy(
+            session,
+            admin,
+            ReturnPolicyInput(
+                version_id=version_id,
+                skus=[sku],
+                window_days=30,
+                requires_unused=False,
+                return_basis="quality_issue",
+                required_facts=["quality_verdict"],
+                quality_requirement="defect_confirmed",
+                administrator_verified=True,
+                scope_clause=refs["scope_clause"],
+                window_clause=refs["quality_issue_window"],
+                condition_clause=refs["quality_issue_condition"],
+                quality_clause=refs["quality_issue_condition"],
             ),
         )
         data.update(
             policy_id=policy.id,
+            quality_policy_id=quality_policy.id,
+            defect_policy_id=defect_policy.id,
             version_id=version_id,
             document_id=version.document_id,
             clauses=refs,

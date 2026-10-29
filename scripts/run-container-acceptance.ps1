@@ -90,7 +90,7 @@ switch ($Phase) {
         $env:WORKBENCH_DOCKER_ORDER_NUMBER=$orders.expedite
         Seed-Returns
         Copy-Item -LiteralPath (Join-Path $projectRoot 'work\returns-v1\demo.json') -Destination (Join-Path $projectRoot 'work\returns-v1\demo-api.json') -Force
-        & $python -m pytest --run-docker tests/integration/test_workbench_docker.py tests/integration/test_workbench_docker_flows.py tests/integration/test_workbench_dispatch_docker.py tests/integration/test_workbench_profiles_docker.py tests/integration/test_workbench_returns_docker.py -q `
+        & $python -m pytest --run-docker tests/integration/test_workbench_docker.py tests/integration/test_workbench_docker_flows.py tests/integration/test_workbench_dispatch_docker.py tests/integration/test_workbench_profiles_docker.py tests/integration/test_workbench_returns_docker.py tests/integration/test_workbench_return_agent_docker.py -q `
             --basetemp=work/temp/docker-api --junitxml=work/docker/api-junit.xml
         if ($LASTEXITCODE -ne 0) { throw 'Real container API acceptance failed; preserve logs.' }
         $hostManifest=Join-Path $projectRoot 'work\fullstack\aftersales-demo.json'

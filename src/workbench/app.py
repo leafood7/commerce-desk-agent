@@ -756,6 +756,9 @@ def create_app(settings=None, *, gateway=None):
     from workbench.return_api import attach_return_routes
 
     attach_return_routes(application, session, actor, require, idempotency_key)
+    from workbench.quality_api import attach_quality_routes
+
+    attach_quality_routes(application, session, actor, require, idempotency_key)
     return application
 
 

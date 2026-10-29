@@ -10,6 +10,7 @@ from sqlalchemy import or_, select
 from business.rag_retrieval import BM25Index, reciprocal_rank_fusion, rerank
 from workbench.evidence_context import expand_context
 from workbench.knowledge_models import Document, DocumentVersion, KnowledgeChunk
+from workbench.reference_context import expand_references
 
 
 class KnowledgeRetriever:
@@ -19,7 +20,7 @@ class KnowledgeRetriever:
         self.lock = Lock()
         self.snapshot_builds = 0
 
-    def active_versions(self, session, organization_id, policy_scope):
+    def active_versions(self, session, organization_id, policy_scope, version_id=None):
         today = datetime.now(UTC).date()
         statement = (
             select(Document, DocumentVersion)
@@ -42,11 +43,13 @@ class KnowledgeRetriever:
             statement = statement.where(
                 DocumentVersion.policy_scope.in_(["unknown", "general", policy_scope])
             )
+        if version_id:
+            statement = statement.where(DocumentVersion.id == version_id)
         return session.execute(statement).all()
 
-    def snapshot(self, organization_id, policy_scope):
+    def snapshot(self, organization_id, policy_scope, version_id=None):
         with self.database.sessions() as session:
-            versions = self.active_versions(session, organization_id, policy_scope)
+            versions = self.active_versions(session, organization_id, policy_scope, version_id)
             ids = tuple(sorted(version.id for _, version in versions))
             key = organization_id, policy_scope, ids
             with self.lock:
@@ -96,7 +99,7 @@ class KnowledgeRetriever:
     def search(self, organization_id, request):
         start = perf_counter()
         version_ids, (documents, sparse_index) = self.snapshot(
-            organization_id, request.policy_scope
+            organization_id, request.policy_scope, request.version_id
         )
         if not version_ids:
             return {
@@ -133,15 +136,23 @@ class KnowledgeRetriever:
             if total_chars + len(candidate["content"]) <= self.settings.context_chars:
                 anchors.append(candidate)
                 total_chars += len(candidate["content"])
-        selected = expand_context(
-            anchors, documents, self.settings.context_chars, self.settings.retrieval_context_mode
-        )
+        reference_trace = None
+        if self.settings.retrieval_context_mode == "references":
+            expanded = expand_references(anchors, documents, self.settings.context_chars)
+            selected, reference_trace = expanded["matches"], expanded["trace"]
+        else:
+            selected = expand_context(
+                anchors,
+                documents,
+                self.settings.context_chars,
+                self.settings.retrieval_context_mode,
+            )
         # A new transaction avoids returning an old publication snapshot after inference.
         with self.database.sessions() as session:
             current = {
                 version.id
                 for _, version in self.active_versions(
-                    session, organization_id, request.policy_scope
+                    session, organization_id, request.policy_scope, request.version_id
                 )
             }
         selected = [row for row in selected if row["version_id"] in current]
@@ -152,6 +163,7 @@ class KnowledgeRetriever:
             "trace": {
                 "strategy": request.strategy,
                 "context_mode": self.settings.retrieval_context_mode,
+                "reference_expansion": reference_trace,
                 "version_ids": list(version_ids),
                 "dense_ids": [row["id"] for row in dense],
                 "sparse_ids": [row["id"] for row in sparse],

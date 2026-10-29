@@ -34,6 +34,7 @@ class SearchInput(Input):
     policy_scope: PolicyScope | None = None
     strategy: Literal["vector", "hybrid", "hybrid_rerank"] = "hybrid_rerank"
     top_k: int = Field(default=3, ge=1, le=5)
+    version_id: str | None = Field(default=None, min_length=1, max_length=36)
 
     @model_validator(mode="after")
     def nonempty(self):

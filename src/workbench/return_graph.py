@@ -33,6 +33,22 @@ class ReturnState(TypedDict, total=False):
     corrections: list
     retrieved_ids: list
     retrieval: dict
+    order_read: bool
+    policy_searched: bool
+    return_checked: bool
+    supplemented: bool
+    decisions: list
+    planner_mode: str
+    return_description: str | None
+    condition_proposal: dict
+    condition_ack: str | None
+    condition_origin: dict
+    quality_info: dict
+    return_basis: str | None
+    policy_context: list
+    retrieved_evidence: list
+    context_bound: bool
+    context_purpose: str
 
 
 FIELDS = ("order_number", "reason", "return_item_id", "return_quantity", "return_condition")
@@ -46,6 +62,7 @@ def application(state):
         quantity=state["return_quantity"],
         reason=state["reason"],
         item_condition=state.get("return_condition") or "unknown",
+        return_basis=state.get("return_basis") or "no_reason",
     ).model_dump(mode="json")
 
 
@@ -60,12 +77,28 @@ def build_return_graph(saver, tools, validate, planner=None, *, profile=None):
                 "answer": "请明确退货订单、商品行、数量和原因；不从猜测补全。",
                 "missing": missing,
                 "known": {k: state.get(k) for k in FIELDS},
+                "return_description": state.get("return_description"),
             }
         )
         if state.get("turns", 0) >= 10:
             return {"next_step": "finish", "answer": "补充次数已达上限，请人工核实。"}
         return {
             **{k: response[k] for k in FIELDS if response.get(k) is not None},
+            **(
+                {"return_basis": response["return_basis"]}
+                if response.get("return_basis") is not None
+                else {}
+            ),
+            **(
+                {"return_policy_id": response["return_policy_id"]}
+                if response.get("return_policy_id")
+                else {}
+            ),
+            **(
+                {"return_description": response["return_description"]}
+                if response.get("return_description") is not None
+                else {}
+            ),
             "turns": state.get("turns", 0) + 1,
             "next_step": "gather",
         }
@@ -184,6 +217,9 @@ def build_return_graph(saver, tools, validate, planner=None, *, profile=None):
                 "answer": "请确认本版本退货申请，确认后仅提交独立审批，不执行退款。",
                 "proposal": {
                     **{k: state.get(k) for k in FIELDS},
+                    "return_policy_id": state["return_policy_id"],
+                    "return_description": state.get("return_description"),
+                    "return_basis": state.get("return_basis") or "no_reason",
                     "goods_value_cents": state["preview"]["goods_value_cents"],
                     "refund_amount_cents": None,
                     "external_mode": "simulation",
@@ -194,6 +230,21 @@ def build_return_graph(saver, tools, validate, planner=None, *, profile=None):
         if response["action"] == "correct":
             return {
                 **{k: response[k] for k in FIELDS if response.get(k) is not None},
+                **(
+                    {"return_basis": response["return_basis"]}
+                    if response.get("return_basis") is not None
+                    else {}
+                ),
+                **(
+                    {"return_policy_id": response["return_policy_id"]}
+                    if response.get("return_policy_id")
+                    else {}
+                ),
+                **(
+                    {"return_description": response["return_description"]}
+                    if response.get("return_description") is not None
+                    else {}
+                ),
                 "confirmed": False,
                 "next_step": "gather",
                 "corrections": [
@@ -271,6 +322,27 @@ def build_return_graph(saver, tools, validate, planner=None, *, profile=None):
             "answer": "退货申请状态：" + row["status"] + "。外部受理为本地模拟，真实退款未执行。"
         }
 
+    if (profile or {}).get("return_flow_version") in {"observed_v2", "guided_v3"}:
+        from workbench.return_observation_graph import build_observation_graph
+
+        return build_observation_graph(
+            ReturnState,
+            saver,
+            tools,
+            validate,
+            planner,
+            profile,
+            {
+                "gather": gather,
+                "confirmation": confirmation,
+                "submit": submit,
+                "wait_approval": wait_approval,
+                "refresh": refresh,
+                "confirm_external": confirm_external,
+                "external": external,
+                "result": result,
+            },
+        )
     graph = StateGraph(ReturnState)
     for name, node in (
         ("gather", gather),

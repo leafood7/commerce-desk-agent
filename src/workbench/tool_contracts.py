@@ -10,6 +10,7 @@ from pydantic import Field, StrictStr
 from workbench.knowledge_models import MCPGrant
 from workbench.knowledge_schemas import SearchInput
 from workbench.models import AuthSession, User, now
+from workbench.quality_schemas import QualityLookup
 from workbench.return_schemas import (
     ReturnConfirmTool,
     ReturnInput,
@@ -42,6 +43,12 @@ class ShippingArguments(OrderArguments):
 
 
 CONTRACTS = {
+    "get_quality_inspection": (
+        QualityLookup,
+        "orders:read",
+        "查询本商家指定订单商品行及数量的最新人工登记演示质检；不创建、不判定、不批准、不退款。",
+        True,
+    ),
     "confirm_return_application": (
         ReturnConfirmTool,
         "returns:write",

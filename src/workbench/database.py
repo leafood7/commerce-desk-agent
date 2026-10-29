@@ -35,7 +35,7 @@ class Database:
     def check_schema(self):
         with self.engine.connect() as connection:
             revision = connection.scalar(text("SELECT version_num FROM alembic_version"))
-            if revision != "0007_return_applications":
+            if revision != "0009_quality_return_basis":
                 raise RuntimeError("Business schema is not current; run alembic upgrade head")
 
     def close(self):

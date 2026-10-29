@@ -11,6 +11,9 @@ class ProfileOptions(Input):
     max_output_tokens: Literal[128, 256] = 256
     top_k: int = Field(default=3, ge=1, le=3)
     tone: Literal["plain", "friendly"] = "plain"
+    return_flow_version: Literal["observed_v2", "guided_v3"] = "guided_v3"
+    return_decisions: Literal["rules", "model"] = "rules"
+    return_retrieval_mode: Literal["baseline", "policy_scoped", "clause_bound"] = "baseline"
 
 
 class ActivateProfile(Input):

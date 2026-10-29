@@ -75,6 +75,10 @@ def test_real_configuration_release_does_not_change_queued_run(container_api):
                 target = original["current"]
             else:
                 target = create(
-                    {k: v for k, v in original["current"]["values"].items() if k != "prompt_sha256"}
+                    {
+                        k: v
+                        for k, v in original["current"]["values"].items()
+                        if k not in {"prompt_sha256", "return_prompt_sha256"}
+                    }
                 )
             activate(target, current["revision"])

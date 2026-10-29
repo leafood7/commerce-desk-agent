@@ -35,7 +35,7 @@ test("admin drafts and publishes controlled configuration; restore previous sett
     if(publishedId&&current.current.id===publishedId){
       let target=saved.current;
       if(!target.id){
-        const values={...target.values};delete values.prompt_sha256;
+        const values={...target.values};delete values.prompt_sha256;delete values.return_prompt_sha256;
         const response=await page.request.post("/api/v1/runtime/config/versions",{headers,data:values});
         expect(response.ok()).toBeTruthy();target=await response.json();
       }

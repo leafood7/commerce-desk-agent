@@ -137,6 +137,10 @@ def create_mcp_app(settings=None, *, index=None):
                             session, user, returns.owned_request(session, user, body.request_id)
                         ),
                     }
+                elif name == "get_quality_inspection":
+                    from workbench.quality import lookup
+
+                    data = {"status": "found", "quality": lookup(session, user, body)}
                 elif name == "get_order_status":
                     data = {
                         "status": "found",

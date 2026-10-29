@@ -6,9 +6,17 @@ x-knowledge-environment: &knowledge-environment
   WORKBENCH_MCP_URL: http://mcp:8083/mcp
   WORKBENCH_CHROMA_URL: http://chroma:8000
   WORKBENCH_STORAGE_ROOT: /app/data/workbench/files
+  WORKBENCH_RETRIEVAL_CONTEXT_MODE: ${WORKBENCH_RETRIEVAL_CONTEXT_MODE:-neighbors}
   HF_HUB_OFFLINE: "1"
   NO_PROXY: "localhost,127.0.0.1,chroma,mcp,mysql"
   ANONYMIZED_TELEMETRY: "false"
+x-agent-environment: &agent-environment
+  WORKBENCH_AGENT_ROUTER_MODE: ${WORKBENCH_AGENT_ROUTER_MODE:-rules}
+  WORKBENCH_AGENT_ROUTER_URL: ${WORKBENCH_AGENT_ROUTER_URL:-}
+  WORKBENCH_AGENT_ROUTER_MODEL: ${WORKBENCH_AGENT_ROUTER_MODEL:-}
+  WORKBENCH_AGENT_ROUTER_KEY: ${WORKBENCH_AGENT_ROUTER_KEY:-}
+  WORKBENCH_RETURN_DECISION_MODE: ${WORKBENCH_RETURN_DECISION_MODE:-rules}
+  WORKBENCH_RETURN_MODEL_LIMIT: ${WORKBENCH_RETURN_MODEL_LIMIT:-6}
 services:
   mysql:
     image: mysql:8.4
@@ -31,7 +39,7 @@ services:
       dockerfile: docker/Dockerfile.service
       target: workbench
     environment:
-      <<: *knowledge-environment
+      <<: [*knowledge-environment, *agent-environment]
       COMMERCE_APP: workbench
       PORT: "8080"
     volumes:
@@ -88,7 +96,8 @@ services:
       dockerfile: docker/Dockerfile.service
       target: workbench
     command: ["python", "-m", "workbench.run_worker"]
-    environment: *knowledge-environment
+    environment:
+      <<: [*knowledge-environment, *agent-environment]
     depends_on:
       api:
         condition: service_healthy

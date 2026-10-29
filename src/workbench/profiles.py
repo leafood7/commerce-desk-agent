@@ -9,6 +9,20 @@ from workbench.profile_models import ProfileHead, ProfileVersion, RunProfile
 from workbench.profile_schemas import ProfileOptions
 from workbench.quotas import acquire_admission
 
+PROMPT_FIELDS = {"prompt_sha256", "return_prompt_sha256"}
+
+
+def return_prompt_hash():
+    from workbench.return_decisions import prompt_hash as decision_prompt_hash
+
+    return decision_prompt_hash()
+
+
+def profile_options(values):
+    return ProfileOptions.model_validate(
+        {k: v for k, v in values.items() if k not in PROMPT_FIELDS}
+    )
+
 
 def prompt_hash():
     from workbench.intent_router import router_messages
@@ -27,6 +41,7 @@ def factory_values(settings):
             max_output_tokens=settings.agent_router_max_output_tokens,
         ).model_dump(),
         "prompt_sha256": prompt_hash(),
+        "return_prompt_sha256": return_prompt_hash(),
     }
 
 
@@ -35,6 +50,10 @@ def check_options(options, settings):
         raise HTTPException(422, "Server model is not enabled; configuration cannot enable it")
     if options.max_output_tokens > settings.agent_router_max_output_tokens:
         raise HTTPException(422, "Output cap exceeds server limit")
+    if options.return_decisions == "model" and (
+        options.model_alias != "server_default" or settings.return_decision_mode != "model"
+    ):
+        raise HTTPException(422, "Return model decisions are not enabled by the server")
 
 
 def version_view(row):
@@ -68,6 +87,8 @@ def current_profile(session, actor, settings):
         "allowed_model_aliases": ["rules"]
         + (["server_default"] if settings.agent_router_mode == "model" else []),
         "max_output_cap": settings.agent_router_max_output_tokens,
+        "return_model_available": settings.return_decision_mode == "model"
+        and settings.agent_router_mode == "model",
     }
 
 
@@ -85,7 +106,11 @@ def create_version(session, actor, options, settings):
         )
         or 0
     )
-    values = {**options.model_dump(), "prompt_sha256": prompt_hash()}
+    values = {
+        **options.model_dump(),
+        "prompt_sha256": prompt_hash(),
+        "return_prompt_sha256": return_prompt_hash(),
+    }
     row = ProfileVersion(
         organization_id=actor.organization_id,
         number=number + 1,
@@ -113,13 +138,15 @@ def activate_version(session, actor, identifier, expected, settings):
     )
     if not row:
         raise HTTPException(404, "Profile not found")
-    options = ProfileOptions.model_validate(
-        {k: v for k, v in row.values.items() if k != "prompt_sha256"}
-    )
+    options = profile_options(row.values)
     check_options(options, settings)
     if (
         fingerprint(row.values) != row.config_hash
         or row.values.get("prompt_sha256") != prompt_hash()
+        or (
+            options.return_decisions == "model"
+            and row.values.get("return_prompt_sha256") != return_prompt_hash()
+        )
     ):
         raise HTTPException(409, "Template changed; create a fresh profile version")
     if not head:
@@ -144,7 +171,7 @@ def snapshot_run(session, run, actor, settings):
     # Called within the same admission/run creation transaction.
     current = current_profile(session, actor, settings)
     values = dict(current["current"]["values"])
-    ProfileOptions.model_validate({k: v for k, v in values.items() if k != "prompt_sha256"})
+    profile_options(values)
     if fingerprint(values) != current["current"]["config_hash"]:
         raise HTTPException(409, "Profile integrity mismatch")
     row = RunProfile(
@@ -164,18 +191,19 @@ def effective_settings(database, run_id):
         row = session.get(RunProfile, run_id)
         if not row:
             return (
-                base.model_copy(update={"agent_router_mode": "rules"}),
+                base.model_copy(
+                    update={"agent_router_mode": "rules", "return_decision_mode": "rules"}
+                ),
                 {"top_k": 3, "tone": "plain"},
                 "legacy_unrecorded",
             )
         values = dict(row.values)
-        options = ProfileOptions.model_validate(
-            {k: v for k, v in values.items() if k != "prompt_sha256"}
-        )
+        options = profile_options(values)
         if fingerprint(values) != row.config_hash:
             raise ValueError("Run profile integrity mismatch")
         reason = "snapshot"
         mode = "rules"
+        return_mode = "rules"
         if options.model_alias == "server_default":
             if base.agent_router_mode != "model":
                 reason = "server_model_disabled"
@@ -187,10 +215,18 @@ def effective_settings(database, run_id):
                 reason = "server_output_cap_reduced"
             else:
                 mode = "model"
+        if options.return_decisions == "model" and mode == "model":
+            if base.return_decision_mode != "model":
+                reason = "return_model_disabled"
+            elif values.get("return_prompt_sha256") != return_prompt_hash():
+                reason = "return_template_changed"
+            else:
+                return_mode = "model"
         return (
             base.model_copy(
                 update={
                     "agent_router_mode": mode,
+                    "return_decision_mode": return_mode,
                     "agent_router_max_output_tokens": min(
                         options.max_output_tokens, base.agent_router_max_output_tokens
                     ),

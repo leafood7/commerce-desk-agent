@@ -62,13 +62,21 @@ class RunInput(Input):
     return_item_id: str | None = Field(default=None, min_length=1, max_length=36)
     return_quantity: StrictInt | None = Field(default=None, ge=1, le=10000)
     return_condition: Literal["unknown", "unused", "used"] | None = None
+    return_description: str | None = Field(default=None, max_length=500)
+    return_basis: Literal["no_reason", "quality_issue"] | None = None
 
     @model_validator(mode="after")
     def task_fields(self):
         if self.kind == "aftersales":
             if not self.return_policy_id and any(
                 v is not None
-                for v in (self.return_item_id, self.return_quantity, self.return_condition)
+                for v in (
+                    self.return_item_id,
+                    self.return_quantity,
+                    self.return_condition,
+                    self.return_description,
+                    self.return_basis,
+                )
             ):
                 raise ValueError("Return fields require an explicit return policy")
             if self.return_policy_id and self.shipping_kind:
@@ -88,6 +96,8 @@ class RunInput(Input):
                     self.return_item_id,
                     self.return_quantity,
                     self.return_condition,
+                    self.return_description,
+                    self.return_basis,
                 )
             )
         ):

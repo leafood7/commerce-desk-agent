@@ -11,3 +11,33 @@
 /docs/answer-trust/protocol.md -text whitespace=cr-at-eol
 /docs/answer-trust/scoring.md -text whitespace=cr-at-eol
 /docs/diagnosis-v1/** -text whitespace=cr-at-eol
+
+# Preserve fullstack development experiment inputs/results across Windows checkouts.
+/data/evaluation/workbench_rag/** -text whitespace=cr-at-eol
+/data/evaluation/agent_rag_v1/** -text whitespace=cr-at-eol
+/data/evaluation/return_agent_v1/** -text whitespace=cr-at-eol
+/docs/fullstack/return-agent-stage-protocol.md -text whitespace=cr-at-eol
+/docs/fullstack/return-agent-evaluation/** -text whitespace=cr-at-eol
+# Frozen intake samples and protocol retain their measured bytes.
+data/evaluation/return_intake_v1/** -text
+docs/fullstack/return-intake-protocol.md -text
+docs/fullstack/return-intake-evaluation/** -text
+docs/fullstack/quality-stage-protocol.md -text
+docs/fullstack/quality-evaluation/** -text
+data/evaluation/quality_return_v1/** -text
+docs/fullstack/quality-return-protocol.md -text
+docs/fullstack/quality-return-supplement-protocol.md -text
+docs/fullstack/quality-return-evaluation/** -text
+data/evaluation/rag_long_scale_v1/** -text
+data/evaluation/rag_long_scale_v2/** -text
+data/evaluation/rag_long_scale_review_v1/** -text
+docs/fullstack/rag-long-scale-protocol.md -text
+docs/fullstack/rag-long-scale-evaluation/** -text
+data/evaluation/rag_purpose_v1/** -text
+docs/fullstack/rag-purpose-protocol.md -text
+docs/fullstack/rag-purpose-evaluation/** -text
+docs/fullstack/recovery-stage-protocol.md -text
+docs/fullstack/recovery-evaluation/** -text
+docs/portfolio/evidence/** -text
+docs/portfolio/delivery-checks.json -text
+docs/portfolio/delivery-manifest.json -text
