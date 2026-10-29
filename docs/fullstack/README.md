@@ -8,7 +8,7 @@
 
 本地Docker推荐页面http://127.0.0.1:15173，API http://127.0.0.1:18082。7服务包括MySQL、API、Chroma、MCP、文档worker、运行worker和Web。恢复演练已完成，见[操作](full-recovery.md)和[报告](full-recovery-report.md)。三段作品演示及证据见[交付包](../portfolio/README.md)。
 
-作品交付分支为`feat/fullstack-foundation`，以实际Git提交为准；历史候选清单与“未提交”记录描述其运行时状态。以下原生启动为兼容路径，使用另一套端口/私有凭据；不要与容器演示清单混用。更早分阶段记录保留在STATUS及各报告，不能将历史待办当作最新状态。
+默认展示版本以`main`分支为准，开发分支为`feat/fullstack-foundation`，以实际Git提交为准；历史候选清单与“未提交”记录描述其运行时状态。以下原生启动为兼容路径，使用另一套端口/私有凭据；不要与容器演示清单混用。更早分阶段记录保留在STATUS及各报告，不能将历史待办当作最新状态。
 
 ## 启动本机版本
 

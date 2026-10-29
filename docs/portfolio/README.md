@@ -2,7 +2,7 @@
 
 定位：面向电商售后的全栈Agent＋RAG工程作品。核心是订单行级退货、政策证据、受限流程决策和独立审批，外部受理明确为本地模拟。
 
-当前代码在 `D:\VScodeProgects\commerce-desk-agent`。作品交付分支为`feat/fullstack-foundation`，以该分支实际提交为准；不是生产发布版。交付清单记录提交前的本地快照，历史报告中的未提交状态描述当时实验，不是当前分支状态。来源与二次开发说明见根目录LICENSE、NOTICE。
+当前代码在 `D:\VScodeProgects\commerce-desk-agent`。默认展示版本以`main`分支为准，开发与审核分支为`feat/fullstack-foundation`；以实际提交为准，不是生产发布版。交付清单记录提交前的本地快照，历史报告中的未提交状态描述当时实验，不是当前分支状态。来源与二次开发说明见根目录LICENSE、NOTICE。
 
 ## 按这个顺序查看
 

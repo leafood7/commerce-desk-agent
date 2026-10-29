@@ -10,6 +10,7 @@ const missingLabels:Record<string,string>={actual_signed_at:"实际签收时间�
 export function Returns({token,role,initialRunId}:{token:string;role:string;initialRunId?:string}){
   const [number,setNumber]=useState("A1003"),[order,setOrder]=useState<any>(null);
   const [policies,setPolicies]=useState<any[]>([]),[policy,setPolicy]=useState("");
+  const [policiesLoaded,setPoliciesLoaded]=useState(false);
   const [item,setItem]=useState(""),[quantity,setQuantity]=useState(1),[condition,setCondition]=useState("unknown"),[reason,setReason]=useState("");
   const [rows,setRows]=useState<any[]>([]),[selected,setSelected]=useState<any>(null),[preview,setPreview]=useState<any>(null);
   const [error,setError]=useState(""),[busy,setBusy]=useState(false);
@@ -24,11 +25,16 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
   const [flow,setFlow]=useState<any>(null),[recent,setRecent]=useState<any[]>([]),[steps,setSteps]=useState<any[]>([]);
   const watcher=useRef<AbortController|null>(null);
   useEffect(()=>()=>watcher.current?.abort(),[]);
-  async function reload(){const [p,r,f]=await Promise.all([api("/returns/policies",token),api("/returns/requests",token),api("/aftersales/runs?workflow=returns",token)]);setPolicies(p.items);setRows(r.items);setRecent(f.items);setPolicy(previous=>previous||p.items[0]?.id||"");}
+  async function reload(){const [p,r,f]=await Promise.all([api("/returns/policies",token),api("/returns/requests",token),api("/aftersales/runs?workflow=returns",token)]);setPolicies(p.items);setPoliciesLoaded(true);setRows(r.items);setRecent(f.items);}
   useEffect(()=>{void reload().catch(e=>setError(e.message));},[token]);
   async function act(task:()=>Promise<void>){setBusy(true);setError("");try{await task();await reload();}catch(e){setError((e as Error).message);}finally{setBusy(false);}}
   async function loadSources(id:string,offset=0){const result=await api(`/returns/policy-sources/${id}?offset=${offset}&limit=20`,token);setSources(old=>offset?[...old,...result.items]:result.items);setSourceOffset(offset+result.items.length);setSourceMore(result.has_more);}
-  async function lookup(){const data=await api("/orders/"+encodeURIComponent(number),token);setOrder(data);setItem(data.items[0]?.id||"");setSelected(null);setPreview(null);}
+  async function lookup(){const data=await api("/orders/"+encodeURIComponent(number),token);setOrder(data);setItem(data.items[0]?.id||"");setPolicy("");setSelected(null);setPreview(null);}
+  const selectedItem=order?.items.find((i:any)=>i.id===item);
+  const visiblePolicies=selectedItem?policies.filter(p=>p.rules.skus.includes(selectedItem.sku)):[];
+  useEffect(()=>{
+    if(policiesLoaded&&order&&policy&&!visiblePolicies.some(p=>p.id===policy))setPolicy("");
+  },[policiesLoaded,order,item,policies,policy]);
   function body(){return {order_number:number,item_id:item,policy_id:policy,quantity,reason,item_condition:condition,return_basis:basis};}
   async function open(row:any){setSelected(row);setPreview(null);if(["draft","pending_approval","approved"].includes(row.status))setPreview(await api(`/returns/requests/${row.id}/preview`,token));}
   async function action(name:string,extra:Record<string,unknown>={}){
@@ -69,10 +75,12 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
   return <section className="conversation"><h2>退货申请</h2>
     <p className="notice">演示商家规则 · 外部受理仅模拟 · 不执行真实退款。申请、批准与受理分别记录。</p>
     {role==="support"&&<>
-      <div className="query"><input aria-label="退货订单号" value={number} onChange={e=>{setNumber(e.target.value);setOrder(null);setItem("");setPreview(null);setSelected(null);}}/><button disabled={busy} onClick={()=>act(lookup)}>读取退货订单</button></div>
+      <div className="query"><input aria-label="退货订单号" value={number} onChange={e=>{setNumber(e.target.value);setOrder(null);setItem("");setPolicy("");setPreview(null);setSelected(null);}}/><button disabled={busy} onClick={()=>act(lookup)}>读取退货订单</button></div>
       {order&&<><p>实际签收：{order.signed_at||"未提供，不能使用预计送达代替"}</p>
-        <label>订单商品<select aria-label="退货商品" value={item} onChange={e=>{setItem(e.target.value);setPreview(null);}}>{order.items.map((i:any)=><option key={i.id} value={i.id}>{i.product_name}（{i.sku}，数量 {i.quantity}）</option>)}</select></label>
-        <label>商家退货规则<select aria-label="退货规则" value={policy} onChange={e=>{setPolicy(e.target.value);setPreview(null);}}><option value="">请选择适用规则</option>{policies.map(p=><option key={p.id} value={p.id}>{p.rules.skus.join("、")} · {bases[p.rules.return_basis||"no_reason"]} · {p.rules.window_days}天 · {p.rules.required_facts?.includes("quality_verdict")?(p.rules.quality_requirement==="defect_confirmed"?"需明确缺陷":p.rules.quality_requirement==="passed"?"需质检通过":"需明确质检结果"):"无需质检分支"} · 管理员已映射条款</option>)}</select></label>
+        <label>订单商品<select aria-label="退货商品" value={item} onChange={e=>{setItem(e.target.value);setPolicy("");setPreview(null);}}>{order.items.map((i:any)=><option key={i.id} value={i.id}>{i.product_name}（{i.sku}，数量 {i.quantity}）</option>)}</select></label>
+        <p className="muted">当前商品：{selectedItem?.sku}。仅展示已加载规则中适用该商品的规则，请核对退货分支和条件。</p>
+        <label>商家退货规则<select aria-label="退货规则" value={policy} disabled={!visiblePolicies.length} onChange={e=>{setPolicy(e.target.value);setPreview(null);}}><option value="">请选择适用规则</option>{visiblePolicies.map(p=><option key={p.id} value={p.id}>{bases[p.rules.return_basis||"no_reason"]} · {p.rules.window_days}天 · {p.rules.requires_unused?"须未使用":"不要求未使用"} · {p.rules.required_facts?.includes("quality_verdict")?(p.rules.quality_requirement==="defect_confirmed"?"需独立确认缺陷":p.rules.quality_requirement==="passed"?"需质检通过":"需明确质检结果"):"无需质检分支"}</option>)}</select></label>
+        {policiesLoaded&&!visiblePolicies.length&&<p role="status">未找到当前商品的已发布规则，请管理员核对；这不代表其他规则下不能退货。</p>}
         <label>申请数量<input aria-label="退货数量" type="number" min={1} value={quantity} onChange={e=>{setQuantity(Number(e.target.value));setPreview(null);}}/></label>
         <label>商品状态<select aria-label="商品状态" value={condition} onChange={e=>{setCondition(e.target.value);setPreview(null);}}>{Object.entries(conditions).map(([v,label])=><option key={v} value={v}>{label}</option>)}</select></label>
         <label>退货原因<input aria-label="退货原因" maxLength={500} value={reason} onChange={e=>{setReason(e.target.value);setPreview(null);}}/></label>

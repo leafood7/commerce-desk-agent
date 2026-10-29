@@ -32,5 +32,13 @@
   "runtime_workbench_files_per_service": 54,
   "schema": "0009_quality_return_basis",
   "table_count": 34,
-  "web_build_matches": true
+  "web_build_matches": true,
+  "interactive_policy_picker_followup": {
+    "reported_by_user": true,
+    "browser_passed": 8,
+    "reported_duration": "1.3m",
+    "manual_list_clarity_confirmed_by_user": true,
+    "user_three_demos_complete": false,
+    "scope": "client filtering of loaded current-SKU policies; stale selection cleared; backend authority unchanged"
+  }
 }

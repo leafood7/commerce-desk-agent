@@ -15,7 +15,7 @@
 
 ## 本机演示
 
-当前工程：`D:\VScodeProgects\commerce-desk-agent`。作品交付分支为`feat/fullstack-foundation`，请以该分支的实际Git提交为准。实验清单保留当时的本地候选快照，不是发布标签。
+当前工程：`D:\VScodeProgects\commerce-desk-agent`。默认展示版本以`main`分支为准，`feat/fullstack-foundation`用于开发与审核；请以实际Git提交为准。实验清单保留当时的本地候选快照，不是发布标签。
 
 在已经配置好的本机Docker环境中：
 
