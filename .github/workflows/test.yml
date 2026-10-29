@@ -48,6 +48,8 @@ jobs:
           uv run --no-sync pytest tests/service tests/client tests/app
           tests/agents/test_agent_loading.py tests/workbench tests/test_answer_diagnosis.py -q
       - name: Offline experiment integrity
+        env:
+          PYTHONPATH: src
         run: |
           uv run --no-sync python scripts/evaluate_answer_trust.py validate
           uv run --no-sync python scripts/evaluate_workbench_rag.py validate
