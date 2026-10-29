@@ -1,0 +1,82 @@
+{
+  "host": {
+    "src/workbench/__init__.py": "a89f0309eee5027c43b1595680078018842c76a0705d4f4cabe85885d466b625",
+    "src/workbench/aftersales.py": "ffc84dffd9a9ea2b25bcd9a179ec566a65a8fa95d38b70196d65ccdbf0702858",
+    "src/workbench/aftersales_graph.py": "322e493cf2d70c9293cd7adc37f9bbcb1f8b49100bdbfd28a8ef6350761e15fe",
+    "src/workbench/aftersales_schemas.py": "0450ff38f60e927a936b71368b3394790f679f5d44c603ea5947b2c716df9afc",
+    "src/workbench/app.py": "2c574b417cc18f8c547ee526d77c34b1c59422b541c1acbc11ea20e08ba6899b",
+    "src/workbench/checkpoints.py": "af7c1933be808f33134065b7c6d62c69fb967cc331ce203c1aa0db0f3ccf6b6f",
+    "src/workbench/cli.py": "06c04b5f51a8a8343686c1869b3d33121955ca79d868cab971b6037a4db9843e",
+    "src/workbench/config.py": "ee1c05b4493040920f9af80cc55354b51e69d69a5e20cedcb8b19ba74c8723d9",
+    "src/workbench/database.py": "9e9202c8304db04db7ebaa24890fc4126584370d4ba05e127e1df55c918df158",
+    "src/workbench/document_parsing.py": "199f7133c532421bc10740dc4f8e0e7a708775723634292d38af7272fdf4cf7d",
+    "src/workbench/domain.py": "ba5954189c897cb409a8f2f9514f90de49ef9398a0f004c6bb87bda091276894",
+    "src/workbench/evidence_context.py": "b54c382969c927d76eca445c17f1efb14ec37d2bb24582eb5b5f3784ead3b58a",
+    "src/workbench/execution_limits.py": "668a6b0db5d5fe1b6016c9ebf8ba030e9742997fa47a043f5ab6cc2522dec655",
+    "src/workbench/flow_models.py": "06cdbdf522908ffd6516ccd690cb7438ae173cec938b70f848bfb3963b10f88f",
+    "src/workbench/ingestion.py": "f69ac7165f62790552711c8246d9a48bed8c73633fc9c63b412839a73f523c3d",
+    "src/workbench/intent_router.py": "b986d0b086c6911c5c7d6c6aee90c93cb8b9a9e4638f978bd214d2a0528d64fa",
+    "src/workbench/job_models.py": "e34ae6bcea367ed29e8873c23afb95ccb9ccf9e9aea647c43cd0639240b897c8",
+    "src/workbench/knowledge_api.py": "0453dcf5a014e4e8fb296073c81ed4a55b101da9fb952917b30d15ce2368284f",
+    "src/workbench/knowledge_index.py": "cff60bcd58274b41db659a31cd0dc2c6c98cb00ea72acb6bc70e40470f38288a",
+    "src/workbench/knowledge_models.py": "a2fedbb2ccd719d6b16e57fcb6f33b92cf19325d9a6f021b18eabf35ec91742e",
+    "src/workbench/knowledge_schemas.py": "d19da7a9c5638b21a8ada60b698e6a4f9071bbc3b3bb60763326bdfd7b608290",
+    "src/workbench/knowledge_service.py": "f8f9871a83397b4ceb9401d407c8a9c139dd0d237172a4f6bccbdd5920729d9d",
+    "src/workbench/mcp_gateway.py": "c06f933e0dd379f465d2374e6a17ba30401e8418096b31240faaf81a3270370d",
+    "src/workbench/mcp_server.py": "34bf61fdc4e7c5b5b6de8f0f0b746d0dbece092b46dba3ebb75402e3427232c2",
+    "src/workbench/models.py": "4d31f787dd3538ccceafd1599856be0e22983c62dc440af0e91197f05152e6a8",
+    "src/workbench/profile_api.py": "a0a8b48c5b9610396734b3053a06cb1007d110e93f9d743560e16a8e378f1177",
+    "src/workbench/profile_models.py": "d7397975a821cfd2236fac4efbb4d12fcbf4a03ab6cb31224b1d28273f636fb5",
+    "src/workbench/profile_schemas.py": "e839b7e9b865ad0f76661ff79e232e08928ccecb379e0d4fce0b300fb10c7801",
+    "src/workbench/profiles.py": "f851cda8f2899d997426dd34ad7b4a10b759f617a638dfab1cf233c1ed32b959",
+    "src/workbench/quality.py": "ef0f0adb1eb576ae3918aefdf173918304b4b82c2ab02811cbe438c1fc8ab8e3",
+    "src/workbench/quality_api.py": "f83bde5d89e1b00625078b9fa46175899fa6355869679a14e9939022fc781d46",
+    "src/workbench/quality_schemas.py": "4879d0831463ab20c0806943994d1640db461e9cdd21be2a8b6604a110480552",
+    "src/workbench/quota_models.py": "84a3946ffbc65609c51bd69907a84a59a36d5406952426f22fd5fafd38a6e66c",
+    "src/workbench/quotas.py": "55c644962c9e33a152dcbe576a13c7609f1207eed1cb01f63ac7532cab16f183",
+    "src/workbench/retrieval.py": "3a29bdb052831486537c5299b7442739a6012847b82f0cc565171cff1077f861",
+    "src/workbench/return_api.py": "22a6ac8288fdd6af5c95ed4c992faca9e9c7cae38930c28ef6041eef622acf18",
+    "src/workbench/return_decisions.py": "9fc7c5a25bf52ae25cfc739a8ae9aa9e83e964d90bec96ac4714e52f6bf04c8f",
+    "src/workbench/return_fact_checks.py": "aa662fe2b7fed701f7be7cef66e5b7be7936766f7fa3d8d6186e90116b322f58",
+    "src/workbench/return_graph.py": "b9aa0cae5c1588c790d0ce282347270d42f777914146d3a0ae4900f229ae63a8",
+    "src/workbench/return_intake.py": "a82064d7cad2326733d89edbb79e993d022704670a95225772b834270f3ad7a5",
+    "src/workbench/return_models.py": "0a8e118a6b927ac024ad26f5ee6fae890f126fc90c407630494df82e7c8a2a5f",
+    "src/workbench/return_observation_graph.py": "12b1be1591c329faa5f934aea1b443555a167ca330ac1b4e778350e7495f4654",
+    "src/workbench/return_observations.py": "3f4af7c939a41a709665480b0f78af307583c42c2688cd41e8f3dc99a87e62cf",
+    "src/workbench/return_schemas.py": "1b723035a509a49f3c2d9335a3705cfb7c7d9116e6e3e99788a665153000e57a",
+    "src/workbench/returns.py": "70f0d1212798562fb64943ea383ade27c7d80d8f26c419a567a89cc8cb811202",
+    "src/workbench/run_worker.py": "9234d6a1725c53a378a0c22071bf4eca9acace797415ed3f11385f3fa970d24b",
+    "src/workbench/runs.py": "28bca25e6f23527cd8c0f0adebf40d17351f885c3f46c0019d9cf4937a2a0d45",
+    "src/workbench/schemas.py": "627d75f419af5f17eb549370c84bd8e64eb60ea577a648a253ebc57fced89aff",
+    "src/workbench/security.py": "35cec924aadc947477b1239e31dcb59372babdfb485f472d04f888cbd9580757",
+    "src/workbench/seed.py": "1eba778b53b126ca464b3072b6e52fa8102ef4d1bb709fda64156e4361f1d561",
+    "src/workbench/tool_contracts.py": "4453cfc402534153cc0d473b826d7b4ef0114c0d40d9f185594e4373d56094b9",
+    "src/workbench/tool_plans.py": "0e91e5231c72fe6af6c2bdac3dca18cc748ccd74837bac50c4336e485a517ad5",
+    "migrations/versions/0008_quality_inspections.py": "daa4dcdeac230181237f4ae41fea201d313f36285fe9c8b345e9198a0be7cefe"
+  },
+  "services": {
+    "api": {
+      "matches": true,
+      "source_files": 52,
+      "migration_matches": true
+    },
+    "mcp": {
+      "matches": true,
+      "source_files": 52,
+      "migration_matches": true
+    },
+    "run-worker": {
+      "matches": true,
+      "source_files": 52,
+      "migration_matches": true
+    }
+  },
+  "runtime": {
+    "schema": "0008_quality_inspections",
+    "tables": 34,
+    "agent_router_mode": "rules",
+    "return_decision_mode": "rules",
+    "model_key_present": false
+  },
+  "web_index_sha256": "3686a08430eb3bfc752d9ac07919562f90f9d0b85edf81e407f9e31dbf08c877"
+}

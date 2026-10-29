@@ -1,0 +1,12 @@
+{
+  "cases": 24,
+  "split": "authored_development",
+  "hashes": {
+    "corpus.json": "ebe4eacb6c6cba157a26e474e66279ed0fc3045e44dcecb0b54fad9a2364162b",
+    "bindings.json": "f0d2116429adc512d6d783f801e5758d94c4dc5265ec692f438628ab0091c254",
+    "cases.json": "bc70e0b39e1cd179b54f07c10e25ec2dcb3d63ebdf3df0d2ad98e62b8bb1e8c9"
+  },
+  "protocol_sha256": "a03c088e03d714879af261e5ddf3cb63448e37e06219de0204361aef57a607da",
+  "paid_calls": 0,
+  "holdout_read": false
+}

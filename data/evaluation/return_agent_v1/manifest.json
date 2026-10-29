@@ -1,0 +1,17 @@
+{
+  "baseline_commit": "1e8f369",
+  "split": "development_only",
+  "cases": 24,
+  "families": 6,
+  "decision_cases": 8,
+  "hashes": {
+    "corpus.json": "9c49647852ccab87f41c911fa91f920134dd5adca25b4e2fca04aff612c228ba",
+    "cases.json": "9b8ad60d7497899710a6140644563b497ae943b43ab0b1e1e61607b77b648aa4",
+    "bindings.json": "7081c8e6a1b4b53918a4e0de9c016bddcad86dc5967e4b455e34898c1df8335f",
+    "decision-cases.json": "43d38e3ef85c8be221b0a0285692a4af6d14d5b04ba5fe395843d338a6739e60",
+    "config.json": "c7f0f5156752f332c09549c2e3d252585e4bda79e70afe984667080a509c3d1e"
+  },
+  "protocol_sha256": "ca575f62cdf9cac942325263b3d752dc2e4169436fe46fa22b62fbd7cd832eec",
+  "changes_after_results": "use_new_version_not_overwrite",
+  "holdout_read": false
+}

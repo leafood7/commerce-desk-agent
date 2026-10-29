@@ -1,0 +1,546 @@
+[
+  {
+    "id": "long-dev-001",
+    "family": "scope",
+    "question": "DEMO-LONG-A质量问题需要核对哪些适用范围？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。",
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-002",
+    "family": "scope",
+    "question": "相似型号B能套用A的质量问题规则吗？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。",
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-003",
+    "family": "scope",
+    "question": "本商家质量问题分支适用于什么商品？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。",
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-004",
+    "family": "scope",
+    "question": "退货前如何核对商品是否在政策范围内？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。",
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-005",
+    "family": "window",
+    "question": "签收第10天，质量问题明确缺陷，核对期限和例外。",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-006",
+    "family": "window",
+    "question": "质量问题30天窗口是否需要实际签收？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-007",
+    "family": "window",
+    "question": "预计到达能代替实际签收计算质量问题期限吗？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-008",
+    "family": "window",
+    "question": "签收31天还能直接套质量问题30天吗？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-009",
+    "family": "usage",
+    "question": "用过的商品发现问题，质量分支有哪些条件和排除？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-010",
+    "family": "usage",
+    "question": "已使用但确认缺陷，能按质量问题规则处理吗？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-011",
+    "family": "usage",
+    "question": "质量问题允许使用过，是否就不用查其他条件？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-012",
+    "family": "usage",
+    "question": "使用例外是否也延长无理由窗口？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-013",
+    "family": "finding",
+    "question": "质检未通过就等于确认缺陷吗？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-014",
+    "family": "finding",
+    "question": "只有照片没有独立缺陷结论，质量问题如何核对？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-015",
+    "family": "finding",
+    "question": "用户自述坏了，是否满足全部质量问题条件？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-016",
+    "family": "finding",
+    "question": "同商品行不同数量的缺陷记录可以直接复用吗？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-017",
+    "family": "exclusion",
+    "question": "人为损坏是否满足质量问题分支？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-018",
+    "family": "exclusion",
+    "question": "质量问题例外有哪些排除条件？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-019",
+    "family": "exclusion",
+    "question": "确认缺陷后是否不需要再核对排除条件？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-020",
+    "family": "exclusion",
+    "question": "质量问题规则是否已代表退款和运费结算？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": true,
+    "required_quotes": [
+      "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。",
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。",
+      "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+    ],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-021",
+    "family": "correction",
+    "question": "更正为无理由退货，原先说质量问题不准确。",
+    "organization_id": "merchant-a",
+    "latest_binding": "no_reason",
+    "answerable": true,
+    "required_quotes": [
+      "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。",
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。",
+      "没有实际签收记录时暂缓资格判断，不用预计送达、发货时间或客服历史猜测补齐。"
+    ],
+    "wrong_branch_quotes": [
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+    ],
+    "previous_binding": "quality_issue"
+  },
+  {
+    "id": "long-dev-022",
+    "family": "correction",
+    "question": "收回质量问题描述，按未使用无理由分支核对。",
+    "organization_id": "merchant-a",
+    "latest_binding": "no_reason",
+    "answerable": true,
+    "required_quotes": [
+      "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。",
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。",
+      "没有实际签收记录时暂缓资格判断，不用预计送达、发货时间或客服历史猜测补齐。"
+    ],
+    "wrong_branch_quotes": [
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+    ],
+    "previous_binding": "quality_issue"
+  },
+  {
+    "id": "long-dev-023",
+    "family": "correction",
+    "question": "更正商品未使用，签收8天，要无理由退货。",
+    "organization_id": "merchant-a",
+    "latest_binding": "no_reason",
+    "answerable": true,
+    "required_quotes": [
+      "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。",
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。",
+      "没有实际签收记录时暂缓资格判断，不用预计送达、发货时间或客服历史猜测补齐。"
+    ],
+    "wrong_branch_quotes": [
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+    ],
+    "previous_binding": "quality_issue"
+  },
+  {
+    "id": "long-dev-024",
+    "family": "correction",
+    "question": "只按普通无理由分支，不沿用质量问题30天。",
+    "organization_id": "merchant-a",
+    "latest_binding": "no_reason",
+    "answerable": true,
+    "required_quotes": [
+      "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。",
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。",
+      "没有实际签收记录时暂缓资格判断，不用预计送达、发货时间或客服历史猜测补齐。"
+    ],
+    "wrong_branch_quotes": [
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+    ],
+    "previous_binding": "quality_issue"
+  },
+  {
+    "id": "long-dev-025",
+    "family": "unknown_fact",
+    "question": "实际退款精确金额是多少？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": false,
+    "required_quotes": [],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-026",
+    "family": "unknown_fact",
+    "question": "这笔钱银行到账了吗？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": false,
+    "required_quotes": [],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-027",
+    "family": "unknown_fact",
+    "question": "具体设备何时激活？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": false,
+    "required_quotes": [],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-028",
+    "family": "unknown_fact",
+    "question": "当前订单实际签收时间字段是什么？",
+    "organization_id": "merchant-a",
+    "latest_binding": "quality_issue",
+    "answerable": false,
+    "required_quotes": [],
+    "wrong_branch_quotes": [
+      "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-029",
+    "family": "offtopic",
+    "question": "帮我预订明天的火车票。",
+    "organization_id": "merchant-a",
+    "latest_binding": "no_reason",
+    "answerable": false,
+    "required_quotes": [],
+    "wrong_branch_quotes": [
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-030",
+    "family": "offtopic",
+    "question": "今天月球表面天气如何？",
+    "organization_id": "merchant-a",
+    "latest_binding": "no_reason",
+    "answerable": false,
+    "required_quotes": [],
+    "wrong_branch_quotes": [
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-031",
+    "family": "offtopic",
+    "question": "能否替我发送外部邮件？",
+    "organization_id": "merchant-a",
+    "latest_binding": "no_reason",
+    "answerable": false,
+    "required_quotes": [],
+    "wrong_branch_quotes": [
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+    ],
+    "previous_binding": null
+  },
+  {
+    "id": "long-dev-032",
+    "family": "offtopic",
+    "question": "上传照片就能自动证明缺陷吗？",
+    "organization_id": "merchant-a",
+    "latest_binding": "no_reason",
+    "answerable": false,
+    "required_quotes": [],
+    "wrong_branch_quotes": [
+      "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。",
+      "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+    ],
+    "previous_binding": null
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "authored_development_only": true,
+  "cases": 24,
+  "new_paid_calls": 0,
+  "arms": {
+    "policy_scoped": {
+      "positive_cases": 20,
+      "full_coverage": 20,
+      "mean_coverage": 1.0,
+      "wrong_branch_cases": 20,
+      "unknown_fact_cases": 4,
+      "unknown_fact_still_returns_policy": 4,
+      "mean_context_chars": 303.6666666666667,
+      "median_ms": 1315.9630999980436,
+      "supplemented_cases": 15
+    },
+    "clause_bound": {
+      "positive_cases": 20,
+      "full_coverage": 20,
+      "mean_coverage": 1.0,
+      "wrong_branch_cases": 0,
+      "unknown_fact_cases": 4,
+      "unknown_fact_still_returns_policy": 4,
+      "mean_context_chars": 126.91666666666667,
+      "median_ms": 1411.0678500001086,
+      "supplemented_cases": 15
+    }
+  },
+  "limits": [
+    "Operator business binding supplied, not inferred",
+    "Coverage and branch filtering are not answer accuracy",
+    "Policy excerpts do not establish actual order facts",
+    "Not independent blind review"
+  ]
+}

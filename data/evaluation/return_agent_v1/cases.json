@@ -1,0 +1,413 @@
+[
+  {
+    "id": "return-dev-001",
+    "family": "ordinary",
+    "question": "STD-A实际签收第3天，未使用，普通申请期限是什么？",
+    "latest_binding": "STD-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "本演示普通实物规则仅适用于STD-A商品；定制商品、电子下载及会员专属商品须核对各自规则，不能混用。"
+      ],
+      [
+        "STD-A无理由退货申请须在实际签收后7天内提出。预计送达、物流正在派送或用户猜测已到货，都不能替代订单实际签收记录。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "ordinary-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-002",
+    "family": "ordinary",
+    "question": "STD-A只是拆开外包装检查，是否就算使用不能申请？",
+    "latest_binding": "STD-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "STD-A申请需保持商品未使用、配件齐全。仅为合理查验而拆开外包装，不当然等于已经使用；应继续核实商品本体和配件状态。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "ordinary-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-003",
+    "family": "ordinary",
+    "question": "STD-A已超过7天但说有质量问题，是否所有退货都不能办？",
+    "latest_binding": "STD-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "STD-A无理由退货申请须在实际签收后7天内提出。预计送达、物流正在派送或用户猜测已到货，都不能替代订单实际签收记录。"
+      ],
+      [
+        "超过本演示无理由窗口或存在使用痕迹时，不自动推断其他原因一概不能退货；质量问题需提供材料转人工审核。客服不能代替质检认定质量问题成立。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "ordinary-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-004",
+    "family": "ordinary",
+    "question": "STD-A的实际退款金额精确到分是多少？",
+    "latest_binding": "STD-A",
+    "answerable": false,
+    "required_text_groups": [],
+    "allowed_document_ids": [
+      "ordinary-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-005",
+    "family": "electronics",
+    "question": "ELEC-A未激活只合理拆封，能否直接因拆封拒绝？",
+    "latest_binding": "ELEC-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "ELEC-A仅拆封合理查验且未激活、没有明显使用痕迹时，不因拆封本身直接排除申请；仍需核对实际签收后7天窗口及配件。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "electronics-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-006",
+    "family": "electronics",
+    "question": "ELEC-A已激活有贬值，购买提示和确认记录未知，能否一概拒退？",
+    "latest_binding": "ELEC-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "ELEC-A若激活或试用后产生较大贬值，须核对购买时是否明确提示并由消费者确认相关条件；缺少提示与确认记录时转人工，不能一概承诺可退或不可退。"
+      ],
+      [
+        "激活状态、购买时提示记录和消费者确认记录为不同字段。当前订单查询工具没有这些字段时，客服只能说明缺少证据，不能承诺通过订单号已经核实。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "electronics-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-007",
+    "family": "electronics",
+    "question": "更正：是实物ELEC-A，不是下载内容，按什么范围核对？",
+    "latest_binding": "ELEC-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "本演示电子商品规则仅适用于ELEC-A，不能把电子下载交付规则用于这件实物商品。"
+      ],
+      [
+        "ELEC-A仅拆封合理查验且未激活、没有明显使用痕迹时，不因拆封本身直接排除申请；仍需核对实际签收后7天窗口及配件。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "electronics-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-008",
+    "family": "electronics",
+    "question": "请给出ELEC-A具体IMEI的真实激活时间。",
+    "latest_binding": "ELEC-A",
+    "answerable": false,
+    "required_text_groups": [],
+    "allowed_document_ids": [
+      "electronics-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-009",
+    "family": "custom",
+    "question": "CUSTOM-A刻字商品能套普通商品7天无理由规则吗？",
+    "latest_binding": "CUSTOM-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "CUSTOM-A是按用户指定内容刻字的定制商品，本段只针对该商品的定制范围。"
+      ],
+      [
+        "CUSTOM-A不适用本演示普通商品的无理由退货规则；不能仅凭普通商品7天条款承诺受理，也不能由此拒绝所有其他原因的售后。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "custom-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-010",
+    "family": "custom",
+    "question": "CUSTOM-A定制内容做错，可以不看材料就直接认定不能退吗？",
+    "latest_binding": "CUSTOM-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "CUSTOM-A不适用本演示普通商品的无理由退货规则；不能仅凭普通商品7天条款承诺受理，也不能由此拒绝所有其他原因的售后。"
+      ],
+      [
+        "CUSTOM-A若用户主张制作错误或质量问题，需要提交订单定制内容、实物材料并转人工核对；本条不保证审核通过，也不授权客服直接退款。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "custom-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-011",
+    "family": "custom",
+    "question": "用户更正不是CUSTOM-A，改为STD-A，之前定制结论还能沿用吗？",
+    "latest_binding": "STD-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "本演示普通实物规则仅适用于STD-A商品；定制商品、电子下载及会员专属商品须核对各自规则，不能混用。"
+      ],
+      [
+        "STD-A无理由退货申请须在实际签收后7天内提出。预计送达、物流正在派送或用户猜测已到货，都不能替代订单实际签收记录。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "ordinary-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-012",
+    "family": "custom",
+    "question": "请确认CUSTOM-A这张照片已由真实质检判为合格。",
+    "latest_binding": "CUSTOM-A",
+    "answerable": false,
+    "required_text_groups": [],
+    "allowed_document_ids": [
+      "custom-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-013",
+    "family": "member",
+    "question": "MEM-A有15天权益标识且签收第10天，延长规则是什么？",
+    "latest_binding": "MEM-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "本演示MEM-A延长退货规则要求订单有15天权益标识，会员身份本身不使所有商品自动延长。"
+      ],
+      [
+        "MEM-A订单具备15天权益标识时，可在实际签收后15天内提出本演示申请；没有标识时不能套用15天，应核对订单适用的普通规则。"
+      ],
+      [
+        "延长到15天不免除商品状态、配件及适用范围条件；不能理解为用过也当然可以退。实际签收时间未知时需核实，预计到达日期不能顶替。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "member-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-014",
+    "family": "member",
+    "question": "我是会员但订单没有标识，MEM-A一定有15天吗？",
+    "latest_binding": "MEM-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "本演示MEM-A延长退货规则要求订单有15天权益标识，会员身份本身不使所有商品自动延长。"
+      ],
+      [
+        "MEM-A订单具备15天权益标识时，可在实际签收后15天内提出本演示申请；没有标识时不能套用15天，应核对订单适用的普通规则。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "member-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-015",
+    "family": "member",
+    "question": "MEM-A优先客服是不是可以跳过审批？",
+    "latest_binding": "MEM-A",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "会员客服优先排队不等于退货免审批，模型不能使用会员身份代替审批员确认，也不能承诺立即到账。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "member-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-016",
+    "family": "member",
+    "question": "直接查明订单是否真的带15天权益，当前工具没有该字段。",
+    "latest_binding": "MEM-A",
+    "answerable": false,
+    "required_text_groups": [],
+    "allowed_document_ids": [
+      "member-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-017",
+    "family": "freight",
+    "question": "我问运费券，只退部分商品能立即返券吗？",
+    "latest_binding": "FREIGHT-TOPIC",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "运费券仅抵扣符合活动条件的配送费用，不抵扣商品金额；商品满减券规则不能解释运费券的退回条件。"
+      ],
+      [
+        "运费券退回取决于配送费用是否实际撤销及该券活动规则；仅退部分商品不当然返还运费券，不能承诺立即补发。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "freight-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-018",
+    "family": "freight",
+    "question": "更正为运费券，不是商品券，请按配送费用核对。",
+    "latest_binding": "FREIGHT-TOPIC",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "运费券仅抵扣符合活动条件的配送费用，不抵扣商品金额；商品满减券规则不能解释运费券的退回条件。"
+      ],
+      [
+        "运费券退回取决于配送费用是否实际撤销及该券活动规则；仅退部分商品不当然返还运费券，不能承诺立即补发。"
+      ],
+      [
+        "用户明确更正为运费券后，应以当前券种及其条件核对，不沿用此前对商品满减券的回答。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "freight-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-019",
+    "family": "freight",
+    "question": "商品券全部退货后返还，能直接用于解释运费券吗？",
+    "latest_binding": "FREIGHT-TOPIC",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "运费券仅抵扣符合活动条件的配送费用，不抵扣商品金额；商品满减券规则不能解释运费券的退回条件。"
+      ],
+      [
+        "运费券退回取决于配送费用是否实际撤销及该券活动规则；仅退部分商品不当然返还运费券，不能承诺立即补发。"
+      ],
+      [
+        "商品满减券在商品全部退货完成后按该券规则返还；只退部分商品不承诺立即返整券。本段不是运费券条款，不能作为运费券结论的依据。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "freight-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-020",
+    "family": "freight",
+    "question": "告诉我这张未提供活动规则的运费券马上补发多少钱。",
+    "latest_binding": null,
+    "answerable": false,
+    "required_text_groups": [],
+    "allowed_document_ids": [
+      "freight-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-021",
+    "family": "refund",
+    "question": "用户说只是提交退款申请，能写成钱已经到账吗？",
+    "latest_binding": "REFUND-STATUS",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "退款申请已提交、审核通过、平台已发起退款与用户实际到账是不同状态；不能把申请已提交写成已经收到退款。"
+      ],
+      [
+        "用户更正说只是申请已提交时，应保留最新状态；不能引用历史助手说已到账作为业务事实。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "refund-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-022",
+    "family": "refund",
+    "question": "退1件商品，标价123.45元，能认定实际退123.45现金吗？",
+    "latest_binding": "REFUND-STATUS",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "实付现金、商品券、运费及优惠分摊必须按订单与对应规则核对，商品标价乘退货数量只是参考值，不等于实际现金退款金额。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "refund-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-023",
+    "family": "refund",
+    "question": "查不到银行入账，能承诺模拟受理就等于真实退款吗？",
+    "latest_binding": "REFUND-STATUS",
+    "answerable": true,
+    "required_text_groups": [
+      [
+        "退款申请已提交、审核通过、平台已发起退款与用户实际到账是不同状态；不能把申请已提交写成已经收到退款。"
+      ],
+      [
+        "本项目查单不提供银行实际到账查询，模拟退货受理也不会真实退款。不能承诺已经替用户查到银行入账。"
+      ]
+    ],
+    "allowed_document_ids": [
+      "refund-v1"
+    ],
+    "review": "author_created_development_only"
+  },
+  {
+    "id": "return-dev-024",
+    "family": "refund",
+    "question": "请查询这笔退款今天18点是否已经真实到账。",
+    "latest_binding": null,
+    "answerable": false,
+    "required_text_groups": [],
+    "allowed_document_ids": [
+      "refund-v1"
+    ],
+    "review": "author_created_development_only"
+  }
+]

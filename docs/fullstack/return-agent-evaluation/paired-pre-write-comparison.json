@@ -1,0 +1,62 @@
+[
+  {
+    "label": "normal",
+    "mode": "rules",
+    "pre_write_status": "awaiting_confirmation",
+    "tool_attempts_before_decision": 3,
+    "elapsed_to_same_pre_write_state_ms": 12037.181999999999,
+    "paid_requests": 0,
+    "business_result": null,
+    "note": "Model branch continues two eligible cases through simulation; rule branch stopped before writes."
+  },
+  {
+    "label": "normal",
+    "mode": "model",
+    "pre_write_status": "awaiting_confirmation",
+    "tool_attempts_before_decision": 3,
+    "elapsed_to_same_pre_write_state_ms": 8179.658999999999,
+    "paid_requests": 4,
+    "business_result": "accepted_simulated",
+    "note": "Model branch continues two eligible cases through simulation; rule branch stopped before writes."
+  },
+  {
+    "label": "ask_condition",
+    "mode": "rules",
+    "pre_write_status": "awaiting_confirmation",
+    "tool_attempts_before_decision": 6,
+    "elapsed_to_same_pre_write_state_ms": 3862.415,
+    "paid_requests": 0,
+    "business_result": null,
+    "note": "Model branch continues two eligible cases through simulation; rule branch stopped before writes."
+  },
+  {
+    "label": "ask_condition",
+    "mode": "model",
+    "pre_write_status": "awaiting_confirmation",
+    "tool_attempts_before_decision": 6,
+    "elapsed_to_same_pre_write_state_ms": 10910.223,
+    "paid_requests": 6,
+    "business_result": "accepted_simulated",
+    "note": "Model branch continues two eligible cases through simulation; rule branch stopped before writes."
+  },
+  {
+    "label": "correction",
+    "mode": "rules",
+    "pre_write_status": "completed",
+    "tool_attempts_before_decision": 6,
+    "elapsed_to_same_pre_write_state_ms": 4162.091,
+    "paid_requests": 0,
+    "business_result": null,
+    "note": "Model branch continues two eligible cases through simulation; rule branch stopped before writes."
+  },
+  {
+    "label": "correction",
+    "mode": "model",
+    "pre_write_status": "completed",
+    "tool_attempts_before_decision": 6,
+    "elapsed_to_same_pre_write_state_ms": 11749.73,
+    "paid_requests": 6,
+    "business_result": null,
+    "note": "Model branch continues two eligible cases through simulation; rule branch stopped before writes."
+  }
+]

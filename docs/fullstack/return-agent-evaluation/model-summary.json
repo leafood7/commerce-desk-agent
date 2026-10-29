@@ -1,0 +1,11 @@
+{
+  "paid_requests": 24,
+  "legal_proposals": 24,
+  "errors": 0,
+  "batch_error": null,
+  "charged_or_reserved_cny": 0.019846000000000252,
+  "total_committed_cny": 4.566046,
+  "unknown_usage_calls": 0,
+  "flow_records": 6,
+  "runtime_model_enabled": false
+}

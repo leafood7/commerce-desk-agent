@@ -1,0 +1,15 @@
+{
+  "chunk": "structural",
+  "size": 300,
+  "overlap": 40,
+  "top_k": 3,
+  "pool": 12,
+  "context_chars": 1200,
+  "distance": 0.65,
+  "rerank_threshold": -2.0,
+  "arms": [
+    "baseline",
+    "policy_scoped"
+  ],
+  "note": "Both use latest query; only candidate narrows a verified business binding."
+}

@@ -1,0 +1,87 @@
+{
+  "stage": "rag_purpose_v1",
+  "date": "2026-10-29",
+  "completed": true,
+  "dataset": "data/evaluation/rag_purpose_v1",
+  "tasks": 40,
+  "question_tasks": 32,
+  "application_variants": 8,
+  "parent_contexts_per_task": 6,
+  "strategies": 3,
+  "records": 720,
+  "new_paid_calls": 0,
+  "new_retrieval_calls_for_fixed_evidence_replay": 0,
+  "holdout_read": false,
+  "generated_answer_quality_measured": false,
+  "independent_blind_review": false,
+  "tier180_references": {
+    "reviewed_question_minimum_evidence": {
+      "raw": "4/5",
+      "forced_application": "3/5",
+      "purpose_routed": "4/5"
+    },
+    "application_wrong_branch_contexts": {
+      "raw": "4/8",
+      "purpose_routed": "0/8"
+    },
+    "full_application_bundles": "0/8 unchanged",
+    "application_mean_coverage": 0.4166666666666667
+  },
+  "sqlite_full": {
+    "passed": 270,
+    "skipped": 6,
+    "seconds": 517.08,
+    "log": "work/rag-purpose-v1/regression-final.log"
+  },
+  "mysql_actual_http_mcp": {
+    "passed": 5,
+    "seconds": 40.14,
+    "log": "work/rag-purpose-v1/mysql-final.log",
+    "overlaps_sqlite": true
+  },
+  "browser_targeted_after_fixture_changes": {
+    "passed": 2,
+    "seconds": 24.4,
+    "log": "work/rag-purpose-v1/browser-targeted.log"
+  },
+  "initial_failures_retained": [
+    "SQLite initial full run deliberately stopped after correcting in-memory-collected empty-query fixture; fresh full run passed.",
+    "MySQL 1 failed/4 passed: original empty-query contained Chinese token shared with sources; changed to genuine no-overlap query; final 5 passed.",
+    "Container initial API10 passed, browser20 passed/2 failed: content dedup prevented new-title lookup; short photo query returned no rerank anchors. Browser test content made unique and positive-evidence question made explicit; original short-query recall failure NOT fixed.",
+    "Direct full-browser invocation stopped after first two failures: restored host demo manifest did not match container demo data. Final verification uses paired preparation script.",
+    "First consistently seeded final container run API10 passed55.83s/browser21 passed1failed: existing history test read options before asynchronous load. Added readiness polling without weakening business assertions; rerun recorded separately."
+  ],
+  "limitations": [
+    "author-labelled development replay, not independent test",
+    "6 lost-evidence repetitions are one question across6contexts, not6 independent errors or actual refusals",
+    "No recall gain or generated-answer accuracy claim",
+    "Existing explicit read-only route only; no general task classifier",
+    "Original short photo query still has real reranker false negative",
+    "Rules/neighbor defaults retained"
+  ],
+  "ruff": "passed",
+  "typescript_vite": "passed",
+  "git_diff_check": "passed",
+  "runtime": {
+    "schema": "0009_quality_return_basis",
+    "tables": 34,
+    "rules": true,
+    "model_key_present": false,
+    "context_mode": "neighbors",
+    "source_proof": "rag-purpose-evaluation/image-proof.json"
+  },
+  "commit_created": false,
+  "pushed": false,
+  "temporary_cleanup": "Removed only 5 resolved stage-owned completed pytest directories under work/temp; raw evidence, failures, backups and ledgers retained.",
+  "final_container_api": {
+    "passed": 10,
+    "seconds": 55.58,
+    "log": "work/rag-purpose-v1/container-final-verified.log"
+  },
+  "final_browser": {
+    "passed": 22,
+    "reported_duration": "1.9m",
+    "log": "work/rag-purpose-v1/container-final-verified.log",
+    "overlaps_targeted": true
+  }
+}

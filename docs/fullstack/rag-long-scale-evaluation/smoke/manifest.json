@@ -1,0 +1,175 @@
+{
+  "split": "authored_development_only",
+  "cases": 32,
+  "documents": 180,
+  "hashes": {
+    "corpus.json": "996174fa88d2e9b6f85f48c3bbb4c46d4182df5cf7852fdf7e027cb93c410f83",
+    "cases.json": "c374af92cf8090409742caa75129ae114cf21a64d25369223ddfcd403a22a26f",
+    "bindings.json": "500de81b1dd30b5812da75f071e5b5ed14875d94efd4851ef46a6aeaec347740",
+    "config.json": "68810eb4efbff21cf8d8180160eacc5dac7f71625aaf47471ea04a13d57c0ed4"
+  },
+  "protocol_sha256": "4d3bc03b6f5ada3c27f743b13ce59640fc972052ae983f6227b1c60692fc16c2",
+  "long_document_chars": [
+    14652,
+    14652,
+    14648,
+    14648,
+    14648,
+    14648
+  ],
+  "paid_calls": 0,
+  "holdout_read": false,
+  "template_corpus": true,
+  "dataset": "D:\\VScodeProgects\\commerce-desk-agent\\data\\evaluation\\rag_long_scale_v2",
+  "selected_cases": [
+    "long-dev-005",
+    "long-dev-009",
+    "long-dev-021",
+    "long-dev-025"
+  ],
+  "tiers": [
+    12
+  ],
+  "arms": [
+    "global_struct600",
+    "global_fixed600",
+    "global_struct300",
+    "global_pool24",
+    "global_top5",
+    "global_no_rerank",
+    "scoped_struct600",
+    "scoped_references"
+  ],
+  "config": {
+    "tiers": [
+      12,
+      60,
+      180
+    ],
+    "seed": 20261029,
+    "budget": 2400,
+    "distance": 0.65,
+    "rerank_threshold": -2.0,
+    "arms": {
+      "global_struct600": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_fixed600": {
+        "chunk": "fixed",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_struct300": {
+        "chunk": "structural",
+        "size": 300,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_pool24": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 24,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_top5": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 5,
+        "rerank": true,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "global_no_rerank": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": false,
+        "scoped": false,
+        "context": "neighbors"
+      },
+      "scoped_struct600": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": true,
+        "context": "neighbors"
+      },
+      "scoped_references": {
+        "chunk": "structural",
+        "size": 600,
+        "pool": 12,
+        "top_k": 3,
+        "rerank": true,
+        "scoped": true,
+        "context": "references"
+      }
+    }
+  },
+  "embedding": [
+    "BAAI/bge-small-zh-v1.5",
+    "7999e1d3359715c523056ef9478215996d62a620"
+  ],
+  "reranker": [
+    "BAAI/bge-reranker-base",
+    "2cfc18c9415c912f9d8155881c133215df768a70"
+  ],
+  "model_startup_ms": 13394.722099998035,
+  "source_sha256": "f702e5eb2394bc2b558ebe37ff00132507f483d4aaa266ef9cfe4a65a5feb165",
+  "reference_helper_sha256": "1a62d86d6f40c46c270f1404a0ec08bf74546be67f9d9c67765f251425de19fc",
+  "baseline_reference": null,
+  "baseline_sha256": null,
+  "max_seconds": 300,
+  "indexing": [
+    {
+      "tier_documents": 12,
+      "layout": "fixed600",
+      "total_chunks": 168,
+      "active_chunks": 59,
+      "active_documents": 7,
+      "new_chunks": 168,
+      "incremental_index_ms": 13054.378599990741,
+      "characters": 89644
+    },
+    {
+      "tier_documents": 12,
+      "layout": "structural300",
+      "total_chunks": 444,
+      "active_chunks": 151,
+      "active_documents": 7,
+      "new_chunks": 444,
+      "incremental_index_ms": 12088.924499999848,
+      "characters": 89644
+    },
+    {
+      "tier_documents": 12,
+      "layout": "structural600",
+      "total_chunks": 300,
+      "active_chunks": 103,
+      "active_documents": 7,
+      "new_chunks": 300,
+      "incremental_index_ms": 12495.187900000019,
+      "characters": 89644
+    }
+  ],
+  "index_bytes": 9509356
+}

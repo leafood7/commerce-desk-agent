@@ -1,0 +1,8 @@
+{
+  "STD-A": "ordinary-v1",
+  "ELEC-A": "electronics-v1",
+  "CUSTOM-A": "custom-v1",
+  "MEM-A": "member-v1",
+  "FREIGHT-TOPIC": "freight-v1",
+  "REFUND-STATUS": "refund-v1"
+}

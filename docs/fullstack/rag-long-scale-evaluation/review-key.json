@@ -1,0 +1,86 @@
+[
+  {
+    "case_id": "long-dev-001",
+    "label": "A",
+    "arm": "scoped_struct600",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-001",
+    "label": "B",
+    "arm": "scoped_references",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-005",
+    "label": "A",
+    "arm": "scoped_struct600",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-005",
+    "label": "B",
+    "arm": "scoped_references",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-009",
+    "label": "A",
+    "arm": "scoped_references",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-009",
+    "label": "B",
+    "arm": "scoped_struct600",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-013",
+    "label": "A",
+    "arm": "scoped_struct600",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-013",
+    "label": "B",
+    "arm": "scoped_references",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-017",
+    "label": "A",
+    "arm": "scoped_references",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-017",
+    "label": "B",
+    "arm": "scoped_struct600",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-021",
+    "label": "A",
+    "arm": "scoped_struct600",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-021",
+    "label": "B",
+    "arm": "scoped_references",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-032",
+    "label": "A",
+    "arm": "scoped_references",
+    "tier": 180
+  },
+  {
+    "case_id": "long-dev-032",
+    "label": "B",
+    "arm": "scoped_struct600",
+    "tier": 180
+  }
+]

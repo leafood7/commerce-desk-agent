@@ -1,0 +1,34 @@
+{
+  "development_only": true,
+  "cases": 24,
+  "arms": {
+    "baseline": {
+      "necessary_clause_coverage": 0.9444444444444444,
+      "full_clause_cases": 16,
+      "positive_cases": 18,
+      "negative_cases": 6,
+      "unsupported_retrieval_cases": 6,
+      "mean_inapplicable_fraction": 0.2735615079365079,
+      "mean_context_chars": 371.2083333333333,
+      "p50_ms": 723.7640999956056,
+      "p95_ms": 1064.376300004369
+    },
+    "policy_scoped": {
+      "necessary_clause_coverage": 1.0,
+      "full_clause_cases": 18,
+      "positive_cases": 18,
+      "negative_cases": 6,
+      "unsupported_retrieval_cases": 6,
+      "mean_inapplicable_fraction": 0.0,
+      "mean_context_chars": 280.7916666666667,
+      "p50_ms": 349.3352000004961,
+      "p95_ms": 811.3797999976669
+    }
+  },
+  "paid_model_calls": 0,
+  "limitations": [
+    "Author-written related development families, not independent blind evaluation.",
+    "Source/clause coverage is not generated answer correctness.",
+    "Synthetic merchant bindings restrict scope; no claim of automatic policy applicability inference."
+  ]
+}

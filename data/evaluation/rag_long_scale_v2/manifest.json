@@ -1,0 +1,23 @@
+{
+  "split": "authored_development_only",
+  "cases": 32,
+  "documents": 180,
+  "hashes": {
+    "corpus.json": "996174fa88d2e9b6f85f48c3bbb4c46d4182df5cf7852fdf7e027cb93c410f83",
+    "cases.json": "c374af92cf8090409742caa75129ae114cf21a64d25369223ddfcd403a22a26f",
+    "bindings.json": "500de81b1dd30b5812da75f071e5b5ed14875d94efd4851ef46a6aeaec347740",
+    "config.json": "68810eb4efbff21cf8d8180160eacc5dac7f71625aaf47471ea04a13d57c0ed4"
+  },
+  "protocol_sha256": "4d3bc03b6f5ada3c27f743b13ce59640fc972052ae983f6227b1c60692fc16c2",
+  "long_document_chars": [
+    14652,
+    14652,
+    14648,
+    14648,
+    14648,
+    14648
+  ],
+  "paid_calls": 0,
+  "holdout_read": false,
+  "template_corpus": true
+}

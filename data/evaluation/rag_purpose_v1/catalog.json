@@ -1,0 +1,54 @@
+{
+  "no_reason": {
+    "version_id": "long-0",
+    "mapping": "operator_authored_synthetic_policy",
+    "clauses": [
+      {
+        "article": 2,
+        "purpose": "article_2",
+        "quote": "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。"
+      },
+      {
+        "article": 3,
+        "purpose": "article_3",
+        "quote": "无理由退货限实际签收7天内且商品未使用；不能套用质量问题的30天窗口。"
+      },
+      {
+        "article": 22,
+        "purpose": "article_22",
+        "quote": "没有实际签收记录时暂缓资格判断，不用预计送达、发货时间或客服历史猜测补齐。"
+      }
+    ]
+  },
+  "quality_issue": {
+    "version_id": "long-0",
+    "mapping": "operator_authored_synthetic_policy",
+    "clauses": [
+      {
+        "article": 2,
+        "purpose": "article_2",
+        "quote": "本政策仅适用于本商家的商品 DEMO-LONG-A，不适用于相似型号 DEMO-LONG-B。"
+      },
+      {
+        "article": 4,
+        "purpose": "article_4",
+        "quote": "质量问题处理允许已使用商品；受理前须逐项核对，参见第12条、 第16条、 第20条。"
+      },
+      {
+        "article": 12,
+        "purpose": "article_12",
+        "quote": "质量问题申请限实际签收30天内；预计送达不作为实际签收，缺少签收字段需核实。"
+      },
+      {
+        "article": 16,
+        "purpose": "article_16",
+        "quote": "须有同一订单商品行及数量的明确缺陷确认；质检未通过、用户自述或照片本身不等于确认缺陷。"
+      },
+      {
+        "article": 20,
+        "purpose": "article_20",
+        "quote": "排除人为损坏及不适用商品；质量问题例外不延长无理由7天窗口，不代表退款或运费已结算。"
+      }
+    ]
+  }
+}
