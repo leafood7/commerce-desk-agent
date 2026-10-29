@@ -1,82 +1,128 @@
+name: commercedesk
+x-knowledge-environment: &knowledge-environment
+  WORKBENCH_ENVIRONMENT: development
+  WORKBENCH_RUN_DISPATCH_MODE: worker
+  WORKBENCH_DATABASE_URL: ${WORKBENCH_DOCKER_DATABASE_URL:?Set WORKBENCH_DOCKER_DATABASE_URL}
+  WORKBENCH_MCP_URL: http://mcp:8083/mcp
+  WORKBENCH_CHROMA_URL: http://chroma:8000
+  WORKBENCH_STORAGE_ROOT: /app/data/workbench/files
+  HF_HUB_OFFLINE: "1"
+  NO_PROXY: "localhost,127.0.0.1,chroma,mcp,mysql"
+  ANONYMIZED_TELEMETRY: "false"
 services:
-  postgres:
-    image: postgres:16
-    ports:
-      - "5432:5432"
+  mysql:
+    image: mysql:8.4
     environment:
-      - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
-      - POSTGRES_DB=${POSTGRES_DB:-agent_service}
+      MYSQL_DATABASE: commercedesk
+      MYSQL_USER: commerce
+      MYSQL_PASSWORD: ${WORKBENCH_MYSQL_PASSWORD:?Set WORKBENCH_MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${WORKBENCH_MYSQL_ROOT_PASSWORD:?Set WORKBENCH_MYSQL_ROOT_PASSWORD}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_0900_ai_ci"]
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 --silent"]
       interval: 5s
       timeout: 5s
-      retries: 5
-
-  agent_service:
+      retries: 30
+  api:
     build:
       context: .
       dockerfile: docker/Dockerfile.service
-    ports:
-      - "8080:8080"
-    env_file:
-      - .env
-    depends_on:
-      postgres:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/info"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    # Volume mount of development-only credentials since compose watch doesn't sync ignored files and doesn't do initial sync when the service starts
+      target: workbench
+    environment:
+      <<: *knowledge-environment
+      COMMERCE_APP: workbench
+      PORT: "8080"
     volumes:
-      - ./privatecredentials:/privatecredentials
-    develop:
-      watch:
-        - path: src/agents/
-          action: sync+restart
-          target: /app/agents/
-        - path: src/schema/
-          action: sync+restart
-          target: /app/schema/
-        - path: src/service/
-          action: sync+restart
-          target: /app/service/
-        - path: src/core/
-          action: sync+restart
-          target: /app/core/
-        - path: src/memory/
-          action: sync+restart
-          target: /app/memory/
-  streamlit_app:
+      - document_files:/app/data/workbench/files
+    ports:
+      - "127.0.0.1:8082:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+  chroma:
     build:
       context: .
-      dockerfile: docker/Dockerfile.app
-    ports:
-      - "8501:8501"
-    depends_on:
-      - agent_service
+      dockerfile: docker/Dockerfile.service
+      target: knowledge
+    command: ["python", "-m", "run_chroma", "run", "--host", "0.0.0.0", "--port", "8000", "--path", "/app/data/chroma"]
+    environment:
+      ANONYMIZED_TELEMETRY: "false"
+    volumes:
+      - chroma_data:/app/data/chroma
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8501/healthz"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v2/heartbeat', timeout=3)"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 30
+  mcp:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.service
+      target: knowledge
+    command: ["python", "-m", "workbench.mcp_server"]
     environment:
-      - AGENT_URL=http://agent_service:8080
-    develop:
-      watch:
-        - path: src/client/
-          action: sync+restart
-          target: /app/client/
-        - path: src/schema/
-          action: sync+restart
-          target: /app/schema/
-        - path: src/streamlit_app.py
-          action: sync+restart
-          target: /app/streamlit_app.py
-
+      <<: *knowledge-environment
+      WORKBENCH_MCP_BIND_HOST: 0.0.0.0
+      WORKBENCH_MCP_ALLOWED_HOSTS: '["mcp:8083","localhost:*","127.0.0.1:*"]'
+      # Order tools remain available without embedding/reranking model warmup.
+      WORKBENCH_MCP_WARM_MODELS: "false"
+    volumes:
+      - "${WORKBENCH_MODEL_CACHE:-./work/huggingface/hub}:/app/work/huggingface/hub:ro"
+    depends_on:
+      api:
+        condition: service_healthy
+      chroma:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8083/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+  run-worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.service
+      target: workbench
+    command: ["python", "-m", "workbench.run_worker"]
+    environment: *knowledge-environment
+    depends_on:
+      api:
+        condition: service_healthy
+      mcp:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+    restart: unless-stopped
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.service
+      target: knowledge
+    command: ["python", "-m", "workbench.ingestion"]
+    environment: *knowledge-environment
+    volumes:
+      - document_files:/app/data/workbench/files:ro
+      - "${WORKBENCH_MODEL_CACHE:-./work/huggingface/hub}:/app/work/huggingface/hub:ro"
+    depends_on:
+      mcp:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+    restart: "on-failure:3"
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "127.0.0.1:5173:80"
+    depends_on:
+      api:
+        condition: service_healthy
 volumes:
-  postgres_data:
+  mysql_data:
+  document_files:
+  chroma_data:

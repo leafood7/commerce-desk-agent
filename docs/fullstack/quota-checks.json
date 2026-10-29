@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-29",
+  "schema": "0005_admission_usage",
+  "limits": {
+    "owner_active_runs": 16,
+    "global_active_runs": 128,
+    "per_run_tool_reservations": 40,
+    "per_run_model_attempts": 1,
+    "per_run_model_tokens": 16384,
+    "model_reservation_tokens": 8192
+  },
+  "mysql_full": {
+    "passed": 116,
+    "seconds": 462.96
+  },
+  "sqlite_full": {
+    "passed": 111,
+    "skipped": 5,
+    "seconds": 237.04
+  },
+  "mysql_final_targeted": {
+    "passed": 3,
+    "seconds": 12.49,
+    "overlaps_full": true
+  },
+  "container_api": {
+    "passed": 6,
+    "seconds": 43.11
+  },
+  "browser": {
+    "passed": 12,
+    "seconds": 29.2
+  },
+  "initial_browser": {
+    "passed": 10,
+    "failed": 2,
+    "retained_log": "work/quota-v1/container-test.log"
+  },
+  "image_hashes": {
+    "app.py": "48900c3547c28d9df31bc19d90bf25860decbd97242e2cd036e8dad71f4b4ca5",
+    "runs.py": "7f22bd7c9d2283ac675245be4b919bcd02bbc624c8b72b9c865b42bd08778d8d",
+    "aftersales.py": "e74172464ff016da882eb6b582eb0fea102c60508fb36939f70fbe4db2f83f0b",
+    "quotas.py": "ee8c75d22662bbec5912896506c72fc90a5aca402966884bfb975bee82a062ed",
+    "quota_models.py": "84a3946ffbc65609c51bd69907a84a59a36d5406952426f22fd5fafd38a6e66c",
+    "intent_router.py": "8a4ed2e4fbb03f05da69e46a131675dc71d863dfa7356951a9f38aebb0e5cc0d"
+  },
+  "new_paid_calls": 0,
+  "original_ledger_estimate_cny": 4.5462,
+  "money_budget_enforced_by_runtime": false,
+  "cumulative_active_time_enforced": false,
+  "document_queue_admission_enforced": false,
+  "server_deployed": false
+}

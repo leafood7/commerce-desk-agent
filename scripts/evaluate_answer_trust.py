@@ -41,7 +41,10 @@ def parser():
     return root
 
 def main():
-    args = parser().parse_args()
+    argument_parser = parser()
+    args = argument_parser.parse_args()
+    if args.command in {"export-review", "promotion"}:
+        argument_parser.error("This saved experiment command is not implemented; automatic promotion is disabled.")
     from evaluation.answer_trust_data import (
         DATA, candidate_snapshot, digest, load_cases, read_json, validate_frozen, write_json)
     if args.command == "validate":

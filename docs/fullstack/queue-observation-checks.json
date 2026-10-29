@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-29",
+  "sqlite_new_tests": 1,
+  "mysql_new_tests": 1,
+  "container_api_passed": 5,
+  "browser_passed": 12,
+  "scope": "authenticated current organization and owner only",
+  "dispatch": "worker",
+  "paid_calls": 0,
+  "image_source_hashes": {
+    "app.py": "6f577494285f94e4f79e863d1892bb108adbd9277bb1d41bc84f03504aec43a9",
+    "run_worker.py": "9234d6a1725c53a378a0c22071bf4eca9acace797415ed3f11385f3fa970d24b",
+    "aftersales.py": "dc485ddb411f6446f0c578e45bd3f0f571f7744e16c945e07922e667993194dd"
+  }
+}

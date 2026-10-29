@@ -1,0 +1,1 @@
+{"status":"aborted","completed_cases":19,"error":"httpx.ReadError WinError10054 via inherited HTTP proxy; no automatic retry; retain partial traces","next_run":"results-v2 with explicit NO_PROXY for local services"}

@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-29",
+  "schema": "0004_run_jobs",
+  "dispatch": "worker",
+  "services": 7,
+  "inline_compatibility_retained": true,
+  "mysql_broad_before_final_fix": {
+    "passed": 97,
+    "seconds": 397.48
+  },
+  "mysql_final_affected_paths": {
+    "passed": 41,
+    "seconds": 199.95
+  },
+  "sqlite_broad": {
+    "passed": 94,
+    "skipped": 3,
+    "seconds": 211.42
+  },
+  "sqlite_final_affected_paths": {
+    "passed": 40,
+    "skipped": 1,
+    "seconds": 108.87
+  },
+  "unique_test_coverage": {
+    "mysql": 98,
+    "sqlite_passed": 95,
+    "sqlite_skipped": 3,
+    "note": "Union of broad regression and final affected-path retest; not one final full batch"
+  },
+  "real_container_api": {
+    "passed": 5,
+    "seconds": 39.54
+  },
+  "real_browser": {
+    "passed": 12,
+    "seconds": 37.2
+  },
+  "initial_container_failure": {
+    "passed": 4,
+    "failed": 1,
+    "cause": "nested run row lock during final evidence validation",
+    "retained_log": "work/dispatch-v1/container-test.log"
+  },
+  "final_image_source_hashes": {
+    "api": {
+      "aftersales.py": "dc485ddb411f6446f0c578e45bd3f0f571f7744e16c945e07922e667993194dd",
+      "app.py": "24c3d86a06ae770169141ef45f63c11991a8485267b4eff3ca4e9796bd53084b",
+      "checkpoints.py": "af7c1933be808f33134065b7c6d62c69fb967cc331ce203c1aa0db0f3ccf6b6f"
+    },
+    "run-worker": {
+      "run_worker.py": "9234d6a1725c53a378a0c22071bf4eca9acace797415ed3f11385f3fa970d24b",
+      "job_models.py": "e34ae6bcea367ed29e8873c23afb95ccb9ccf9e9aea647c43cd0639240b897c8"
+    }
+  },
+  "capacity": {
+    "scenario": "single small simultaneous local batch",
+    "dispatch_mode": "worker",
+    "read_runs": 10,
+    "successful_read_runs": 10,
+    "document_jobs": 2,
+    "ready_unpublished_jobs": 2,
+    "read_total_p50_ms": 1440.2692000003299,
+    "read_total_p95_ms": 2276.9220000045607,
+    "first_event_p50_ms": 408.23200000158977,
+    "first_event_p95_ms": 476.3373000023421,
+    "batch_seconds": 2.960282100000768,
+    "paid_model_calls": 0,
+    "business_write_tools": 0,
+    "limits": [
+      "One batch only; not sustained capacity or a service-level promise.",
+      "Real MySQL/MCP and local embedding; no generative model workload.",
+      "First event means persisted queue/progress event, not answer token.",
+      "2 jobs enqueued concurrently; single worker may process sequentially.",
+      "Full completion times include contention with two small ingestion jobs.",
+      "No forced crash or cancellation in this batch."
+    ]
+  },
+  "new_paid_model_calls": 0,
+  "server_deployed": false
+}

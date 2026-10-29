@@ -1,0 +1,26 @@
+# Dedicated acceptance stack; host development ports and volumes are kept separate.
+services:
+  api:
+    ports: !override
+      - "127.0.0.1:18082:8080"
+    environment:
+      WORKBENCH_DEMO_PASSWORD: ${WORKBENCH_DOCKER_DEMO_PASSWORD:?Set a private demo password}
+      WORKBENCH_MCP_TIMEOUT_SECONDS: "60"
+    mem_limit: 512m
+  web:
+    ports: !override
+      - "127.0.0.1:15173:80"
+    mem_limit: 128m
+  mysql:
+    mem_limit: 512m
+  chroma:
+    mem_limit: 1g
+  mcp:
+    mem_limit: 3g
+    cpus: 2
+  worker:
+    mem_limit: 2g
+    cpus: 2
+
+  run-worker:
+    mem_limit: 256m

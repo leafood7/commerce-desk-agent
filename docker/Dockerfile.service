@@ -1,20 +1,47 @@
-FROM python:3.13.14-slim
-
+FROM python:3.13.14-slim AS base
 WORKDIR /app
-
-ENV UV_PROJECT_ENVIRONMENT="/usr/local/"
-ENV UV_COMPILE_BYTECODE=1
-
-COPY pyproject.toml .
-COPY uv.lock .
+ENV UV_PROJECT_ENVIRONMENT="/usr/local/" \
+    UV_COMPILE_BYTECODE=1 \
+    PYTHONPATH=/app/src \
+    PYTHONUNBUFFERED=1
+COPY pyproject.toml uv.lock ./
 RUN pip install --no-cache-dir uv==0.12.5
-RUN uv sync --frozen --no-install-project --no-dev
 
-COPY src/agents/ ./agents/
-COPY src/core/ ./core/
-COPY src/memory/ ./memory/
-COPY src/schema/ ./schema/
-COPY src/service/ ./service/
-COPY src/run_service.py .
+# Dependency layers stay independent of source changes.
+FROM base AS workbench-deps
+RUN uv sync --frozen --only-group workbench
 
-CMD ["python", "run_service.py"]
+FROM base AS knowledge-deps
+RUN uv sync --frozen --only-group knowledge
+
+# The foundation API does not need GPU, embedding or model-provider packages.
+FROM workbench-deps AS workbench
+COPY src/ ./src/
+COPY scripts/ ./scripts/
+COPY data/demo_orders.json ./data/demo_orders.json
+COPY alembic.ini ./
+COPY migrations/ ./migrations/
+HEALTHCHECK --interval=15s --timeout=5s --start-period=120s \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8080/ready', timeout=3)"
+CMD ["python", "scripts/container_entrypoint.py"]
+
+# Knowledge workers/tool server add local embedding, reranking and parser dependencies.
+FROM knowledge-deps AS knowledge
+COPY --from=workbench /app/ /app/
+HEALTHCHECK --interval=15s --timeout=5s --start-period=120s \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8080/ready', timeout=3)"
+CMD ["python", "scripts/container_entrypoint.py"]
+
+# The original Agent/RAG demo is a separate, explicit build target.
+FROM base AS legacy
+RUN uv sync --frozen --no-install-project --no-dev --extra supportpilot
+COPY src/ ./src/
+COPY scripts/ ./scripts/
+COPY data/knowledge/ ./data/knowledge/
+COPY data/demo_orders.json ./data/demo_orders.json
+HEALTHCHECK --interval=15s --timeout=5s --start-period=300s \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8080/health', timeout=3)"
+ENV COMMERCE_APP=legacy
+CMD ["python", "scripts/container_entrypoint.py"]
+
+FROM workbench AS service

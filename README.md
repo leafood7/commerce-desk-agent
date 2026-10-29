@@ -15,6 +15,12 @@ Streamlit → FastAPI → LangGraph
                       └─ 本地催单／人工审批 → SQLite
 ```
 
+## 全栈基础版本（开发中）
+
+新增 React + TypeScript 工作台、身份角色与组织隔离、MySQL 业务库、持久运行和 SSE 步骤，以及 MySQL 催单审批 API。
+
+本机启动、演示账号、数据库迁移与实际验收见 [全栈升级说明](docs/fullstack/README.md)。当前新工作台先完成查单链路，文档上传和售后 Agent 尚未接入；Docker 实机验收待完成。以下为保留的原 Agent 演示入口。
+
 ## 运行
 
 需要 Python 3.12–3.14 和 uv。
@@ -61,3 +67,6 @@ powershell -ExecutionPolicy Bypass -File scripts/start-local.ps1
 项目适用于本地演示和工程实践。订单与政策为演示数据，未接入真实仓库、退款或开票系统；当前没有多租户隔离，也未进行生产容量验证。
 
 基于 [JoshuaC215/agent-service-toolkit](https://github.com/JoshuaC215/agent-service-toolkit) 二次开发，沿用服务、会话与模型接入基础，新增电商业务、政策检索、证据检查、MCP 接入及评测。版权与修改说明见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE.md)。
+
+
+新增全栈售后链路：React → 认证API → LangGraph持久暂停/恢复 → MCP → MySQL业务与已发布知识库。支持用户确认、独立加急审批及真实工单状态，默认不调用付费模型。运行与能力边界见 [售后闭环说明](docs/fullstack/aftersales.md)。

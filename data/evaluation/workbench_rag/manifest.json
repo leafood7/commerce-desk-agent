@@ -1,0 +1,41 @@
+{
+  "version": "workbench-rag-dev-v1",
+  "cases": 40,
+  "families": "22 original dev + 18 paired condition variants; not independent tests",
+  "corpus_files": 18,
+  "transform": "nonempty stripped lines; first line Markdown H1; remaining lines blank-separated",
+  "cases_sha256": "072265a69eb58b826acb80034c22f4f4a2174e243337e27487d2f5ed657fce32",
+  "corpus_sha256": "194a8816997846465691778b5c5c0b33645a76fc7cc4696c08c21d33cbcc0af3",
+  "chunk_chars": 600,
+  "chunk_overlap": 80,
+  "context_chars": 4000,
+  "top_k": 3,
+  "vector_max_distance": 0.65,
+  "rerank_threshold": -2.0,
+  "arms": [
+    "fixed/vector",
+    "fixed/hybrid",
+    "fixed/hybrid_rerank",
+    "structural/vector",
+    "structural/hybrid",
+    "structural/hybrid_rerank"
+  ],
+  "metrics": {
+    "source_hit": "any returned source filename in a necessary-evidence group",
+    "necessary_clause_coverage": "fraction of evidence groups with at least one complete normalized original clause present in combined returned text",
+    "anchor_clause_coverage": "same metric using anchor chunks before adjacent expansion",
+    "unsupported_retrieval": "any match for an unanswerable query",
+    "latency": "warm sequential local retriever wall time including SQL and context validation; excludes model startup"
+  },
+  "limitations": "No answer generation, semantic correctness or independent blind review claim. Families correlated; scope filtering not part of this factorial comparison.",
+  "embedding": {
+    "model": "BAAI/bge-small-zh-v1.5",
+    "revision": "7999e1d3359715c523056ef9478215996d62a620",
+    "normalized": true,
+    "distance": "cosine"
+  },
+  "reranker": {
+    "model": "BAAI/bge-reranker-base",
+    "revision": "2cfc18c9415c912f9d8155881c133215df768a70"
+  }
+}

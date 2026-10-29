@@ -19,7 +19,10 @@
 - [三段机制演示记录](checkpoint-results/mechanism-demo.json)已实际生成，涵盖虚构引用拦截、真实证据关联发布、空证据说明边界。生成与语义审查使用脚本替身，不是模型质量评测。
 - 尚未进行付费模型回答调用；仅只读确认了现有接口的模型列表。没有真实模型质量提升结论，也没有完成作者匿名复核。
 
-## 明确未完成
+## 保存点时未完成（历史状态）
+
+全栈阶段0已补齐离线评测测试；export-review / promotion 目前明确禁用。此处保留原保存点记账，不代表当前CI结果；见 [本轮记录](../fullstack/implementation-status.md)。
+
 
 - `evaluation.answer_trust_review` 尚未实现，当前 `export-review` / `promotion` 命令不可用。
 - `tests/test_answer_trust_evaluation.py` 尚未补齐；CI已引用该模块，因此当前快照不能作为通过CI的交付版本。

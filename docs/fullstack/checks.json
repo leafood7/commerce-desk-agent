@@ -1,0 +1,193 @@
+{
+  "baseline_commit": "3229b579bffc052c0518bfa13fd938b60eeee047",
+  "branch": "feat/fullstack-foundation",
+  "paid_model_calls": 0,
+  "docker_runtime": {
+    "status": "blocked",
+    "reason": "Docker executable/engine unavailable locally"
+  },
+  "checks": [
+    {
+      "name": "legacy-unit",
+      "exit_code": 0,
+      "elapsed_seconds": 20.726,
+      "log": "work/fullstack/legacy-unit.log",
+      "command": [
+        "-m",
+        "unittest",
+        "test_policy_evidence",
+        "test_policy_refresh_evaluation",
+        "test_query_rewrite_evaluation",
+        "test_rag_evaluation",
+        "test_rag_retrieval",
+        "test_knowledge",
+        "test_order_repository",
+        "test_shipping",
+        "test_supportpilot_agent",
+        "test_policy_tool",
+        "test_policy_context",
+        "test_policy_fastpath",
+        "test_answer_quality_evaluation",
+        "test_mcp_integration",
+        "test_mcp_semantic_evaluation",
+        "test_policy_modality_evaluation",
+        "test_answer_guard",
+        "test_answer_trust_evaluation",
+        "-q"
+      ]
+    },
+    {
+      "name": "application-regression",
+      "exit_code": 0,
+      "elapsed_seconds": 57.618,
+      "log": "work/fullstack/application-regression.log",
+      "command": [
+        "-m",
+        "pytest",
+        "tests/service",
+        "tests/client",
+        "tests/app",
+        "tests/agents/test_agent_loading.py",
+        "tests/workbench",
+        "tests/test_answer_diagnosis.py",
+        "-q",
+        "--tb=short",
+        "--junitxml=work/fullstack/application-junit.xml"
+      ]
+    },
+    {
+      "name": "real-mysql",
+      "exit_code": 0,
+      "elapsed_seconds": 52.858,
+      "log": "work/fullstack/real-mysql.log",
+      "command": [
+        "-m",
+        "pytest",
+        "tests/workbench",
+        "-q",
+        "--tb=short",
+        "--junitxml=work/fullstack/mysql-junit.xml"
+      ]
+    },
+    {
+      "name": "frozen-experiment",
+      "exit_code": 0,
+      "elapsed_seconds": 0.122,
+      "log": "work/fullstack/frozen-experiment.log",
+      "command": [
+        "scripts/evaluate_answer_trust.py",
+        "validate"
+      ]
+    },
+    {
+      "name": "mysql-indexes",
+      "exit_code": 0,
+      "elapsed_seconds": 1.135,
+      "log": "work/fullstack/mysql-indexes.log",
+      "command": [
+        "scripts/benchmark_workbench_indexes.py"
+      ]
+    },
+    {
+      "name": "new-code-lint",
+      "exit_code": 0,
+      "elapsed_seconds": 0.095,
+      "log": "work/fullstack/new-code-lint.log",
+      "command": [
+        "-m",
+        "ruff",
+        "check",
+        "src/workbench",
+        "tests/workbench",
+        "migrations",
+        "scripts/container_entrypoint.py",
+        "scripts/setup_workbench.py",
+        "scripts/benchmark_workbench_indexes.py",
+        "tests/test_answer_trust_evaluation.py",
+        "tests/integration/test_docker_e2e.py",
+        "tests/integration/test_workbench_docker.py"
+      ]
+    },
+    {
+      "name": "frontend-build",
+      "exit_code": 0,
+      "elapsed_seconds": 2.663,
+      "log": "work/fullstack/frontend-build.log",
+      "command": [
+        "npm.cmd",
+        "--prefix",
+        "frontend",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "browser-e2e",
+      "exit_code": 0,
+      "elapsed_seconds": 5.331,
+      "log": "work/fullstack/browser-e2e.log",
+      "command": [
+        "npm.cmd",
+        "--prefix",
+        "frontend",
+        "run",
+        "test:e2e"
+      ]
+    },
+    {
+      "name": "production-mcp-host-verification",
+      "exit_code": 0,
+      "checks": {
+        "only_two_readonly_tools": true,
+        "order_payload_equal": true,
+        "unknown_order": true,
+        "invalid_arguments_rejected": true,
+        "policy_ids_source_content_and_context_equal": true,
+        "gold_required_evidence_present": true,
+        "missing_index_is_domain_error_not_found": true,
+        "no_agent_or_torch_import_in_client": true
+      },
+      "command": [
+        "python",
+        "scripts/verify_mcp_tools.py",
+        "--selector-loop"
+      ],
+      "log": "docs/fullstack/mcp-verification.json"
+    },
+    {
+      "name": "minimal-runtime-import",
+      "exit_code": 0,
+      "packages": 55,
+      "app_imported": true,
+      "shipping_rules_imported": true,
+      "torch_installed": false,
+      "model_provider_installed": false
+    },
+    {
+      "name": "compose-workflow-structure",
+      "exit_code": 0,
+      "runtime_executed": false
+    }
+  ],
+  "local_checks_passed": true,
+  "complete_upgrade": false,
+  "counts": {
+    "application": {
+      "tests": 137,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 2
+    },
+    "mysql": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "legacy_unit": 118,
+    "browser": 3
+  },
+  "finished_at_utc": "2026-10-28T11:05:55.991627+00:00",
+  "phase_0": "code_and_host_verified_container_runtime_pending",
+  "phase_1": "authenticated_business_foundation_locally_verified"
+}

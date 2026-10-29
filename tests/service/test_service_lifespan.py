@@ -63,15 +63,16 @@ async def test_lifespan(monkeypatch, caplog) -> None:
 
     caplog.set_level(logging.INFO, logger=service.logger.name)
 
-    async with service.lifespan(FastAPI()):
-        pass
+    with pytest.raises(RuntimeError, match="boom"):
+        async with service.lifespan(FastAPI()):
+            pass
 
     assert fake_saver_setup
     assert fake_store_setup
     assert agents["good"].checkpointer is fake_saver
     assert agents["good"].store is fake_store
-    assert agents["bad"].checkpointer is fake_saver
-    assert agents["bad"].store is fake_store
+    assert agents["bad"].checkpointer is None
+    assert agents["bad"].store is None
 
     assert "Agent loaded: good" in caplog.text
     assert "Failed to load agent bad: boom" in caplog.text

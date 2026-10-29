@@ -1,0 +1,730 @@
+[
+  {
+    "id": "presale_shipping_policy-1",
+    "split": "dev",
+    "group": "presale_shipping_policy",
+    "question": "我只交了预售定金，就算全款付完了吗？",
+    "answerable": true,
+    "reference_answer": "不算，需要核实尾款支付和约定条件。",
+    "evidence_groups": [
+      [
+        "presale_shipping_policy.txt-1"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "2. 定金与尾款分开支付的预售订单，支付定金不等于已完成全款；应核实尾款支付状态和约定发货条件，不能仅凭定金付款时间认定超时。"
+      ]
+    ]
+  },
+  {
+    "id": "presale_shipping_policy-2",
+    "split": "dev",
+    "group": "presale_shipping_policy",
+    "question": "预售的付款截止日能当作发货截止日吗？",
+    "answerable": true,
+    "reference_answer": "不能，尾款截止时间与承诺发货时间分别管理。",
+    "evidence_groups": [
+      [
+        "presale_shipping_policy.txt-4"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "5. 预售订单尾款截止时间与承诺发货截止时间分别管理，不能把尾款最后支付日期直接当成发货截止日期。"
+      ]
+    ]
+  },
+  {
+    "id": "presale_shipping_policy-3",
+    "split": "dev",
+    "group": "presale_shipping_policy",
+    "question": "预售商品按普通现货48小时发货吗？",
+    "answerable": true,
+    "reference_answer": "不直接套用，应按购买时确认的预售承诺日期。",
+    "evidence_groups": [
+      [
+        "presale_shipping_policy.txt-0"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "1. 预售商品的发货时间按购买时确认的预售承诺日期执行，不直接套用普通现货付款后 48 小时发货的默认目标。"
+      ]
+    ]
+  },
+  {
+    "id": "coupon_usage_policy-1",
+    "split": "dev",
+    "group": "coupon_usage_policy",
+    "question": "我的商品券能换成现金吗？",
+    "answerable": true,
+    "reference_answer": "不能，商品券用于抵减符合条件商品金额。",
+    "evidence_groups": [
+      [
+        "coupon_usage_policy.txt-0"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。"
+      ]
+    ]
+  },
+  {
+    "id": "coupon_usage_policy-2",
+    "split": "dev",
+    "group": "coupon_usage_policy",
+    "question": "领到了优惠券，是不是所有订单都能使用？",
+    "answerable": true,
+    "reference_answer": "不是，还要满足有效期和适用条件。",
+    "evidence_groups": [
+      [
+        "coupon_usage_policy.txt-3"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。"
+      ]
+    ]
+  },
+  {
+    "id": "coupon_usage_policy-3",
+    "split": "dev",
+    "group": "coupon_usage_policy",
+    "question": "同件商品两张满减券默认可以叠加吗？",
+    "answerable": true,
+    "reference_answer": "不默认支持，特殊活动须满足明示条件。",
+    "evidence_groups": [
+      [
+        "coupon_usage_policy.txt-2"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。"
+      ]
+    ]
+  },
+  {
+    "id": "return_digital_policy-1",
+    "split": "dev",
+    "group": "return_digital_policy",
+    "question": "手机开箱验货就一定不能退货了吗？",
+    "answerable": true,
+    "reference_answer": "合理开箱不当然失去资格；激活、使用痕迹等另行核实。",
+    "evidence_groups": [
+      [
+        "return_digital_policy.txt-1"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "2. 实物电子商品合理开箱查验不当然失去退货资格；激活、授权或不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响完好认定，需要核实商品条件。"
+      ]
+    ]
+  },
+  {
+    "id": "return_digital_policy-2",
+    "split": "dev",
+    "group": "return_digital_policy",
+    "question": "耳机实物和下载软件的退货规则一样吗？",
+    "answerable": true,
+    "reference_answer": "不同，不能把实物数码与数字内容混为一类。",
+    "evidence_groups": [
+      [
+        "return_digital_policy.txt-0"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "1. 手机、耳机、电脑等实物电子商品不能与下载的软件或数字内容混为一类；不能统一声称所有数码商品都不支持七日无理由。"
+      ]
+    ]
+  },
+  {
+    "id": "return_digital_policy-3",
+    "split": "dev",
+    "group": "return_digital_policy",
+    "question": "手机激活后价值贬损，售后才说不能退就行吗？",
+    "answerable": true,
+    "reference_answer": "还须核实购买时明确提示与确认。",
+    "evidence_groups": [
+      [
+        "return_digital_policy.txt-2"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "3. 已激活价值显著贬损等特定商品的不适用无理由条款，须核实购买时的明确提示与确认，不能只凭售后新增口头说明拒绝。"
+      ]
+    ]
+  },
+  {
+    "id": "membership_policy-1",
+    "split": "dev",
+    "group": "membership_policy",
+    "question": "我是黑金会员，所有商品都能15天无理由吗？",
+    "answerable": true,
+    "reference_answer": "仅订单明确标注的部分商品，其他不自动延长。",
+    "evidence_groups": [
+      [
+        "membership_policy.txt-2",
+        "return_policy.txt-1"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "3. 黑金会员仅对订单明确标注支持延长的部分商品，享受自签收次日起 15 天无理由退货申请期；不适用或未标注商品不自动延长。",
+        "2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。"
+      ]
+    ]
+  },
+  {
+    "id": "membership_policy-2",
+    "split": "dev",
+    "group": "membership_policy",
+    "question": "金卡优先客服是不是退款就直接批准？",
+    "answerable": true,
+    "reference_answer": "不是，优先客服不等于自动批准退款。",
+    "evidence_groups": [
+      [
+        "membership_policy.txt-1"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "2. 金卡会员可享受优先客服服务；优先客服不等于所有商品延长退货、免除运费或自动批准退款。"
+      ]
+    ]
+  },
+  {
+    "id": "membership_policy-3",
+    "split": "dev",
+    "group": "membership_policy",
+    "question": "黑金会员可以把权益转给朋友吗？",
+    "answerable": true,
+    "reference_answer": "权益限本人，不能转让。",
+    "evidence_groups": [
+      [
+        "membership_policy.txt-4"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。"
+      ]
+    ]
+  },
+  {
+    "id": "invoice_policy-1",
+    "split": "dev",
+    "group": "invoice_policy",
+    "question": "签收超过30天就永远不能开票了吗？",
+    "answerable": true,
+    "reference_answer": "30天是自助窗口，超出应人工核实，不等于失去资格。",
+    "evidence_groups": [
+      [
+        "invoice_policy.txt-0"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "1. 本商城电子发票自助申请服务窗口为订单签收后 30 天；超过自助窗口应联系人工核实，不据此宣称永久失去开票资格。"
+      ]
+    ]
+  },
+  {
+    "id": "invoice_policy-2",
+    "split": "dev",
+    "group": "invoice_policy",
+    "question": "企业发票是不是只写公司名字就够？",
+    "answerable": true,
+    "reference_answer": "需要关联实际订单、准确抬头和纳税人识别信息。",
+    "evidence_groups": [
+      [
+        "invoice_policy.txt-2"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "3. 电子发票申请需关联实际订单并核实抬头；企业抬头还需准确的纳税人识别信息，不能代填虚假税号或与交易不符的内容。"
+      ]
+    ]
+  },
+  {
+    "id": "invoice_policy-3",
+    "split": "dev",
+    "group": "invoice_policy",
+    "question": "随便填个邮箱和不完整资料也保证两工作日开票吗？",
+    "answerable": true,
+    "reference_answer": "不是，完整有效资料后才按服务目标处理。",
+    "evidence_groups": [
+      [
+        "invoice_policy.txt-1"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "2. 完整且有效的资料提交后，电子发票服务目标为 2 个工作日内处理；资料缺失、需要更正或异常订单应先核实，不保证提交任意信息后都能按时开具。"
+      ]
+    ]
+  },
+  {
+    "id": "refund_policy-1",
+    "split": "dev",
+    "group": "refund_policy",
+    "question": "退款申请提交就是钱已经退到账户了吗？",
+    "answerable": true,
+    "reference_answer": "不是，提交、审核、发起退款和到账不同。",
+    "evidence_groups": [
+      [
+        "refund_policy.txt-0"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "1. 退货退款需要先核实商品退回及验收状态；退款审核、发起支付渠道退款和实际到账是不同阶段，不能将申请提交当作已经到账。"
+      ]
+    ]
+  },
+  {
+    "id": "refund_policy-2",
+    "split": "dev",
+    "group": "refund_policy",
+    "question": "银行卡退款保证第三天必到吗？",
+    "answerable": true,
+    "reference_answer": "不保证，3至7工作日是渠道发起后的预计参考。",
+    "evidence_groups": [
+      [
+        "refund_policy.txt-2"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "3. 本商城银行卡退款的通常到账参考为渠道退款发起后 3 至 7 个工作日，第三方支付为 1 至 3 个工作日；均为预计区间，不承诺固定某天到账，不得把这些预计区间逐段累加来延长适用的退款期限。"
+      ]
+    ]
+  },
+  {
+    "id": "refund_policy-3",
+    "split": "dev",
+    "group": "refund_policy",
+    "question": "混合支付退款能全都退成现金吗？",
+    "answerable": true,
+    "reference_answer": "原则按实际来源分别核实，券不重复折现。",
+    "evidence_groups": [
+      [
+        "refund_policy.txt-3"
+      ]
+    ],
+    "required_text_groups": [
+      [
+        "4. 退款原则上按实际支付来源退回，混合支付需分别核实对应部分；优惠券抵扣不作为现金重复退还，其返还按券规则核实。"
+      ]
+    ]
+  },
+  {
+    "id": "unknown-1",
+    "split": "dev",
+    "group": "unknown-1",
+    "question": "SupportPilot创始人叫什么？",
+    "answerable": false,
+    "reference_answer": "当前资料没有创始人姓名。",
+    "evidence_groups": [],
+    "required_text_groups": []
+  },
+  {
+    "id": "unknown-2",
+    "split": "dev",
+    "group": "unknown-2",
+    "question": "今天美元兑人民币的汇率是多少？",
+    "answerable": false,
+    "reference_answer": "知识库没有实时汇率。",
+    "evidence_groups": [],
+    "required_text_groups": []
+  },
+  {
+    "id": "unknown-3",
+    "split": "dev",
+    "group": "unknown-3",
+    "question": "本商城黑金会员年费到底多少元？",
+    "answerable": false,
+    "reference_answer": "未收录具体会费金额，不能编造。",
+    "evidence_groups": [],
+    "required_text_groups": []
+  },
+  {
+    "id": "unknown-4",
+    "split": "dev",
+    "group": "unknown-4",
+    "question": "加急批准后保证仓库几分钟内发货？",
+    "answerable": false,
+    "reference_answer": "没有分钟数或保证，工单不代表真实通知仓库。",
+    "evidence_groups": [],
+    "required_text_groups": []
+  },
+  {
+    "id": "presale_shipping_policy-1-condition",
+    "split": "dev",
+    "group": "presale_shipping_policy",
+    "question": "预售定金已付但尾款未付，能按已全款催发货吗？",
+    "answerable": true,
+    "reference_answer": "不算，需要核实尾款支付和约定条件。",
+    "evidence_groups": [
+      [
+        "presale_shipping_policy.txt-1"
+      ]
+    ],
+    "parent_id": "presale_shipping_policy-1",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "2. 定金与尾款分开支付的预售订单，支付定金不等于已完成全款；应核实尾款支付状态和约定发货条件，不能仅凭定金付款时间认定超时。"
+      ]
+    ]
+  },
+  {
+    "id": "presale_shipping_policy-2-condition",
+    "split": "dev",
+    "group": "presale_shipping_policy",
+    "question": "尾款截止日已经过去，是否就说明商家超过发货承诺了？",
+    "answerable": true,
+    "reference_answer": "不能，尾款截止时间与承诺发货时间分别管理。",
+    "evidence_groups": [
+      [
+        "presale_shipping_policy.txt-4"
+      ]
+    ],
+    "parent_id": "presale_shipping_policy-2",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "5. 预售订单尾款截止时间与承诺发货截止时间分别管理，不能把尾款最后支付日期直接当成发货截止日期。"
+      ]
+    ]
+  },
+  {
+    "id": "presale_shipping_policy-3-condition",
+    "split": "dev",
+    "group": "presale_shipping_policy",
+    "question": "页面写了单独的预售发货日期，还能要求按现货48小时发货吗？",
+    "answerable": true,
+    "reference_answer": "不直接套用，应按购买时确认的预售承诺日期。",
+    "evidence_groups": [
+      [
+        "presale_shipping_policy.txt-0"
+      ]
+    ],
+    "parent_id": "presale_shipping_policy-3",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "1. 预售商品的发货时间按购买时确认的预售承诺日期执行，不直接套用普通现货付款后 48 小时发货的默认目标。"
+      ]
+    ]
+  },
+  {
+    "id": "coupon_usage_policy-1-condition",
+    "split": "dev",
+    "group": "coupon_usage_policy",
+    "question": "不买商品了，能把账户里的商品满减券提现吗？",
+    "answerable": true,
+    "reference_answer": "不能，商品券用于抵减符合条件商品金额。",
+    "evidence_groups": [
+      [
+        "coupon_usage_policy.txt-0"
+      ]
+    ],
+    "parent_id": "coupon_usage_policy-1",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "1. 商品优惠券用于抵减符合条件的商品金额，不能兑现；运费券用于抵减符合条件的配送费用，不能把两种券的用途混用。"
+      ]
+    ]
+  },
+  {
+    "id": "coupon_usage_policy-2-condition",
+    "split": "dev",
+    "group": "coupon_usage_policy",
+    "question": "账户已经领券，但订单未满足门槛，领取成功就能用吗？",
+    "answerable": true,
+    "reference_answer": "不是，还要满足有效期和适用条件。",
+    "evidence_groups": [
+      [
+        "coupon_usage_policy.txt-3"
+      ]
+    ],
+    "parent_id": "coupon_usage_policy-2",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "4. 优惠券有使用期限，只有在有效期内并符合适用条件才可使用；领券成功不等于每笔订单都能用。"
+      ]
+    ]
+  },
+  {
+    "id": "coupon_usage_policy-3-condition",
+    "split": "dev",
+    "group": "coupon_usage_policy",
+    "question": "活动未写可叠加，同一商品能同时用两张满减券吗？",
+    "answerable": true,
+    "reference_answer": "不默认支持，特殊活动须满足明示条件。",
+    "evidence_groups": [
+      [
+        "coupon_usage_policy.txt-2"
+      ]
+    ],
+    "parent_id": "coupon_usage_policy-3",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "3. 同一件商品不默认支持多张商品满减券叠加；如特殊活动明确允许叠加，须同时满足活动和券面条件，以结算可用结果为准。"
+      ]
+    ]
+  },
+  {
+    "id": "return_digital_policy-1-condition",
+    "split": "dev",
+    "group": "return_digital_policy",
+    "question": "手机只是合理拆封检查，没激活也没明显使用，拆封本身会取消退货资格吗？",
+    "answerable": true,
+    "reference_answer": "合理开箱不当然失去资格；激活、使用痕迹等另行核实。",
+    "evidence_groups": [
+      [
+        "return_digital_policy.txt-1"
+      ]
+    ],
+    "parent_id": "return_digital_policy-1",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "2. 实物电子商品合理开箱查验不当然失去退货资格；激活、授权或不合理使用数据、擅自维修改动、难以恢复的使用痕迹可能影响完好认定，需要核实商品条件。"
+      ]
+    ]
+  },
+  {
+    "id": "return_digital_policy-2-condition",
+    "split": "dev",
+    "group": "return_digital_policy",
+    "question": "我买的是实物耳机，不是下载内容，能直接按软件交付规则拒退吗？",
+    "answerable": true,
+    "reference_answer": "不同，不能把实物数码与数字内容混为一类。",
+    "evidence_groups": [
+      [
+        "return_digital_policy.txt-0"
+      ]
+    ],
+    "parent_id": "return_digital_policy-2",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "1. 手机、耳机、电脑等实物电子商品不能与下载的软件或数字内容混为一类；不能统一声称所有数码商品都不支持七日无理由。"
+      ]
+    ]
+  },
+  {
+    "id": "return_digital_policy-3-condition",
+    "split": "dev",
+    "group": "return_digital_policy",
+    "question": "手机激活后贬值就一概拒退，是否还要查购买时是否明确提示并确认？",
+    "answerable": true,
+    "reference_answer": "还须核实购买时明确提示与确认。",
+    "evidence_groups": [
+      [
+        "return_digital_policy.txt-2"
+      ]
+    ],
+    "parent_id": "return_digital_policy-3",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "3. 已激活价值显著贬损等特定商品的不适用无理由条款，须核实购买时的明确提示与确认，不能只凭售后新增口头说明拒绝。"
+      ]
+    ]
+  },
+  {
+    "id": "membership_policy-1-condition",
+    "split": "dev",
+    "group": "membership_policy",
+    "question": "我有黑金会员，但订单没有15天标识，这件商品自动延长到15天吗？",
+    "answerable": true,
+    "reference_answer": "仅订单明确标注的部分商品，其他不自动延长。",
+    "evidence_groups": [
+      [
+        "membership_policy.txt-2",
+        "return_policy.txt-1"
+      ]
+    ],
+    "parent_id": "membership_policy-1",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "3. 黑金会员仅对订单明确标注支持延长的部分商品，享受自签收次日起 15 天无理由退货申请期；不适用或未标注商品不自动延长。",
+        "2. 普通会员超过 7 天不自动获得无理由退货资格；黑金会员仅对订单明确标注支持延长的商品适用 15 天权益，其他商品仍按其适用规则。"
+      ]
+    ]
+  },
+  {
+    "id": "membership_policy-2-condition",
+    "split": "dev",
+    "group": "membership_policy",
+    "question": "客服排队给金卡会员优先，是否连售后退款审核也能跳过？",
+    "answerable": true,
+    "reference_answer": "不是，优先客服不等于自动批准退款。",
+    "evidence_groups": [
+      [
+        "membership_policy.txt-1"
+      ]
+    ],
+    "parent_id": "membership_policy-2",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "2. 金卡会员可享受优先客服服务；优先客服不等于所有商品延长退货、免除运费或自动批准退款。"
+      ]
+    ]
+  },
+  {
+    "id": "membership_policy-3-condition",
+    "split": "dev",
+    "group": "membership_policy",
+    "question": "我不使用黑金权益，能授权另一个账号代用吗？",
+    "answerable": true,
+    "reference_answer": "权益限本人，不能转让。",
+    "evidence_groups": [
+      [
+        "membership_policy.txt-4"
+      ]
+    ],
+    "parent_id": "membership_policy-3",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "5. 会员权益限账号本人使用，不作为可转让给他人的权益；具体费用未收录在当前知识库，不能据此给出金卡或黑金会员年费金额。"
+      ]
+    ]
+  },
+  {
+    "id": "invoice_policy-1-condition",
+    "split": "dev",
+    "group": "invoice_policy",
+    "question": "签收第31天，自助开票入口关闭，下一步只能认定不能开票吗？",
+    "answerable": true,
+    "reference_answer": "30天是自助窗口，超出应人工核实，不等于失去资格。",
+    "evidence_groups": [
+      [
+        "invoice_policy.txt-0"
+      ]
+    ],
+    "parent_id": "invoice_policy-1",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "1. 本商城电子发票自助申请服务窗口为订单签收后 30 天；超过自助窗口应联系人工核实，不据此宣称永久失去开票资格。"
+      ]
+    ]
+  },
+  {
+    "id": "invoice_policy-2-condition",
+    "split": "dev",
+    "group": "invoice_policy",
+    "question": "企业抬头正确，但缺少纳税人识别信息，这样的开票资料完整吗？",
+    "answerable": true,
+    "reference_answer": "需要关联实际订单、准确抬头和纳税人识别信息。",
+    "evidence_groups": [
+      [
+        "invoice_policy.txt-2"
+      ]
+    ],
+    "parent_id": "invoice_policy-2",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "3. 电子发票申请需关联实际订单并核实抬头；企业抬头还需准确的纳税人识别信息，不能代填虚假税号或与交易不符的内容。"
+      ]
+    ]
+  },
+  {
+    "id": "invoice_policy-3-condition",
+    "split": "dev",
+    "group": "invoice_policy",
+    "question": "开票资料还缺信息，能否仍承诺从首次申请起两工作日完成？",
+    "answerable": true,
+    "reference_answer": "不是，完整有效资料后才按服务目标处理。",
+    "evidence_groups": [
+      [
+        "invoice_policy.txt-1"
+      ]
+    ],
+    "parent_id": "invoice_policy-3",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "2. 完整且有效的资料提交后，电子发票服务目标为 2 个工作日内处理；资料缺失、需要更正或异常订单应先核实，不保证提交任意信息后都能按时开具。"
+      ]
+    ]
+  },
+  {
+    "id": "refund_policy-1-condition",
+    "split": "dev",
+    "group": "refund_policy",
+    "question": "页面显示退款申请已提交，能据此告诉客户已经收到钱吗？",
+    "answerable": true,
+    "reference_answer": "不是，提交、审核、发起退款和到账不同。",
+    "evidence_groups": [
+      [
+        "refund_policy.txt-0"
+      ]
+    ],
+    "parent_id": "refund_policy-1",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "1. 退货退款需要先核实商品退回及验收状态；退款审核、发起支付渠道退款和实际到账是不同阶段，不能将申请提交当作已经到账。"
+      ]
+    ]
+  },
+  {
+    "id": "refund_policy-2-condition",
+    "split": "dev",
+    "group": "refund_policy",
+    "question": "银行卡退款已发起三天，政策是否保证今天一定到账？",
+    "answerable": true,
+    "reference_answer": "不保证，3至7工作日是渠道发起后的预计参考。",
+    "evidence_groups": [
+      [
+        "refund_policy.txt-2"
+      ]
+    ],
+    "parent_id": "refund_policy-2",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "3. 本商城银行卡退款的通常到账参考为渠道退款发起后 3 至 7 个工作日，第三方支付为 1 至 3 个工作日；均为预计区间，不承诺固定某天到账，不得把这些预计区间逐段累加来延长适用的退款期限。"
+      ]
+    ]
+  },
+  {
+    "id": "refund_policy-3-condition",
+    "split": "dev",
+    "group": "refund_policy",
+    "question": "订单用现金和商品券混合支付，取消后券部分也能按现金退吗？",
+    "answerable": true,
+    "reference_answer": "原则按实际来源分别核实，券不重复折现。",
+    "evidence_groups": [
+      [
+        "refund_policy.txt-3"
+      ]
+    ],
+    "parent_id": "refund_policy-3",
+    "author_variant": true,
+    "required_text_groups": [
+      [
+        "4. 退款原则上按实际支付来源退回，混合支付需分别核实对应部分；优惠券抵扣不作为现金重复退还，其返还按券规则核实。"
+      ]
+    ]
+  }
+]

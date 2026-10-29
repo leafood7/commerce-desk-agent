@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-28",
+  "batch": "langgraph-aftersales-v1",
+  "schema": "0003_aftersales",
+  "project": "D:\\VScodeProgects\\commerce-desk-agent",
+  "branch": "feat/fullstack-foundation",
+  "mysql": {
+    "tests": 65,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "passed": 65
+  },
+  "sqlite": {
+    "tests": 65,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 2,
+    "passed": 63
+  },
+  "aftersales_subset_included_in_application_suites": {
+    "tests": 25,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "passed": 25
+  },
+  "legacy_service_client_ui": {
+    "tests": 116,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "passed": 116
+  },
+  "legacy_customer_support": {
+    "tests": 118,
+    "passed": 118
+  },
+  "chromium": {
+    "tests": 8,
+    "passed": 8,
+    "aftersales_subset": 4,
+    "real_mcp": true,
+    "real_mysql": true
+  },
+  "actual_process_restart": {
+    "verified": true,
+    "same_pause": true,
+    "fresh_login": true,
+    "independent_rejection": true,
+    "credentials_in_record": false
+  },
+  "frontend_build": "passed",
+  "ruff": "passed",
+  "format": "passed",
+  "git_diff_check": "passed",
+  "model_router_default": "rules",
+  "model_router_real_quality_evaluation": "not_run",
+  "paid_llm_calls": 0,
+  "paid_cost_cny": 0,
+  "holdout_opened": false,
+  "docker_runtime": "deferred",
+  "remote_deployment": "not_done",
+  "committed": false,
+  "pushed": false,
+  "earlier_failed_attempts": [
+    "resume audit keyword conflict fixed",
+    "tool datetime JSON/timezone mismatch fixed",
+    "progress variable shadowing and recent-run import fixed",
+    "combined browser 5-second assertion timeout; bounded wait adjusted and 8/8 rerun passed",
+    "SQLite MCP fixture shutdown timeout; bounded shutdown added and full suite rerun passed"
+  ],
+  "limitations": [
+    "shipping reminders and expedite requests only",
+    "single API instance and bounded synchronous graph",
+    "optional intent classifier only; not unrestricted ReAct or policy answer generation",
+    "no real model routing quality evaluation",
+    "no external warehouse execution",
+    "existing dependency deprecation warnings remain"
+  ],
+  "owned_test_temp_cleanup": "completed; only verified project work/temp/aftersales-* directories"
+}

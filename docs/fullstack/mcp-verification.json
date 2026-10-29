@@ -1,0 +1,125 @@
+{
+  "transport": "stdio",
+  "raw_sdk_client": true,
+  "external_llm_calls": 0,
+  "isolated_demo_database": true,
+  "isolated_index_copies": true,
+  "local_baseline_separate_process": true,
+  "windows_selector_loop": true,
+  "checks": {
+    "only_two_readonly_tools": true,
+    "order_payload_equal": true,
+    "unknown_order": true,
+    "invalid_arguments_rejected": true,
+    "policy_ids_source_content_and_context_equal": true,
+    "gold_required_evidence_present": true,
+    "missing_index_is_domain_error_not_found": true,
+    "no_agent_or_torch_import_in_client": true
+  },
+  "timing_ms": {
+    "local_policy_cold": 13925.044999923557,
+    "local_policy_warm": {
+      "samples": [
+        887.1194999665022,
+        824.0030999295413,
+        898.2522999867797
+      ],
+      "median": 887.1194999665022
+    },
+    "startup_and_discovery": 13092.651200015098,
+    "mcp_policy_cold": 837.1283998712897,
+    "local_order_warm": {
+      "samples": [
+        0.6734998896718025,
+        0.7291999645531178,
+        0.7203000131994486
+      ],
+      "median": 0.7203000131994486
+    },
+    "mcp_order_warm": {
+      "samples": [
+        2.8584999963641167,
+        2.648599911481142,
+        2.3129000328481197
+      ],
+      "median": 2.648599911481142
+    },
+    "mcp_policy_warm": {
+      "samples": [
+        892.081500031054,
+        808.2381000276655,
+        802.8620998375118
+      ],
+      "median": 808.2381000276655
+    }
+  },
+  "status": "complete",
+  "phase": "warm_calls",
+  "tools": [
+    {
+      "name": "get_order_status",
+      "description": "查询CommerceDesk订单；订单号如A1002。返回商品、支付状态、物流状态、预计送达、支付时间和承诺发货时间。\n不提供签收日期/时刻、手机激活状态或实物完好情况；这些需用户提供或人工核实，不能根据订单号判断具体退货资格。",
+      "inputSchema": {
+        "properties": {
+          "order_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Order Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "order_id"
+        ],
+        "title": "get_order_statusArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "search_knowledge_base",
+      "description": "检索商城退款、退换货、物流、会员和发票政策；其他公司信息问题也可检索确认有无依据。返回真实片段ID、来源、正文及同源补充条款。",
+      "inputSchema": {
+        "properties": {
+          "query": {
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_knowledge_baseArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "policy_evidence_ids": [
+    "membership_policy.txt-0",
+    "membership_policy.txt-1",
+    "membership_policy.txt-2",
+    "membership_policy.txt-3",
+    "membership_policy.txt-4",
+    "return_policy.txt-0",
+    "return_policy.txt-1",
+    "return_policy.txt-2",
+    "return_policy.txt-3",
+    "return_policy.txt-4",
+    "return_policy.txt-5",
+    "return_policy.txt-6"
+  ],
+  "limitations": "本机3个热样本，非并发压测/SLA；对照使用同源隔离索引副本，本地基线进程先退出再启动MCP；不含外部LLM或网页点击测试。"
+}

@@ -1,0 +1,28 @@
+{
+  "version": "agent-rag-v1",
+  "split": "development_only",
+  "cases": 24,
+  "corpus_transform": "18 original public policy files combined into 4 thematic Markdown documents; preserve every original clause and heading, no filler",
+  "corpus_chars": {
+    "coupon": 921,
+    "shipping": 962,
+    "returns": 2010,
+    "account": 1351
+  },
+  "hashes": {
+    "corpus": "44da92d858cbb82434c3fc2a24e4cb3fb28b086f4b1de291fe8f0f56f7768160",
+    "cases": "5be9d00471b685c5dd70104d9a56d3e143b6d2c9452f92f288bf37ecfc98e9e7"
+  },
+  "arms": "fixed/structural at 600/80; vector/hybrid/hybrid_rerank; neighbors/section expansion; top3 budget4000",
+  "metrics": [
+    "source hit",
+    "complete necessary-clause coverage",
+    "anchor-only coverage",
+    "unanswerable retrieval",
+    "chars",
+    "latency"
+  ],
+  "promotion": "experimental default off; require constraint tests and no task regression; no online-accuracy claim",
+  "model_scope": "bounded read-only tool proposals, fixed write confirmation and approval; paid calls require explicit authorization",
+  "limits": "correlated development variants; combined public corpus, not independent blind test; no sealed holdout"
+}

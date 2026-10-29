@@ -192,7 +192,7 @@ async def main() -> None:
         with st.popover(":material/settings: Settings", use_container_width=True):
             model_idx = agent_client.info.models.index(agent_client.info.default_model)
             model = st.selectbox("LLM to use", options=agent_client.info.models, index=model_idx)
-            agent_list = ["supportpilot"]
+            agent_list = [entry.key for entry in agent_client.info.agents]
             agent_idx = agent_list.index(agent_client.info.default_agent)
             # 将选择结果同步到网址的 ?agent= 参数；选择默认智能体时省略该参数
             agent_client.agent = st.selectbox(

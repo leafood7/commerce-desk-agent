@@ -14,7 +14,7 @@ def mock_agent_client(mock_env):
         default_agent="test-agent",
         agents=[
             AgentInfo(key="test-agent", description="Test agent"),
-            AgentInfo(key="chatbot", description="Chatbot"),
+            AgentInfo(key="supportpilot", description="Chatbot"),
         ],
         default_model=OpenAIModelName.GPT_5_NANO,
         models=[OpenAIModelName.GPT_5_NANO, OpenAIModelName.GPT_5_MINI],
@@ -23,6 +23,7 @@ def mock_agent_client(mock_env):
     with (
         patch("client.AgentClient") as mock_agent_client,
         patch("voice.VoiceManager.from_env", return_value=None),
+        patch("shipping_ui.draw_shipping_console"),
     ):
         mock_agent_client_instance = mock_agent_client.return_value
         mock_agent_client_instance.info = mock_info

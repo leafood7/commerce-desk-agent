@@ -1,0 +1,17 @@
+{
+  "python": "3.13.12",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "mysql": "8.4.13",
+  "packages": {
+    "chromadb": "1.5.9",
+    "sentence-transformers": "6.1.0",
+    "torch": "2.14.1",
+    "mcp": "1.29.0",
+    "sqlalchemy": "2.0.52",
+    "pypdf": "6.19.0"
+  },
+  "local_service_proxy_bypass": true,
+  "source_documents": 18,
+  "chunks_per_strategy": 18,
+  "paid_model_calls": 0
+}
