@@ -1,0 +1,33 @@
+{
+  "dataset": {
+    "version": "rag_real_v1",
+    "cases": 24,
+    "dev": 12,
+    "audit": 12,
+    "sources": 5,
+    "merchants": 3,
+    "frozen_before_run": true,
+    "protocol_sha256": "ae995d06f81fd181ec9f250ad2e7c44480bec588b8c3f4fcfd1b162c7196509b",
+    "hashes": {
+      "corpus.json": "9380580d96b911342d141bd63dc8d222f69b311352f12afb32347bf9d6527c33",
+      "cases.json": "52ec470a922d93c9f166f7025d12c1888db764eb702e7aab8014bd259be22d37"
+    },
+    "limitations": [
+      "Source-linked author summaries, not complete raw policies.",
+      "Known document binding is supplied by scenario, not inferred.",
+      "Audit families not used for tuning."
+    ]
+  },
+  "runner_sha256": "925fe38d8347d772c1d8156134b15299e794f9055e1293d4ea1bb4e2b064af3a",
+  "embedding": [
+    "BAAI/bge-small-zh-v1.5",
+    "7999e1d3359715c523056ef9478215996d62a620"
+  ],
+  "baseline_sha256": null,
+  "warmup_ms": 29942.374835998635,
+  "database": "commercedesk_rag_accept_f87efc7e47",
+  "transport": "authenticated TestClient upload/publish + real MySQL + real HTTP Chroma + actual ingestion worker; search directly uses production retriever",
+  "paid_calls": 0,
+  "elapsed_seconds": 691.7049456649984,
+  "output_bytes": 4761665
+}

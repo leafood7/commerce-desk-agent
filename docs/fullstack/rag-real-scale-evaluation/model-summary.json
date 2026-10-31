@@ -1,0 +1,11 @@
+{
+  "requests": 48,
+  "valid": 48,
+  "errors": 0,
+  "charged_cny": 0.1349,
+  "models": [
+    "deepseek-flash"
+  ],
+  "review_status": "awaiting_author_semantic_review",
+  "independent_blind_review": false
+}

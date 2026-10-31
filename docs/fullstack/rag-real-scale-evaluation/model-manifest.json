@@ -1,0 +1,20 @@
+{
+  "authorization": "User explicitly approved 48 official DeepSeek requests and <=1 CNY on 2026-10-29; public source summaries and synthetic questions only",
+  "phase": "rag-real-v1-semantics-48calls-1cny",
+  "max_calls": 48,
+  "max_cny": 1,
+  "input_limit": 16384,
+  "output_limit": 512,
+  "reserve_cny": 0.036864,
+  "prompt_sha256": "24ad6167dd4dba7b5d0d154897e73ec91d6765dfa2f82f133e839aa125ea5f2a",
+  "runner_sha256": "58f41f6461d5149ab93c279ce5323827e0705253ef96940fcb0754d0e025b247",
+  "trace_sha256": "333b1b8b36caee1c6f2365582c0029526965306e46ca91a1b173bbc9f9c5dffd",
+  "pricing_url": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+  "pricing_checked": "2026-10-29",
+  "input_cny_per_million": 2,
+  "output_cny_per_million": 8,
+  "pricing_basis": "peak uncached estimate, not invoice",
+  "temperature": 0,
+  "thinking": "disabled",
+  "retries": 0
+}

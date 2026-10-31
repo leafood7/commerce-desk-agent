@@ -32,30 +32,29 @@ def decision_observation(state, allowed):
         if state.get("context_bound")
         else (state.get("evidence") or [])
     )
-    selected = []
-    remaining = 1200
-    for item in evidence[:6]:
-        excerpt = item["content"][: min(500, remaining)]
-        if not excerpt:
-            break
-        remaining -= len(excerpt)
-        selected.append(
-            {
-                "source_id": item["id"],
-                "version_id": item["version_id"],
-                "text": excerpt,
-                "clipped": len(excerpt) < len(item["content"]),
-            }
-        )
+    selected = [
+        {
+            "source_id": item["id"],
+            "version_id": item["version_id"],
+            "text": item["content"],
+            "clipped": False,
+        }
+        for item in evidence
+    ]
     order = state.get("order") or {}
     return {
         "allowed_actions": allowed,
-        "task": str(state.get("query", ""))[:360],
+        "binding": {
+            "order_number": state.get("order_number"),
+            "item_id": state.get("return_item_id"),
+            "policy_id": state.get("return_policy_id"),
+        },
+        "task": str(state.get("query", "")),
         "latest_conditions": {
             "return_basis": state.get("return_basis") or "no_reason",
             "item_condition": state.get("return_condition") or "unknown",
             "quantity": state.get("return_quantity"),
-            "reason": str(state.get("reason", ""))[:120],
+            "reason": str(state.get("reason", "")),
         },
         "observation_flags": {
             key: bool(state.get(key))

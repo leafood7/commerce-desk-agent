@@ -1,0 +1,137 @@
+[
+  {
+    "id": "apple-online",
+    "title": "Apple中国大陆线上",
+    "url": "https://www.apple.com.cn/shop/help/returns_refund",
+    "checked_at": "2026-10-29",
+    "effective_date": null,
+    "representation": "author_source_linked_summary_not_verbatim",
+    "clauses": [
+      {
+        "id": "apple-online-1",
+        "text": "适用Apple中国大陆在线商店及电话中心。符合条件的商品从交付日起14个自然日内申请退货。只有零售店取货订单可退到取货店。",
+        "heading": "期限渠道"
+      },
+      {
+        "id": "apple-online-2",
+        "text": "iPhone及iPad须无损，退回原包装及配件、手册、说明书。",
+        "heading": "商品条件"
+      },
+      {
+        "id": "apple-online-3",
+        "text": "退货中心收货并检查无误才处理退款；快送服务费不退。银行卡实际入账取决于银行，政策不能证明某笔退款已到账。",
+        "heading": "退款边界"
+      }
+    ],
+    "text": "# Apple中国大陆线上\n\n## 期限渠道\n适用Apple中国大陆在线商店及电话中心。符合条件的商品从交付日起14个自然日内申请退货。只有零售店取货订单可退到取货店。\n\n## 商品条件\niPhone及iPad须无损，退回原包装及配件、手册、说明书。\n\n## 退款边界\n退货中心收货并检查无误才处理退款；快送服务费不退。银行卡实际入账取决于银行，政策不能证明某笔退款已到账。"
+  },
+  {
+    "id": "apple-retail",
+    "title": "Apple中国大陆零售店",
+    "url": "https://www.apple.com/legal/sales-support/sales-policies/retail_cn.html",
+    "checked_at": "2026-10-29",
+    "effective_date": null,
+    "representation": "author_source_linked_summary_not_verbatim",
+    "clauses": [
+      {
+        "id": "apple-retail-1",
+        "text": "Apple中国大陆零售店规则从购买日起算14个日历日，退回无损商品及原始零件、配件、发票、包装；大陆零售店购买须回原店，且限原购买国家地区。",
+        "heading": "期限渠道"
+      },
+      {
+        "id": "apple-retail-2",
+        "text": "拆封软件、内存等介质可同类换货但不能退款。定制配置产品不接受退换。已激活安全功能而持有人不能关闭时，Apple可拒绝退换。",
+        "heading": "例外"
+      },
+      {
+        "id": "apple-retail-3",
+        "text": "本零售政策作为法定及合同权利的补充。蔡司处方插片由线上销售，不在零售店办理退货；老视插片从收到日起14天向原购买店申请。",
+        "heading": "保留权利"
+      }
+    ],
+    "text": "# Apple中国大陆零售店\n\n## 期限渠道\nApple中国大陆零售店规则从购买日起算14个日历日，退回无损商品及原始零件、配件、发票、包装；大陆零售店购买须回原店，且限原购买国家地区。\n\n## 例外\n拆封软件、内存等介质可同类换货但不能退款。定制配置产品不接受退换。已激活安全功能而持有人不能关闭时，Apple可拒绝退换。\n\n## 保留权利\n本零售政策作为法定及合同权利的补充。蔡司处方插片由线上销售，不在零售店办理退货；老视插片从收到日起14天向原购买店申请。"
+  },
+  {
+    "id": "ikea-cn",
+    "title": "宜家中国大陆售后",
+    "url": "https://www.ikea.cn/cn/zh/customer-service/returns-claims/",
+    "checked_at": "2026-10-29",
+    "effective_date": null,
+    "representation": "author_source_linked_summary_not_verbatim",
+    "clauses": [
+      {
+        "id": "ikea-cn-1",
+        "text": "宜家本页要求货品完好、原始包装、原始购物凭证或已开具发票；收到商品起一般60天，宜家俱乐部会员365天可申请退货。",
+        "heading": "期限条件"
+      },
+      {
+        "id": "ikea-cn-2",
+        "text": "已经开票且发票已入账或抵扣，需要在电子税局确认红字信息确认单后才办理退货。会员期限不能取消货品和凭证条件。",
+        "heading": "发票例外"
+      }
+    ],
+    "text": "# 宜家中国大陆售后\n\n## 期限条件\n宜家本页要求货品完好、原始包装、原始购物凭证或已开具发票；收到商品起一般60天，宜家俱乐部会员365天可申请退货。\n\n## 发票例外\n已经开票且发票已入账或抵扣，需要在电子税局确认红字信息确认单后才办理退货。会员期限不能取消货品和凭证条件。"
+  },
+  {
+    "id": "ikea-tw",
+    "title": "宜家台湾线上政策",
+    "url": "https://www.ikea.com.tw/zh/customerservice/about-shopping/return-policy",
+    "checked_at": "2026-10-29",
+    "effective_date": null,
+    "representation": "author_source_linked_summary_not_verbatim",
+    "clauses": [
+      {
+        "id": "ikea-tw-1",
+        "text": "宜家台湾卡友未拆封商品365天内按原付款方式退；无发票可协助查询购买记录。",
+        "heading": "会员未拆"
+      },
+      {
+        "id": "ikea-tw-2",
+        "text": "卡友已拆封或已组装商品须无使用痕迹，365天内以退款卡退；非卡友限60天、未拆封并持原购物发票，按原付款方式退。",
+        "heading": "会员已拆"
+      },
+      {
+        "id": "ikea-tw-3",
+        "text": "As-Is特价、定制、食品饮料一般不退换，但商品本身有瑕疵属于例外。商品抵用券不适用这份政策，应看券条款。",
+        "heading": "例外"
+      },
+      {
+        "id": "ikea-tw-4",
+        "text": "365天床垫试睡只适用指定系列，排除儿童床垫等列明品类及陈列特价品；退款不包含运送与回收等服务费。",
+        "heading": "床垫"
+      }
+    ],
+    "text": "# 宜家台湾线上政策\n\n## 会员未拆\n宜家台湾卡友未拆封商品365天内按原付款方式退；无发票可协助查询购买记录。\n\n## 会员已拆\n卡友已拆封或已组装商品须无使用痕迹，365天内以退款卡退；非卡友限60天、未拆封并持原购物发票，按原付款方式退。\n\n## 例外\nAs-Is特价、定制、食品饮料一般不退换，但商品本身有瑕疵属于例外。商品抵用券不适用这份政策，应看券条款。\n\n## 床垫\n365天床垫试睡只适用指定系列，排除儿童床垫等列明品类及陈列特价品；退款不包含运送与回收等服务费。"
+  },
+  {
+    "id": "decathlon-us",
+    "title": "Decathlon美国官网",
+    "url": "https://www.decathlon.com/policies/refund-policy",
+    "checked_at": "2026-10-29",
+    "effective_date": null,
+    "representation": "author_source_linked_summary_not_verbatim",
+    "clauses": [
+      {
+        "id": "decathlon-us-1",
+        "text": "本页仅限美国Decathlon购买，不适用其他国家。普通退货须在decathlon.com购买未满30天，未使用如新、吊牌齐全且有原包装。",
+        "heading": "期限地区"
+      },
+      {
+        "id": "decathlon-us-2",
+        "text": "普通规则排除安全救生装备如头盔、内衣、清仓最终销售品、礼品卡；其他零售商购买要按原零售商政策，不能退到该退货部门。",
+        "heading": "例外渠道"
+      },
+      {
+        "id": "decathlon-us-3",
+        "text": "一般非清仓商品可免费退，但自行车等大件可能例外，须看商品页；原运费通常不退，商家发错或缺陷等责任情形例外。",
+        "heading": "费用"
+      },
+      {
+        "id": "decathlon-us-4",
+        "text": "指定高端车与车架另有规则：组装使用磨损可能收不超过售价15%的重新入库费，退货部门评估后才退款；客户承担退运。不能把普通未使用要求直接代替该特殊分支。",
+        "heading": "高端自行车"
+      }
+    ],
+    "text": "# Decathlon美国官网\n\n## 期限地区\n本页仅限美国Decathlon购买，不适用其他国家。普通退货须在decathlon.com购买未满30天，未使用如新、吊牌齐全且有原包装。\n\n## 例外渠道\n普通规则排除安全救生装备如头盔、内衣、清仓最终销售品、礼品卡；其他零售商购买要按原零售商政策，不能退到该退货部门。\n\n## 费用\n一般非清仓商品可免费退，但自行车等大件可能例外，须看商品页；原运费通常不退，商家发错或缺陷等责任情形例外。\n\n## 高端自行车\n指定高端车与车架另有规则：组装使用磨损可能收不超过售价15%的重新入库费，退货部门评估后才退款；客户承担退运。不能把普通未使用要求直接代替该特殊分支。"
+  }
+]

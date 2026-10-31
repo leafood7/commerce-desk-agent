@@ -249,7 +249,11 @@ def build_return_graph(saver, tools, validate, planner=None, *, profile=None):
                 "next_step": "gather",
                 "corrections": [
                     *state.get("corrections", []),
-                    {k: response[k] for k in FIELDS if response.get(k) is not None},
+                    {
+                        k: response[k]
+                        for k in (*FIELDS, "return_basis", "return_policy_id")
+                        if response.get(k) is not None
+                    },
                 ],
             }
         if response["action"] != "confirm":

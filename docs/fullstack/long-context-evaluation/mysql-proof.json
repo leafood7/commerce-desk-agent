@@ -1,0 +1,18 @@
+{
+  "database": "commercedesk_context_accept_cc716aa6a4",
+  "actual_mysql": true,
+  "authenticated_api_graph_read": true,
+  "tool_transport": "in-process scoped gateway substitute; browser probe covers real HTTP MCP separately",
+  "historical_messages": 240,
+  "window": 80,
+  "history_truncated": true,
+  "current_unknown_not_inherited": true,
+  "json_order_correction_filter": true,
+  "damaged_snapshot_rebuilt": true,
+  "snapshot_stable_after_reconnect": true,
+  "private_not_in_run_output": true,
+  "other_role_context_denied": true,
+  "original_history_retained": true,
+  "created_return_requests": 0,
+  "paid_calls": 0
+}

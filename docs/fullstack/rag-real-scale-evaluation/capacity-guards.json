@@ -1,0 +1,8 @@
+{
+  "withdrawn_empty": true,
+  "foreign_empty": true,
+  "unpublished_empty": true,
+  "expired_empty": true,
+  "tier_restored": true,
+  "extra_guard_chunks_excluded_from_10000_tier": 2
+}

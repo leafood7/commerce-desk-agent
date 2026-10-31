@@ -1,0 +1,146 @@
+[
+  {
+    "id": "context-001",
+    "scenario": "long_history_120",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-002",
+    "scenario": "latest_used_correction",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-003",
+    "scenario": "basis_quality_to_normal",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-004",
+    "scenario": "order_a_b_a",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-005",
+    "scenario": "unknown_not_eta",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-006",
+    "scenario": "assistant_fake_refund",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-007",
+    "scenario": "old_policy_not_evidence",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-008",
+    "scenario": "required_evidence_no_cut",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-009",
+    "scenario": "oversize_current_stop",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-010",
+    "scenario": "oversize_system_stop",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-011",
+    "scenario": "paired_tool_atomic",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-012",
+    "scenario": "incomplete_tool_drop",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-013",
+    "scenario": "summary_not_authority",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-014",
+    "scenario": "summary_corruption",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-015",
+    "scenario": "foreign_organization",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-016",
+    "scenario": "foreign_owner",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-017",
+    "scenario": "foreign_conversation",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-018",
+    "scenario": "no_order_no_inherit",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-019",
+    "scenario": "late_run_excluded",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-020",
+    "scenario": "snapshot_idempotent",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-021",
+    "scenario": "restart_same_context",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-022",
+    "scenario": "public_no_summary",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-023",
+    "scenario": "single_action_no_model",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  },
+  {
+    "id": "context-024",
+    "scenario": "original_history_retained",
+    "kind": "offline_and_targeted_contract",
+    "split": "development"
+  }
+]

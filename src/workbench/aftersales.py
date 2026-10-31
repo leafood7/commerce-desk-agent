@@ -97,7 +97,9 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
     check_admission(session, actor, settings)
     if (
         session.scalar(
-            select(func.count()).select_from(FlowAction).where(FlowAction.run_id == run.id)
+            select(func.count())
+            .select_from(FlowAction)
+            .where(FlowAction.run_id == run.id, ~FlowAction.key.startswith("__", autoescape=True))
         )
         >= 100
     ):
@@ -265,7 +267,10 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
         graph_builder = build_graph
 
         def planner(query):
-            return route_once(database, run_id, run_settings, query)
+            from workbench.context_management import model_context
+
+            with model_context(database, run_id, initial, run_settings):
+                return route_once(database, run_id, run_settings, query)
 
         if run.input.get("return_policy_id"):
             from workbench.return_decisions import choose_return_action
@@ -279,9 +284,17 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                     raise ToolFailure("forbidden")
 
             def return_planner(observation):
-                result = choose_return_action(
-                    database, run_id, run_settings, observation, limits=limits, guard=model_guard
-                )
+                from workbench.context_management import model_context
+
+                with model_context(database, run_id, observation, run_settings):
+                    result = choose_return_action(
+                        database,
+                        run_id,
+                        run_settings,
+                        observation,
+                        limits=limits,
+                        guard=model_guard,
+                    )
                 with database.sessions() as session:
                     record = session.scalar(select(Run).where(Run.id == run_id).with_for_update())
                     model_guard(session, record)
@@ -330,6 +343,9 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
         snapshot = graph.get_state(config)
         state = snapshot.values
         pending = [item for task in snapshot.tasks for item in task.interrupts]
+        from workbench.context_management import build_frame
+
+        context_frame = build_frame(database, run_id, state, run_settings)
         with database.sessions() as session:
             run = session.scalar(select(Run).where(Run.id == run_id).with_for_update())
             if run.status != "running":
@@ -391,6 +407,7 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                     key: preview.get(key) for key in ("eligibility", "missing", "blocked")
                 }
                 public["answer"] += render_fact_checks(assessment)
+            public["context"] = context_frame["public"]
             public["profile_guard"] = profile_guard
             public["execution"] = {"tool_attempts": limits.attempts}
             public.update(

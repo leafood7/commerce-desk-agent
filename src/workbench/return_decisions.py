@@ -64,7 +64,14 @@ def decision_messages(observation):
                 "stop hands control back for a fact-based boundary explanation, not a model refusal."
             ),
         },
-        {"role": "user", "content": json.dumps({k: v for k, v in observation.items() if k != "_cache_context"}, ensure_ascii=False, sort_keys=True)},
+        {
+            "role": "user",
+            "content": json.dumps(
+                {k: v for k, v in observation.items() if k != "_cache_context"},
+                ensure_ascii=False,
+                sort_keys=True,
+            ),
+        },
     ]
 
 
@@ -92,6 +99,13 @@ def request_body(settings, observation):
             else {}
         ),
     }
+    from workbench.context_management import ContextOverflow, pack_messages
+
+    try:
+        body["messages"], _ = pack_messages(settings, body["messages"])
+    except ContextOverflow as exc:
+        raise ModelNotSent(str(exc)) from exc
+
     # UTF-8 bytes deliberately overestimate input tokens; not a provider tokenizer.
     bound = (
         len(json.dumps(body["messages"], ensure_ascii=False).encode()) + body["max_tokens"] + 256
@@ -157,6 +171,17 @@ def choose_return_action(database, run_id, settings, observation, *, limits, gua
     if settings.return_decision_mode != "model":
         return fallback
     limits.check()
+    from workbench.context_management import CURRENT
+
+    context = CURRENT.get()
+    if context:
+        observation = {
+            **observation,
+            "_cache_context": {
+                **observation.get("_cache_context", {}),
+                "context_snapshot": context["public"]["snapshot_id"],
+            },
+        }
     digest = fingerprint({"observation": observation, "prompt_sha256": prompt_hash()})
     key = "__return_decision__:" + digest
     with database.sessions() as session:

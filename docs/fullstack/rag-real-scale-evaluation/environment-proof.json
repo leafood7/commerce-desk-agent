@@ -1,0 +1,28 @@
+{
+  "python": "3.13.14",
+  "embedding": [
+    "BAAI/bge-small-zh-v1.5",
+    "7999e1d3359715c523056ef9478215996d62a620"
+  ],
+  "reranker": [
+    "BAAI/bge-reranker-base",
+    "2cfc18c9415c912f9d8155881c133215df768a70"
+  ],
+  "config": {
+    "context_chars": 4000,
+    "retrieval_context_mode": "neighbors",
+    "vector_max_distance": 0.65,
+    "rerank_threshold": -2.0
+  },
+  "runtime_model_key_present": false,
+  "chroma_total_volume_bytes_after_experiment": 54922088,
+  "disk_measurement_scope": "Entire shared local Chroma volume after run, not per-experiment size or measured delta.",
+  "database_table_count": 34,
+  "original_demo_requests_preserved": [
+    "02bd2631-a0dd-4073-895d-dd613c8fef76\taccepted_simulated",
+    "7805f155-2f46-4643-a84d-0de359ff447c\tdraft",
+    "9fcbd11e-a706-410f-92d0-da277fa26a51\tpending_approval"
+  ],
+  "quality_order_application_count": 0,
+  "manual_quality_run": "8936a983-89c0-43fd-be45-4dca1be2ae6a\tcompleted\t当前演示规则存在限制：超出当前所选退货分支的演示申请窗口、不满足当前规则的未使用条件。未提交退货申请；不据此判断其他退货权利。\\n同时核对：实际签收时间：2026-10-19T13:32:24.383897"
+}

@@ -1,0 +1,43 @@
+{
+  "services": {
+    "api": {
+      "source_files": 55,
+      "matches_host": true
+    },
+    "mcp": {
+      "source_files": 55,
+      "matches_host": true
+    },
+    "worker": {
+      "source_files": 55,
+      "matches_host": true
+    },
+    "run-worker": {
+      "source_files": 55,
+      "matches_host": true
+    }
+  },
+  "runtime": {
+    "schema": "0009_quality_return_basis",
+    "tables": 34,
+    "router": "rules",
+    "return_decisions": "rules",
+    "context_input_tokens": 6000,
+    "context_history_enabled": true,
+    "model_key_present": false
+  },
+  "web_index_sha256": "573a9cfa32925f4651779ac97a2a9da3506ed0e5e879f347bc9264aebdf1f1f0",
+  "web_matches_host": true,
+  "original_return_requests": [
+    "02bd2631-a0dd-4073-895d-dd613c8fef76\taccepted_simulated",
+    "7805f155-2f46-4643-a84d-0de359ff447c\tdraft",
+    "9fcbd11e-a706-410f-92d0-da277fa26a51\tpending_approval"
+  ],
+  "real_read_run_id": "73a93ec3-44b7-4210-9dde-126ba713908e",
+  "actual_tool_transports": [
+    "mcp"
+  ],
+  "paid_calls_this_stage": 0,
+  "shared_ledger_total_cny": 4.700946,
+  "existing_volumes_preserved": true
+}

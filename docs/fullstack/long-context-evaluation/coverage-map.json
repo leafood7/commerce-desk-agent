@@ -1,0 +1,173 @@
+{
+  "note": "24 planned scenarios mapped to overlapping mechanical/database/graph checks; not24 generated-answer accuracy samples",
+  "cases": [
+    {
+      "id": "context-001",
+      "scenario": "long_history_120",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_long_history_snapshot_restart_and_no_rewrite"
+    },
+    {
+      "id": "context-002",
+      "scenario": "latest_used_correction",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_order_switch_and_explicit_unknown"
+    },
+    {
+      "id": "context-003",
+      "scenario": "basis_quality_to_normal",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_agent_correction_rechecks_branch_and_does_not_reuse_exceptions"
+    },
+    {
+      "id": "context-004",
+      "scenario": "order_a_b_a",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_a_b_a_keeps_latest_explicit_condition"
+    },
+    {
+      "id": "context-005",
+      "scenario": "unknown_not_eta",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_order_switch_and_explicit_unknown"
+    },
+    {
+      "id": "context-006",
+      "scenario": "assistant_fake_refund",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_long_history_snapshot_restart_and_no_rewrite + mysql-proof.json"
+    },
+    {
+      "id": "context-007",
+      "scenario": "old_policy_not_evidence",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_observation_preserves_full_task_reason_and_evidence + assembly context-007"
+    },
+    {
+      "id": "context-008",
+      "scenario": "required_evidence_no_cut",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_observation_preserves_full_task_reason_and_evidence"
+    },
+    {
+      "id": "context-009",
+      "scenario": "oversize_current_stop",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_required_input_never_clipped_and_no_dispatch"
+    },
+    {
+      "id": "context-010",
+      "scenario": "oversize_system_stop",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_budget_drops_whole_tool_pair_and_summary_first_claim_not_promoted"
+    },
+    {
+      "id": "context-011",
+      "scenario": "paired_tool_atomic",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_budget_drops_whole_tool_pair_and_summary_first_claim_not_promoted"
+    },
+    {
+      "id": "context-012",
+      "scenario": "incomplete_tool_drop",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_budget_drops_whole_tool_pair_and_summary_first_claim_not_promoted"
+    },
+    {
+      "id": "context-013",
+      "scenario": "summary_not_authority",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_long_history_snapshot_restart_and_no_rewrite"
+    },
+    {
+      "id": "context-014",
+      "scenario": "summary_corruption",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_corrupt_snapshot_rebuilt_from_original_sources"
+    },
+    {
+      "id": "context-015",
+      "scenario": "foreign_organization",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_scope_filters_foreign_rows_and_future_runs"
+    },
+    {
+      "id": "context-016",
+      "scenario": "foreign_owner",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_same_organization_other_owner_or_conversation_not_included[owner]"
+    },
+    {
+      "id": "context-017",
+      "scenario": "foreign_conversation",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_same_organization_other_owner_or_conversation_not_included[conversation]"
+    },
+    {
+      "id": "context-018",
+      "scenario": "no_order_no_inherit",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_order_switch_and_explicit_unknown"
+    },
+    {
+      "id": "context-019",
+      "scenario": "late_run_excluded",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_scope_filters_foreign_rows_and_future_runs"
+    },
+    {
+      "id": "context-020",
+      "scenario": "snapshot_idempotent",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_long_history_snapshot_restart_and_no_rewrite"
+    },
+    {
+      "id": "context-021",
+      "scenario": "restart_same_context",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_long_history_snapshot_restart_and_no_rewrite + mysql-proof.json"
+    },
+    {
+      "id": "context-022",
+      "scenario": "public_no_summary",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_public_context_endpoint_requires_owner_and_omits_history + test_damaged_private_budget_never_publishes_arbitrary_text"
+    },
+    {
+      "id": "context-023",
+      "scenario": "single_action_no_model",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "existing guided_v3 decision/quality regressions; no new paid calls"
+    },
+    {
+      "id": "context-024",
+      "scenario": "original_history_retained",
+      "kind": "offline_and_targeted_contract",
+      "split": "development",
+      "coverage": "test_long_history_snapshot_restart_and_no_rewrite + mysql-proof.json"
+    }
+  ]
+}

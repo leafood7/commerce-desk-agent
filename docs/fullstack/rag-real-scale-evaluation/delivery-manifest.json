@@ -1,0 +1,24 @@
+{
+  "files": {
+    "bindings.json": "13e9f961202941b543da15b59a42b332a38b9faa1805e7c8196bc8ff4fea031d",
+    "capacity-guards.json": "210aa9b77289b5a0175bea1513534eba1aeb490e639f7bb5139247965c1637f6",
+    "capacity-reviewed-metrics.json": "e5bf50321c02013981851e84dfac7ef58cad6cb3be32c9338249cc36cb6e8ae0",
+    "capacity-tiers.json": "70ecb4d9675d0b9332c95d3aefde217691d1a26f09d7918a2cf2047213c4eaa0",
+    "completed.json": "c0b0725581946d6dac16f011c612a3043f63e370671e4a6e790d8d04f127d213",
+    "environment-proof.json": "993f50b45b4aa2567925c5b7bf713cd7ad4a2904a962863574f7221c81723c50",
+    "evaluate_rag_real_answers.py.evaluated.txt": "58f41f6461d5149ab93c279ce5323827e0705253ef96940fcb0754d0e025b247",
+    "evaluate_rag_real_scale.py.evaluated.txt": "925fe38d8347d772c1d8156134b15299e794f9055e1293d4ea1bb4e2b064af3a",
+    "manifest.json": "a8793ef03203416f3633f8fcf58b685ebb6998af61835fda8ea3006039394f64",
+    "model-anonymous-review.json": "3830e164d06859ef413c15201d3f5daf0e163dd8ca0da9fbba5211d739aca144",
+    "model-answers.jsonl": "bfea05501f200cee1ef5505bdbe0164309f857cf2166c53632f4792c030b2522",
+    "model-manifest.json": "35e470d63e53edffc42e427acbce1a80889ff6959cd87be604f1a886b6670700",
+    "model-review-key.json": "ac41dfaf7b6c813c246080fb6ac53e1b6cdae85f5a2da4190969bfe11d26399e",
+    "model-summary.json": "8db9418edd80b25d873a4b8e2a2cec93aa2f15750b0e5e834df3924a466306e4",
+    "real-summary.json": "355c2ad90398fc498547d0f3ed3d1f7296ee8d477d442c878bab53f57b8de9f6",
+    "real-traces.jsonl": "333b1b8b36caee1c6f2365582c0029526965306e46ca91a1b173bbc9f9c5dffd",
+    "semantic-review.json": "47ae9ad4e249b9c1faceb92144405553c29543bc31fc16f6ef9a7b8bf0c100b0"
+  },
+  "credentials_scan": "No configured API key or isolated experiment credential present",
+  "local_report_links_checked": true,
+  "no_sealed_holdout_access": true
+}

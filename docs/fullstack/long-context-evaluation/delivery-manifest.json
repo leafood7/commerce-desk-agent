@@ -1,0 +1,16 @@
+{
+  "files": {
+    "assembly-summary.json": "5bd0e831a0b843c9d6e986f1cb7b685e76a6c7b722dffe28ab4a7739b3d2c746",
+    "assembly-traces.jsonl": "e7655f1cc5ed5f98fbc31dd9d17f3495b8622b21f13e93a6fa82730a660c4357",
+    "browser-summary.json": "2cd66970de76d6bf58280cb67f4421e783edbda64d54eef0ed6b6f9bd41e988e",
+    "business-regression.log": "8ad6546db7b28695fc813c4bbb7640f6ed1b77af116ab0de5a1f5672e539a1ce",
+    "context-regression.log": "09a6e7d55eac043cf7b185e6fbaf2c112f2bc476a6ef726c61262c464e08755c",
+    "coverage-map.json": "61c781712d491e340c83b2fbbc62dcedd6d874f4b4e259eff2ccd2e83c613ac0",
+    "image-proof.json": "372961a2c057c451c4c6e89f60d5ade8aa11d1171316c4bf2f78319845d4ebab",
+    "mysql-proof.json": "381d02ce5136d15fd211b6c30568e3545699f39e6596c91c99b858b62d0ca9a6"
+  },
+  "source_hashes_match_final_runtime_sources": true,
+  "credentials_scan_passed": true,
+  "local_links_checked": true,
+  "protocol_hash_unchanged": true
+}

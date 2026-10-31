@@ -29,6 +29,8 @@ powershell -ExecutionPolicy Bypass -File scripts/run-container-acceptance.ps1 -P
 
 ## 如何看待验证结果
 
+新增[真实政策语义复核与一万片段验收](docs/fullstack/rag-real-scale-report.md)：5份官方来源摘要、48份模型回答；100篇合成文档经实际上传入库达10000片段。包含语料缺项、跨渠道混用与题面缺陷，不以引用有效宣称回答正确。
+
 已有长文/有限规模RAG的768条检索记录、720条固定证据组装回放，以及真实页面和恢复后续办证据。各批次存在重叠，不能累计成独立样本或回答准确率；作者参与复核，未做独立盲审。检索改善、退化、成本和原始结果见 [证据索引](docs/portfolio/evidence.md)。
 
 默认不启用模型建议或跨条款引用扩展：模型策略收益未证实，RAG仍存在漏检。当前是本地工程作品，没有真实退款、Linux线上部署、企业生产容量、Redis长期记忆或通用无限自主Agent承诺。
@@ -41,6 +43,7 @@ powershell -ExecutionPolicy Bypass -File scripts/run-container-acceptance.ps1 -P
 |[当前状态](docs/fullstack/STATUS.md)|最新验收及历史阶段记录|
 |[退货业务](docs/fullstack/returns.md)|领域规则、审批及模拟受理|
 |[受限Agent](docs/fullstack/return-agent.md)|动作集合、观察与实验开关|
+|[长上下文](docs/fullstack/long-context-report.md)|完整必要输入、有界历史摘要、订单隔离及容器验证|
 |[长文RAG](docs/fullstack/rag-long-scale-report.md)|切块、范围、引用补全及有限规模对照|
 |[完整恢复](docs/fullstack/full-recovery.md)|独立库/文件/索引和同一待办续办|
 |[面试讲解](docs/portfolio/interview.md)|机制取舍、可核实业绩与限制|

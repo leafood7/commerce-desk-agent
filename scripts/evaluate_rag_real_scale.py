@@ -1,0 +1,402 @@
+"""Frozen source-linked policies and actual ingestion capacity; no paid calls."""
+
+import argparse
+import hashlib
+import json
+import math
+import os
+import secrets
+import statistics
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+
+def dump(path, value):
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def load(path, ids):
+    manifest = json.loads((path / "manifest.json").read_text(encoding="utf-8"))
+    for name, expected in manifest["hashes"].items():
+        if hashlib.sha256((path / name).read_bytes()).hexdigest() != expected:
+            raise ValueError("Frozen file changed: " + name)
+    if (
+        hashlib.sha256(
+            (ROOT / "docs/fullstack/rag-real-scale-protocol.md").read_bytes()
+        ).hexdigest()
+        != manifest["protocol_sha256"]
+    ):
+        raise ValueError("Protocol changed")
+    cases = json.loads((path / "cases.json").read_text(encoding="utf-8"))
+    if ids and (len(ids) != len(set(ids)) or set(ids) - {c["id"] for c in cases}):
+        raise ValueError("Unknown or duplicate case ID")
+    families = {}
+    for case in cases:
+        families.setdefault(case["family"], set()).add(case["split"])
+    if any(len(x) != 1 for x in families.values()):
+        raise ValueError("Family leakage")
+    return (
+        manifest,
+        json.loads((path / "corpus.json").read_text(encoding="utf-8")),
+        [c for c in cases if not ids or c["id"] in ids],
+    )
+
+
+def nearest_rank(values, fraction):
+    if not values or not 0 < fraction <= 1:
+        raise ValueError("Invalid percentile input")
+    return sorted(values)[math.ceil(fraction * len(values)) - 1]
+
+
+def synthetic(number):
+    subjects = [
+        "包装记录",
+        "运输交接",
+        "票据核对",
+        "配件清点",
+        "商品检查",
+        "退款核实",
+        "履约跟踪",
+        "售后申请",
+        "工单流转",
+        "资料归档",
+    ]
+    sections = []
+    for section in range(100):
+        token = f"CAP-{number:03d}-{section:03d}"
+        text = f"隔离容量验收商家{number:03d}，商品CAPSKU-{number:03d}。{subjects[section % 10]}条款{section:03d}，核验码{token}。"
+        text += f"本段只适用于当前演示商品与处理步骤，申请窗口为{7 + number % 24}天，数量上限{1 + section % 5}件。未取得实际字段时应核实，不能把参考金额、预计送达或历史客服描述当作支付与签收结果。审批和模拟受理分别登记，任何步骤都不执行真实退款。"
+        sections.append(f"## {token}\n{text}")
+    return "\n\n".join(sections)
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("command", choices=["validate", "run"])
+    p.add_argument("--dataset", type=Path, default=ROOT / "data/evaluation/rag_real_v1")
+    p.add_argument("--version", choices=["real", "capacity", "both"], default="both")
+    p.add_argument("--case-id", action="append")
+    p.add_argument("--baseline", type=Path)
+    p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--database-name")
+    a = p.parse_args()
+    manifest, corpus, cases = load(a.dataset, a.case_id)
+    if a.baseline and not a.baseline.is_file():
+        p.error("Baseline does not exist")
+    if a.command == "validate":
+        print(json.dumps({"cases": len(cases), "families_disjoint": True, "frozen": True}))
+        return
+    import re
+
+    if not re.fullmatch(r"commercedesk_rag_accept_[a-f0-9]{10}", a.database_name or ""):
+        p.error("Dedicated uniquely named experiment database required")
+    if a.output.exists():
+        p.error("Output exists; retain original run")
+    a.output.mkdir(parents=True)
+    from alembic import command
+    from fastapi.testclient import TestClient
+    from pydantic import SecretStr
+    from sqlalchemy import func, select, text
+    from sqlalchemy.engine import make_url
+
+    from workbench.app import create_app
+    from workbench.cli import migration_config
+    from workbench.config import WorkbenchSettings
+    from workbench.database import Database
+    from workbench.document_parsing import chunks_from_blocks, text_blocks
+    from workbench.ingestion import work_once
+    from workbench.knowledge_index import EMBEDDING_MODEL, EMBEDDING_REVISION, ChromaIndex
+    from workbench.knowledge_models import DocumentVersion, KnowledgeChunk
+    from workbench.knowledge_schemas import SearchInput
+    from workbench.models import Organization
+    from workbench.retrieval import KnowledgeRetriever
+    from workbench.seed import seed_demo
+
+    settings = WorkbenchSettings(
+        database_url=SecretStr(
+            make_url(os.environ["WORKBENCH_DATABASE_URL"])
+            .set(database=a.database_name)
+            .render_as_string(hide_password=False)
+        ),
+        storage_root=str(a.output / "files"),
+        agent_router_mode="rules",
+        return_decision_mode="rules",
+        agent_router_key=None,
+    )
+    db = Database(settings)
+    with db.engine.connect() as connection:
+        existing = connection.scalar(
+            text("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE()")
+        )
+        if existing:
+            raise ValueError("Experiment database must be newly created and empty")
+    command.upgrade(migration_config(settings), "head")
+    password = secrets.token_urlsafe(24)
+    seed_demo(db, password)
+    with db.sessions() as s:
+        orgs = {o.slug: o.id for o in s.scalars(select(Organization))}
+    index = ChromaIndex(settings)
+    t = time.perf_counter()
+    index.warm()
+    metadata = {
+        "dataset": manifest,
+        "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "embedding": [EMBEDDING_MODEL, EMBEDDING_REVISION],
+        "baseline_sha256": hashlib.sha256(a.baseline.read_bytes()).hexdigest()
+        if a.baseline
+        else None,
+        "warmup_ms": (time.perf_counter() - t) * 1000,
+        "database": a.database_name,
+        "transport": "authenticated TestClient upload/publish + real MySQL + real HTTP Chroma + actual ingestion worker; search directly uses production retriever",
+        "paid_calls": 0,
+    }
+    dump(a.output / "manifest.json", metadata)
+    started = time.perf_counter()
+    with TestClient(create_app(settings)) as client:
+
+        def auth(slug):
+            r = client.post(
+                "/api/v1/auth/login",
+                json={"organization": slug, "email": "admin@demo.test", "password": password},
+            )
+            r.raise_for_status()
+            return {"Authorization": "Bearer " + r.json()["access_token"]}
+
+        headers = {slug: auth(slug) for slug in orgs}
+
+        def upload(slug, name, content, **options):
+            t = time.perf_counter()
+            r = client.post(
+                "/api/v1/knowledge/documents",
+                headers=headers[slug],
+                files={"file": (name, content.encode(), "text/markdown")},
+                data={"title": name, "chunk_chars": "600", "chunk_overlap": "80", **options},
+            )
+            r.raise_for_status()
+            row = r.json()
+            if row["created"]:
+                if not work_once(db, settings, index):
+                    raise RuntimeError("Expected queued ingestion")
+            with db.sessions() as s:
+                v = s.get(DocumentVersion, row["version"]["id"])
+                if v.status != "ready":
+                    raise RuntimeError("Ingestion failed: " + str(v.error_code))
+                assert v.content_hash == hashlib.sha256(content.encode()).hexdigest()
+                row["chunks"] = v.chunk_count
+            row["ingestion_ms"] = (time.perf_counter() - t) * 1000
+            return row
+
+        def publish(slug, row):
+            r = client.post(
+                "/api/v1/knowledge/versions/" + row["version"]["id"] + "/publish",
+                headers=headers[slug],
+                json={"acknowledge_warnings": False},
+            )
+            r.raise_for_status()
+
+        retriever = KnowledgeRetriever(db, settings, index)
+        if a.version in ("real", "both"):
+            binding = {}
+            for doc in corpus:
+                row = upload("demo-a", doc["id"] + ".md", doc["text"])
+                publish("demo-a", row)
+                binding[doc["id"]] = row["version"]["id"]
+            dump(a.output / "bindings.json", binding)
+            by_id = {c["id"]: c["text"] for d in corpus for c in d["clauses"]}
+            traces = []
+            for n, case in enumerate(cases):
+                arms = ["global_vector", "global_hybrid_rerank", "bound_hybrid_rerank"]
+                arms = arms[n % 3 :] + arms[: n % 3]
+                for arm in arms:
+                    t = time.perf_counter()
+                    result = retriever.search(
+                        orgs["demo-a"],
+                        SearchInput(
+                            query=case["question"],
+                            strategy="vector" if arm == "global_vector" else "hybrid_rerank",
+                            version_id=binding[case["document_id"]]
+                            if arm.startswith("bound")
+                            else None,
+                        ),
+                    )
+                    matches = result["matches"]
+                    own = "\n".join(
+                        r["content"]
+                        for r in matches
+                        if r["version_id"] == binding[case["document_id"]]
+                    )
+                    required = [by_id[k] for k in case["required_clauses"]]
+                    row = {
+                        "case_id": case["id"],
+                        "split": case["split"],
+                        "arm": arm,
+                        "elapsed_ms": (time.perf_counter() - t) * 1000,
+                        "required_coverage": sum(t in own for t in required) / len(required)
+                        if required
+                        else None,
+                        "cross_channel_chunks": sum(
+                            r["version_id"] != binding[case["document_id"]] for r in matches
+                        ),
+                        "unknown_returns_snippets": bool(matches)
+                        if not case["answerable"]
+                        else None,
+                        "result": result,
+                    }
+                    traces.append(row)
+                    with (a.output / "real-traces.jsonl").open("a", encoding="utf-8") as f:
+                        f.write(json.dumps(row, ensure_ascii=False) + "\n")
+                print("real", case["id"], flush=True)
+            summary = []
+            for split in ["dev", "audit"]:
+                for arm in ["global_vector", "global_hybrid_rerank", "bound_hybrid_rerank"]:
+                    rows = [r for r in traces if r["split"] == split and r["arm"] == arm]
+                    pos = [r for r in rows if r["required_coverage"] is not None]
+                    summary.append(
+                        {
+                            "split": split,
+                            "arm": arm,
+                            "cases": len(rows),
+                            "full_evidence": sum(r["required_coverage"] == 1 for r in pos),
+                            "positive": len(pos),
+                            "mean_coverage": statistics.mean(r["required_coverage"] for r in pos)
+                            if pos
+                            else None,
+                            "cross_channel_chunks": sum(r["cross_channel_chunks"] for r in rows),
+                            "unknown_snippet_cases": sum(
+                                r["unknown_returns_snippets"] is True for r in rows
+                            ),
+                        }
+                    )
+            dump(a.output / "real-summary.json", summary)
+        if a.version in ("capacity", "both"):
+            rows = []
+            capacity = []
+            for number in range(100):
+                text = synthetic(number)
+                assert len(chunks_from_blocks(text_blocks(text), size=600, overlap=80)) == 100
+                row = upload("demo-b", f"capacity-{number:03d}.md", text)
+                assert row["chunks"] == 100
+                publish("demo-b", row)
+                rows.append(row)
+                print(
+                    "capacity",
+                    number + 1,
+                    "chunks",
+                    100 * (number + 1),
+                    "ms",
+                    round(row["ingestion_ms"]),
+                    flush=True,
+                )
+                if time.perf_counter() - started > 3600:
+                    raise TimeoutError("Frozen experiment ceiling reached")
+                if number + 1 not in (50, 100):
+                    continue
+                tier = number + 1
+                with db.sessions() as s:
+                    sql_count = s.scalar(
+                        select(func.count())
+                        .select_from(KnowledgeChunk)
+                        .where(KnowledgeChunk.organization_id == orgs["demo-b"])
+                    )
+                vector_count = index.collection(orgs["demo-b"]).count()
+                assert sql_count == vector_count == tier * 100
+                probes = []
+                for repeat in range(3):
+                    for target in [0, tier // 2, tier - 1]:
+                        q = f"核验码CAP-{target:03d}-007 对应售后申请条款是什么？"
+                        t = time.perf_counter()
+                        result = retriever.search(orgs["demo-b"], SearchInput(query=q))
+                        probes.append(
+                            {
+                                "repeat": repeat,
+                                "target": target,
+                                "elapsed_ms": (time.perf_counter() - t) * 1000,
+                                "hit": any(
+                                    f"CAP-{target:03d}-007" in m["content"]
+                                    for m in result["matches"]
+                                ),
+                                "result": result,
+                            }
+                        )
+                warm = [r["elapsed_ms"] for r in probes if r["repeat"] > 0]
+                duplicate = upload("demo-b", "capacity-000.md", synthetic(0))
+                assert (
+                    not duplicate["created"]
+                    and duplicate["version"]["id"] == rows[0]["version"]["id"]
+                )
+                import resource
+
+                capacity.append(
+                    {
+                        "documents": tier,
+                        "sql_chunks": sql_count,
+                        "vector_chunks": vector_count,
+                        "increment_chunks": 5000,
+                        "increment_index_ms": sum(r["ingestion_ms"] for r in rows[-50:]),
+                        "rss_max_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+                        "warm_p50_ms": statistics.median(warm),
+                        "warm_p95_ms": nearest_rank(warm, 0.95),
+                        "all_probe_hit": all(r["hit"] for r in probes),
+                        "duplicate_dedup": True,
+                        "snapshot_builds": retriever.snapshot_builds,
+                        "probes": probes,
+                    }
+                )
+                dump(a.output / "capacity-tiers.json", capacity)
+            # Publication, effectiveness and tenant authority are checked after capacity measurement.
+            target = rows[-1]
+            r = client.post(
+                "/api/v1/knowledge/documents/" + target["document_id"] + "/withdraw",
+                headers=headers["demo-b"],
+            )
+            r.raise_for_status()
+            withdrawn = retriever.search(
+                orgs["demo-b"], SearchInput(query="CAP-099-007", version_id=target["version"]["id"])
+            )
+            foreign = retriever.search(
+                orgs["demo-a"], SearchInput(query="CAP-099-007", version_id=target["version"]["id"])
+            )
+            unpublished = upload(
+                "demo-b", "unpublished.md", "# 隔离未发布\n不可公开的验收标记UNPUBLISHED-SENTINEL"
+            )
+            hidden = retriever.search(
+                orgs["demo-b"],
+                SearchInput(query="UNPUBLISHED-SENTINEL", version_id=unpublished["version"]["id"]),
+            )
+            expired = upload(
+                "demo-b",
+                "expired.md",
+                "# 隔离过期\n不可公开的验收标记EXPIRED-SENTINEL",
+                effective_until="2020-01-01",
+            )
+            publish("demo-b", expired)
+            outdated = retriever.search(
+                orgs["demo-b"],
+                SearchInput(query="EXPIRED-SENTINEL", version_id=expired["version"]["id"]),
+            )
+            assert all(not r["matches"] for r in [withdrawn, foreign, hidden, outdated])
+            # Restore only the withdrawn experimental document, preserving ready/published 10000-chunk tier.
+            publish("demo-b", target)
+            dump(
+                a.output / "capacity-guards.json",
+                {
+                    "withdrawn_empty": True,
+                    "foreign_empty": True,
+                    "unpublished_empty": True,
+                    "expired_empty": True,
+                    "tier_restored": True,
+                    "extra_guard_chunks_excluded_from_10000_tier": 2,
+                },
+            )
+    metadata["elapsed_seconds"] = time.perf_counter() - started
+    metadata["output_bytes"] = sum(p.stat().st_size for p in a.output.rglob("*") if p.is_file())
+    dump(a.output / "completed.json", metadata)
+    print("completed", flush=True)
+
+
+if __name__ == "__main__":
+    main()

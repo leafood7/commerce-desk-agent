@@ -33,6 +33,12 @@ class WorkbenchSettings(BaseSettings):
     chroma_url: str = "http://127.0.0.1:8005"
     storage_root: str = "data/workbench/files"
     upload_limit_bytes: int = 20 * 1024 * 1024
+    context_input_tokens: int = Field(default=6000, ge=512, le=65536)
+    context_history_enabled: bool = True
+    context_history_tokens: int = Field(default=1200, ge=0, le=8192)
+    context_summary_tokens: int = Field(default=600, ge=0, le=4096)
+    context_recent_units: int = Field(default=4, ge=1, le=8)
+    context_summary_items: int = Field(default=12, ge=0, le=24)
     context_chars: int = 4000
     retrieval_context_mode: Literal["neighbors", "section", "references"] = "neighbors"
     vector_max_distance: float = 0.65

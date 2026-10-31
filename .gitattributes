@@ -42,3 +42,15 @@ docs/fullstack/recovery-evaluation/** -text
 docs/portfolio/evidence/** -text
 docs/portfolio/delivery-checks.json -text
 docs/portfolio/delivery-manifest.json -text
+
+# Real-policy/capacity frozen experiments.
+data/evaluation/rag_real_v1/** -text
+data/evaluation/rag_real_review_v1/** -text
+docs/fullstack/rag-real-scale-protocol.md -text
+docs/fullstack/rag-real-scale-evaluation/** -text
+
+# Frozen bounded-context experiment and measurements.
+data/evaluation/long_context_v1/** -text
+docs/fullstack/long-context-protocol.md -text
+docs/fullstack/long-context-evaluation/** -text
+docs/fullstack/long-context-checks.json -text

@@ -1,0 +1,89 @@
+{
+  "completed": "2026-10-30",
+  "frozen_scenarios": 24,
+  "assembly_stress_cases": 6,
+  "assembly_records": 18,
+  "business_regression": {
+    "passed": 63,
+    "skipped": 2,
+    "seconds": 176.89
+  },
+  "final_context_regression": {
+    "passed": 19,
+    "seconds": 37.27,
+    "overlaps_business_regression": true
+  },
+  "mysql": {
+    "database": "commercedesk_context_accept_cc716aa6a4",
+    "actual_mysql": true,
+    "authenticated_api_graph_read": true,
+    "tool_transport": "in-process scoped gateway substitute; browser probe covers real HTTP MCP separately",
+    "historical_messages": 240,
+    "window": 80,
+    "history_truncated": true,
+    "current_unknown_not_inherited": true,
+    "json_order_correction_filter": true,
+    "damaged_snapshot_rebuilt": true,
+    "snapshot_stable_after_reconnect": true,
+    "private_not_in_run_output": true,
+    "other_role_context_denied": true,
+    "original_history_retained": true,
+    "created_return_requests": 0,
+    "paid_calls": 0
+  },
+  "browser": {
+    "passed": 1,
+    "failed": 0,
+    "duration_ms": 4132.8640000000005,
+    "reauthentication_after_reload": true,
+    "transport": "real browser + HTTP API + LangGraph + HTTP MCP + MySQL + SSE",
+    "business_write": "none; read-only run",
+    "raw_report_private": "work/long-context-v1/browser-final.json"
+  },
+  "ruff_passed": true,
+  "typescript_vite_passed": true,
+  "paid_model_calls": 0,
+  "shared_ledger_cny": 4.700946,
+  "schema_changed": false,
+  "runtime_services_source_match": 4,
+  "runtime_source_files_each": 55,
+  "summary_algorithm": "source-linked extractive rolling window, no LLM summarizer",
+  "token_estimator": "conservative UTF8 bound, not exact provider tokenizer",
+  "legacy_streamlit_modified": false,
+  "actual_model_semantic_gain_measured": false,
+  "source_hashes": {
+    "src/workbench/context_management.py": "d33394064e151aa35df5e72b459126e8732b1c5e777264b6befea26ba4eb7e34",
+    "src/workbench/config.py": "2a31137774162a22961f28f9c72d52e771d92f739f1c80931884f00a37e03a43",
+    "src/workbench/intent_router.py": "0cb8315c2fdd7a3bb3fe8f95672b91df59eac503069485708a0eb72c9c6bf791",
+    "src/workbench/return_decisions.py": "5d365520451ff7c0c1c6f8f6c09d1c8aaa5e872cb878295433b632d3557af826",
+    "src/workbench/return_observations.py": "91f6c6dfd47d4d19bf30968e253ba04ad7ed0865ebd2ff4d91537db0cd1f893b",
+    "src/workbench/aftersales.py": "d4208c8fe5c310db8043524e51047a378f75caccca2d62ee0e9f7e949effa4dc",
+    "src/workbench/app.py": "30c9627d4188e609c647fc7a9fb17c99a40ad42abe0ae34b718e5e5cb75221fe",
+    "src/workbench/return_graph.py": "cb75494f00345dc5b610eba43ede9c9f919d0819726fdffd4fa3977f39101a45",
+    "frontend/src/ContextCard.tsx": "bf8d5336c67e85e51ac84827f925b74c503dea9ecb341b2fa51e2303b00cc398",
+    "frontend/src/AfterSales.tsx": "abbc4d5efb98e87c9a91889df07b837f9f7f1af8d3542dc1aa043c5bad591f99",
+    "frontend/src/Returns.tsx": "592954c4d4979a8b61a0fa756fcd4c194d1f522c725dc97358e9b8ccc7a69b6e",
+    "frontend/e2e/context.spec.ts": "1c327793f1cf48b67ddd3ba1565f5a2f27b4d606d1c2e1f406c926b2b114fd72",
+    "scripts/evaluate_long_context.py": "5a1407e5042998a6be7cc714cdcc697df49c0568dc1db527179d2ab285a9de6a",
+    "tests/workbench/test_long_context.py": "fdba9391565997fd5835f2c0c9495b936212e90096f87f0b7a1b051995a7edbd"
+  },
+  "limitations": [
+    "No new paid model semantic evaluation.",
+    "Only latest explicitly bound structured state is authoritative; no arbitrary old-message fact inference.",
+    "Summary covers bounded window, not complete conversation.",
+    "Original model did not consume full history, so no token saving versus real baseline is claimed.",
+    "Legacy Streamlit/toolkit not changed.",
+    "Deployment and concurrency acceptance remain separate."
+  ],
+  "temporary_cleanup": {
+    "removed_completed_pytest_directories": 8,
+    "scope": "work/long-context-v1/pytest-* only; verified absolute paths and no active pytest process",
+    "preserved": [
+      "business volumes",
+      "isolated experiment DB and credentials",
+      "logs",
+      "reports",
+      "source snapshots"
+    ]
+  }
+}

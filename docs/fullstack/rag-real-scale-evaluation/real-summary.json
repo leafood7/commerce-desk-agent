@@ -1,0 +1,62 @@
+[
+  {
+    "split": "dev",
+    "arm": "global_vector",
+    "cases": 12,
+    "full_evidence": 10,
+    "positive": 12,
+    "mean_coverage": 0.875,
+    "cross_channel_chunks": 49,
+    "unknown_snippet_cases": 0
+  },
+  {
+    "split": "dev",
+    "arm": "global_hybrid_rerank",
+    "cases": 12,
+    "full_evidence": 10,
+    "positive": 12,
+    "mean_coverage": 0.875,
+    "cross_channel_chunks": 36,
+    "unknown_snippet_cases": 0
+  },
+  {
+    "split": "dev",
+    "arm": "bound_hybrid_rerank",
+    "cases": 12,
+    "full_evidence": 12,
+    "positive": 12,
+    "mean_coverage": 1.0,
+    "cross_channel_chunks": 0,
+    "unknown_snippet_cases": 0
+  },
+  {
+    "split": "audit",
+    "arm": "global_vector",
+    "cases": 12,
+    "full_evidence": 10,
+    "positive": 10,
+    "mean_coverage": 1.0,
+    "cross_channel_chunks": 41,
+    "unknown_snippet_cases": 2
+  },
+  {
+    "split": "audit",
+    "arm": "global_hybrid_rerank",
+    "cases": 12,
+    "full_evidence": 10,
+    "positive": 10,
+    "mean_coverage": 1.0,
+    "cross_channel_chunks": 21,
+    "unknown_snippet_cases": 2
+  },
+  {
+    "split": "audit",
+    "arm": "bound_hybrid_rerank",
+    "cases": 12,
+    "full_evidence": 10,
+    "positive": 10,
+    "mean_coverage": 1.0,
+    "cross_channel_chunks": 0,
+    "unknown_snippet_cases": 2
+  }
+]
