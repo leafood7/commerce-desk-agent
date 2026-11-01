@@ -1,0 +1,17 @@
+{
+  "kind": "Synthetic fixed-anchor assembly comparison; not retrieval or answer accuracy.",
+  "cases": 5,
+  "records": 15,
+  "modes": {
+    "neighbors": 1,
+    "section": 1,
+    "parent_child": 3
+  },
+  "model_calls": 0,
+  "development_diagnostic_after_implementation": true,
+  "limits": [
+    "unlinked cross-section exception unresolved",
+    "tight budget deliberately incomplete",
+    "not independent semantic test"
+  ]
+}

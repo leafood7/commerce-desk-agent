@@ -10,7 +10,17 @@ def project_policy_context(matches, clauses):
         for clause in clauses:
             quote = clause["quote"]
             start = match["content"].find(quote)
-            if clause["chunk_id"] == match["id"] and quote and start >= 0:
+            if (
+                (
+                    clause["chunk_id"] == match["id"]
+                    or (
+                        match.get("source_kind") == "source_read"
+                        and clause["chunk_id"] in match.get("covered_chunk_ids", [])
+                    )
+                )
+                and quote
+                and start >= 0
+            ):
                 excerpts.append(
                     {
                         "purpose": clause.get("purpose"),
@@ -54,3 +64,20 @@ def select_policy_context(matches, clauses, *, purpose):
         "empty": not context,
         "does_not_establish_eligibility_or_actual_facts": True,
     }
+
+
+def deduplicate_policy_sources(matches):
+    """Only remove text proven fully covered in a same-version original window."""
+    result = []
+    for row in matches:
+        covered = any(
+            other["id"] != row["id"]
+            and other.get("source_kind") == "source_read"
+            and other["version_id"] == row["version_id"]
+            and row["id"] in other.get("covered_chunk_ids", [])
+            and row["content"] in other["content"]
+            for other in matches
+        )
+        if not covered:
+            result.append(row)
+    return result

@@ -51,6 +51,13 @@ def model_intent(settings, query):
         "response_format": {"type": "json_object"},
         "messages": router_messages(query),
     }
+    from workbench.context_management import ContextOverflow, pack_messages
+
+    try:
+        request["messages"], _ = pack_messages(settings, request["messages"])
+    except ContextOverflow as exc:
+        raise ModelNotSent("Router request exceeds configured reservation allowance") from exc
+
     # Conservative UTF-8-byte allowance, not an exact provider tokenizer.
     bound = (
         len(json.dumps(request["messages"], ensure_ascii=False).encode("utf-8"))

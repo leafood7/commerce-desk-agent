@@ -1,0 +1,38 @@
+{
+  "records": 18,
+  "stress_cases": 6,
+  "paid_calls": 0,
+  "baseline_sha256": "5583b9846f3e165a2187043fc618f013734228082f0343255fa2ef65253885e1",
+  "source_sha256": "5a1407e5042998a6be7cc714cdcc697df49c0568dc1db527179d2ab285a9de6a",
+  "frozen": {
+    "version": "long_context_v1",
+    "cases": 24,
+    "protocol_sha256": "033d5ff0b18f695cf321b0cb0c057a15525461a2d8452413c07903b8a3b642aa",
+    "cases_sha256": "4a153f3b5bc8e66d6704cbddc26202bc2a6117be55ba60237618aa397740a733",
+    "paid_calls": 0,
+    "sealed_holdout_read": false
+  },
+  "arms": {
+    "legacy": {
+      "records": 6,
+      "required_text_preserved": 1,
+      "model_preflight_refusals": 0
+    },
+    "budget": {
+      "records": 6,
+      "required_text_preserved": 5,
+      "model_preflight_refusals": 1
+    },
+    "summary": {
+      "records": 6,
+      "required_text_preserved": 5,
+      "model_preflight_refusals": 1
+    }
+  },
+  "limits": [
+    "Original model input did not include full history; managed inputs may be larger.",
+    "UTF8 upper bound is not actual model token usage.",
+    "No model semantic quality or task success claim from this replay.",
+    "Oversized synthetic adapter input exceeds normal API limits and is an adversarial direct-call check."
+  ]
+}

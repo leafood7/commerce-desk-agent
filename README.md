@@ -29,6 +29,8 @@ powershell -ExecutionPolicy Bypass -File scripts/run-container-acceptance.ps1 -P
 
 ## 如何看待验证结果
 
+新增[真实政策语义复核与一万片段验收](docs/fullstack/rag-real-scale-report.md)：5份官方来源摘要、48份模型回答；100篇合成文档经实际上传入库达10000片段。包含语料缺项、跨渠道混用与题面缺陷，不以引用有效宣称回答正确。
+
 已有长文/有限规模RAG的768条检索记录、720条固定证据组装回放，以及真实页面和恢复后续办证据。各批次存在重叠，不能累计成独立样本或回答准确率；作者参与复核，未做独立盲审。检索改善、退化、成本和原始结果见 [证据索引](docs/portfolio/evidence.md)。
 
 默认不启用模型建议或跨条款引用扩展：模型策略收益未证实，RAG仍存在漏检。当前是本地工程作品，没有真实退款、Linux线上部署、企业生产容量、Redis长期记忆或通用无限自主Agent承诺。
@@ -41,6 +43,8 @@ powershell -ExecutionPolicy Bypass -File scripts/run-container-acceptance.ps1 -P
 |[当前状态](docs/fullstack/STATUS.md)|最新验收及历史阶段记录|
 |[退货业务](docs/fullstack/returns.md)|领域规则、审批及模拟受理|
 |[受限Agent](docs/fullstack/return-agent.md)|动作集合、观察与实验开关|
+|[原文阅读与来源联动](docs/fullstack/rag-upgrade-v1/stage1-report.md)|父子分块、范围澄清、表格上下文、FAQ更新失效及本地验收|
+|[长上下文](docs/fullstack/long-context-report.md)|完整必要输入、有界历史摘要、订单隔离及容器验证|
 |[长文RAG](docs/fullstack/rag-long-scale-report.md)|切块、范围、引用补全及有限规模对照|
 |[完整恢复](docs/fullstack/full-recovery.md)|独立库/文件/索引和同一待办续办|
 |[面试讲解](docs/portfolio/interview.md)|机制取舍、可核实业绩与限制|
@@ -52,3 +56,10 @@ powershell -ExecutionPolicy Bypass -File scripts/run-container-acceptance.ps1 -P
 ## 来源与使用范围
 
 基于 [JoshuaC215/agent-service-toolkit](https://github.com/JoshuaC215/agent-service-toolkit) 二次开发，沿用服务、会话与模型接入基础，增加电商业务、证据约束、MCP工具与全栈工作台。版权及修改说明见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE.md)。订单与政策用于隔离演示，未接入真实电商平台、仓库、退款或开票系统。
+
+
+2026-11-01：退货Agent新增[按问题补读原文与询问](docs/fullstack/source-agent-v1/report.md)，具备有界目标、持久额度和执行记录；默认保留原路径，尚无真实模型语义净改善结论。
+
+2026-11-01：[知识维护闭环](docs/fullstack/knowledge-revision-v1/report.md)已接通段落修订、独立审核、版本发布、检索与FAQ复核、显式回退；原文件保留。
+
+2026-11-01：[新退货任务整链路诊断](docs/fullstack/return-journey-v1/report.md)：预冻结16题未见阅读开关净改善，发现任务误路由、证据重取和上下文预算问题；4条阅读探索单列，生产代码未调整。

@@ -1,0 +1,9 @@
+{
+  "passed": 1,
+  "failed": 0,
+  "duration_ms": 4132.8640000000005,
+  "reauthentication_after_reload": true,
+  "transport": "real browser + HTTP API + LangGraph + HTTP MCP + MySQL + SSE",
+  "business_write": "none; read-only run",
+  "raw_report_private": "work/long-context-v1/browser-final.json"
+}

@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-01",
+  "count": 16,
+  "families": 8,
+  "natural": 8,
+  "injected_stress": 8,
+  "max_calls": 32,
+  "max_cny": 1,
+  "source": "author isolated demo text and fields only",
+  "independent_final_test": false,
+  "cases_sha256": "646bd9442a2bbe51eccb86ad58688004a449c01e641e62b1e44e9cd71ba9e823",
+  "protocol_sha256": "0bf8b02d4885dc62a6325449b2fab22c428f30b9846a5ad99ba6443614af6b02",
+  "comparison": "Same program-valid draft compared with and without semantic review. Stress drafts deliberately injected; never count as natural generation errors. All generations retained."
+}

@@ -1,0 +1,26 @@
+{
+  "checked_date": "2026-11-01",
+  "source_url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2023/art_26ca8fe29e184edd899fa0a7a060d935.html",
+  "source_type": "official regulation; not merchant policy",
+  "source_html_sha256": "ff07d9c6cef40485191cf528b25fb9304a62d7c6d6ef07c1d6f0687571162597",
+  "file": "samr-seven-day-return.txt",
+  "sha256": "d89040cd347107d49b0ebc3f7887a512d70c0bffec109ceae9b73103e026c235",
+  "extraction": "HTML data text, first article through end punctuation of article38; website footer excluded; no summary",
+  "effective_date": "not independently established",
+  "parser": {
+    "parser": "txt",
+    "warnings": [],
+    "block_count": 71,
+    "text_chars": 3539
+  },
+  "parent_count": 38,
+  "child_count": 38,
+  "download_failure": "original PDF endpoint403; used official HTML instead",
+  "limitations": [
+    "single regulation, no diverse merchant or PDF verification",
+    "article text extraction not a legal applicability decision",
+    "not published to business database"
+  ],
+  "grouping": "article headings recognized in plain text; original text preserved",
+  "pre_freeze_correction": "Initial end-check only checked article37; actual source has38. Removed printing footer and corrected count before final source freeze."
+}

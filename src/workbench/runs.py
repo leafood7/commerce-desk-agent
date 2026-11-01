@@ -63,6 +63,8 @@ def create_run(session, actor, body, key=None, *, enqueue_job=None, settings=Non
         hash_input.pop("return_basis", None)
     if hash_input.get("return_description") is None:
         hash_input.pop("return_description", None)  # Preserve stage7 idempotency hashes.
+    if hash_input.get("audience") is None:
+        hash_input.pop("audience", None)
     input_hash = fingerprint(hash_input)
     if key:
         existing = session.scalar(
@@ -208,11 +210,66 @@ def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
                 "top_k": profile["top_k"],
             }
         )
+        if kind == "knowledge_search" and arguments.get("audience"):
+            tool_input["audience"] = arguments["audience"]
         payload = asyncio.run(
             call_bounded(
                 gateway, tool, tool_input, token, limits, database.settings, on_retry, check_active
             )
         )
+        limits.check()
+        gate_result = None
+        if (
+            kind == "knowledge_search"
+            and run_settings.policy_answer_mode != "excerpts"
+            and payload.get("coverage") != "needs_scope"
+        ):
+            from workbench.answer_contract import question_context
+            from workbench.answer_gate import produce_answer
+            from workbench.knowledge_service import validated_evidence
+            from workbench.tool_contracts import verify_grant
+
+            with database.sessions() as session:
+                current = session.get(Run, run_id)
+                user, _ = verify_grant(session, token, run_settings)
+                if user.id != current.owner_id:
+                    raise ToolFailure("forbidden")
+                checked = validated_evidence(
+                    session, user, payload["matches"], audience=arguments.get("audience")
+                )
+                event(
+                    session,
+                    current,
+                    "tool.finished",
+                    name=tool,
+                    status=payload["status"],
+                    transport="mcp",
+                )
+                session.commit()
+            context = question_context(
+                arguments["query"],
+                checked,
+                audience=arguments.get("audience"),
+                retrieval=payload.get("trace", {}),
+            )
+
+            def gate_progress(phase):
+                check_active()
+                with database.sessions() as session:
+                    current = session.get(Run, run_id)
+                    event(session, current, "answer.check", phase=phase)
+                    session.commit()
+
+            def gate_guard():
+                check_active()
+                with database.sessions() as session:
+                    actor, _ = verify_grant(session, token, run_settings)
+                    if actor.id != current.owner_id:
+                        raise ToolFailure("forbidden")
+
+            gate_result = produce_answer(
+                database, run_id, run_settings, context, limits, gate_guard, gate_progress
+            )
         limits.check()
         with database.sessions() as session:
             run = session.scalar(select(Run).where(Run.id == run_id).with_for_update())
@@ -221,6 +278,12 @@ def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
             if run.status != "running":
                 return
             actor = session.get(User, run.owner_id)
+            if gate_result is not None:
+                from workbench.tool_contracts import verify_grant
+
+                current_actor, _ = verify_grant(session, token, run_settings)
+                if current_actor.id != run.owner_id:
+                    raise ToolFailure("forbidden")
             if actor is None or not actor.active or actor.organization_id != run.organization_id:
                 raise ToolFailure("unauthorized")
             if kind == "order_lookup":
@@ -243,9 +306,23 @@ def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
                 from workbench.knowledge_service import validated_evidence
 
                 try:
-                    matches = validated_evidence(session, actor, payload["matches"])
+                    matches = validated_evidence(
+                        session, actor, payload["matches"], audience=arguments.get("audience")
+                    )
                 except HTTPException as exc:
-                    raise ToolFailure("invalid_or_expired_evidence") from exc
+                    if gate_result is None:
+                        raise ToolFailure("invalid_or_expired_evidence") from exc
+                    from workbench.answer_contract import SAFE_ANSWER
+
+                    matches = []
+                    gate_result = {
+                        "answer": SAFE_ANSWER,
+                        "answer_gate": {
+                            "mode": run_settings.policy_answer_mode,
+                            "status": "evidence_changed",
+                            "codes": [],
+                        },
+                    }
                 from workbench.return_context import select_policy_context
 
                 context = select_policy_context(matches, [], purpose="policy_question")
@@ -255,7 +332,21 @@ def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
                     if matches
                     else "当前已发布资料没有可用依据，无法确认该政策。"
                 )
+                if payload.get("coverage") == "needs_scope":
+                    fields = {
+                        "merchant": "商家",
+                        "region": "地区",
+                        "channel": "购买渠道",
+                        "product": "商品范围",
+                    }
+                    missing = payload.get("clarification", {}).get("missing", [])
+                    answer = (
+                        "请先明确"
+                        + "、".join(fields[k] for k in missing if k in fields)
+                        + "，再核对适用政策。尚未据此判断退货资格。"
+                    )
                 output = {
+                    "clarification": payload.get("clarification"),
                     "answer": answer,
                     "evidence": matches,
                     "retrieval": payload.get("trace", {}),
@@ -264,9 +355,30 @@ def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
                     "context_purpose": context["purpose"],
                     "context_selection": context["selection"],
                 }
-            event(
-                session, run, "tool.finished", name=tool, status=payload["status"], transport="mcp"
-            )
+            if gate_result is None:
+                event(
+                    session,
+                    run,
+                    "tool.finished",
+                    name=tool,
+                    status=payload["status"],
+                    transport="mcp",
+                )
+            if gate_result is not None:
+                fresh, _, _ = effective_settings(database, run_id)
+                if fresh.policy_answer_mode != run_settings.policy_answer_mode:
+                    from workbench.answer_contract import SAFE_ANSWER
+
+                    gate_result = {
+                        "answer": SAFE_ANSWER,
+                        "answer_gate": {
+                            "mode": run_settings.policy_answer_mode,
+                            "status": "configuration_changed",
+                            "codes": [],
+                        },
+                    }
+                output.update(gate_result)
+                answer = output["answer"]
             output["answer"] = render_answer(answer, profile)
             answer = output["answer"]
             output["profile_guard"] = profile_guard

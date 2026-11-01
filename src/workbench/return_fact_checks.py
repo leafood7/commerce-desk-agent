@@ -67,13 +67,19 @@ def question_requirements(query):
                     "end": match.end(),
                 }
             )
-    read_only = bool(
+    legacy_read_only = bool(
         re.search(
             r"不要(?:帮我)?(?:申请|办理|提交)|不(?:用|要)(?:帮我)?(?:申请|办理|提交)|只(?:想|要|需要)?(?:知道|查|看|问|了解)",
             query,
         )
     )
-    return {"requested": requested, "read_only": read_only}
+    from workbench.return_task import task_frame
+
+    task = task_frame(query, requested)
+    read_only = task["purpose"] in {"policy", "facts"} or (
+        task["purpose"] != "application" and legacy_read_only
+    )
+    return {"requested": requested, "read_only": read_only, "task": task}
 
 
 def fact_checks(query, order, *, evidence=None, quality=None):

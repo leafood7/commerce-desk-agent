@@ -1,0 +1,23 @@
+{
+  "requests": 32,
+  "charged_cny": 0.055584,
+  "unknown_usage": 0,
+  "stages": {
+    "generate": {
+      "requests": 16,
+      "p50_ms": 1230.402100016363,
+      "p95_ms": 1851.1208000127226,
+      "prompt_tokens": 12478,
+      "completion_tokens": 1442
+    },
+    "review": {
+      "requests": 16,
+      "p50_ms": 892.5479000317864,
+      "p95_ms": 1305.897600017488,
+      "prompt_tokens": 8590,
+      "completion_tokens": 239
+    }
+  },
+  "method": "nearest-rank; small developer sample; adapter timing includes transport and input assembly; excludes retrieval",
+  "actual_invoice": false
+}

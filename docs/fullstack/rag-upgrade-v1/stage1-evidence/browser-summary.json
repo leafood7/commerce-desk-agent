@@ -1,0 +1,14 @@
+{
+  "stats": {
+    "startTime": "2026-11-01T05:40:56.342Z",
+    "duration": 8602.77,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "transport": "real browser + API + isolated MySQL + BGE/Chroma/rerank + HTTP MCP",
+  "paid_calls": 0,
+  "fixture": "unique source content per run; no deletion to defeat dedup",
+  "screenshot_reviewed": true
+}

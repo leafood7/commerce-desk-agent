@@ -1,0 +1,75 @@
+{
+  "policy": {
+    "scope": "本演示条款仅适用于本店商品 {sku}，其他商品和其他商家不适用。",
+    "window": "本店无理由退回窗口为实际签收后的9天，预计到达不能替代实际签收。",
+    "condition": "无理由分支要求商品未使用；包装已打开本身不等于已经使用。",
+    "quality_window": "质量问题分支为实际签收后的27天，不延长无理由分支的9天窗口。",
+    "quality_condition": "质量问题分支允许已使用商品，但须独立处理员确认同商品行同数量确有缺陷；照片和用户描述均不能直接替代该确认。"
+  },
+  "cases": [
+    {
+      "id": "purpose-001",
+      "family": "scope",
+      "question": "先介绍商家售后文件覆盖的商品，我还不准备办理。",
+      "task": "information",
+      "needed": [
+        "scope"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "purpose-002",
+      "family": "deadline",
+      "question": "解释一下退回时限，先不要建申请。",
+      "task": "information",
+      "needed": [
+        "window"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "purpose-003",
+      "family": "photo",
+      "question": "图片能充当独立缺陷结论吗？仅了解规定。",
+      "task": "information",
+      "needed": [
+        "quality_condition"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "purpose-004",
+      "family": "exception",
+      "question": "说说拆封后的例外，暂不进入退货流程。",
+      "task": "information",
+      "needed": [
+        "condition"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    }
+  ]
+}

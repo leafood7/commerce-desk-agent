@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-01",
+  "git_head": "afa341021c734d62d34f7e3d8718afe45a9e9e66",
+  "clean_before_stage0": true,
+  "config_kind": "code defaults; not runtime container attestation",
+  "config": {
+    "context_chars": 4000,
+    "retrieval_context_mode": "neighbors",
+    "vector_max_distance": 0.65,
+    "rerank_threshold": -2.0,
+    "context_input_tokens": 6000,
+    "agent_tool_limit": 10,
+    "return_decision_mode": "rules",
+    "agent_router_mode": "rules"
+  },
+  "files": {
+    "src/workbench/config.py": "2a31137774162a22961f28f9c72d52e771d92f739f1c80931884f00a37e03a43",
+    "src/workbench/retrieval.py": "a902fc352042de217acb652890a9cf108cc955bcef7af6e9a6b6489d3585ce74",
+    "src/workbench/document_parsing.py": "199f7133c532421bc10740dc4f8e0e7a708775723634292d38af7272fdf4cf7d",
+    "src/workbench/evidence_context.py": "b54c382969c927d76eca445c17f1efb14ec37d2bb24582eb5b5f3784ead3b58a",
+    "src/workbench/reference_context.py": "5411adab366b6e50cc3f728c4c45001c63838d5d9ef374b1758ebce61261dd39",
+    "src/workbench/knowledge_schemas.py": "d19da7a9c5638b21a8ada60b698e6a4f9071bbc3b3bb60763326bdfd7b608290",
+    "src/workbench/knowledge_models.py": "a2fedbb2ccd719d6b16e57fcb6f33b92cf19325d9a6f021b18eabf35ec91742e",
+    "src/workbench/return_context.py": "457c37a317e9fc7c4dcd112413f2cac6b120c30b1ea36649e16cf30e85b65ec2"
+  },
+  "model_calls": 0,
+  "runtime_changed": false,
+  "known_gaps": [
+    "parent-child structure",
+    "on-demand reading",
+    "tool audit run correlation",
+    "10 sessions plus2 tasks",
+    "fresh isolated installation"
+  ],
+  "completed_not_debt": [
+    "10000 orders index comparison",
+    "10000 chunks capacity",
+    "isolated recovery continuation",
+    "bounded context v1"
+  ],
+  "architecture_change": "Actual SQL checkpoints/MySQL queues differ from original PostgreSQL/Celery Redis; document before considering migration"
+}

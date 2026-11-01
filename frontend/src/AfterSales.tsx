@@ -1,3 +1,4 @@
+import ContextCard from "./ContextCard";
 import { useEffect, useState, type FormEvent } from "react";
 import { api, watchRun } from "./api";
 
@@ -121,6 +122,7 @@ export function AfterSales({token,conversationId,initialRunId,onResetContext}:{t
       {configuration&&<small>运行配置：{configuration.source==="legacy_unrecorded"?"旧流程未记录版本":configuration.source==="factory"?"内置默认":"发布版本 v"+configuration.version_number}{configuration.config_hash?" · "+configuration.config_hash.slice(0,12):""}</small>}
       {run.output?.profile_guard&& !["snapshot","legacy_unrecorded"].includes(run.output.profile_guard)&&<p className="muted">服务端条件已变化，当前模型调用已受限；原配置快照仍保留。</p>}
       <p className="answer" role="status">{run.output?.answer}</p>
+      <ContextCard context={run.output?.context}/>
       {run.output?.proposal&&<dl><dt>订单</dt><dd>{run.output.proposal.order_number}</dd>
         <dt>申请类型</dt><dd>{run.output.proposal.shipping_kind==="normal"?"普通催单":"加急申请"}</dd>
         <dt>原因</dt><dd>{run.output.proposal.reason}</dd><dt>将执行</dt><dd>{run.output.proposal.effect}</dd></dl>}

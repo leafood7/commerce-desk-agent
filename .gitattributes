@@ -42,3 +42,38 @@ docs/fullstack/recovery-evaluation/** -text
 docs/portfolio/evidence/** -text
 docs/portfolio/delivery-checks.json -text
 docs/portfolio/delivery-manifest.json -text
+
+# Real-policy/capacity frozen experiments.
+data/evaluation/rag_real_v1/** -text
+data/evaluation/rag_real_review_v1/** -text
+docs/fullstack/rag-real-scale-protocol.md -text
+docs/fullstack/rag-real-scale-evaluation/** -text
+
+# Frozen bounded-context experiment and measurements.
+data/evaluation/long_context_v1/** -text
+docs/fullstack/long-context-protocol.md -text
+docs/fullstack/long-context-evaluation/** -text
+docs/fullstack/long-context-checks.json -text
+
+# RAG upgrade v1 preregistered inputs retain exact hashed bytes.
+data/evaluation/rag_upgrade_v1/** -text whitespace=cr-at-eol
+docs/fullstack/rag-upgrade-v1/protocol.md -text whitespace=cr-at-eol
+docs/fullstack/rag-upgrade-v1/baseline-assembly/** -text whitespace=cr-at-eol
+
+# Stage1 source inputs and sanitized acceptance evidence.
+data/evaluation/rag_upgrade_sources_v1/** -text whitespace=cr-at-eol
+data/evaluation/rag_upgrade_merchant_v1/** -text whitespace=cr-at-eol
+docs/fullstack/rag-upgrade-v1/stage1-evidence/** -text whitespace=cr-at-eol
+docs/fullstack/rag-upgrade-v1/stage1-assembly-final/** -text whitespace=cr-at-eol
+
+data/evaluation/workbench_answer_v1/** -text
+docs/fullstack/answer-gate-v1/protocol.md -text
+docs/fullstack/answer-gate-v1/evidence/** -text
+
+data/evaluation/return_journey_v1/** -text
+docs/fullstack/return-journey-v1/protocol.md -text
+docs/fullstack/return-journey-v1/exploration-protocol.md -text
+docs/fullstack/return-journey-v1/evidence/** -text
+
+# Preserve task-purpose evidence and measured manifest bytes.
+docs/fullstack/return-purpose-v1/** -text whitespace=cr-at-eol

@@ -1,0 +1,17 @@
+{
+  "kind": "synthetic fixed-anchor assembly, not RAG answer evaluation",
+  "development_contracts": 24,
+  "records": 12,
+  "model_calls": 0,
+  "modes": {
+    "neighbors": {
+      "records": 6,
+      "required_complete": 4
+    },
+    "section": {
+      "records": 6,
+      "required_complete": 3
+    }
+  },
+  "safety_violations": 0
+}

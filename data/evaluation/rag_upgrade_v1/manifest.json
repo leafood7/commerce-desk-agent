@@ -1,0 +1,13 @@
+{
+  "version": "rag_upgrade_v1",
+  "cases": 24,
+  "families": 12,
+  "split": "development only",
+  "final_test_ready": false,
+  "source": "author synthetic contracts; not real policy corpus",
+  "sha256": {
+    "cases.json": "4b782f76ee3d7413bdda332719eb32e98f7a28a0aa22cc17d97b688a3ffeb7a3",
+    "baseline_evidence_context.py.txt": "4139a3f0cfb1c25e6d46bae330f928e0f68e24df0522d53b85e98348b4fc73fd"
+  },
+  "protocol_sha256": "5293f470ca8fd3b48047821413097344fa04c2cf6a3e3eaa64627af6d0411aec"
+}

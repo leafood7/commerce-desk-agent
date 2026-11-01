@@ -1,0 +1,60 @@
+[
+  {
+    "case_id": "journey-011",
+    "generation_input_upper_bound": 4457,
+    "limit": 6000,
+    "phases": [],
+    "source_read_count": 0,
+    "source_search_count": 1,
+    "target_count": 0,
+    "current_retrieved_count": 0
+  },
+  {
+    "case_id": "journey-013",
+    "generation_input_upper_bound": 6942,
+    "limit": 6000,
+    "phases": [
+      {
+        "status": "failed",
+        "error": "preflight",
+        "phase": "generate"
+      }
+    ],
+    "source_read_count": 0,
+    "source_search_count": 0,
+    "target_count": 1,
+    "current_retrieved_count": 5
+  },
+  {
+    "case_id": "journey-014",
+    "generation_input_upper_bound": 6764,
+    "limit": 6000,
+    "phases": [
+      {
+        "status": "failed",
+        "error": "preflight",
+        "phase": "generate"
+      }
+    ],
+    "source_read_count": 0,
+    "source_search_count": 0,
+    "target_count": 1,
+    "current_retrieved_count": 4
+  },
+  {
+    "case_id": "explore-read-003",
+    "generation_input_upper_bound": 13065,
+    "limit": 6000,
+    "phases": [
+      {
+        "status": "failed",
+        "error": "preflight",
+        "phase": "generate"
+      }
+    ],
+    "source_read_count": 1,
+    "source_search_count": 0,
+    "target_count": 0,
+    "current_retrieved_count": 7
+  }
+]

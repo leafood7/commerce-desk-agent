@@ -2,16 +2,16 @@
 
 import argparse
 import hashlib
+import json
 import logging
 import time
 from datetime import timedelta
-from pathlib import Path
 
 from sqlalchemy import and_, delete, or_, select, update
 
 from workbench.config import WorkbenchSettings
 from workbench.database import Database
-from workbench.document_parsing import IngestionError, chunks_from_blocks, parse_document
+from workbench.document_parsing import IngestionError, chunks_from_blocks
 from workbench.knowledge_index import ChromaIndex
 from workbench.knowledge_models import Document, DocumentVersion, IngestionJob, KnowledgeChunk
 from workbench.knowledge_service import stored_file
@@ -106,15 +106,30 @@ def process_job(database, settings, job_id, lease_token, index):
             if not job or job.lease_token != lease_token:
                 return
             version = session.get(DocumentVersion, job.version_id)
-            path = stored_file(settings, version.storage_key)
             organization_id, version_id = version.organization_id, version.id
-            extension = Path(version.filename).suffix.lower()
-            if hashlib.sha256(path.read_bytes()).hexdigest() != version.content_hash:
-                raise IngestionError("source_hash_mismatch")
-            blocks, metadata = parse_document(path, extension)
-            chunks = chunks_from_blocks(
-                blocks, version.chunk_strategy, version.chunk_chars, version.chunk_overlap
+            from workbench.knowledge_revisions import effective_blocks
+
+            blocks, metadata = effective_blocks(session, version, settings)
+            if version.chunk_strategy == "parent_child":
+                from workbench.parent_context import parent_child_chunks
+
+                chunks, structure = parent_child_chunks(
+                    blocks, version.chunk_chars, version.chunk_overlap
+                )
+                structure["source_kind"] = metadata.get("text_origin", "parsed_original")
+                metadata["parent_child"] = structure
+            else:
+                chunks = chunks_from_blocks(
+                    blocks, version.chunk_strategy, version.chunk_chars, version.chunk_overlap
+                )
+            metadata["audience"] = (version.parse_metadata or {}).get("audience", {})
+            metadata["source_sha256"] = version.content_hash
+            metadata["knowledge_kind"] = (version.parse_metadata or {}).get(
+                "knowledge_kind", "document"
             )
+            metadata["faq_sources"] = (version.parse_metadata or {}).get("faq_sources", [])
+            if (version.parse_metadata or {}).get("revision"):
+                metadata["revision"] = version.parse_metadata["revision"]
             for chunk in chunks:
                 chunk["id"] = version.id + "-" + str(chunk["position"])
         heartbeat()
@@ -131,7 +146,9 @@ def process_job(database, settings, job_id, lease_token, index):
             )
             if job is None:
                 return
-            version = session.get(DocumentVersion, version_id)
+            version = session.scalar(
+                select(DocumentVersion).where(DocumentVersion.id == version_id).with_for_update()
+            )
             document = session.get(Document, version.document_id)
             if document.active_version_id == version_id:
                 raise IngestionError("published_version_is_immutable")
@@ -145,7 +162,19 @@ def process_job(database, settings, job_id, lease_token, index):
                 session.add(
                     KnowledgeChunk(organization_id=organization_id, version_id=version_id, **chunk)
                 )
+            # Preserve the exact parser output, even if parser code changes later.
+            snapshot_key = f"{organization_id}/{version.document_id}/{version_id}/parsed.json"
+            snapshot_path = stored_file(settings, snapshot_key)
+            snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+            snapshot_bytes = json.dumps([b.__dict__ for b in blocks], ensure_ascii=False).encode()
+            snapshot_path.write_bytes(snapshot_bytes)
+            metadata["parse_snapshot"] = {
+                "key": snapshot_key,
+                "sha256": hashlib.sha256(snapshot_bytes).hexdigest(),
+            }
             version.status, version.chunk_count = "ready", len(chunks)
+            if (version.parse_metadata or {}).get("source_invalidated"):
+                metadata["source_invalidated"] = version.parse_metadata["source_invalidated"]
             version.parse_metadata, version.embedding_revision = metadata, index.revision
             job.status, job.error_code = "ready", None
             job.lease_token = job.lease_until = None

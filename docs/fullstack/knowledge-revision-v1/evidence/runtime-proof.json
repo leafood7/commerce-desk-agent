@@ -1,0 +1,28 @@
+{
+  "api": {
+    "modules": 62,
+    "matches": true
+  },
+  "mcp": {
+    "modules": 62,
+    "matches": true
+  },
+  "worker": {
+    "modules": 62,
+    "matches": true
+  },
+  "run-worker": {
+    "modules": 62,
+    "matches": true
+  },
+  "original_return_requests": 3,
+  "schema_tables": 34,
+  "web_matches": true,
+  "default_flags": {
+    "model_mode": "rules",
+    "answer_mode": "excerpts",
+    "provider_key_present": false,
+    "source_reading": false
+  },
+  "isolated_containers_stopped": true
+}

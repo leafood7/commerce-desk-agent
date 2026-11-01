@@ -1,0 +1,29 @@
+{
+  "api": {
+    "source_match": true,
+    "modules": 58
+  },
+  "mcp": {
+    "source_match": true,
+    "modules": 58
+  },
+  "worker": {
+    "source_match": true,
+    "modules": 58
+  },
+  "run-worker": {
+    "source_match": true,
+    "modules": 58
+  },
+  "web": {
+    "index_matches_dist": true,
+    "sha256": "7bd6f2415f291209a972ceee3c7fd1cf6d5f22016d26723c30827ef8d67711d7"
+  },
+  "existing_order_smoke": {
+    "completed": true,
+    "order": "A1001",
+    "model_calls": 0,
+    "business_writes": false
+  },
+  "original_return_requests": 3
+}

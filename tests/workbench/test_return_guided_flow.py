@@ -122,11 +122,11 @@ def test_explicit_read_only_and_missing_fact_do_not_prompt_application(guided_fl
     )
     assert run["status"] == "completed", run
     assert not run["output"].get("request")
-    assert "未进入申请确认" in run["output"]["answer"]
+    assert "当前没有实付优惠分摊" in run["output"]["answer"]
     facts = run["output"]["fact_assessment"]
     assert facts["read_only"] and facts["items"][0]["field"] == "refund_amount"
     assert facts["items"][0]["status"] == "unknown"
-    assert facts["related_policy_sources"]  # Related retrieval is not factual proof.
+    assert not facts["related_policy_sources"]  # No policy search for an unavailable actual field.
 
 
 def test_missing_unrelated_bank_fact_does_not_refuse_valid_return(guided_flow):

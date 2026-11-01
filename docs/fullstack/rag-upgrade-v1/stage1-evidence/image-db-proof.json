@@ -1,0 +1,10 @@
+{
+  "modules": 58,
+  "source_match": true,
+  "database": "commercedesk_rag_stage1_586dbb528c",
+  "schema": "0009_quality_return_basis",
+  "tables": 34,
+  "isolated_return_requests": 0,
+  "original_return_requests": 3,
+  "paid_calls": 0
+}

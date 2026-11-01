@@ -1,0 +1,8 @@
+{
+  "version": "long_context_v1",
+  "cases": 24,
+  "protocol_sha256": "033d5ff0b18f695cf321b0cb0c057a15525461a2d8452413c07903b8a3b642aa",
+  "cases_sha256": "4a153f3b5bc8e66d6704cbddc26202bc2a6117be55ba60237618aa397740a733",
+  "paid_calls": 0,
+  "sealed_holdout_read": false
+}

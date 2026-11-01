@@ -1,0 +1,26 @@
+{
+  "cases": 16,
+  "requests": 32,
+  "charged_cny": 0.055584,
+  "cumulative_cny": 4.75653,
+  "errors": 0,
+  "arms": {
+    "natural": {
+      "cases": 8,
+      "approved": 8,
+      "blocked": 0
+    },
+    "injected_stress": {
+      "cases": 8,
+      "approved": 0,
+      "blocked": 8
+    }
+  },
+  "independent_final_test": false,
+  "human_review_confirmed": 0,
+  "limits": [
+    "Injected errors are not natural model error rate",
+    "Approval is not proof of semantic correctness",
+    "Development only; no promotion"
+  ]
+}

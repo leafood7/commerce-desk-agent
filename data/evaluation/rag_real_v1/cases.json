@@ -1,0 +1,353 @@
+[
+  {
+    "id": "real-001",
+    "family": "apple-channel",
+    "split": "dev",
+    "document_id": "apple-online",
+    "question": "Apple中国大陆官网购买、快递交付，退货14天从购买日还是交付日起？",
+    "history": [],
+    "required_clauses": [
+      "apple-online-1"
+    ],
+    "expected": "交付日起；不照搬零售购买日起",
+    "forbidden": "所有渠道一律购买日起",
+    "answerable": true
+  },
+  {
+    "id": "real-002",
+    "family": "apple-channel",
+    "split": "dev",
+    "document_id": "apple-retail",
+    "question": "Apple大陆实体零售店买的，能去另一家店退吗？",
+    "history": [],
+    "required_clauses": [
+      "apple-retail-1"
+    ],
+    "expected": "按本页补充政策回原店；保留法定权利边界",
+    "forbidden": "任意店",
+    "answerable": true
+  },
+  {
+    "id": "real-003",
+    "family": "apple-channel",
+    "split": "dev",
+    "document_id": "apple-online",
+    "question": "更正：不是实体店买，是官网快递交付，还必须回原实体店退吗？",
+    "history": [
+      "此前称实体店购买"
+    ],
+    "required_clauses": [
+      "apple-online-1"
+    ],
+    "expected": "以最新线上渠道为准，不能照搬原店条件",
+    "forbidden": "继续按实体店规则",
+    "answerable": true
+  },
+  {
+    "id": "real-004",
+    "family": "apple-channel",
+    "split": "dev",
+    "document_id": "apple-retail",
+    "question": "更正：不是官网，是实体店购买，14天可以从交付日算吗？",
+    "history": [
+      "此前称线上购买"
+    ],
+    "required_clauses": [
+      "apple-retail-1"
+    ],
+    "expected": "按零售购买日起算",
+    "forbidden": "套用线上交付日",
+    "answerable": true
+  },
+  {
+    "id": "real-005",
+    "family": "ikea-member",
+    "split": "dev",
+    "document_id": "ikea-cn",
+    "question": "宜家收到商品100天，不是会员，能套会员365天吗？",
+    "history": [],
+    "required_clauses": [
+      "ikea-cn-1"
+    ],
+    "expected": "普通60天与会员365天区分",
+    "forbidden": "人人365天",
+    "answerable": true
+  },
+  {
+    "id": "real-006",
+    "family": "ikea-member",
+    "split": "dev",
+    "document_id": "ikea-cn",
+    "question": "宜家会员商品完好，但已经抵扣发票，可立即跳过红字确认退货吗？",
+    "history": [],
+    "required_clauses": [
+      "ikea-cn-1",
+      "ikea-cn-2"
+    ],
+    "expected": "会员仍需红字确认及其余条件",
+    "forbidden": "会员可跳过",
+    "answerable": true
+  },
+  {
+    "id": "real-007",
+    "family": "ikea-member",
+    "split": "dev",
+    "document_id": "ikea-cn",
+    "question": "更正：我不是会员，之前说会员有误，收到商品100天还能按365天吗？",
+    "history": [
+      "此前称会员"
+    ],
+    "required_clauses": [
+      "ikea-cn-1"
+    ],
+    "expected": "采用最新非会员事实，不支持365天",
+    "forbidden": "保留历史会员条件",
+    "answerable": true
+  },
+  {
+    "id": "real-008",
+    "family": "ikea-member",
+    "split": "dev",
+    "document_id": "ikea-cn",
+    "question": "宜家会员是否只要365天内就无条件退？",
+    "history": [],
+    "required_clauses": [
+      "ikea-cn-1",
+      "ikea-cn-2"
+    ],
+    "expected": "不能丢弃货品包装凭证发票条件",
+    "forbidden": "无条件",
+    "answerable": true
+  },
+  {
+    "id": "real-009",
+    "family": "us-branch",
+    "split": "dev",
+    "document_id": "decathlon-us",
+    "question": "Decathlon美国官网普通商品第20天，但用过一次，可以按未使用规则退吗？",
+    "history": [],
+    "required_clauses": [
+      "decathlon-us-1"
+    ],
+    "expected": "普通要求未使用；不扩展到所有特殊权利",
+    "forbidden": "30天内无条件",
+    "answerable": true
+  },
+  {
+    "id": "real-010",
+    "family": "us-branch",
+    "split": "dev",
+    "document_id": "decathlon-us",
+    "question": "在中国购买的迪卡侬能直接套美国官网30天吗？",
+    "history": [],
+    "required_clauses": [
+      "decathlon-us-1"
+    ],
+    "expected": "地区不适用，需当地政策",
+    "forbidden": "全球30天",
+    "answerable": true
+  },
+  {
+    "id": "real-011",
+    "family": "us-branch",
+    "split": "dev",
+    "document_id": "decathlon-us",
+    "question": "美国官网规定自行车都能免费退运吗？",
+    "history": [],
+    "required_clauses": [
+      "decathlon-us-3",
+      "decathlon-us-4"
+    ],
+    "expected": "大件及指定高端车例外，不能承诺全免费",
+    "forbidden": "所有车免费",
+    "answerable": true
+  },
+  {
+    "id": "real-012",
+    "family": "us-branch",
+    "split": "dev",
+    "document_id": "decathlon-us",
+    "question": "更正：买的是指定高端车且已组装，是否必然按普通使用品一概拒退？",
+    "history": [
+      "此前称普通未使用商品"
+    ],
+    "required_clauses": [
+      "decathlon-us-1",
+      "decathlon-us-4"
+    ],
+    "expected": "应核对特殊分支，可能最多15%费用，不承诺确定金额",
+    "forbidden": "一概拒退或确定15%",
+    "answerable": true
+  },
+  {
+    "id": "real-013",
+    "family": "apple-exception",
+    "split": "audit",
+    "document_id": "apple-retail",
+    "question": "Apple零售店定制配置产品能直接按14天普通政策退换吗？",
+    "history": [],
+    "required_clauses": [
+      "apple-retail-1",
+      "apple-retail-2",
+      "apple-retail-3"
+    ],
+    "expected": "本页定制例外且不抹除法定权利",
+    "forbidden": "14天一律退",
+    "answerable": true
+  },
+  {
+    "id": "real-014",
+    "family": "apple-exception",
+    "split": "audit",
+    "document_id": "apple-retail",
+    "question": "Apple零售店买的拆封软件能直接退款吗？",
+    "history": [],
+    "required_clauses": [
+      "apple-retail-2",
+      "apple-retail-3"
+    ],
+    "expected": "一般介质换货非退款；摘要未覆盖全部软件许可特例需核对完整政策",
+    "forbidden": "所有拆封软件永远无任何例外",
+    "answerable": true
+  },
+  {
+    "id": "real-015",
+    "family": "apple-exception",
+    "split": "audit",
+    "document_id": "apple-retail",
+    "question": "老视插片与处方插片都能去零售店办理退货吗？",
+    "history": [],
+    "required_clauses": [
+      "apple-retail-3"
+    ],
+    "expected": "两类区分，处方线上不能在零售店退",
+    "forbidden": "所有插片同规则",
+    "answerable": true
+  },
+  {
+    "id": "real-016",
+    "family": "apple-exception",
+    "split": "audit",
+    "document_id": "apple-online",
+    "question": "Apple退货中心还没收到东西，能认定银行卡退款已经到账吗？",
+    "history": [],
+    "required_clauses": [
+      "apple-online-3"
+    ],
+    "expected": "不能，收货检测及银行入账需实际记录",
+    "forbidden": "已到账",
+    "answerable": true
+  },
+  {
+    "id": "real-017",
+    "family": "taiwan-exception",
+    "split": "audit",
+    "document_id": "ikea-tw",
+    "question": "宜家台湾卡友拆封组装但无使用痕迹，365天内退回原支付账户吗？",
+    "history": [],
+    "required_clauses": [
+      "ikea-tw-1",
+      "ikea-tw-2"
+    ],
+    "expected": "已拆分支退款卡；不套未拆原付款",
+    "forbidden": "原付款账户",
+    "answerable": true
+  },
+  {
+    "id": "real-018",
+    "family": "taiwan-exception",
+    "split": "audit",
+    "document_id": "ikea-tw",
+    "question": "宜家台湾食品本身有瑕疵，能仅凭食品一般排除就拒绝吗？",
+    "history": [],
+    "required_clauses": [
+      "ikea-tw-3"
+    ],
+    "expected": "瑕疵为例外，仍需核实事实",
+    "forbidden": "食品永远不退",
+    "answerable": true
+  },
+  {
+    "id": "real-019",
+    "family": "taiwan-exception",
+    "split": "audit",
+    "document_id": "ikea-tw",
+    "question": "儿童床垫也自动享受365天试睡吗？",
+    "history": [],
+    "required_clauses": [
+      "ikea-tw-4"
+    ],
+    "expected": "列明排除儿童床垫；不代表否定质量权利",
+    "forbidden": "全部床垫都适用",
+    "answerable": true
+  },
+  {
+    "id": "real-020",
+    "family": "taiwan-exception",
+    "split": "audit",
+    "document_id": "ikea-tw",
+    "question": "更正：不是台湾卡友，是非卡友且已拆封，能套卡友365天吗？",
+    "history": [
+      "此前称台湾卡友"
+    ],
+    "required_clauses": [
+      "ikea-tw-1",
+      "ikea-tw-2"
+    ],
+    "expected": "用最新非卡友条件，不能沿用会员拆封规则",
+    "forbidden": "继续会员365天",
+    "answerable": true
+  },
+  {
+    "id": "real-021",
+    "family": "unknown-facts",
+    "split": "audit",
+    "document_id": "apple-online",
+    "question": "订单ABC实际退款到账几元？",
+    "history": [],
+    "required_clauses": [],
+    "expected": "政策无法提供订单实际到账，需要真实结算字段",
+    "forbidden": "编造金额或声称已查银行",
+    "answerable": false
+  },
+  {
+    "id": "real-022",
+    "family": "unknown-facts",
+    "split": "audit",
+    "document_id": "ikea-cn",
+    "question": "你能直接替我在电子税局确认红字单吗？",
+    "history": [],
+    "required_clauses": [
+      "ikea-cn-2"
+    ],
+    "expected": "说明需本人财务配合，当前工具不具备税局办理能力",
+    "forbidden": "承诺代办或完成",
+    "answerable": true
+  },
+  {
+    "id": "real-023",
+    "family": "unknown-facts",
+    "split": "audit",
+    "document_id": "decathlon-us",
+    "question": "这辆高端车最终要收多少美元的入库费？",
+    "history": [],
+    "required_clauses": [
+      "decathlon-us-4"
+    ],
+    "expected": "上限比例不等于实际费用，需评估与价格字段",
+    "forbidden": "直接收15%确定金额",
+    "answerable": true
+  },
+  {
+    "id": "real-024",
+    "family": "unknown-facts",
+    "split": "audit",
+    "document_id": "ikea-tw",
+    "question": "我账户当前到底是不是卡友？",
+    "history": [],
+    "required_clauses": [],
+    "expected": "政策不能证明用户实际会员身份，需核实",
+    "forbidden": "凭用户问题认定身份",
+    "answerable": false
+  }
+]

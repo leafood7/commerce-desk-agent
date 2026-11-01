@@ -1,3 +1,4 @@
+import json
 from datetime import date
 from typing import Annotated
 
@@ -6,7 +7,7 @@ from fastapi.responses import FileResponse
 from sqlalchemy import func, or_, select
 
 from workbench.knowledge_models import Document, DocumentVersion, IngestionJob
-from workbench.knowledge_schemas import PublishInput, SearchInput, VersionOptions
+from workbench.knowledge_schemas import PublishInput, ReadInput, SearchInput, VersionOptions
 from workbench.knowledge_service import (
     citation,
     create_version,
@@ -42,12 +43,60 @@ def attach_knowledge_routes(
             "scopes": grant.scopes,
         }
 
+    from workbench.knowledge_revisions import (
+        create_revision,
+        inspect_parse,
+        review_revision,
+        rollback_version,
+    )
+    from workbench.knowledge_schemas import ParseReviewInput, ParseRevisionInput, RollbackInput
+
+    @app.get("/api/v1/knowledge/versions/{version_id}/parse")
+    def parsed_blocks(
+        version_id: str,
+        offset: int = Query(0, ge=0),
+        limit: int = Query(10, ge=1, le=20),
+        user=Depends(require("admin", "approver")),
+        session=Depends(session_dependency),
+    ):
+        return inspect_parse(session, user, version_id, settings, offset, limit)
+
+    @app.post("/api/v1/knowledge/versions/{version_id}/revisions", status_code=201)
+    def propose_revision(
+        version_id: str,
+        body: ParseRevisionInput,
+        user=Depends(require("admin")),
+        session=Depends(session_dependency),
+    ):
+        return create_revision(session, user, version_id, body, settings)
+
+    @app.post("/api/v1/knowledge/versions/{version_id}/review")
+    def review_parse(
+        version_id: str,
+        body: ParseReviewInput,
+        user=Depends(require("approver")),
+        session=Depends(session_dependency),
+    ):
+        return review_revision(session, user, version_id, body)
+
+    @app.post("/api/v1/knowledge/documents/{document_id}/rollback")
+    def rollback(
+        document_id: str,
+        body: RollbackInput,
+        user=Depends(require("admin")),
+        session=Depends(session_dependency),
+    ):
+        return rollback_version(session, user, document_id, body)
+
     @app.post("/api/v1/knowledge/documents", status_code=201)
     async def upload(
         file: Annotated[UploadFile, File()],
         title: Annotated[str, Form(min_length=1, max_length=200)] = "新的政策文档",
         policy_scope: Annotated[str, Form()] = "unknown",
         chunk_strategy: Annotated[str, Form()] = "structural",
+        audience: Annotated[str | None, Form()] = None,
+        knowledge_kind: Annotated[str | None, Form()] = None,
+        faq_sources: Annotated[str | None, Form()] = None,
         chunk_chars: Annotated[int, Form(ge=160, le=1000)] = 600,
         chunk_overlap: Annotated[int, Form(ge=0, le=200)] = 80,
         effective_from: Annotated[date | None, Form()] = None,
@@ -59,6 +108,9 @@ def attach_knowledge_routes(
             options = VersionOptions(
                 policy_scope=policy_scope,
                 chunk_strategy=chunk_strategy,
+                audience=json.loads(audience) if audience else None,
+                knowledge_kind=knowledge_kind,
+                faq_sources=json.loads(faq_sources) if faq_sources else None,
                 chunk_chars=chunk_chars,
                 chunk_overlap=chunk_overlap,
                 effective_from=effective_from,
@@ -82,6 +134,9 @@ def attach_knowledge_routes(
         file: Annotated[UploadFile, File()],
         policy_scope: Annotated[str | None, Form()] = None,
         chunk_strategy: Annotated[str, Form()] = "structural",
+        audience: Annotated[str | None, Form()] = None,
+        knowledge_kind: Annotated[str | None, Form()] = None,
+        faq_sources: Annotated[str | None, Form()] = None,
         chunk_chars: Annotated[int, Form(ge=160, le=1000)] = 600,
         chunk_overlap: Annotated[int, Form(ge=0, le=200)] = 80,
         user=Depends(require("admin")),
@@ -97,8 +152,17 @@ def attach_knowledge_routes(
             options = VersionOptions(
                 policy_scope=policy_scope or latest.policy_scope,
                 chunk_strategy=chunk_strategy,
+                audience=json.loads(audience)
+                if audience is not None
+                else (latest.parse_metadata or {}).get("audience") or None,
                 chunk_chars=chunk_chars,
                 chunk_overlap=chunk_overlap,
+                knowledge_kind=knowledge_kind
+                if knowledge_kind is not None
+                else (latest.parse_metadata or {}).get("knowledge_kind"),
+                faq_sources=json.loads(faq_sources)
+                if faq_sources is not None
+                else (latest.parse_metadata or {}).get("faq_sources") or None,
                 effective_from=latest.effective_from,
                 effective_until=latest.effective_until,
             )
@@ -229,6 +293,14 @@ def attach_knowledge_routes(
     def source(chunk_id: str, user=Depends(actor_dependency), session=Depends(session_dependency)):
         return citation(session, user, chunk_id)
 
+    @app.post("/api/v1/knowledge/read")
+    def read_source(
+        body: ReadInput, user=Depends(actor_dependency), session=Depends(session_dependency)
+    ):
+        from workbench.knowledge_service import read_parent
+
+        return read_parent(session, user, body)
+
     @app.post("/api/v1/knowledge/search")
     async def search(
         body: SearchInput,
@@ -243,7 +315,12 @@ def attach_knowledge_routes(
             )
             from workbench.knowledge_service import validated_evidence
 
-            result["matches"] = validated_evidence(session, user, result["matches"])
+            result["matches"] = validated_evidence(
+                session,
+                user,
+                result["matches"],
+                audience=body.audience.model_dump() if body.audience else None,
+            )
             from workbench.return_context import select_policy_context
 
             context = select_policy_context(result["matches"], [], purpose="policy_question")

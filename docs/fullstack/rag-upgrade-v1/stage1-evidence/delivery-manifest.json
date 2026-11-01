@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-01",
+  "scope": "bounded local engineering delivery; not independent answer quality acceptance",
+  "source_hashes": {
+    "src/workbench/parent_context.py": "692f93c4b441baaec17de0216e215872ffaa29e9197dd36f102b28bf53db6437",
+    "src/workbench/policy_audience.py": "46be7d38a17d00b082c55130edf2212955dd8d60c512c24c21dad2769b3ffb44",
+    "src/workbench/faq_sources.py": "17a4c200bc8a07b940c4b95cd9323baff497f3316e5045de8206166dec0b8fc7",
+    "src/workbench/document_parsing.py": "fcc870ce30d733a6a24c03bababe218bde7d5cb242c36f07434a7de614cc2b9a",
+    "src/workbench/knowledge_schemas.py": "4f3379143919a9f15effba440e2ebb0b608f4f3e7a54ff25ca912f43fd3d5c8c",
+    "src/workbench/knowledge_api.py": "56f4e83403e93998f626ff20481be55b8ac244f14f8893fdbb9b3c20611dad1a",
+    "src/workbench/knowledge_service.py": "db9e16ba07dc1bb33e659249d9729109be0c4c2ea81fbf51d76afa4ab3c3e97b",
+    "src/workbench/retrieval.py": "de13a765516df6b67222a9454055df65d8a200ebdb9cb4ad01d96c2367c3b64b",
+    "src/workbench/ingestion.py": "7d4e2e6a1023d24addb0b765c4bbd50e168729c694bf3edbca5505e6980a3873",
+    "src/workbench/runs.py": "6cb63a2870fc26d2ee769b464855afa3a06fb9a92f0aee9812397149baa06e6b",
+    "src/workbench/schemas.py": "a0fb12aa1be13afb07c74616ec79ed1614aff83b6040f42d0b3f8373b4e18b24",
+    "src/workbench/tool_contracts.py": "fb94630c7395be7f148cf19931177156d8e9fca15eb0f685692f0ac507ad3509",
+    "src/workbench/mcp_server.py": "eaeb5d33daf28449089c1f985ca0f14e68488ddf848b217141603ef38e4b9030",
+    "src/workbench/mcp_gateway.py": "af0f6293efe63f75704324a774649e979228b7ce1e3093809d0de7f6495780ce",
+    "frontend/src/Knowledge.tsx": "47ce7948ea2d0ddbf3ad884d0cca8c707854438b6f33766c10522aa9122e9d5f",
+    "frontend/e2e/rag-stage1.spec.ts": "61e5e869a4b969afb113a9d2fbad91650a0f868c0ef5daa3faa2b91f7d3c3946"
+  },
+  "regression": {
+    "passed": 67,
+    "seconds": 152.48,
+    "warning": "existing Starlette TestClient httpx deprecation"
+  },
+  "browser": {
+    "startTime": "2026-11-01T05:40:56.342Z",
+    "duration": 8602.77,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "merchant_excerpt_sources": 4,
+  "merchants": 3,
+  "full_official_regulation_articles": 38,
+  "model_calls": 0,
+  "schema_changed": false,
+  "default_mode": "rules/neighbors retained",
+  "independent_semantic_final_test": false,
+  "current_ui": "http://127.0.0.1:15173",
+  "isolated_ui": "http://127.0.0.1:15174",
+  "isolated_ui_status": "stopped after acceptance to release memory; main15173 remains running"
+}

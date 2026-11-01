@@ -1,0 +1,569 @@
+{
+  "max_requests": 128,
+  "max_cny": 1,
+  "actual_requests": 20,
+  "primary_requests": 15,
+  "exploration_requests": 5,
+  "estimated_cny": 0.058302,
+  "cumulative_estimated_cny": 4.814832,
+  "unknown_calls": 0,
+  "entries": [
+    {
+      "id": "f7d0eb636082452291b65564f1265082",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.003474,
+      "started_at": "2026-11-01T12:16:15.434034+00:00",
+      "usage": {
+        "prompt_tokens": 1401,
+        "completion_tokens": 84,
+        "total_tokens": 1485,
+        "prompt_tokens_details": {
+          "cached_tokens": 384
+        },
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 1017
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "generate",
+        "case_id": "journey-002",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1951.2296299799345,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "2a383baba4e344f5b0c6b86821431230",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.00243,
+      "started_at": "2026-11-01T12:16:17.492186+00:00",
+      "usage": {
+        "prompt_tokens": 1175,
+        "completion_tokens": 10,
+        "total_tokens": 1185,
+        "prompt_tokens_details": {
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1047
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "review",
+        "case_id": "journey-002",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1448.5017029801384,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "c4883c29d2564cc8bae4469e9d735f8b",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.004714,
+      "started_at": "2026-11-01T12:16:30.722368+00:00",
+      "usage": {
+        "prompt_tokens": 1365,
+        "completion_tokens": 248,
+        "total_tokens": 1613,
+        "prompt_tokens_details": {
+          "cached_tokens": 384
+        },
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 981
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "generate",
+        "case_id": "journey-004",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 2458.2243179902434,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "198270d8690b440682980b7feb4ebcec",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.002706,
+      "started_at": "2026-11-01T12:16:33.288077+00:00",
+      "usage": {
+        "prompt_tokens": 1313,
+        "completion_tokens": 10,
+        "total_tokens": 1323,
+        "prompt_tokens_details": {
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1185
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "review",
+        "case_id": "journey-004",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1467.9829149972647,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "a56caf6fa70c45cea684a299fd5b81fe",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.003388,
+      "started_at": "2026-11-01T12:16:36.380042+00:00",
+      "usage": {
+        "prompt_tokens": 1042,
+        "completion_tokens": 163,
+        "total_tokens": 1205,
+        "prompt_tokens_details": {
+          "cached_tokens": 640
+        },
+        "prompt_cache_hit_tokens": 640,
+        "prompt_cache_miss_tokens": 402
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "generate",
+        "case_id": "journey-004",
+        "arm": "baseline",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 2240.7484569994267,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "3b066c0408294fb19788d92ffed82302",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.001882,
+      "started_at": "2026-11-01T12:16:38.721592+00:00",
+      "usage": {
+        "prompt_tokens": 901,
+        "completion_tokens": 10,
+        "total_tokens": 911,
+        "prompt_tokens_details": {
+          "cached_tokens": 256
+        },
+        "prompt_cache_hit_tokens": 256,
+        "prompt_cache_miss_tokens": 645
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "review",
+        "case_id": "journey-004",
+        "arm": "baseline",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1536.8932920100633,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "37f31ec28d0c47eba3321b28cab825c1",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.00488,
+      "started_at": "2026-11-01T12:16:51.554568+00:00",
+      "usage": {
+        "prompt_tokens": 1416,
+        "completion_tokens": 256,
+        "total_tokens": 1672,
+        "prompt_tokens_details": {
+          "cached_tokens": 384
+        },
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 1032
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "generate",
+        "case_id": "journey-006",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 2484.1548669792246,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "ed6a01ee58e9431d8455fa5283b576df",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.002824,
+      "started_at": "2026-11-01T12:16:54.121048+00:00",
+      "usage": {
+        "prompt_tokens": 1372,
+        "completion_tokens": 10,
+        "total_tokens": 1382,
+        "prompt_tokens_details": {
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1244
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "review",
+        "case_id": "journey-006",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1356.563075009035,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "83661f85453e41ec9ec64ceba0f32342",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.003002,
+      "started_at": "2026-11-01T12:16:57.337873+00:00",
+      "usage": {
+        "prompt_tokens": 957,
+        "completion_tokens": 136,
+        "total_tokens": 1093,
+        "prompt_tokens_details": {
+          "cached_tokens": 512
+        },
+        "prompt_cache_hit_tokens": 512,
+        "prompt_cache_miss_tokens": 445
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "generate",
+        "case_id": "journey-006",
+        "arm": "baseline",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 2293.042871984653,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "ff330044400643e29c7cd97db679a906",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.00165,
+      "started_at": "2026-11-01T12:16:59.715158+00:00",
+      "usage": {
+        "prompt_tokens": 785,
+        "completion_tokens": 10,
+        "total_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 256
+        },
+        "prompt_cache_hit_tokens": 256,
+        "prompt_cache_miss_tokens": 529
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "review",
+        "case_id": "journey-006",
+        "arm": "baseline",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1294.9465200072154,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "4f87661af83d4944ba976c21b6a89c7e",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.002718,
+      "started_at": "2026-11-01T12:18:18.917162+00:00",
+      "usage": {
+        "prompt_tokens": 1171,
+        "completion_tokens": 47,
+        "total_tokens": 1218,
+        "prompt_tokens_details": {
+          "cached_tokens": 384
+        },
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 787
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "generate",
+        "case_id": "journey-015",
+        "arm": "baseline",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1789.0354749979451,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "b541272fc52549e5ad04650266b04cfb",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.003886,
+      "started_at": "2026-11-01T12:18:22.263031+00:00",
+      "usage": {
+        "prompt_tokens": 1171,
+        "completion_tokens": 193,
+        "total_tokens": 1364,
+        "prompt_tokens_details": {
+          "cached_tokens": 1024
+        },
+        "prompt_cache_hit_tokens": 1024,
+        "prompt_cache_miss_tokens": 147
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "generate",
+        "case_id": "journey-015",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 2030.1266589958686,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "22ddb460386445de9db1a17fe15b3b36",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.002208,
+      "started_at": "2026-11-01T12:18:24.397531+00:00",
+      "usage": {
+        "prompt_tokens": 1048,
+        "completion_tokens": 14,
+        "total_tokens": 1062,
+        "prompt_tokens_details": {
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 920
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "review",
+        "case_id": "journey-015",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1630.655775021296,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "7b84867ecb5c4b3a85944c2a2bcdc1bd",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.00331,
+      "started_at": "2026-11-01T12:18:28.720004+00:00",
+      "usage": {
+        "prompt_tokens": 1531,
+        "completion_tokens": 31,
+        "total_tokens": 1562,
+        "prompt_tokens_details": {
+          "cached_tokens": 384
+        },
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 1147
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "generate",
+        "case_id": "journey-016",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1700.9024689905345,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "e92abef75af24e2d8ef7dd0441faef21",
+      "status": "settled",
+      "reserved_cny": 0.020192,
+      "charged_cny": 0.002578,
+      "started_at": "2026-11-01T12:18:30.504598+00:00",
+      "usage": {
+        "prompt_tokens": 1249,
+        "completion_tokens": 10,
+        "total_tokens": 1259,
+        "prompt_tokens_details": {
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1121
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "review",
+        "case_id": "journey-016",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1425.1386809919495,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "8fb3c168c8c3403a9d7b0e97a956d4ae",
+      "status": "settled",
+      "reserved_cny": 0.014048,
+      "charged_cny": 0.00225,
+      "started_at": "2026-11-01T12:25:22.148742+00:00",
+      "usage": {
+        "prompt_tokens": 933,
+        "completion_tokens": 48,
+        "total_tokens": 981
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "decision",
+        "case_id": "explore-read-001",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1547.8587679972406,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "427c26f9b1cd42b582a0e433f2203139",
+      "status": "settled",
+      "reserved_cny": 0.014048,
+      "charged_cny": 0.002346,
+      "started_at": "2026-11-01T12:25:28.395416+00:00",
+      "usage": {
+        "prompt_tokens": 961,
+        "completion_tokens": 53,
+        "total_tokens": 1014
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "decision",
+        "case_id": "explore-read-002",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1848.4050440019928,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "64d36b242cb14bdc96e044d19eb9f0c3",
+      "status": "settled",
+      "reserved_cny": 0.014048,
+      "charged_cny": 0.003484,
+      "started_at": "2026-11-01T12:25:47.514918+00:00",
+      "usage": {
+        "prompt_tokens": 1558,
+        "completion_tokens": 46,
+        "total_tokens": 1604
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "decision",
+        "case_id": "explore-read-003",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1837.0789400069043,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "fbe23775430e4ca7997ebf5d4c7e3eea",
+      "status": "settled",
+      "reserved_cny": 0.014048,
+      "charged_cny": 0.002278,
+      "started_at": "2026-11-01T12:25:55.393696+00:00",
+      "usage": {
+        "prompt_tokens": 931,
+        "completion_tokens": 52,
+        "total_tokens": 983
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "decision",
+        "case_id": "explore-read-004",
+        "arm": "reading",
+        "turn": 0,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1471.3360390160233,
+      "error": null,
+      "response_model": "deepseek-flash"
+    },
+    {
+      "id": "6d56b9ce68ff4a1591da719a17a2aa05",
+      "status": "settled",
+      "reserved_cny": 0.014048,
+      "charged_cny": 0.002294,
+      "started_at": "2026-11-01T12:26:01.940180+00:00",
+      "usage": {
+        "prompt_tokens": 939,
+        "completion_tokens": 52,
+        "total_tokens": 991
+      },
+      "metadata": {
+        "phase": "return-journey-audit-v1-20261101",
+        "stage": "decision",
+        "case_id": "explore-read-004",
+        "arm": "reading",
+        "turn": 1,
+        "authorization_max_calls": 128,
+        "authorization_max_cny": 1
+      },
+      "elapsed_ms": 1909.4667930039577,
+      "error": null,
+      "response_model": "deepseek-flash"
+    }
+  ],
+  "pricing_basis": "conservative peak uncached2 input/8 output CNY per million; not invoice",
+  "official_pricing_url": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/"
+}

@@ -1,0 +1,437 @@
+{
+  "actual_mysql": true,
+  "actual_embedding": "BAAI/bge-small-zh-v1.5",
+  "actual_http_chroma": true,
+  "actual_rerank": true,
+  "actual_http_mcp": true,
+  "sources": [
+    {
+      "source": "apple-online",
+      "version": "e3d105ec-d440-44e4-971f-f6c86807eea5",
+      "audience": {
+        "merchant": "Apple",
+        "region": "中国大陆",
+        "channel": "官网"
+      },
+      "search": {
+        "status": "found",
+        "matches": [
+          {
+            "id": "e3d105ec-d440-44e4-971f-f6c86807eea5-0",
+            "source": "e3d105ec-d440-44e4-971f-f6c86807eea5",
+            "content": "然发生这种情况的可能性很小，但如您有如此想法时，请知悉以下与产品退货相关的条款。\n如需退回产品，您仅需在产品交付之日起 14 天内在您的个人账户中进行自助退货操作，或者联系我们的顾客服务团队提出退货申请。如果您是通过Apple零售店取货，您也可将您的商品退回到您取货的Apple零售店。 只有在Apple零售店取货的订单可以到店退货。 您需将未损坏的产品按原样连同原始零件、原始配件、原始发票和原始包装在前述时间期限内退回，我们将对其进行更换或以您的原始付款方式向您退款。请注意，我们只支持国内退款，不支持退款到中国大陆以外的地区。我们将在收到退货产品并确认符",
+            "version_id": "e3d105ec-d440-44e4-971f-f6c86807eea5",
+            "version": 1,
+            "document_id": "65aeb9fa-79c7-4373-a192-3577d1c718dc",
+            "title": "有限原文摘录-apple-online",
+            "filename": "apple-online.txt",
+            "policy_scope": "returns",
+            "page_start": null,
+            "page_end": null,
+            "section": "",
+            "position": 0,
+            "organization_id": "153019d7-25c5-45d4-b3ba-961e100a05c8",
+            "knowledge_kind": "document",
+            "faq_sources": [],
+            "parent_links": [],
+            "unresolved_articles": [],
+            "audience": {
+              "region": "中国大陆",
+              "channel": "官网",
+              "merchant": "Apple"
+            },
+            "parent_id": "p0",
+            "distance": 0.33350438,
+            "rrf_score": 0.03278688524590164,
+            "bm25_score": 6.186046405592984,
+            "rerank_score": 3.7470197677612305
+          }
+        ],
+        "coverage": "retrieved_evidence_only",
+        "trace": {
+          "strategy": "hybrid_rerank",
+          "context_mode": "parent_child",
+          "reference_expansion": {
+            "mode": "parent_child",
+            "limited_ids": [],
+            "parent_expansion_complete": true,
+            "unresolved_articles": [],
+            "link_policy": "explicit_same_version_article_mentions_one_hop",
+            "policy_sufficiency": "not_established"
+          },
+          "version_ids": [
+            "e3d105ec-d440-44e4-971f-f6c86807eea5"
+          ],
+          "dense_ids": [
+            "e3d105ec-d440-44e4-971f-f6c86807eea5-0"
+          ],
+          "sparse_ids": [
+            "e3d105ec-d440-44e4-971f-f6c86807eea5-0"
+          ],
+          "fusion_ids": [
+            "e3d105ec-d440-44e4-971f-f6c86807eea5-0"
+          ],
+          "anchor_ids": [
+            "e3d105ec-d440-44e4-971f-f6c86807eea5-0"
+          ],
+          "elapsed_ms": 665.4961220046971,
+          "snapshot_builds": 2
+        },
+        "context_purpose": "policy_question",
+        "context_selection": "retrieved_policy_sources"
+      },
+      "read": {
+        "status": "found",
+        "version_id": "e3d105ec-d440-44e4-971f-f6c86807eea5",
+        "parent_id": "p0",
+        "title": "有限原文摘录-apple-online",
+        "section": "",
+        "related_sections": [],
+        "unresolved_articles": [],
+        "source_kind": "parsed_original",
+        "source_sha256": "d13c5296e9942fa64f2418138e026b0c252d8606edd4f63269010ce8a17d847c",
+        "audience": {
+          "region": "中国大陆",
+          "channel": "官网",
+          "merchant": "Apple"
+        },
+        "offset": 0,
+        "next_offset": null,
+        "total_chars": 280,
+        "complete": true,
+        "content": "然发生这种情况的可能性很小，但如您有如此想法时，请知悉以下与产品退货相关的条款。\n如需退回产品，您仅需在产品交付之日起 14 天内在您的个人账户中进行自助退货操作，或者联系我们的顾客服务团队提出退货申请。如果您是通过Apple零售店取货，您也可将您的商品退回到您取货的Apple零售店。 只有在Apple零售店取货的订单可以到店退货。 您需将未损坏的产品按原样连同原始零件、原始配件、原始发票和原始包装在前述时间期限内退回，我们将对其进行更换或以您的原始付款方式向您退款。请注意，我们只支持国内退款，不支持退款到中国大陆以外的地区。我们将在收到退货产品并确认符",
+        "block_start": 0,
+        "block_end": 1,
+        "policy_sufficiency": "not_established"
+      },
+      "source_coverage": "limited original excerpt, not full policy"
+    },
+    {
+      "source": "apple-retail",
+      "version": "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad",
+      "audience": {
+        "merchant": "Apple",
+        "region": "中国大陆",
+        "channel": "零售店"
+      },
+      "search": {
+        "status": "found",
+        "matches": [
+          {
+            "id": "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad-0",
+            "source": "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad",
+            "content": "发卡银行的内部政策和操作惯例。任何与退款将何时退回你账户有关的问题，请联系你的发卡银行。\n请注意以下事项：\n已打开包装的软件、内存和其他介质可在同类产品中进行调换，但不能退款。\n定制配置的产品，(包括个性化iPod/iPad) 不能退货或调换。\n由Apple “按原样” 销售的非Apple 产品，其相关保修条款与条件的信息，请咨询该制造商。\n在中国大陆地区Apple Store 零售店购买的产品仅可在原店进行退货或调换。\n产品只能在最初购买国家/地区进行退货。\n如果你在Apple Store 零售店购物时被收取超过产品标价的价格，请通过Specialis",
+            "version_id": "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad",
+            "version": 1,
+            "document_id": "29f76a89-2f7c-49b7-b8a7-16bdcee19017",
+            "title": "有限原文摘录-apple-retail",
+            "filename": "apple-retail.txt",
+            "policy_scope": "returns",
+            "page_start": null,
+            "page_end": null,
+            "section": "",
+            "position": 0,
+            "organization_id": "153019d7-25c5-45d4-b3ba-961e100a05c8",
+            "knowledge_kind": "document",
+            "faq_sources": [],
+            "parent_links": [],
+            "unresolved_articles": [],
+            "audience": {
+              "region": "中国大陆",
+              "channel": "零售店",
+              "merchant": "Apple"
+            },
+            "parent_id": "p0",
+            "distance": 0.35575247,
+            "rrf_score": 0.03278688524590164,
+            "bm25_score": 6.835874007306602,
+            "rerank_score": 6.010957717895508
+          }
+        ],
+        "coverage": "retrieved_evidence_only",
+        "trace": {
+          "strategy": "hybrid_rerank",
+          "context_mode": "parent_child",
+          "reference_expansion": {
+            "mode": "parent_child",
+            "limited_ids": [],
+            "parent_expansion_complete": true,
+            "unresolved_articles": [],
+            "link_policy": "explicit_same_version_article_mentions_one_hop",
+            "policy_sufficiency": "not_established"
+          },
+          "version_ids": [
+            "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad"
+          ],
+          "dense_ids": [
+            "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad-0"
+          ],
+          "sparse_ids": [
+            "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad-0"
+          ],
+          "fusion_ids": [
+            "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad-0"
+          ],
+          "anchor_ids": [
+            "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad-0"
+          ],
+          "elapsed_ms": 560.1614990155213,
+          "snapshot_builds": 3
+        },
+        "context_purpose": "policy_question",
+        "context_selection": "retrieved_policy_sources"
+      },
+      "read": {
+        "status": "found",
+        "version_id": "4985f1f4-0be3-4b7a-a721-cff7c20fc2ad",
+        "parent_id": "p0",
+        "title": "有限原文摘录-apple-retail",
+        "section": "",
+        "related_sections": [],
+        "unresolved_articles": [],
+        "source_kind": "parsed_original",
+        "source_sha256": "3613170d3d1926664b612faf048d2a19dc2a746fc22f82a7c475a841f1bf76a6",
+        "audience": {
+          "region": "中国大陆",
+          "channel": "零售店",
+          "merchant": "Apple"
+        },
+        "offset": 0,
+        "next_offset": null,
+        "total_chars": 280,
+        "complete": true,
+        "content": "发卡银行的内部政策和操作惯例。任何与退款将何时退回你账户有关的问题，请联系你的发卡银行。\n请注意以下事项：\n已打开包装的软件、内存和其他介质可在同类产品中进行调换，但不能退款。\n定制配置的产品，(包括个性化iPod/iPad) 不能退货或调换。\n由Apple “按原样” 销售的非Apple 产品，其相关保修条款与条件的信息，请咨询该制造商。\n在中国大陆地区Apple Store 零售店购买的产品仅可在原店进行退货或调换。\n产品只能在最初购买国家/地区进行退货。\n如果你在Apple Store 零售店购物时被收取超过产品标价的价格，请通过Specialis",
+        "block_start": 0,
+        "block_end": 1,
+        "policy_sufficiency": "not_established"
+      },
+      "source_coverage": "limited original excerpt, not full policy"
+    },
+    {
+      "source": "ikea-mainland",
+      "version": "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc",
+      "audience": {
+        "merchant": "宜家",
+        "region": "中国大陆",
+        "channel": "官网"
+      },
+      "search": {
+        "status": "found",
+        "matches": [
+          {
+            "id": "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc-0",
+            "source": "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc",
+            "content": "商场提供的纸质小票、宜家会员俱乐部中的订单编号等）或发票（如已开具），您可在自收到商品之日起60天内（宜家俱乐部会员可在365天内）申请退货。请注意：如果您已经申请开具了发票并且此发票已入账/已抵扣，需要您配合在电子税局上完成《红字信息确认单》确认流程后方可办理退货。\n了解退换货政策详情\n品质保证\n我们对产品质量非常有信心，许多产品都涵盖在质保范围内。\n更多品质保证详情\n商品召回信息\n常见问题\n加入宜家俱乐部\n加入会员，享受专属折扣。更多个性化家居灵感，让你的想法照进现实 查看更多\n立即加入或登录\n加入宜家企业会员\n加入企业会员，享受会员6大权益以及专属",
+            "version_id": "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc",
+            "version": 1,
+            "document_id": "115d13fa-5f41-469b-ad0a-a752c8806b93",
+            "title": "有限原文摘录-ikea-mainland",
+            "filename": "ikea-mainland.txt",
+            "policy_scope": "returns",
+            "page_start": null,
+            "page_end": null,
+            "section": "",
+            "position": 0,
+            "organization_id": "153019d7-25c5-45d4-b3ba-961e100a05c8",
+            "knowledge_kind": "document",
+            "faq_sources": [],
+            "parent_links": [],
+            "unresolved_articles": [],
+            "audience": {
+              "region": "中国大陆",
+              "channel": "官网",
+              "merchant": "宜家"
+            },
+            "parent_id": "p0",
+            "distance": 0.24701989,
+            "rrf_score": 0.03278688524590164,
+            "bm25_score": 7.372631467162521,
+            "rerank_score": 3.820087432861328
+          }
+        ],
+        "coverage": "retrieved_evidence_only",
+        "trace": {
+          "strategy": "hybrid_rerank",
+          "context_mode": "parent_child",
+          "reference_expansion": {
+            "mode": "parent_child",
+            "limited_ids": [],
+            "parent_expansion_complete": true,
+            "unresolved_articles": [],
+            "link_policy": "explicit_same_version_article_mentions_one_hop",
+            "policy_sufficiency": "not_established"
+          },
+          "version_ids": [
+            "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc"
+          ],
+          "dense_ids": [
+            "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc-0"
+          ],
+          "sparse_ids": [
+            "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc-0"
+          ],
+          "fusion_ids": [
+            "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc-0"
+          ],
+          "anchor_ids": [
+            "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc-0"
+          ],
+          "elapsed_ms": 482.3940249916632,
+          "snapshot_builds": 4
+        },
+        "context_purpose": "policy_question",
+        "context_selection": "retrieved_policy_sources"
+      },
+      "read": {
+        "status": "found",
+        "version_id": "a9237bc8-ca9d-4a54-bee8-1cbc94d1bbdc",
+        "parent_id": "p0",
+        "title": "有限原文摘录-ikea-mainland",
+        "section": "",
+        "related_sections": [],
+        "unresolved_articles": [],
+        "source_kind": "parsed_original",
+        "source_sha256": "0025b0f113266b8b0315e02fc46cfb2e434e3dbb8f9153c6d27ad32d85b6f36e",
+        "audience": {
+          "region": "中国大陆",
+          "channel": "官网",
+          "merchant": "宜家"
+        },
+        "offset": 0,
+        "next_offset": null,
+        "total_chars": 280,
+        "complete": true,
+        "content": "商场提供的纸质小票、宜家会员俱乐部中的订单编号等）或发票（如已开具），您可在自收到商品之日起60天内（宜家俱乐部会员可在365天内）申请退货。请注意：如果您已经申请开具了发票并且此发票已入账/已抵扣，需要您配合在电子税局上完成《红字信息确认单》确认流程后方可办理退货。\n了解退换货政策详情\n品质保证\n我们对产品质量非常有信心，许多产品都涵盖在质保范围内。\n更多品质保证详情\n商品召回信息\n常见问题\n加入宜家俱乐部\n加入会员，享受专属折扣。更多个性化家居灵感，让你的想法照进现实 查看更多\n立即加入或登录\n加入宜家企业会员\n加入企业会员，享受会员6大权益以及专属",
+        "block_start": 0,
+        "block_end": 1,
+        "policy_sufficiency": "not_established"
+      },
+      "source_coverage": "limited original excerpt, not full policy"
+    },
+    {
+      "source": "decathlon-us",
+      "version": "4f4cb011-c2e4-4626-b7d2-9bddf2e46095",
+      "audience": {
+        "merchant": "Decathlon",
+        "region": "美国",
+        "channel": "官网"
+      },
+      "search": {
+        "status": "found",
+        "matches": [
+          {
+            "id": "4f4cb011-c2e4-4626-b7d2-9bddf2e46095-0",
+            "source": "4f4cb011-c2e4-4626-b7d2-9bddf2e46095",
+            "content": "ns, you can return it HERE for an exchange or refund within 30 days of purchase -- with a few exceptions as detailed below:\nAll items that you choose to return or exchange must:\nHave been purchased on decathlon.com less than 30 days ago\nBe unused and in new condition, with all ta",
+            "version_id": "4f4cb011-c2e4-4626-b7d2-9bddf2e46095",
+            "version": 1,
+            "document_id": "26366c70-f87f-412a-8173-49caf40354bd",
+            "title": "有限原文摘录-decathlon-us",
+            "filename": "decathlon-us.txt",
+            "policy_scope": "returns",
+            "page_start": null,
+            "page_end": null,
+            "section": "",
+            "position": 0,
+            "organization_id": "153019d7-25c5-45d4-b3ba-961e100a05c8",
+            "knowledge_kind": "document",
+            "faq_sources": [],
+            "parent_links": [],
+            "unresolved_articles": [],
+            "audience": {
+              "region": "美国",
+              "channel": "官网",
+              "merchant": "Decathlon"
+            },
+            "parent_id": "p0",
+            "distance": 0.24663383,
+            "rrf_score": 0.03278688524590164,
+            "bm25_score": 1.3973129233372212,
+            "rerank_score": 3.0232491493225098
+          }
+        ],
+        "coverage": "retrieved_evidence_only",
+        "trace": {
+          "strategy": "hybrid_rerank",
+          "context_mode": "parent_child",
+          "reference_expansion": {
+            "mode": "parent_child",
+            "limited_ids": [],
+            "parent_expansion_complete": true,
+            "unresolved_articles": [],
+            "link_policy": "explicit_same_version_article_mentions_one_hop",
+            "policy_sufficiency": "not_established"
+          },
+          "version_ids": [
+            "4f4cb011-c2e4-4626-b7d2-9bddf2e46095"
+          ],
+          "dense_ids": [
+            "4f4cb011-c2e4-4626-b7d2-9bddf2e46095-0"
+          ],
+          "sparse_ids": [
+            "4f4cb011-c2e4-4626-b7d2-9bddf2e46095-0"
+          ],
+          "fusion_ids": [
+            "4f4cb011-c2e4-4626-b7d2-9bddf2e46095-0"
+          ],
+          "anchor_ids": [
+            "4f4cb011-c2e4-4626-b7d2-9bddf2e46095-0"
+          ],
+          "elapsed_ms": 296.70868400717154,
+          "snapshot_builds": 5
+        },
+        "context_purpose": "policy_question",
+        "context_selection": "retrieved_policy_sources"
+      },
+      "read": {
+        "status": "found",
+        "version_id": "4f4cb011-c2e4-4626-b7d2-9bddf2e46095",
+        "parent_id": "p0",
+        "title": "有限原文摘录-decathlon-us",
+        "section": "",
+        "related_sections": [],
+        "unresolved_articles": [],
+        "source_kind": "parsed_original",
+        "source_sha256": "2cc3a3674f56a5820767a04e664148368e8bf4976940515296e330c0043b0531",
+        "audience": {
+          "region": "美国",
+          "channel": "官网",
+          "merchant": "Decathlon"
+        },
+        "offset": 0,
+        "next_offset": null,
+        "total_chars": 280,
+        "complete": true,
+        "content": "ns, you can return it HERE for an exchange or refund within 30 days of purchase -- with a few exceptions as detailed below:\nAll items that you choose to return or exchange must:\nHave been purchased on decathlon.com less than 30 days ago\nBe unused and in new condition, with all ta",
+        "block_start": 0,
+        "block_end": 1,
+        "policy_sufficiency": "not_established"
+      },
+      "source_coverage": "limited original excerpt, not full policy"
+    }
+  ],
+  "missing_scope": {
+    "status": "no_evidence",
+    "matches": [],
+    "coverage": "needs_scope",
+    "clarification": {
+      "missing": [
+        "channel"
+      ],
+      "source": "explicit_conditions_required"
+    },
+    "trace": {
+      "strategy": "hybrid_rerank",
+      "version_ids": []
+    },
+    "context_purpose": "policy_question",
+    "context_selection": "retrieved_policy_sources"
+  },
+  "paid_calls": 0,
+  "answer_generation": false,
+  "limits": [
+    "4 limited original excerpts, not complete policies",
+    "queries authored for these excerpts, not independent final tests",
+    "field-based scope, no automatic natural-language identification"
+  ]
+}

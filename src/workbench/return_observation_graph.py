@@ -3,6 +3,7 @@
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
+from workbench.mcp_gateway import ToolFailure
 from workbench.return_context import select_policy_context
 from workbench.return_decisions import needs_model, validate_decision
 from workbench.return_fact_checks import question_requirements, return_reasons
@@ -12,6 +13,7 @@ from workbench.return_schemas import ReturnInput
 
 
 def build_observation_graph(state_type, saver, tools, validate, planner, profile, core):
+    reading = profile.get("return_source_reading", False)
     bound = profile.get("return_retrieval_mode") == "clause_bound"
     scoped = profile.get("return_retrieval_mode") in {"policy_scoped", "clause_bound"}
     guided = profile.get("return_flow_version") == "guided_v3"
@@ -38,9 +40,17 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
         ).model_dump(mode="json")
 
     def gather(state):
-        change = core["gather"](state)
+        requirements = question_requirements(state.get("query"))
+        information = guided and requirements["read_only"]
+        if information:
+            # Information does not require application quantity/reason/item condition.
+            change = {"next_step": "observe"}
+        else:
+            change = core["gather"](state)
         if change["next_step"] == "observe":
             change.update(
+                policy_reuse_candidates=state.get("retrieved_evidence", []) if reading else [],
+                task_frame=requirements["task"],
                 next_step="decide",
                 order_read=False,
                 policy_searched=False,
@@ -52,6 +62,11 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
                 retrieved_ids=[],
                 retrieval={},
                 quality_info={},
+                quality_read=False,
+                source_targets=[],
+                source_attempted_targets=state.get("source_attempted_targets", []),
+                source_readings=[],
+                source_stop_reason=None,
                 policy_context=[],
                 retrieved_evidence=[],
                 context_bound=bound,
@@ -85,6 +100,22 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
         }
 
     def decide(state):
+        task = state.get("task_frame") or {}
+        if guided and task.get("purpose") == "facts":
+            requested = question_requirements(state.get("query"))["requested"]
+            needs_order = any(r["field"] == "signed_at" for r in requested)
+            if needs_order and not state.get("order_read"):
+                return {"next_step": "read_order"}
+            if any(r["field"] == "quality_verdict" for r in requested) and not state.get(
+                "quality_read"
+            ):
+                return {"next_step": "read_quality"}
+            return {"next_step": "stop"}
+        if guided and state.get("context_purpose") == "policy_question":
+            if not state.get("return_checked"):
+                return {"next_step": "read_policy"}
+            if not state.get("policy_searched"):
+                return {"next_step": "search_policy"}
         allowed = allowed_actions(state, scoped=scoped)
         preview = state.get("preview") or {}
         if (
@@ -107,7 +138,25 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
             and question_requirements(state.get("query"))["read_only"]
         ):
             allowed = ["stop"]
+        if reading:
+            from workbench.source_reading import available_targets, inquiry_actions
+
+            allowed = inquiry_actions(state, allowed)
         context = decision_observation(state, allowed)
+        if reading:
+            context["read_targets"] = [
+                {
+                    "id": r["id"],
+                    "section": r["section"],
+                    "reason": r["reason"],
+                    "offset": r["request"]["offset"],
+                }
+                for r in available_targets(state)
+            ]
+            context["source_budget"] = {
+                "reads_remaining": max(0, 2 - state.get("source_read_count", 0)),
+                "supplement_remaining": max(0, 1 - state.get("source_search_count", 0)),
+            }
         if guided:
             context["condition_source"] = {
                 "kind": (state.get("condition_origin") or {}).get("kind"),
@@ -120,20 +169,74 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
             result["mode"] = "fixed_action"
         elif profile.get("return_decisions") == "model" and planner:
             result = planner(context)
-        action = validate_decision({"action": result["action"]}, context)
+        if result["action"] == "read_source" and "target_id" not in result:
+            result["target_id"] = context["read_targets"][0]["id"]
+        action = validate_decision(
+            {k: result[k] for k in ("action", "target_id") if k in result}, context
+        )
         trace = {"action": action, "mode": result["mode"]}
         traces = [*state.get("decisions", []), trace][-32:]
         return {
             "next_step": action,
+            "selected_source_target": result.get("target_id"),
             "decisions": traces,
             "planner_mode": "bounded_return_model"
             if any(r["mode"] == "model" for r in traces)
             else "rules",
         }
 
-    def read_order(state):
+    def read_quality(state):
+        needed = ("order_number", "return_item_id", "return_quantity")
+        values = {key: state.get(key) for key in needed}
+        missing = [key for key in needed if not values[key]]
+        if missing:
+            response = interrupt(
+                {
+                    "status": "awaiting_input",
+                    "answer": "查询实际质检需订单、商品行和数量。",
+                    "missing": missing,
+                }
+            )
+            values.update({key: response[key] for key in needed if response.get(key) is not None})
+            if any(not values[key] for key in needed):
+                raise ValueError("Quality lookup fields are required")
+        result = tools(
+            "get_quality_inspection",
+            {
+                "order_number": values["order_number"],
+                "item_id": values["return_item_id"],
+                "quantity": values["return_quantity"],
+            },
+        )
+        return {**values, "quality_info": result["quality"], "quality_read": True}
+
+    def read_policy(state):
+        result = tools("get_return_policy", {"policy_id": state["return_policy_id"]})
+        evidence = result["evidence"]
+        sources = validate(evidence["sources"])
         return {
-            "order": tools("get_order_status", {"order_number": state["order_number"]})["order"],
+            "order_read": True,
+            "return_checked": True,
+            "preview": {"evidence": {**evidence, "sources": sources}, "missing": [], "blocked": []},
+        }
+
+    def read_order(state):
+        if not state.get("order_number"):
+            response = interrupt(
+                {
+                    "status": "awaiting_input",
+                    "answer": "请提供需查询的订单号。",
+                    "missing": ["order_number"],
+                }
+            )
+            if not response.get("order_number"):
+                raise ValueError("Order number is required")
+            number = response["order_number"]
+        else:
+            number = state["order_number"]
+        return {
+            "order_number": number,
+            "order": tools("get_order_status", {"order_number": number})["order"],
             "order_read": True,
         }
 
@@ -149,10 +252,49 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
             args["version_id"] = sources[0]["version_id"]
         result = tools("search_knowledge_base", args)
         matches = validate(result.get("matches", []))
+        binding = {
+            "policy_id": state.get("return_policy_id"),
+            "return_basis": state.get("return_basis") or "no_reason",
+            "version_ids": sorted(
+                {
+                    r["version_id"]
+                    for r in (state.get("preview") or {}).get("evidence", {}).get("sources", [])
+                }
+            ),
+        }
+        reused = []
+        if reading and state.get("policy_reuse_binding") == binding:
+            # Revalidate original tool evidence against current publication, never assistant text.
+            from fastapi import HTTPException
+
+            try:
+                reused = validate(state.get("policy_reuse_candidates", []))
+            except (HTTPException, ValueError):
+                reused = []
+            reused = [r for r in reused if r["version_id"] in binding["version_ids"]]
+            matches = list({r["id"]: r for r in [*reused, *matches]}.values())
+        result["trace"] = {
+            **result.get("trace", {}),
+            "revalidated_policy_ids": [r["id"] for r in reused],
+            "policy_reuse_excludes_order_and_quality": True,
+        }
+        from workbench.source_reading import search_targets
+
         return {
+            "source_targets": search_targets(matches) if reading else [],
+            "policy_reuse_binding": binding,
+            "policy_reuse_candidates": [],
             "policy_searched": True,
             "evidence": matches,
-            "retrieved_ids": [m["id"] for m in matches],
+            "retrieved_ids": sorted(
+                {m["id"] for m in matches}
+                | {
+                    chunk
+                    for m in matches
+                    if m.get("source_kind") == "source_read"
+                    for chunk in m.get("covered_chunk_ids", [])
+                }
+            ),
             "retrieval": result.get("trace", {}),
             "retrieved_evidence": matches,
             "policy_context": select_policy_context(
@@ -205,21 +347,113 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
             }
         return {"next_step": "gather", "turns": state.get("turns", 0) + 1}
 
+    def read_source(state):
+        if not reading:
+            raise ToolFailure("source_reading_disabled")
+        from workbench.knowledge_schemas import ReadInput
+        from workbench.source_reading import available_targets, next_targets, reading_evidence
+
+        selected = next(
+            (r for r in available_targets(state) if r["id"] == state.get("selected_source_target")),
+            None,
+        )
+        if selected is None:
+            raise ValueError("Read target is no longer permitted")
+        body = ReadInput.model_validate(selected["request"])
+        record = {
+            "target_id": selected["id"],
+            "reason": selected["reason"],
+            "section": selected["section"],
+            "offset": body.offset,
+        }
+        attempted = [*state.get("source_attempted_targets", []), selected["id"]]
+        count = state.get("source_read_count", 0) + 1
+        try:
+            result = tools("read_policy_source", body.model_dump(mode="json"))
+            artifact = validate([reading_evidence(result, body)])[0]
+        except ToolFailure as exc:
+            if exc.code in {"unauthorized", "forbidden", "cancelled"}:
+                raise
+            return {
+                "source_read_count": count,
+                "source_attempted_targets": attempted,
+                "source_history": [
+                    *state.get("source_history", []),
+                    {**record, "status": "failed"},
+                ],
+                "source_targets": [],
+                "source_stop_reason": "read_failed",
+            }
+        retrieved = [*state.get("retrieved_evidence", []), artifact]
+        return {
+            "source_attempted_targets": attempted,
+            "source_read_count": count,
+            "source_read_chars": state.get("source_read_chars", 0) + len(artifact["content"]),
+            "source_history": [
+                *state.get("source_history", []),
+                {
+                    **record,
+                    "status": "read",
+                    "chars": len(artifact["content"]),
+                    "complete": result["complete"],
+                    "next_offset": result["next_offset"],
+                },
+            ],
+            "source_readings": [*state.get("source_readings", []), artifact],
+            "source_targets": next_targets(result, body, state.get("source_targets", [])),
+            "retrieved_ids": sorted(
+                set(state.get("retrieved_ids", [])) | set(artifact["covered_chunk_ids"])
+            ),
+            "retrieved_evidence": retrieved,
+            "policy_context": select_policy_context(
+                retrieved,
+                state["preview"]["evidence"]["clauses"],
+                purpose=state.get("context_purpose", "application"),
+            )["context"],
+        }
+
     def supplement(state):
         preview = state["preview"]
+        clauses = preview["evidence"]["clauses"]
+        if reading:
+            from workbench.source_reading import required_ids
+
+            missing = required_ids(state) - set(state.get("retrieved_ids", []))
+            clauses = [c for c in clauses if c["chunk_id"] in missing] or clauses
         args = {
-            "query": "\n".join(c["quote"] for c in preview["evidence"]["clauses"])[:1200],
+            "query": "\n".join(c["quote"] for c in clauses)[:1200],
             "policy_scope": "returns",
             "strategy": "hybrid_rerank",
             "top_k": 5,
         }
         if scoped:
             args["version_id"] = preview["evidence"]["sources"][0]["version_id"]
-        extra = validate(tools("search_knowledge_base", args).get("matches", []))
+        if reading:
+            args["__source_supplement"] = True
+        try:
+            extra = validate(tools("search_knowledge_base", args).get("matches", []))
+        except ToolFailure as exc:
+            if not reading or exc.code in {"unauthorized", "forbidden", "cancelled"}:
+                raise
+            return {
+                "supplemented": True,
+                "source_search_count": 1,
+                "source_stop_reason": "supplement_failed",
+            }
         retrieved = list(
             {m["id"]: m for m in [*state.get("retrieved_evidence", []), *extra]}.values()
         )
+        from workbench.source_reading import search_targets
+
         return {
+            "source_search_count": state.get("source_search_count", 0) + 1,
+            "source_targets": list(
+                {
+                    r["id"]: r for r in [*state.get("source_targets", []), *search_targets(extra)]
+                }.values()
+            )[:8]
+            if reading
+            else [],
             "supplemented": True,
             "retrieved_ids": sorted(set(state.get("retrieved_ids", [])) | {e["id"] for e in extra}),
             "retrieved_evidence": retrieved,
@@ -340,6 +574,11 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
                 )
         return change
 
+    def complete_for_question(state):
+        from workbench.source_reading import required_ids
+
+        return required_ids(state) <= set(state.get("retrieved_ids", []))
+
     def result_metadata(state):
         preview = state.get("preview") or {}
         required = {e["id"] for e in preview.get("evidence", {}).get("sources", [])}
@@ -351,7 +590,30 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
                 "required_source_ids": sorted(required),
                 "covered_source_ids": sorted(covered),
                 "complete": required <= covered,
-                "supplemental_searches": int(state.get("supplemented", False)),
+                "supplemental_searches": state.get("source_search_count", 0)
+                if reading
+                else int(state.get("supplemented", False)),
+                **(
+                    {
+                        "source_reading": {
+                            "reads": state.get("source_read_count", 0),
+                            "chars": state.get("source_read_chars", 0),
+                            "history": state.get("source_history", []),
+                            "remaining_targets": len(state.get("source_targets", [])),
+                            "stop_reason": state.get("source_stop_reason")
+                            or (
+                                "read_budget_exhausted"
+                                if state.get("source_read_count", 0) >= 2
+                                else "required_sources_covered"
+                                if complete_for_question(state)
+                                else "no_permitted_target"
+                            ),
+                            "question_sources_covered": complete_for_question(state),
+                        }
+                    }
+                    if reading
+                    else {}
+                ),
             },
             "evidence": state.get("retrieved_evidence", [])
             if bound and state.get("context_purpose") == "policy_question"
@@ -398,9 +660,12 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
         "gather": gather,
         "decide": decide,
         "read_order": read_order,
+        "read_policy": read_policy,
+        "read_quality": read_quality,
         "search_policy": search_policy,
         "check_return": check_return,
         "supplement": supplement,
+        "read_source": read_source,
         "ask_condition": ask_condition,
         "review": review,
         "stop": stop,
@@ -433,7 +698,15 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
             "wait_quality", lambda s: END if s["next_step"] == "finish" else "gather"
         )
     graph.add_conditional_edges("decide", lambda s: s["next_step"])
-    for name in ("read_order", "search_policy", "check_return", "supplement"):
+    for name in (
+        "read_order",
+        "read_policy",
+        "read_quality",
+        "search_policy",
+        "check_return",
+        "supplement",
+        "read_source",
+    ):
         graph.add_edge(name, "decide")
     graph.add_conditional_edges(
         "ask_condition", lambda s: END if s["next_step"] == "finish" else "gather"

@@ -1,0 +1,194 @@
+[
+  {
+    "label": "real-001-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-001-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-002-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-002-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-003-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-003-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-004-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-004-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-005-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-005-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-006-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-006-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-007-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-007-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-008-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-008-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-009-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-009-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-010-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-010-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-011-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-011-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-012-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-012-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-013-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-013-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-014-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-014-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-015-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-015-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-016-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-016-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-017-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-017-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-018-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-018-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-019-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-019-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-020-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-020-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-021-A",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-021-B",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-022-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-022-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-023-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-023-B",
+    "arm": "global_hybrid_rerank"
+  },
+  {
+    "label": "real-024-A",
+    "arm": "bound_hybrid_rerank"
+  },
+  {
+    "label": "real-024-B",
+    "arm": "global_hybrid_rerank"
+  }
+]

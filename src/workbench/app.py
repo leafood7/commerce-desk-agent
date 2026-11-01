@@ -578,6 +578,12 @@ def create_app(settings=None, *, gateway=None):
     def run(identifier: str, user=Depends(actor), connection=Depends(session)):
         return run_view(owned_run(connection, user, identifier))
 
+    @application.get("/api/v1/runs/{identifier}/context")
+    def context_status(identifier: str, user=Depends(actor), connection=Depends(session)):
+        record = owned_run(connection, user, identifier)
+        return {"run_id": record.id, "context": (record.output or {}).get("context"),
+                "coverage": "current_run_only_no_private_history_or_summary"}
+
     @application.get("/api/v1/runs/{identifier}/business-status")
     def business_status(identifier: str, user=Depends(actor), connection=Depends(session)):
         record = owned_run(connection, user, identifier)

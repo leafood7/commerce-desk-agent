@@ -10,6 +10,8 @@ from pydantic import (
     model_validator,
 )
 
+from workbench.policy_audience import PolicyAudience
+
 
 class Input(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -48,6 +50,7 @@ class ConversationInput(Input):
 
 
 class RunInput(Input):
+    audience: PolicyAudience | None = None
     kind: Literal["order_lookup", "knowledge_search", "aftersales"] = "order_lookup"
     order_number: str | None = Field(default=None, pattern=r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
     query: str | None = Field(default=None, min_length=1, max_length=1200)
@@ -67,6 +70,8 @@ class RunInput(Input):
 
     @model_validator(mode="after")
     def task_fields(self):
+        if self.audience is not None and self.kind != "knowledge_search":
+            raise ValueError("Explicit audience is supported only for policy search")
         if self.kind == "aftersales":
             if not self.return_policy_id and any(
                 v is not None

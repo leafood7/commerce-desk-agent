@@ -1,0 +1,36 @@
+[
+  {
+    "documents": 50,
+    "sql_chunks": 5000,
+    "vector_chunks": 5000,
+    "increment_chunks": 5000,
+    "increment_index_ms": 292844.4651929749,
+    "rss_max_kib": 1537648,
+    "warm_p50_ms": 3181.602159005706,
+    "warm_p95_ms": 3594.401567999739,
+    "all_probe_hit": true,
+    "duplicate_dedup": true,
+    "snapshot_builds": 7,
+    "original_runner_p95_ms": 3398.0538280011388,
+    "p95_method": "nearest-rank, corrected in derived report; raw artifact not overwritten",
+    "warm_samples": 6,
+    "first_query_ms": 4193.213122009183
+  },
+  {
+    "documents": 100,
+    "sql_chunks": 10000,
+    "vector_chunks": 10000,
+    "increment_chunks": 5000,
+    "increment_index_ms": 264983.89482496714,
+    "rss_max_kib": 1685180,
+    "warm_p50_ms": 3042.716082505649,
+    "warm_p95_ms": 3209.6841290040174,
+    "all_probe_hit": true,
+    "duplicate_dedup": true,
+    "snapshot_builds": 8,
+    "original_runner_p95_ms": 3190.1005169929704,
+    "p95_method": "nearest-rank, corrected in derived report; raw artifact not overwritten",
+    "warm_samples": 6,
+    "first_query_ms": 4806.812308001099
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-01",
+  "type": "author involved; user reviewed selected cases; not independent blind review",
+  "confirmed": [
+    {
+      "case_id": "journey-001",
+      "issue": "information_query_misrouted_to_application_and_unnecessary_condition_question",
+      "confirmed_by_user": true
+    },
+    {
+      "case_id": "journey-006",
+      "arm": "reading",
+      "issue": "main_conclusion_correct_but_extra_policy_details_and_unasked_order_fields",
+      "confirmed_by_user": true
+    }
+  ],
+  "pending": [],
+  "overall_semantic_accuracy": "not established"
+}
