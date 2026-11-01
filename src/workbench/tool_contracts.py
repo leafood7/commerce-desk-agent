@@ -8,7 +8,7 @@ from fastapi import HTTPException
 from pydantic import Field, StrictStr
 
 from workbench.knowledge_models import MCPGrant
-from workbench.knowledge_schemas import SearchInput
+from workbench.knowledge_schemas import ReadInput, SearchInput
 from workbench.models import AuthSession, User, now
 from workbench.quality_schemas import QualityLookup
 from workbench.return_schemas import (
@@ -32,6 +32,10 @@ class OrderArguments(Input):
     order_number: StrictStr = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
 
 
+class ReturnPolicyArguments(Input):
+    policy_id: StrictStr = Field(min_length=1, max_length=36)
+
+
 class ShippingStatusArguments(Input):
     request_id: StrictStr = Field(min_length=1, max_length=36)
 
@@ -43,6 +47,18 @@ class ShippingArguments(OrderArguments):
 
 
 CONTRACTS = {
+    "get_return_policy": (
+        ReturnPolicyArguments,
+        "knowledge:read",
+        "读取本商家当前发布且管理员映射的退货条款，不查订单、不判断资格、不创建申请。",
+        True,
+    ),
+    "read_policy_source": (
+        ReadInput,
+        "knowledge:read",
+        "有界读取本商家当前有效政策章节文本；区分原始解析与审核后人工修订，需检索返回的位置，不判断订单事实。",
+        True,
+    ),
     "get_quality_inspection": (
         QualityLookup,
         "orders:read",

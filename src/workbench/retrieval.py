@@ -45,11 +45,24 @@ class KnowledgeRetriever:
             )
         if version_id:
             statement = statement.where(DocumentVersion.id == version_id)
-        return session.execute(statement).all()
+        from workbench.faq_sources import dependencies_current
 
-    def snapshot(self, organization_id, policy_scope, version_id=None):
+        return [
+            (d, v)
+            for d, v in session.execute(statement).all()
+            if dependencies_current(session, organization_id, v.parse_metadata or {})
+        ]
+
+    def snapshot(self, organization_id, policy_scope, version_id=None, audience=None):
         with self.database.sessions() as session:
             versions = self.active_versions(session, organization_id, policy_scope, version_id)
+            from workbench.policy_audience import audience_filter
+
+            versions, missing = audience_filter(
+                versions, audience, explicit_version=bool(version_id)
+            )
+            if missing:
+                return (), ([], BM25Index([]))
             ids = tuple(sorted(version.id for _, version in versions))
             key = organization_id, policy_scope, ids
             with self.lock:
@@ -71,6 +84,9 @@ class KnowledgeRetriever:
             documents = []
             for row in rows:
                 document, version = metadata[row.version_id]
+                structure = (version.parse_metadata or {}).get("parent_child", {})
+                parent_id = structure.get("children", {}).get(str(row.position))
+                parent = next((p for p in structure.get("parents", []) if p["id"] == parent_id), {})
                 documents.append(
                     {
                         "id": row.id,
@@ -86,6 +102,18 @@ class KnowledgeRetriever:
                         "page_end": row.page_end,
                         "section": row.section,
                         "position": row.position,
+                        "organization_id": organization_id,
+                        "knowledge_kind": (version.parse_metadata or {}).get(
+                            "knowledge_kind", "document"
+                        ),
+                        "faq_sources": (version.parse_metadata or {}).get("faq_sources", []),
+                        "parent_links": parent.get("links", []),
+                        "unresolved_articles": parent.get("unresolved_articles", []),
+                        "audience": (version.parse_metadata or {}).get("audience", {}),
+                        "parent_id": (version.parse_metadata or {})
+                        .get("parent_child", {})
+                        .get("children", {})
+                        .get(str(row.position)),
                     }
                 )
             cached = documents, BM25Index(documents)
@@ -98,8 +126,26 @@ class KnowledgeRetriever:
 
     def search(self, organization_id, request):
         start = perf_counter()
+        from workbench.policy_audience import audience_filter
+
+        with self.database.sessions() as session:
+            _, missing = audience_filter(
+                self.active_versions(
+                    session, organization_id, request.policy_scope, request.version_id
+                ),
+                request.audience,
+                explicit_version=bool(request.version_id),
+            )
+        if missing:
+            return {
+                "status": "no_evidence",
+                "matches": [],
+                "coverage": "needs_scope",
+                "clarification": {"missing": missing, "source": "explicit_conditions_required"},
+                "trace": {"strategy": request.strategy, "version_ids": []},
+            }
         version_ids, (documents, sparse_index) = self.snapshot(
-            organization_id, request.policy_scope, request.version_id
+            organization_id, request.policy_scope, request.version_id, request.audience
         )
         if not version_ids:
             return {
@@ -137,7 +183,13 @@ class KnowledgeRetriever:
                 anchors.append(candidate)
                 total_chars += len(candidate["content"])
         reference_trace = None
-        if self.settings.retrieval_context_mode == "references":
+        if self.settings.retrieval_context_mode == "parent_child":
+            from workbench.parent_context import expand_parents
+
+            selected, reference_trace = expand_parents(
+                anchors, documents, self.settings.context_chars
+            )
+        elif self.settings.retrieval_context_mode == "references":
             expanded = expand_references(anchors, documents, self.settings.context_chars)
             selected, reference_trace = expanded["matches"], expanded["trace"]
         else:
@@ -149,12 +201,14 @@ class KnowledgeRetriever:
             )
         # A new transaction avoids returning an old publication snapshot after inference.
         with self.database.sessions() as session:
-            current = {
-                version.id
-                for _, version in self.active_versions(
+            current_versions, missing = audience_filter(
+                self.active_versions(
                     session, organization_id, request.policy_scope, request.version_id
-                )
-            }
+                ),
+                request.audience,
+                explicit_version=bool(request.version_id),
+            )
+            current = set() if missing else {version.id for _, version in current_versions}
         selected = [row for row in selected if row["version_id"] in current]
         return {
             "status": "found" if selected else "no_evidence",

@@ -1,0 +1,104 @@
+{
+  "source_type": "limited original merchant excerpts; no model summaries",
+  "records": [
+    {
+      "id": "apple-online",
+      "url": "https://www.apple.com.cn/shop/help/returns_refund",
+      "audience": {
+        "merchant": "Apple",
+        "region": "中国大陆",
+        "channel": "官网"
+      },
+      "status": "bounded_original_excerpt",
+      "file": "apple-online.txt",
+      "source_html_sha256": "728a4b3f9140a5b1ec2dbfcd622b8392b1a55fb72a4bbc9dfad03ed4669e688c",
+      "sha256": "d13c5296e9942fa64f2418138e026b0c252d8606edd4f63269010ce8a17d847c",
+      "text_offset": [
+        1144,
+        1424
+      ],
+      "marker": "14 天",
+      "source_chars": 5637,
+      "excerpt_chars": 280,
+      "coverage": "partial excerpt, not complete policy",
+      "effective_date": "unknown",
+      "checked_date": "2026-11-01"
+    },
+    {
+      "id": "apple-retail",
+      "url": "https://www.apple.com/legal/sales-support/sales-policies/retail_cn.html",
+      "audience": {
+        "merchant": "Apple",
+        "region": "中国大陆",
+        "channel": "零售店"
+      },
+      "status": "bounded_original_excerpt",
+      "file": "apple-retail.txt",
+      "source_html_sha256": "4edb80c749cba3e2fc4a9eccd46693f483fe64bcfb0a25fef5d03007dfda1b49",
+      "sha256": "3613170d3d1926664b612faf048d2a19dc2a746fc22f82a7c475a841f1bf76a6",
+      "text_offset": [
+        616,
+        896
+      ],
+      "marker": "软件",
+      "source_chars": 4718,
+      "excerpt_chars": 280,
+      "coverage": "partial excerpt, not complete policy",
+      "effective_date": "unknown",
+      "checked_date": "2026-11-01"
+    },
+    {
+      "id": "ikea-mainland",
+      "url": "https://www.ikea.cn/cn/zh/customer-service/returns-claims/",
+      "audience": {
+        "merchant": "宜家",
+        "region": "中国大陆",
+        "channel": "官网"
+      },
+      "status": "bounded_original_excerpt",
+      "file": "ikea-mainland.txt",
+      "source_html_sha256": "af26fd6ea0983bd04a1f0ce5a6b87be5b0dc00f36773581ebec477e172bc8a0b",
+      "sha256": "0025b0f113266b8b0315e02fc46cfb2e434e3dbb8f9153c6d27ad32d85b6f36e",
+      "text_offset": [
+        306,
+        586
+      ],
+      "marker": "365",
+      "source_chars": 1071,
+      "excerpt_chars": 280,
+      "coverage": "partial excerpt, not complete policy",
+      "effective_date": "unknown",
+      "checked_date": "2026-11-01"
+    },
+    {
+      "id": "decathlon-us",
+      "url": "https://www.decathlon.com/policies/refund-policy",
+      "audience": {
+        "merchant": "Decathlon",
+        "region": "美国",
+        "channel": "官网"
+      },
+      "status": "bounded_original_excerpt",
+      "file": "decathlon-us.txt",
+      "source_html_sha256": "293d90db647070adac3e50883f374873838c9719b003196af2392f9f09f73e12",
+      "sha256": "2cc3a3674f56a5820767a04e664148368e8bf4976940515296e330c0043b0531",
+      "text_offset": [
+        2959,
+        3239
+      ],
+      "marker": "30 days",
+      "source_chars": 7115,
+      "excerpt_chars": 280,
+      "coverage": "partial excerpt, not complete policy",
+      "effective_date": "unknown",
+      "checked_date": "2026-11-01"
+    }
+  ],
+  "semantic_test_ready": false,
+  "limits": [
+    "marker selects location only; human policy coverage review pending",
+    "not complete policy ingestion",
+    "do not publish as full refund policy or auto eligibility rules",
+    "failed sources retained, never fabricated"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "posthoc_oracle_assisted_not_main_score": true,
+  "case14_condition_offset": 4653,
+  "case14_first_two_allowed_windows_have_condition": false,
+  "case11_prior_actual_search_sources_still_validate": 5,
+  "case11_current_same_version": true,
+  "case14_targeted_gold_quote_search_finds_condition": true
+}

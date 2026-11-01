@@ -1,0 +1,285 @@
+{
+  "policy": {
+    "scope": "本演示条款仅适用于本店商品 {sku}，其他商品和其他商家不适用。",
+    "window": "本店无理由退回窗口为实际签收后的9天，预计到达不能替代实际签收。",
+    "condition": "无理由分支要求商品未使用；包装已打开本身不等于已经使用。",
+    "quality_window": "质量问题分支为实际签收后的27天，不延长无理由分支的9天窗口。",
+    "quality_condition": "质量问题分支允许已使用商品，但须独立处理员确认同商品行同数量确有缺陷；照片和用户描述均不能直接替代该确认。"
+  },
+  "cases": [
+    {
+      "id": "journey-001",
+      "family": "scope",
+      "question": "先讲讲这份店铺退回办法管哪些货，暂时别替我提交工单。",
+      "task": "information",
+      "needed": [
+        "scope"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-002",
+      "family": "scope",
+      "question": "我只想了解这份规则的适用商品范围，不办理退货。",
+      "task": "information",
+      "needed": [
+        "scope"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-003",
+      "family": "deadline",
+      "question": "退回的最晚时点怎么算？先解释规则，别给我建单。",
+      "task": "information",
+      "needed": [
+        "window"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-004",
+      "family": "deadline",
+      "question": "只需要知道签收后的退货期限；商品有没有用过与这个规则问题无关。",
+      "task": "information",
+      "needed": [
+        "window"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-005",
+      "family": "photo_rule",
+      "question": "买家拍到裂纹，就能直接算店铺确认了质量问题吗？先解释，别替我申请。",
+      "task": "information",
+      "needed": [
+        "quality_condition"
+      ],
+      "condition": "used",
+      "signed_days": 3,
+      "basis": "quality_issue",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-006",
+      "family": "photo_rule",
+      "question": "只想问规则：缺陷必须由谁确认，照片能否代替？不要提交退货。",
+      "task": "information",
+      "needed": [
+        "quality_condition"
+      ],
+      "condition": "used",
+      "signed_days": 3,
+      "basis": "quality_issue",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-007",
+      "family": "apply_condition",
+      "question": "请为这台研磨器核对退回申请，我还没向买家确认是否实际使用。",
+      "task": "application",
+      "needed": [
+        "scope",
+        "window",
+        "condition"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "one_long",
+      "expected_status": "awaiting_input",
+      "expected_ask": true,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-008",
+      "family": "apply_condition",
+      "question": "买家明确说没使用过，请核对店铺无理由退回申请，等我确认后再提交。",
+      "task": "application",
+      "needed": [
+        "scope",
+        "window",
+        "condition"
+      ],
+      "condition": "unused",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "one_long",
+      "expected_status": "awaiting_confirmation",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-009",
+      "family": "quality_apply",
+      "question": "已用过的测量仪在第十二天发现故障，独立处理员尚未登记结论，请核对质量问题申请。",
+      "task": "application",
+      "needed": [
+        "scope",
+        "quality_window",
+        "quality_condition"
+      ],
+      "condition": "used",
+      "signed_days": 12,
+      "basis": "quality_issue",
+      "layout": "one_long",
+      "expected_status": "awaiting_input",
+      "expected_ask": false,
+      "expected_boundary": false,
+      "expected_pause": "quality_wait"
+    },
+    {
+      "id": "journey-010",
+      "family": "quality_apply",
+      "question": "测量仪签收十二天、已使用，同商品行数量的缺陷已有独立演示记录，请核对质量问题退回。",
+      "task": "application",
+      "needed": [
+        "scope",
+        "quality_window",
+        "quality_condition"
+      ],
+      "condition": "used",
+      "signed_days": 12,
+      "basis": "quality_issue",
+      "layout": "one_long",
+      "expected_status": "awaiting_confirmation",
+      "expected_ask": false,
+      "expected_boundary": false,
+      "quality": "defect_confirmed"
+    },
+    {
+      "id": "journey-011",
+      "family": "correction",
+      "question": "先核对一件未使用茶具的退回申请，预览后我会核对数量。",
+      "task": "application",
+      "needed": [
+        "scope",
+        "window",
+        "condition"
+      ],
+      "condition": "unused",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "one_long",
+      "expected_status": "awaiting_confirmation",
+      "expected_ask": false,
+      "expected_boundary": false,
+      "continuation": {
+        "return_quantity": 2
+      },
+      "continuation_expect": "awaiting_confirmation"
+    },
+    {
+      "id": "journey-012",
+      "family": "correction",
+      "question": "买家最初说未使用，先核对退回申请，稍后我会更正商品状态。",
+      "task": "application",
+      "needed": [
+        "scope",
+        "window",
+        "condition"
+      ],
+      "condition": "unused",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "one_long",
+      "expected_status": "awaiting_confirmation",
+      "expected_ask": false,
+      "expected_boundary": false,
+      "continuation": {
+        "return_condition": "used"
+      },
+      "continuation_expect": "completed"
+    },
+    {
+      "id": "journey-013",
+      "family": "long_exception",
+      "question": "只想知道未使用要求是否把仅拆外盒也排除，请把这条规定讲完整，不办理。",
+      "task": "information",
+      "needed": [
+        "condition"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "late_reachable",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-014",
+      "family": "long_exception",
+      "question": "我只问这章末尾对商品状态的限制，暂不申请；资料读不全就明确说明。",
+      "task": "information",
+      "needed": [
+        "condition"
+      ],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "late_unreachable",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": true
+    },
+    {
+      "id": "journey-015",
+      "family": "missing_field",
+      "question": "只查这笔订单的实际签收字段。没有值就直说，不用核对能否退货。",
+      "task": "information",
+      "needed": [],
+      "condition": "unknown",
+      "signed_days": null,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    },
+    {
+      "id": "journey-016",
+      "family": "missing_field",
+      "question": "我只需要知道银行实际到账记录，不要求退货资格结论，也不申请。",
+      "task": "information",
+      "needed": [],
+      "condition": "unknown",
+      "signed_days": 3,
+      "basis": "no_reason",
+      "layout": "sections",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false
+    }
+  ]
+}

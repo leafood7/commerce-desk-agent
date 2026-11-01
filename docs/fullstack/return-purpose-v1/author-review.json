@@ -1,0 +1,14 @@
+{
+  "type": "作者参与复核",
+  "cases": [
+    {
+      "id": "purpose-004",
+      "status": "user_confirmed",
+      "finding": "规则说明有依据，但附加办理才需要核实的商品使用、缺陷及质检条件。",
+      "user_answer": "是，记录多余核实条件",
+      "review_was_missed_by_model": true
+    }
+  ],
+  "other_cases": "001至003仅作者初步核对，不标为用户确认或独立盲审",
+  "repair_validation": "补充程序硬约束及公开输出隔离测试；该约束后的自然模型回答未重测，不用改分覆盖原始结果。"
+}

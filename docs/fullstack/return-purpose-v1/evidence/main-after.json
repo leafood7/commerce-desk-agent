@@ -1,0 +1,22 @@
+{
+  "code": {
+    "api": {
+      "files": 63,
+      "matches": true
+    },
+    "mcp": {
+      "files": 63,
+      "matches": true
+    },
+    "worker": {
+      "files": 63,
+      "matches": true
+    },
+    "run-worker": {
+      "files": 63,
+      "matches": true
+    }
+  },
+  "requests": "3",
+  "tables": "34"
+}

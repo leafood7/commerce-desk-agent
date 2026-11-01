@@ -20,6 +20,7 @@ class Block:
     text: str
     page: int | None = None
     section: str = ""
+    table_header: str | None = None
 
 
 def validate_container(path: Path, extension: str):
@@ -111,13 +112,19 @@ def parse_document(path: Path, extension: str):
             blocks, section = [], ""
             for child in body if body is not None else []:
                 if child.tag.endswith("}tbl"):
+                    table_header = None
                     for row in child.findall("w:tr", namespace):
                         cells = [
                             " ".join(node.text or "" for node in cell.findall(".//w:t", namespace))
                             for cell in row.findall("w:tc", namespace)
                         ]
                         if any(cells):
-                            blocks.append(Block(" | ".join(cells), section=section))
+                            row_text = " | ".join(cells)
+                            blocks.append(
+                                Block(row_text, section=section, table_header=table_header)
+                            )
+                            if table_header is None:
+                                table_header = row_text
                 else:
                     text = "".join(node.text or "" for node in child.findall(".//w:t", namespace))
                     style = child.find("w:pPr/w:pStyle", namespace)

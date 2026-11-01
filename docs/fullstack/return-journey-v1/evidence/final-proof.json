@@ -1,0 +1,24 @@
+{
+  "production_files_unchanged": true,
+  "primary_cases_unchanged": true,
+  "frozen_protocol_unchanged": true,
+  "api": {
+    "modules": 62,
+    "matches_frozen": true
+  },
+  "mcp": {
+    "modules": 62,
+    "matches_frozen": true
+  },
+  "worker": {
+    "modules": 62,
+    "matches_frozen": true
+  },
+  "run-worker": {
+    "modules": 62,
+    "matches_frozen": true
+  },
+  "main_return_requests": 3,
+  "audit_return_requests": 0,
+  "owned_audit_container_stopped": true
+}

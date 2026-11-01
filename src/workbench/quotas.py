@@ -90,7 +90,17 @@ def ensure_usage(session, run, settings, *, legacy=True):
         model_observed_tokens=known or 0,
         unknown_model_attempts=int(model is not None and known is None),
         max_tools=settings.run_tool_limit,
-        max_model_attempts=settings.return_model_limit if return_model else 1,
+        max_model_attempts=max(
+            1,
+            (settings.return_model_limit if return_model else 1 if run.kind == "aftersales" else 0)
+            + (
+                2
+                if profile and profile.values.get("policy_answer_mode") == "reviewed"
+                else 1
+                if profile and profile.values.get("policy_answer_mode") == "contract"
+                else 0
+            ),
+        ),
         max_model_tokens=settings.run_model_token_limit,
         legacy_estimate=legacy,
     )

@@ -1,0 +1,25 @@
+{
+  "kind": "same parsed synthetic documents, fixed first anchor; assembly only",
+  "cases": 4,
+  "records": 12,
+  "modes": {
+    "neighbors": {
+      "exception_present": 1,
+      "records": 4
+    },
+    "section": {
+      "exception_present": 1,
+      "records": 4
+    },
+    "parent_child": {
+      "exception_present": 3,
+      "records": 4
+    }
+  },
+  "limitations": [
+    "not retrieval or answer accuracy",
+    "cross-section references not resolved",
+    "small budget still incomplete",
+    "no paid calls"
+  ]
+}

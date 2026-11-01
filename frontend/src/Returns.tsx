@@ -115,9 +115,14 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
         {["awaiting_input","awaiting_confirmation","awaiting_approval","interrupted"].includes(flow.status)&&<button disabled={busy} onClick={()=>act(async()=>{watcher.current?.abort();setFlow(await api(`/runs/${flow.id}/cancel`,token,{}));})}>停止本次退货跟进</button>}
         {proposed?.return_item_id&&<dl><dt>退货分支</dt><dd>{bases[proposed.return_basis||"no_reason"]}</dd><dt>核对订单</dt><dd>{proposed.order_number}</dd><dt>申请数量</dt><dd>{proposed.return_quantity}</dd><dt>退货原因</dt><dd>{proposed.reason}</dd><dt>商品状态</dt><dd>{conditions[proposed.return_condition]||"未核实"}</dd><dt>商品金额参考值</dt><dd>{(proposed.goods_value_cents/100).toFixed(2)}，实际退款金额未确认</dd></dl>}
         <ContextCard context={flow.output?.context}/>
-      {flow.output?.policy_context?.map((e:any)=><blockquote key={"bound-"+e.id}>{flow.output.context_purpose==="policy_question"?"只读查询检索原文：":"当前分支绑定原文："}{e.content}</blockquote>)}{flow.output?.evidence?.map((e:any)=><blockquote key={e.id}>{e.content}<small>{e.title} · 版本 {e.version}</small></blockquote>)}
+      {flow.output?.policy_context?.map((e:any)=><blockquote key={"bound-"+e.id}>{flow.output.context_purpose==="policy_question"?"只读查询检索原文：":"当前分支绑定原文："}{e.content}</blockquote>)}{flow.output?.evidence?.map((e:any)=><blockquote key={e.id}>{e.content}<small>{e.title} · 版本 {e.version}{e.text_origin==="human_corrected_parse"?" · 人工修订解析":""}</small></blockquote>)}
         <details><summary>退货工具执行步骤</summary><ol>{steps.map(s=><li key={s.id}>{s.type}{s.payload?.name?" · "+s.payload.name:""}</li>)}</ol></details>
-        {!!flow.output?.decisions?.length&&<details><summary>实际退货动作决策</summary><ol>{flow.output.decisions.map((d:any,i:number)=><li key={i}>{({read_order:"读取订单",search_policy:"检索政策",check_return:"核对退货条件",supplement:"补充检索",ask_condition:"询问商品状态",review:"交还程序生成预览",stop:"说明当前边界"} as Record<string,string>)[d.action]||d.action} · {d.mode==="model"?"模型建议已通过校验":d.mode==="rules"?"规则选择":d.mode==="fixed_action"?"唯一合法动作，不调用模型":"已回退规则"}</li>)}</ol></details>}
+        {flow.output?.source_investigation&&<details><summary>原文补查记录</summary>
+          <p>补读 {flow.output.source_investigation.reads}/2 次 · 阅读 {flow.output.source_investigation.chars}/4000 字符 · 补检 {flow.output.source_investigation.supplemental_searches}/1 次</p>
+          <ol>{flow.output.source_investigation.history.map((r:any,i:number)=><li key={i}>{r.section||"原文章节"} · {r.status==="read"?`已读${r.chars}字符${r.next_offset!==null?"，仍有后文":""}`:"读取未完成"}</li>)}</ol>
+          <p>阅读原文不代表订单事实已确认，申请仍需核对和独立审批。</p>
+        </details>}
+        {!!flow.output?.decisions?.length&&<details><summary>实际退货动作决策</summary><ol>{flow.output.decisions.map((d:any,i:number)=><li key={i}>{({read_source:"按需阅读原文",read_order:"读取订单",search_policy:"检索政策",check_return:"核对退货条件",supplement:"补充检索",ask_condition:"询问商品状态",review:"交还程序生成预览",stop:"说明当前边界"} as Record<string,string>)[d.action]||d.action} · {d.mode==="model"?"模型建议已通过校验":d.mode==="rules"?"规则选择":d.mode==="fixed_action"?"唯一合法动作，不调用模型":"已回退规则"}</li>)}</ol></details>}
       </>}
     </article>}
     {role==="admin"&&<details><summary>登记人工核对的退货规则</summary><p>先在知识库发布退货政策。选择原文并核对适用商品、期限和商品状态；系统校验来源，规则含义由管理员负责确认。</p>

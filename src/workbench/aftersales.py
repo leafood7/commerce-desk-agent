@@ -170,6 +170,16 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
 
         write = not CONTRACTS[name][3]
         arguments = dict(arguments)
+        supplementary = arguments.pop("__source_supplement", False)
+        if profile.get("return_source_reading") and (name == "read_policy_source" or supplementary):
+            from workbench.source_reading import reserve_source_io
+
+            reserve_source_io(
+                database,
+                run_id,
+                "reads" if name == "read_policy_source" else "supplements",
+                ensure_actor,
+            )
         if name in {"request_shipping", "create_return_draft"}:
             arguments["idempotency_key"] = "aftersales:" + run_id
 
@@ -203,7 +213,17 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
         result = jsonable_encoder(
             asyncio.run(
                 call_bounded(
-                    gateway, name, arguments, token, limits, database.settings, on_retry, on_attempt
+                    gateway,
+                    name,
+                    arguments,
+                    token,
+                    limits,
+                    database.settings.model_copy(update={"mcp_read_retries": 0})
+                    if profile.get("return_source_reading")
+                    and name in {"read_policy_source", "search_knowledge_base"}
+                    else database.settings,
+                    on_retry,
+                    on_attempt,
                 )
             )
         )
@@ -346,6 +366,59 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
         from workbench.context_management import build_frame
 
         context_frame = build_frame(database, run_id, state, run_settings)
+        gate_result = None
+        policy_question = (
+            state.get("intent") == "knowledge" or state.get("context_purpose") == "policy_question"
+        )
+        if (
+            policy_question
+            and (state.get("task_frame") or {}).get("purpose") != "facts"
+            and not pending
+            and not state.get("request")
+            and not state.get("proposal")
+            and run_settings.policy_answer_mode != "excerpts"
+        ):
+            from workbench.answer_contract import question_context
+            from workbench.answer_gate import produce_answer
+            from workbench.tool_contracts import verify_grant
+
+            def gate_guard():
+                with database.sessions() as connection:
+                    record = connection.get(Run, run_id)
+                    ensure_actor(connection, record)
+                    if record.status != "running":
+                        raise ToolFailure("cancelled")
+                    user, _ = verify_grant(connection, token, run_settings)
+                    if user.id != record.owner_id:
+                        raise ToolFailure("forbidden")
+
+            gate_guard()
+            with database.sessions() as connection:
+                record = connection.get(Run, run_id)
+                checked = validated_evidence(
+                    connection, ensure_actor(connection, record), state.get("evidence", [])
+                )
+            context = question_context(
+                state.get("query", ""),
+                checked,
+                order=state.get("order"),
+                retrieval=state.get("retrieval", {}),
+                policy_only=bool(state.get("return_policy_id"))
+                and (state.get("task_frame") or {}).get("purpose") == "policy",
+                latest={
+                    k: state.get(k) for k in ("return_basis", "return_condition", "return_quantity")
+                },
+            )
+
+            def progress(phase):
+                gate_guard()
+                with database.sessions() as connection:
+                    event(connection, connection.get(Run, run_id), "answer.check", phase=phase)
+                    connection.commit()
+
+            gate_result = produce_answer(
+                database, run_id, run_settings, context, limits, gate_guard, progress
+            )
         with database.sessions() as session:
             run = session.scalar(select(Run).where(Run.id == run_id).with_for_update())
             if run.status != "running":
@@ -367,8 +440,19 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                         session, ensure_actor(session, run), state.get("evidence", [])
                     )
                 except HTTPException:
-                    if not state.get("request"):
+                    if not state.get("request") and gate_result is None:
                         raise
+                    if gate_result is not None:
+                        from workbench.answer_contract import SAFE_ANSWER
+
+                        gate_result = {
+                            "answer": SAFE_ANSWER,
+                            "answer_gate": {
+                                "mode": run_settings.policy_answer_mode,
+                                "status": "evidence_changed",
+                                "codes": [],
+                            },
+                        }
                     evidence = []
                     warnings = ["先前政策来源已变化，已移除引用；办理状态来自实际业务记录。"]
                 public = {
@@ -381,6 +465,25 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                     "retrieval": state.get("retrieval", {}),
                 }
                 status = state.get("terminal", "completed")
+            if gate_result is not None:
+                from workbench.tool_contracts import verify_grant
+
+                current_actor, _ = verify_grant(session, token, run_settings)
+                if current_actor.id != run.owner_id:
+                    raise ToolFailure("forbidden")
+                fresh, _, _ = effective_settings(database, run_id)
+                if fresh.policy_answer_mode != run_settings.policy_answer_mode:
+                    from workbench.answer_contract import SAFE_ANSWER
+
+                    gate_result = {
+                        "answer": SAFE_ANSWER,
+                        "answer_gate": {
+                            "mode": run_settings.policy_answer_mode,
+                            "status": "configuration_changed",
+                            "codes": [],
+                        },
+                    }
+                public.update(gate_result)
             public["answer"] = render_answer(public["answer"], profile)
             public.setdefault("retrieval", state.get("retrieval", {}))
             if profile.get("return_retrieval_mode") == "clause_bound" and not public.get(
@@ -406,7 +509,36 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                 public["business_checks"] = {
                     key: preview.get(key) for key in ("eligibility", "missing", "blocked")
                 }
-                public["answer"] += render_fact_checks(assessment)
+                public["task_frame"] = state.get("task_frame")
+                if (state.get("task_frame") or {}).get("purpose") == "facts" and not pending:
+                    public["answer"] = render_fact_checks(assessment).removeprefix("\n同时核对：")
+                    # Public tool details follow the requested fields as well as the answer text.
+                    fields = {row["field"] for row in assessment["items"]}
+                    public["order"] = {
+                        k: v for k, v in (state.get("order") or {}).items() if k in fields
+                    }
+                elif gate_result is None:
+                    public["answer"] += render_fact_checks(assessment)
+            if profile.get("return_source_reading"):
+                public["source_investigation"] = {
+                    "reads": max(
+                        state.get("source_read_count", 0),
+                        (
+                            session.get(FlowAction, (run_id, "__source_budget__")).body.get(
+                                "reads", 0
+                            )
+                            if session.get(FlowAction, (run_id, "__source_budget__"))
+                            else 0
+                        ),
+                    ),
+                    "max_reads": 2,
+                    "chars": state.get("source_read_chars", 0),
+                    "max_chars": 4000,
+                    "supplemental_searches": state.get("source_search_count", 0),
+                    "max_supplemental_searches": 1,
+                    "history": state.get("source_history", []),
+                    "stop_reason": state.get("source_stop_reason"),
+                }
             public["context"] = context_frame["public"]
             public["profile_guard"] = profile_guard
             public["execution"] = {"tool_attempts": limits.attempts}
@@ -460,6 +592,17 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                     "write_in_flight": bool(uncertain),
                     "engine": "langgraph",
                 }
+                # A failed correction must not leave a stale policy preview actionable.
+                try:
+                    validated_evidence(
+                        session, ensure_actor(session, run), run.output.get("evidence", [])
+                    )
+                except HTTPException:
+                    clean = dict(run.output)
+                    for field in ("evidence", "policy_context", "proposal", "preview", "pause_id"):
+                        clean.pop(field, None)
+                    clean["warnings"] = ["政策来源已变化，旧预览与引用已移除；实际办理记录仍保留。"]
+                    run.output = clean
                 if code == "run_tool_quota":
                     run.output["answer"] = (
                         "本流程累计工具额度已用完；已保存的办理记录仍保留。请直接查询实际申请或联系人工核实，勿重复申请。"

@@ -1,0 +1,95 @@
+{
+  "policy": {
+    "scope": "本演示条款仅适用于本店商品 {sku}，其他商品和其他商家不适用。",
+    "window": "本店无理由退回窗口为实际签收后的9天，预计到达不能替代实际签收。",
+    "condition": "无理由分支要求商品未使用；包装已打开本身不等于已经使用。",
+    "quality_window": "质量问题分支为实际签收后的27天，不延长无理由分支的9天窗口。",
+    "quality_condition": "质量问题分支允许已使用商品，但须独立处理员确认同商品行同数量确有缺陷；照片和用户描述均不能直接替代该确认。",
+    "quality_proof": "独立缺陷记录必须对应当前订单、当前商品行和申请数量，并且仍然有效；其他商品或数量的历史记录不适用。"
+  },
+  "cases": [
+    {
+      "family": "read_decision_coverage",
+      "task": "application",
+      "needed": [
+        "scope",
+        "quality_window",
+        "quality_condition",
+        "quality_proof"
+      ],
+      "condition": "used",
+      "signed_days": 12,
+      "basis": "quality_issue",
+      "layout": "spread_four",
+      "expected_status": "awaiting_confirmation",
+      "expected_ask": false,
+      "expected_boundary": false,
+      "quality": "defect_confirmed",
+      "id": "explore-read-001",
+      "question": "请打开完整章节，核对这台烘焙仪的质量问题退回申请，审批前停在预览。"
+    },
+    {
+      "family": "read_decision_coverage",
+      "task": "application",
+      "needed": [
+        "scope",
+        "quality_window",
+        "quality_condition",
+        "quality_proof"
+      ],
+      "condition": "used",
+      "signed_days": 12,
+      "basis": "quality_issue",
+      "layout": "spread_four",
+      "expected_status": "awaiting_input",
+      "expected_ask": false,
+      "expected_boundary": false,
+      "quality": null,
+      "id": "explore-read-002",
+      "question": "这台烘焙仪已使用，请核对质量问题申请，需要的独立缺陷记录还没有登记。",
+      "expected_pause": "quality_wait"
+    },
+    {
+      "family": "read_decision_coverage",
+      "task": "information",
+      "needed": [
+        "quality_window"
+      ],
+      "condition": "used",
+      "signed_days": 12,
+      "basis": "quality_issue",
+      "layout": "spread_four",
+      "expected_status": "completed",
+      "expected_ask": false,
+      "expected_boundary": false,
+      "quality": "defect_confirmed",
+      "id": "explore-read-003",
+      "question": "我只想知道这份质量条款的办理天数，不问订单资格，也不办理退回。"
+    },
+    {
+      "family": "read_decision_coverage",
+      "task": "application",
+      "needed": [
+        "scope",
+        "quality_window",
+        "quality_condition",
+        "quality_proof"
+      ],
+      "condition": "used",
+      "signed_days": 12,
+      "basis": "quality_issue",
+      "layout": "spread_four",
+      "expected_status": "awaiting_confirmation",
+      "expected_ask": false,
+      "expected_boundary": false,
+      "quality": "defect_confirmed",
+      "id": "explore-read-004",
+      "question": "请读全本店条款再核对一件烘焙仪的质量问题退回，预览后我会更正数量。",
+      "continuation": {
+        "return_quantity": 2
+      },
+      "continuation_expect": "awaiting_input",
+      "expected_pause": "quality_wait"
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "scorer_version": 2,
+  "reason": "current turn evidence only after correction; original scores preserved",
+  "scorer_sha256": "6723fca6223bcd51fc3e19dc95a51367cf90c96e96513bdde2db394d2fb7e158",
+  "arms": {
+    "baseline": {
+      "runs": 4,
+      "target_achieved": 3,
+      "question_evidence_complete": 4,
+      "unnecessary_pause": 0,
+      "wrong_application_preview": 0,
+      "unnecessary_reads": 0,
+      "repeated_windows": 0
+    },
+    "reading": {
+      "runs": 4,
+      "target_achieved": 3,
+      "question_evidence_complete": 4,
+      "unnecessary_pause": 0,
+      "wrong_application_preview": 0,
+      "unnecessary_reads": 2,
+      "repeated_windows": 1
+    }
+  },
+  "rows": [
+    {
+      "case_id": "explore-read-001",
+      "arm": "baseline",
+      "score": {
+        "scorer_version": 2,
+        "ever_seen_quotes": 4,
+        "necessary_quotes": 4,
+        "covered_quotes": 4,
+        "missing_quotes": [],
+        "question_evidence_complete": true,
+        "unnecessary_reads": [],
+        "noncontributing_read_calls": 0,
+        "repeated_windows": 0,
+        "unnecessary_pause": false,
+        "wrong_application_preview": false,
+        "target_state_reached": true,
+        "answer_published_or_fact_rendered": true,
+        "target_achieved": true,
+        "semantic_answer_review": "author_pending",
+        "reachable_missed_read": false,
+        "gate_status": null,
+        "pause_kind": null
+      }
+    },
+    {
+      "case_id": "explore-read-001",
+      "arm": "reading",
+      "score": {
+        "scorer_version": 2,
+        "ever_seen_quotes": 4,
+        "necessary_quotes": 4,
+        "covered_quotes": 4,
+        "missing_quotes": [],
+        "question_evidence_complete": true,
+        "unnecessary_reads": [],
+        "noncontributing_read_calls": 0,
+        "repeated_windows": 0,
+        "unnecessary_pause": false,
+        "wrong_application_preview": false,
+        "target_state_reached": true,
+        "answer_published_or_fact_rendered": true,
+        "target_achieved": true,
+        "semantic_answer_review": "author_pending",
+        "reachable_missed_read": false,
+        "gate_status": null,
+        "pause_kind": null
+      }
+    },
+    {
+      "case_id": "explore-read-002",
+      "arm": "reading",
+      "score": {
+        "scorer_version": 2,
+        "ever_seen_quotes": 4,
+        "necessary_quotes": 4,
+        "covered_quotes": 4,
+        "missing_quotes": [],
+        "question_evidence_complete": true,
+        "unnecessary_reads": [],
+        "noncontributing_read_calls": 0,
+        "repeated_windows": 0,
+        "unnecessary_pause": false,
+        "wrong_application_preview": false,
+        "target_state_reached": true,
+        "answer_published_or_fact_rendered": true,
+        "target_achieved": true,
+        "semantic_answer_review": "author_pending",
+        "reachable_missed_read": false,
+        "gate_status": null,
+        "pause_kind": "quality_wait"
+      }
+    },
+    {
+      "case_id": "explore-read-002",
+      "arm": "baseline",
+      "score": {
+        "scorer_version": 2,
+        "ever_seen_quotes": 4,
+        "necessary_quotes": 4,
+        "covered_quotes": 4,
+        "missing_quotes": [],
+        "question_evidence_complete": true,
+        "unnecessary_reads": [],
+        "noncontributing_read_calls": 0,
+        "repeated_windows": 0,
+        "unnecessary_pause": false,
+        "wrong_application_preview": false,
+        "target_state_reached": true,
+        "answer_published_or_fact_rendered": true,
+        "target_achieved": true,
+        "semantic_answer_review": "author_pending",
+        "reachable_missed_read": false,
+        "gate_status": null,
+        "pause_kind": "quality_wait"
+      }
+    },
+    {
+      "case_id": "explore-read-003",
+      "arm": "baseline",
+      "score": {
+        "scorer_version": 2,
+        "ever_seen_quotes": 1,
+        "necessary_quotes": 1,
+        "covered_quotes": 1,
+        "missing_quotes": [],
+        "question_evidence_complete": true,
+        "unnecessary_reads": [],
+        "noncontributing_read_calls": 0,
+        "repeated_windows": 0,
+        "unnecessary_pause": false,
+        "wrong_application_preview": false,
+        "target_state_reached": true,
+        "answer_published_or_fact_rendered": false,
+        "target_achieved": false,
+        "semantic_answer_review": "author_pending",
+        "reachable_missed_read": false,
+        "gate_status": "unavailable",
+        "pause_kind": null
+      }
+    },
+    {
+      "case_id": "explore-read-003",
+      "arm": "reading",
+      "score": {
+        "scorer_version": 2,
+        "ever_seen_quotes": 1,
+        "necessary_quotes": 1,
+        "covered_quotes": 1,
+        "missing_quotes": [],
+        "question_evidence_complete": true,
+        "unnecessary_reads": [
+          {
+            "turn": 0,
+            "reason": "needed_evidence_already_present"
+          }
+        ],
+        "noncontributing_read_calls": 1,
+        "repeated_windows": 0,
+        "unnecessary_pause": false,
+        "wrong_application_preview": false,
+        "target_state_reached": true,
+        "answer_published_or_fact_rendered": false,
+        "target_achieved": false,
+        "semantic_answer_review": "author_pending",
+        "reachable_missed_read": false,
+        "gate_status": "unavailable",
+        "pause_kind": null
+      }
+    },
+    {
+      "case_id": "explore-read-004",
+      "arm": "reading",
+      "score": {
+        "scorer_version": 2,
+        "ever_seen_quotes": 4,
+        "necessary_quotes": 4,
+        "covered_quotes": 4,
+        "missing_quotes": [],
+        "question_evidence_complete": true,
+        "unnecessary_reads": [
+          {
+            "turn": 1,
+            "reason": "needed_evidence_already_present"
+          }
+        ],
+        "noncontributing_read_calls": 1,
+        "repeated_windows": 1,
+        "unnecessary_pause": false,
+        "wrong_application_preview": false,
+        "target_state_reached": true,
+        "answer_published_or_fact_rendered": true,
+        "target_achieved": true,
+        "semantic_answer_review": "author_pending",
+        "reachable_missed_read": false,
+        "gate_status": null,
+        "pause_kind": "quality_wait"
+      }
+    },
+    {
+      "case_id": "explore-read-004",
+      "arm": "baseline",
+      "score": {
+        "scorer_version": 2,
+        "ever_seen_quotes": 4,
+        "necessary_quotes": 4,
+        "covered_quotes": 4,
+        "missing_quotes": [],
+        "question_evidence_complete": true,
+        "unnecessary_reads": [],
+        "noncontributing_read_calls": 0,
+        "repeated_windows": 0,
+        "unnecessary_pause": false,
+        "wrong_application_preview": false,
+        "target_state_reached": true,
+        "answer_published_or_fact_rendered": true,
+        "target_achieved": true,
+        "semantic_answer_review": "author_pending",
+        "reachable_missed_read": false,
+        "gate_status": null,
+        "pause_kind": "quality_wait"
+      }
+    }
+  ]
+}

@@ -187,3 +187,70 @@ def test_audit_failure_preserves_committed_business_result(scoped_mcp):
     assert result["request"]["ticket_id"] is None
     retry = asyncio.run(gateway.call("request_shipping", body, token))
     assert retry["request"]["id"] == result["request"]["id"]
+
+
+def test_actual_mcp_bounded_parent_read_and_scope_correction(scoped_mcp, monkeypatch):
+    client, app, headers, gateway, index = scoped_mcp
+    monkeypatch.setattr(
+        "workbench.retrieval.rerank",
+        lambda query, rows: [{**row, "rerank_score": 1.0} for row in rows],
+    )
+    audience = {"merchant": "演示商家", "region": "大陆", "channel": "线上"}
+    response = client.post(
+        "/api/v1/knowledge/documents",
+        headers=headers("admin"),
+        data={"chunk_strategy": "parent_child", "audience": json.dumps(audience)},
+        files={
+            "file": (
+                "parent.md",
+                ("# 退货\n\n七天内可退。\n\n" + "解释。" * 50 + "\n\n定制商品除外。").encode(),
+                "text/markdown",
+            )
+        },
+    )
+    assert response.status_code == 201, response.text
+    uploaded = response.json()
+    assert work_once(app.state.database, app.state.settings, index)
+    version = uploaded["version"]["id"]
+    client.post(
+        f"/api/v1/knowledge/versions/{version}/publish", headers=headers("admin"), json={}
+    ).raise_for_status()
+    token = grant(client, headers())
+    query = {"query": "七天", "strategy": "hybrid"}
+    missing = asyncio.run(gateway.call("search_knowledge_base", query, token))
+    assert missing["coverage"] == "needs_scope"
+    result = asyncio.run(
+        gateway.call("search_knowledge_base", {**query, "audience": audience}, token)
+    )
+    parent = result["matches"][0]["parent_id"]
+    body = {"version_id": version, "parent_id": parent, "max_chars": 100, "audience": audience}
+    page = asyncio.run(gateway.call("read_policy_source", body, token))
+    assert page["next_offset"] == 100 and not page["complete"]
+    with pytest.raises(ToolFailure, match="conflict"):
+        asyncio.run(
+            gateway.call(
+                "read_policy_source", {**body, "audience": {**audience, "channel": "门店"}}, token
+            )
+        )
+    foreign = grant(client, headers("support", "demo-b"))
+    with pytest.raises(ToolFailure, match="not_found"):
+        asyncio.run(gateway.call("read_policy_source", body, foreign))
+    from workbench.runs import create_run, execute_lookup
+    from workbench.schemas import RunInput
+    from workbench.tool_contracts import verify_grant
+
+    # Create a real queued domain run without invoking the order-only API fixture gateway.
+    with app.state.database.sessions() as session:
+        actor, _ = verify_grant(session, token, app.state.settings)
+        run, _ = create_run(
+            session,
+            actor,
+            RunInput(kind="knowledge_search", query="七天", audience=audience),
+            "audience-mcp-run",
+            settings=app.state.settings,
+        )
+        run_id = run.id
+    execute_lookup(app.state.database, run_id, gateway, token)
+    stored = client.get("/api/v1/runs/" + run_id, headers=headers()).json()
+    assert stored["status"] == "completed" and stored["output"]["evidence"]
+    assert all(r["version_id"] == version for r in stored["output"]["evidence"])

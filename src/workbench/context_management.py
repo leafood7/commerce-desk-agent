@@ -57,19 +57,27 @@ def atomic_units(messages):
     return safe
 
 
-def pack_messages(settings, messages, frame=None):
+def pack_messages(settings, messages, frame=None, *, output_tokens=None):
     """Required current input is indivisible; advisory history is optional."""
     frame = frame if frame is not None else CURRENT.get()
+    output_tokens = (
+        settings.agent_router_max_output_tokens if output_tokens is None else output_tokens
+    )
+    if (
+        type(output_tokens) is not int
+        or not 1 <= output_tokens <= settings.run_model_reserve_tokens
+    ):
+        raise ValueError("Invalid output reservation")
     limit = min(
         settings.context_input_tokens,
-        settings.run_model_reserve_tokens - settings.agent_router_max_output_tokens,
+        settings.run_model_reserve_tokens - output_tokens,
     )
     required = token_upper_bound(messages)
     meta = {
         "estimator": "serialized_utf8_bytes_plus_256_upper_bound",
         "input_limit": limit,
         "required_upper_bound": required,
-        "output_reserved": settings.agent_router_max_output_tokens,
+        "output_reserved": output_tokens,
         "recent_units_kept": 0,
         "summary_items_kept": 0,
     }

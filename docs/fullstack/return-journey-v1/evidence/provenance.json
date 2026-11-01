@@ -1,0 +1,10 @@
+{
+  "workbench_archive_sha256": "91453e8a6a21ccc3da2e61f4e86d7c19373b959d88d32297221e94c47e23492f",
+  "archive_scope": "62 frozen workbench modules; other repository dependencies required",
+  "analysis_scripts": {
+    "evaluate_return_journey.py": "6723fca6223bcd51fc3e19dc95a51367cf90c96e96513bdde2db394d2fb7e158",
+    "return_journey_budget.py": "c7e96aeb98e9a2fa1e501c813ad98db565435957c643d0f54da200d96a4bd10c",
+    "test_return_journey_evaluation.py": "0162542f852f1d3c1a880a865ea5c097a5d1e550a64d79f4da84b6a87a4886f2"
+  },
+  "note": "Raw manifests preserve the runner hash at execution; archived analysis runner is the later v2 correction. No model outputs were rerun."
+}

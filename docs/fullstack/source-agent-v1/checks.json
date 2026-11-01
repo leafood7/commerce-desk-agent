@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-01",
+  "paid_calls": 0,
+  "broad_regression": {
+    "passed": 95,
+    "seconds": 315.15,
+    "scope": "before final mixed-question requirement refinement"
+  },
+  "final_source_suite": {
+    "passed": 18,
+    "seconds": 65.5
+  },
+  "overlapping_suites_do_not_sum": true,
+  "browser": {
+    "startTime": "2026-11-01T08:01:06.256Z",
+    "duration": 9974.509999999998,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "comparison": "same intentionally incomplete search fixture: baseline searches twice and remains incomplete; enabled searches once and reads once, reaches preview; no generated-answer semantic comparison",
+  "default_enabled": false,
+  "sealed_holdout_read": false
+}

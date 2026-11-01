@@ -1,0 +1,32 @@
+{
+  "runs": 32,
+  "cases": 16,
+  "paid": true,
+  "budget": {
+    "requests": 15,
+    "charged_cny": 0.04565,
+    "unknown_calls": 0,
+    "cumulative_cny": 4.80218,
+    "stopped": null
+  },
+  "arms": {
+    "baseline": {
+      "runs": 16,
+      "target_achieved": 10,
+      "evidence_complete": 14,
+      "unnecessary_pause": 3,
+      "wrong_application_preview": 0,
+      "unnecessary_reads": 0,
+      "repeated_windows": 0
+    },
+    "reading": {
+      "runs": 16,
+      "target_achieved": 10,
+      "evidence_complete": 15,
+      "unnecessary_pause": 3,
+      "wrong_application_preview": 0,
+      "unnecessary_reads": 0,
+      "repeated_windows": 0
+    }
+  }
+}

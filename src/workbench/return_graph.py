@@ -43,12 +43,25 @@ class ReturnState(TypedDict, total=False):
     condition_proposal: dict
     condition_ack: str | None
     condition_origin: dict
+    quality_read: bool
     quality_info: dict
     return_basis: str | None
     policy_context: list
     retrieved_evidence: list
     context_bound: bool
+    task_frame: dict
+    policy_reuse_candidates: list
+    policy_reuse_binding: dict
     context_purpose: str
+    source_attempted_targets: list
+    source_targets: list
+    source_readings: list
+    source_history: list
+    source_read_count: int
+    source_read_chars: int
+    source_search_count: int
+    selected_source_target: str | None
+    source_stop_reason: str | None
 
 
 FIELDS = ("order_number", "reason", "return_item_id", "return_quantity", "return_condition")

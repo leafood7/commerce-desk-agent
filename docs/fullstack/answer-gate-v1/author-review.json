@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-01",
+  "review_type": "author participated; not independent blind review",
+  "confirmed": [
+    {
+      "case_id": "gate-dev-005",
+      "main_conclusion": "correct",
+      "issues": [
+        "unnecessary_clarification",
+        "unnecessary_uncertainty"
+      ],
+      "semantic_reviewer_approved": true,
+      "confirmed_by_user": true
+    },
+    {
+      "case_id": "gate-dev-009",
+      "main_conclusion": "actual receipt correctly unknown; ETA not confused with receipt",
+      "issues": [
+        "irrelevant_extra_fields"
+      ],
+      "semantic_reviewer_approved": true,
+      "confirmed_by_user": true
+    }
+  ],
+  "pending": [],
+  "other_natural_cases": "assistant initial review only; no overall human-confirmed accuracy"
+}

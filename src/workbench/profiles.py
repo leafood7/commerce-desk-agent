@@ -9,7 +9,13 @@ from workbench.profile_models import ProfileHead, ProfileVersion, RunProfile
 from workbench.profile_schemas import ProfileOptions
 from workbench.quotas import acquire_admission
 
-PROMPT_FIELDS = {"prompt_sha256", "return_prompt_sha256"}
+PROMPT_FIELDS = {"prompt_sha256", "return_prompt_sha256", "answer_prompt_sha256"}
+
+
+def answer_prompt_hash():
+    from workbench.answer_contract import prompt_hash as answer_hash
+
+    return answer_hash()
 
 
 def return_prompt_hash():
@@ -39,15 +45,36 @@ def factory_values(settings):
         **ProfileOptions(
             model_alias="server_default" if settings.agent_router_mode == "model" else "rules",
             max_output_tokens=settings.agent_router_max_output_tokens,
+            policy_answer_max_tokens=settings.policy_answer_max_tokens,
         ).model_dump(),
         "prompt_sha256": prompt_hash(),
         "return_prompt_sha256": return_prompt_hash(),
+        "answer_prompt_sha256": answer_prompt_hash(),
     }
 
 
 def check_options(options, settings):
+    if options.return_source_reading and (
+        not settings.return_source_reading_enabled
+        or options.return_flow_version != "guided_v3"
+        or options.return_retrieval_mode != "clause_bound"
+    ):
+        raise HTTPException(
+            422, "Source reading requires server enablement and guided clause-bound mode"
+        )
+    rank = {"excerpts": 0, "contract": 1, "reviewed": 2}
+    if options.policy_answer_mode != "excerpts" and (
+        options.model_alias != "server_default"
+        or rank[options.policy_answer_mode] > rank[settings.policy_answer_mode]
+    ):
+        raise HTTPException(422, "Policy answer mode is not enabled by the server")
     if options.model_alias == "server_default" and settings.agent_router_mode != "model":
         raise HTTPException(422, "Server model is not enabled; configuration cannot enable it")
+    if (
+        options.policy_answer_mode != "excerpts"
+        and options.policy_answer_max_tokens > settings.policy_answer_max_tokens
+    ):
+        raise HTTPException(422, "Policy answer output exceeds server limit")
     if options.max_output_tokens > settings.agent_router_max_output_tokens:
         raise HTTPException(422, "Output cap exceeds server limit")
     if options.return_decisions == "model" and (
@@ -87,6 +114,9 @@ def current_profile(session, actor, settings):
         "allowed_model_aliases": ["rules"]
         + (["server_default"] if settings.agent_router_mode == "model" else []),
         "max_output_cap": settings.agent_router_max_output_tokens,
+        "policy_answer_available": settings.policy_answer_mode,
+        "policy_answer_output_cap": settings.policy_answer_max_tokens,
+        "return_source_reading_available": settings.return_source_reading_enabled,
         "return_model_available": settings.return_decision_mode == "model"
         and settings.agent_router_mode == "model",
     }
@@ -110,6 +140,7 @@ def create_version(session, actor, options, settings):
         **options.model_dump(),
         "prompt_sha256": prompt_hash(),
         "return_prompt_sha256": return_prompt_hash(),
+        "answer_prompt_sha256": answer_prompt_hash(),
     }
     row = ProfileVersion(
         organization_id=actor.organization_id,
@@ -142,6 +173,10 @@ def activate_version(session, actor, identifier, expected, settings):
     check_options(options, settings)
     if (
         fingerprint(row.values) != row.config_hash
+        or (
+            options.policy_answer_mode != "excerpts"
+            and row.values.get("answer_prompt_sha256") != answer_prompt_hash()
+        )
         or row.values.get("prompt_sha256") != prompt_hash()
         or (
             options.return_decisions == "model"
@@ -192,7 +227,11 @@ def effective_settings(database, run_id):
         if not row:
             return (
                 base.model_copy(
-                    update={"agent_router_mode": "rules", "return_decision_mode": "rules"}
+                    update={
+                        "agent_router_mode": "rules",
+                        "return_decision_mode": "rules",
+                        "policy_answer_mode": "excerpts",
+                    }
                 ),
                 {"top_k": 3, "tone": "plain"},
                 "legacy_unrecorded",
@@ -222,9 +261,26 @@ def effective_settings(database, run_id):
                 reason = "return_template_changed"
             else:
                 return_mode = "model"
+        answer_mode = "excerpts"
+        rank = {"excerpts": 0, "contract": 1, "reviewed": 2}
+        if (
+            mode == "model"
+            and options.policy_answer_mode != "excerpts"
+            and rank[options.policy_answer_mode] <= rank[base.policy_answer_mode]
+            and options.policy_answer_max_tokens <= base.policy_answer_max_tokens
+            and values.get("answer_prompt_sha256") == answer_prompt_hash()
+        ):
+            answer_mode = options.policy_answer_mode
+        values["return_source_reading"] = bool(
+            options.return_source_reading and base.return_source_reading_enabled
+        )
         return (
             base.model_copy(
                 update={
+                    "policy_answer_mode": answer_mode,
+                    "policy_answer_max_tokens": min(
+                        options.policy_answer_max_tokens, base.policy_answer_max_tokens
+                    ),
                     "agent_router_mode": mode,
                     "return_decision_mode": return_mode,
                     "agent_router_max_output_tokens": min(

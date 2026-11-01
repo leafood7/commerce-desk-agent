@@ -1,0 +1,16 @@
+{
+  "git_head": "afa341021c734d62d34f7e3d8718afe45a9e9e66",
+  "dirty_stage1_preserved": true,
+  "date": "2026-11-01",
+  "files": {
+    "src/workbench/runs.py": "6cb63a2870fc26d2ee769b464855afa3a06fb9a92f0aee9812397149baa06e6b",
+    "src/workbench/aftersales.py": "d4208c8fe5c310db8043524e51047a378f75caccca2d62ee0e9f7e949effa4dc",
+    "src/workbench/profiles.py": "f851cda8f2899d997426dd34ad7b4a10b759f617a638dfab1cf233c1ed32b959",
+    "src/workbench/profile_schemas.py": "c8a065a373a4b99fe3588cb94fe327ae7bd59c88495a643c9374efc654f79aaf",
+    "src/workbench/quotas.py": "55c644962c9e33a152dcbe576a13c7609f1207eed1cb01f63ac7532cab16f183",
+    "src/workbench/config.py": "5817480e98b111c8ec5a6688d6a9a3deec62bf7fbd646b03d14a01794fa4c125",
+    "src/workbench/context_management.py": "d33394064e151aa35df5e72b459126e8732b1c5e777264b6befea26ba4eb7e34",
+    "src/agents/answer_guard.py": "a262c18a4c85f5183df5ab74f0962c77ef62638fb8902831e6af977885997b07"
+  },
+  "protocol_sha256": "0bf8b02d4885dc62a6325449b2fab22c428f30b9846a5ad99ba6443614af6b02"
+}

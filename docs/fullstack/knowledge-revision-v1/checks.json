@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-01",
+  "scope": "immutable parse revision, independent role review, retrieval and FAQ lifecycle, explicit rollback",
+  "broad_regression": {
+    "passed": 79,
+    "seconds": 213.21
+  },
+  "final_related_regression": {
+    "passed": 36,
+    "seconds": 62.24,
+    "includes_revision_tests": 15
+  },
+  "overlapping_suites_not_additive": true,
+  "browser": {
+    "startTime": "2026-11-01T08:52:40.368Z",
+    "duration": 9739.089,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "parser_loss": "explicit injected fixture; not a claim of fixing the production PDF parser",
+  "actual_browser_services": [
+    "MySQL",
+    "BGE",
+    "Chroma",
+    "Cross-Encoder rerank",
+    "HTTP MCP",
+    "FastAPI",
+    "React"
+  ],
+  "model_calls": 0,
+  "schema_migration": false,
+  "independent_human_review": false
+}

@@ -1,0 +1,28 @@
+{
+  "runs": 16,
+  "cases": 16,
+  "paid": false,
+  "budget": {
+    "requests": 0
+  },
+  "arms": {
+    "baseline": {
+      "runs": 0,
+      "target_achieved": 0,
+      "evidence_complete": 0,
+      "unnecessary_pause": 0,
+      "wrong_application_preview": 0,
+      "unnecessary_reads": 0,
+      "repeated_windows": 0
+    },
+    "reading": {
+      "runs": 16,
+      "target_achieved": 15,
+      "evidence_complete": 15,
+      "unnecessary_pause": 0,
+      "wrong_application_preview": 0,
+      "unnecessary_reads": 0,
+      "repeated_windows": 0
+    }
+  }
+}

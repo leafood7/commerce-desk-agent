@@ -1,0 +1,19 @@
+{
+  "api": {
+    "modules": 60,
+    "matches": true
+  },
+  "mcp": {
+    "modules": 60,
+    "matches": true
+  },
+  "worker": {
+    "modules": 60,
+    "matches": true
+  },
+  "run-worker": {
+    "modules": 60,
+    "matches": true
+  },
+  "tables": 34
+}

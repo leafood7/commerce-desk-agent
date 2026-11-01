@@ -28,6 +28,10 @@ class WorkbenchSettings(BaseSettings):
     run_tool_limit: int = Field(default=40, ge=1, le=1000)
     run_model_token_limit: int = Field(default=16384, ge=256, le=1000000)
     run_model_reserve_tokens: int = Field(default=8192, ge=256, le=32768)
+    policy_answer_mode: Literal["excerpts", "contract", "reviewed"] = "excerpts"
+    policy_answer_max_tokens: int = Field(default=1024, ge=256, le=2048)
+    policy_answer_timeout_seconds: float = Field(default=12, ge=1, le=30)
+    return_source_reading_enabled: bool = False
     return_decision_mode: Literal["rules", "model"] = "rules"
     return_model_limit: int = Field(default=6, ge=1, le=6)
     chroma_url: str = "http://127.0.0.1:8005"
@@ -40,7 +44,9 @@ class WorkbenchSettings(BaseSettings):
     context_recent_units: int = Field(default=4, ge=1, le=8)
     context_summary_items: int = Field(default=12, ge=0, le=24)
     context_chars: int = 4000
-    retrieval_context_mode: Literal["neighbors", "section", "references"] = "neighbors"
+    retrieval_context_mode: Literal["neighbors", "section", "references", "parent_child"] = (
+        "neighbors"
+    )
     vector_max_distance: float = 0.65
     rerank_threshold: float = -2.0
     run_dispatch_mode: Literal["inline", "worker"] = "inline"
@@ -57,7 +63,7 @@ class WorkbenchSettings(BaseSettings):
             raise ValueError("Session lifetime must be between 5 and 1440 minutes")
         from urllib.parse import urlparse
 
-        if self.agent_router_mode == "model":
+        if self.agent_router_mode == "model" or self.policy_answer_mode != "excerpts":
             endpoint = urlparse(self.agent_router_url or "")
             if (
                 endpoint.scheme != "https"

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "purpose-001",
+    "family": "scope",
+    "question": "先介绍商家售后文件覆盖的商品，我还不准备办理。",
+    "expected": "policy"
+  },
+  {
+    "id": "purpose-002",
+    "family": "deadline",
+    "question": "解释一下退回时限，先不要建申请。",
+    "expected": "policy"
+  },
+  {
+    "id": "purpose-003",
+    "family": "photo",
+    "question": "图片能充当独立缺陷结论吗？仅了解规定。",
+    "expected": "policy"
+  },
+  {
+    "id": "purpose-004",
+    "family": "exception",
+    "question": "说说拆封后的例外，暂不进入退货流程。",
+    "expected": "policy"
+  },
+  {
+    "id": "purpose-005",
+    "family": "mixed",
+    "question": "先解释规定，然后请帮我申请退货。",
+    "expected": "application"
+  },
+  {
+    "id": "purpose-006",
+    "family": "positive",
+    "question": "我想申请退货，请核对条件。",
+    "expected": "application"
+  },
+  {
+    "id": "purpose-007",
+    "family": "receipt",
+    "question": "只核对实际签收，别展示预计到达。",
+    "expected": "facts"
+  },
+  {
+    "id": "purpose-008",
+    "family": "unsupported",
+    "question": "仅查银行实际到账记录。",
+    "expected": "facts"
+  },
+  {
+    "id": "purpose-009",
+    "family": "correction",
+    "question": "申请数量从1改2，同一政策重新校验复用，订单质检重新查询。",
+    "expected": "reuse"
+  },
+  {
+    "id": "purpose-010",
+    "family": "version",
+    "question": "政策撤回或换版后不得复用原证据。",
+    "expected": "invalidate"
+  },
+  {
+    "id": "purpose-011",
+    "family": "long",
+    "question": "必要主条款与关联例外相距超过4000字。",
+    "expected": "bounded_read"
+  },
+  {
+    "id": "purpose-012",
+    "family": "duplicates",
+    "question": "父窗口覆盖子片段时保留单份文本及原始引用关系。",
+    "expected": "deduplicate"
+  }
+]

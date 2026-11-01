@@ -1,0 +1,12 @@
+[
+  {
+    "case": "journey-013",
+    "release_input_upper_bound": 5754,
+    "limit": 6000
+  },
+  {
+    "case": "journey-014",
+    "release_input_upper_bound": 5731,
+    "limit": 6000
+  }
+]

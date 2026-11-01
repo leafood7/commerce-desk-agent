@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-01",
+  "authorization": "workbench-answer-gate-v1-20261101",
+  "max_calls": 32,
+  "max_cny": 1,
+  "dataset_sha256": "646bd9442a2bbe51eccb86ad58688004a449c01e641e62b1e44e9cd71ba9e823",
+  "prompt_sha256": "a95bd2213ef10897b4538ef8e090d0f2cf29360a0894dcedcf6e2cb8f083b241",
+  "runner_sha256": "1ecb8240d56daf177601e799ae23d71b819b97b93443d7b7b845525057e7b83c",
+  "endpoint": "https://api.deepseek.com/chat/completions",
+  "model": "deepseek-flash",
+  "thinking": "disabled",
+  "temperature": 0,
+  "max_output_tokens": 1024,
+  "pricing": "peak uncached2 input/8 output CNY per million, conservative not invoice",
+  "pricing_source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+  "comparison": "same draft; natural and injected stress reported separately"
+}

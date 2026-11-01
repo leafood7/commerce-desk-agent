@@ -32,6 +32,9 @@ def decision_observation(state, allowed):
         if state.get("context_bound")
         else (state.get("evidence") or [])
     )
+    from workbench.return_context import deduplicate_policy_sources
+
+    evidence = deduplicate_policy_sources(evidence)
     selected = [
         {
             "source_id": item["id"],

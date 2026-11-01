@@ -60,6 +60,27 @@ class MCPGateway:
                 raise ToolFailure("invalid_response")
             if result.isError or payload["status"] == "error":
                 raise ToolFailure(payload.get("error", {}).get("code", "tool_failed"))
+            if name == "read_policy_source":
+                content = payload.get("content")
+                next_offset = payload.get("next_offset")
+                if (
+                    payload.get("version_id") != body.version_id
+                    or payload.get("parent_id") != body.parent_id
+                    or payload.get("offset") != body.offset
+                    or not isinstance(content, str)
+                    or not content
+                    or len(content) > body.max_chars
+                    or (
+                        next_offset is not None
+                        and (
+                            type(next_offset) is not int
+                            or next_offset != body.offset + len(content)
+                        )
+                    )
+                    or type(payload.get("complete")) is not bool
+                    or payload.get("source_kind") != "parsed_original"
+                ):
+                    raise ToolFailure("invalid_response")
             if name == "get_order_status":
                 data = payload.get("order", {})
                 if data.get("number") != body.order_number or not isinstance(
@@ -105,6 +126,16 @@ class MCPGateway:
                 and any(row.get("version_id") != body.version_id for row in payload["matches"])
             ):
                 raise ToolFailure("invalid_response")
+            if name == "get_return_policy":
+                data = payload.get("evidence")
+                if (
+                    payload.get("policy_id") != body.policy_id
+                    or not isinstance(data, dict)
+                    or not isinstance(data.get("sources"), list)
+                    or not isinstance(data.get("clauses"), list)
+                    or data.get("mapping") != "administrator_verified"
+                ):
+                    raise ToolFailure("invalid_response")
             if name == "evaluate_return":
                 preview = payload.get("preview", {})
                 application = preview.get("application", {})
@@ -142,7 +173,10 @@ class MCPGateway:
                     )
                 ):
                     raise ToolFailure("invalid_response")
-                if name == "create_return_draft" and request.get("return_basis", "no_reason") != body.return_basis:
+                if (
+                    name == "create_return_draft"
+                    and request.get("return_basis", "no_reason") != body.return_basis
+                ):
                     raise ToolFailure("invalid_response")
             return payload
         except ToolFailure:

@@ -1,0 +1,834 @@
+[
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001944,
+    "started_at": "2026-11-01T07:10:33.474474+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-001",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 732,
+      "completion_tokens": 60,
+      "total_tokens": 792,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 732
+    },
+    "elapsed_ms": 1190.8993999822997,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001044,
+    "started_at": "2026-11-01T07:10:34.676850+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-001",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 482,
+      "completion_tokens": 10,
+      "total_tokens": 492,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 482
+    },
+    "elapsed_ms": 1091.085500025656,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001944,
+    "started_at": "2026-11-01T07:10:35.775425+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-002",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 732,
+      "completion_tokens": 60,
+      "total_tokens": 792,
+      "prompt_tokens_details": {
+        "cached_tokens": 512
+      },
+      "prompt_cache_hit_tokens": 512,
+      "prompt_cache_miss_tokens": 220
+    },
+    "elapsed_ms": 1019.5203999755904,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001104,
+    "started_at": "2026-11-01T07:10:36.801910+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-002",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 468,
+      "completion_tokens": 21,
+      "total_tokens": 489,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 212
+    },
+    "elapsed_ms": 892.5479000317864,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.00201,
+    "started_at": "2026-11-01T07:10:37.704060+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-003",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 741,
+      "completion_tokens": 66,
+      "total_tokens": 807,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 357
+    },
+    "elapsed_ms": 1199.769600003492,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001074,
+    "started_at": "2026-11-01T07:10:38.911160+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-003",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 497,
+      "completion_tokens": 10,
+      "total_tokens": 507,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 369
+    },
+    "elapsed_ms": 700.2525000134483,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.002138,
+    "started_at": "2026-11-01T07:10:39.621842+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-004",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 741,
+      "completion_tokens": 82,
+      "total_tokens": 823,
+      "prompt_tokens_details": {
+        "cached_tokens": 512
+      },
+      "prompt_cache_hit_tokens": 512,
+      "prompt_cache_miss_tokens": 229
+    },
+    "elapsed_ms": 1666.0603000200354,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001074,
+    "started_at": "2026-11-01T07:10:41.295710+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-004",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 477,
+      "completion_tokens": 15,
+      "total_tokens": 492,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 221
+    },
+    "elapsed_ms": 1045.4132000450045,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.002654,
+    "started_at": "2026-11-01T07:10:42.350780+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-005",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 743,
+      "completion_tokens": 146,
+      "total_tokens": 889,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 359
+    },
+    "elapsed_ms": 1693.3957999572158,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001228,
+    "started_at": "2026-11-01T07:10:44.053711+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-005",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 574,
+      "completion_tokens": 10,
+      "total_tokens": 584,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 446
+    },
+    "elapsed_ms": 1030.517500010319,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.002526,
+    "started_at": "2026-11-01T07:10:45.093312+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-006",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 743,
+      "completion_tokens": 130,
+      "total_tokens": 873,
+      "prompt_tokens_details": {
+        "cached_tokens": 512
+      },
+      "prompt_cache_hit_tokens": 512,
+      "prompt_cache_miss_tokens": 231
+    },
+    "elapsed_ms": 1851.1208000127226,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001146,
+    "started_at": "2026-11-01T07:10:46.952760+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-006",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 485,
+      "completion_tokens": 22,
+      "total_tokens": 507,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 229
+    },
+    "elapsed_ms": 892.0770999975502,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.002634,
+    "started_at": "2026-11-01T07:10:47.853676+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-007",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 889,
+      "completion_tokens": 107,
+      "total_tokens": 996,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 505
+    },
+    "elapsed_ms": 1212.4339999863878,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001442,
+    "started_at": "2026-11-01T07:10:49.073092+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-007",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 681,
+      "completion_tokens": 10,
+      "total_tokens": 691,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 553
+    },
+    "elapsed_ms": 1094.7231999598444,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.00265,
+    "started_at": "2026-11-01T07:10:50.175780+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-008",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 889,
+      "completion_tokens": 109,
+      "total_tokens": 998,
+      "prompt_tokens_details": {
+        "cached_tokens": 640
+      },
+      "prompt_cache_hit_tokens": 640,
+      "prompt_cache_miss_tokens": 249
+    },
+    "elapsed_ms": 1407.8829000354744,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001378,
+    "started_at": "2026-11-01T07:10:51.590194+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-008",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 629,
+      "completion_tokens": 15,
+      "total_tokens": 644,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 245
+    },
+    "elapsed_ms": 909.5719000324607,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.00269,
+    "started_at": "2026-11-01T07:10:52.506874+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-009",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 893,
+      "completion_tokens": 113,
+      "total_tokens": 1006,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 509
+    },
+    "elapsed_ms": 1487.7791999606416,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001462,
+    "started_at": "2026-11-01T07:10:54.003017+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-009",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 691,
+      "completion_tokens": 10,
+      "total_tokens": 701,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 563
+    },
+    "elapsed_ms": 709.647000010591,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.002514,
+    "started_at": "2026-11-01T07:10:54.721442+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-010",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 893,
+      "completion_tokens": 91,
+      "total_tokens": 984,
+      "prompt_tokens_details": {
+        "cached_tokens": 640
+      },
+      "prompt_cache_hit_tokens": 640,
+      "prompt_cache_miss_tokens": 253
+    },
+    "elapsed_ms": 1230.402100016363,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001442,
+    "started_at": "2026-11-01T07:10:55.963469+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-010",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 633,
+      "completion_tokens": 22,
+      "total_tokens": 655,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 249
+    },
+    "elapsed_ms": 1305.897600017488,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001968,
+    "started_at": "2026-11-01T07:10:57.279996+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-011",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 736,
+      "completion_tokens": 62,
+      "total_tokens": 798,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 352
+    },
+    "elapsed_ms": 945.0207999907434,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001048,
+    "started_at": "2026-11-01T07:10:58.232937+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-011",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 484,
+      "completion_tokens": 10,
+      "total_tokens": 494,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 356
+    },
+    "elapsed_ms": 784.6490999800153,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001968,
+    "started_at": "2026-11-01T07:10:59.026427+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-012",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 736,
+      "completion_tokens": 62,
+      "total_tokens": 798,
+      "prompt_tokens_details": {
+        "cached_tokens": 512
+      },
+      "prompt_cache_hit_tokens": 512,
+      "prompt_cache_miss_tokens": 224
+    },
+    "elapsed_ms": 1434.1610999545082,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.00107,
+    "started_at": "2026-11-01T07:11:00.470411+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-012",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 475,
+      "completion_tokens": 15,
+      "total_tokens": 490,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 219
+    },
+    "elapsed_ms": 760.9780000057071,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.002034,
+    "started_at": "2026-11-01T07:11:01.240836+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-013",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 757,
+      "completion_tokens": 65,
+      "total_tokens": 822,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 373
+    },
+    "elapsed_ms": 1337.1858000173233,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001104,
+    "started_at": "2026-11-01T07:11:02.588997+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-013",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 512,
+      "completion_tokens": 10,
+      "total_tokens": 522,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 384
+    },
+    "elapsed_ms": 1303.3429000061005,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.002274,
+    "started_at": "2026-11-01T07:11:03.903532+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-014",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 757,
+      "completion_tokens": 95,
+      "total_tokens": 852,
+      "prompt_tokens_details": {
+        "cached_tokens": 512
+      },
+      "prompt_cache_hit_tokens": 512,
+      "prompt_cache_miss_tokens": 245
+    },
+    "elapsed_ms": 1600.006700027734,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001168,
+    "started_at": "2026-11-01T07:11:05.512308+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-014",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 496,
+      "completion_tokens": 22,
+      "total_tokens": 518,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 240
+    },
+    "elapsed_ms": 723.1934000155888,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.002184,
+    "started_at": "2026-11-01T07:11:06.247180+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-015",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 748,
+      "completion_tokens": 86,
+      "total_tokens": 834,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 364
+    },
+    "elapsed_ms": 1162.7110000117682,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.00112,
+    "started_at": "2026-11-01T07:11:07.418238+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-015",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 520,
+      "completion_tokens": 10,
+      "total_tokens": 530,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 392
+    },
+    "elapsed_ms": 803.038000012748,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.00236,
+    "started_at": "2026-11-01T07:11:08.228987+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "generate",
+      "case_id": "gate-dev-016",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 748,
+      "completion_tokens": 108,
+      "total_tokens": 856,
+      "prompt_tokens_details": {
+        "cached_tokens": 512
+      },
+      "prompt_cache_hit_tokens": 512,
+      "prompt_cache_miss_tokens": 236
+    },
+    "elapsed_ms": 1032.6290000230074,
+    "response_model": "deepseek-flash",
+    "error": null
+  },
+  {
+    "status": "settled",
+    "reserved_cny": 0.020192,
+    "charged_cny": 0.001188,
+    "started_at": "2026-11-01T07:11:09.269788+00:00",
+    "metadata": {
+      "phase": "workbench-answer-gate-v1-20261101",
+      "stage": "review",
+      "case_id": "gate-dev-016",
+      "authorization_max_calls": 32,
+      "authorization_max_cny": 1
+    },
+    "usage": {
+      "prompt_tokens": 486,
+      "completion_tokens": 27,
+      "total_tokens": 513,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 230
+    },
+    "elapsed_ms": 1060.4884999920614,
+    "response_model": "deepseek-flash",
+    "error": null
+  }
+]

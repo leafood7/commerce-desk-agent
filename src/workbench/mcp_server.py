@@ -114,6 +114,13 @@ def create_mcp_app(settings=None, *, index=None):
                             returns.submit_simulated(session, user, body.request_id, body),
                         ),
                     }
+                elif name == "get_return_policy":
+                    policy = returns.scoped_policy(session, user, body.policy_id)
+                    data = {
+                        "status": "found",
+                        "policy_id": policy.id,
+                        "evidence": returns.policy_evidence(session, user, policy),
+                    }
                 elif name == "evaluate_return":
                     data = {"status": "found", "preview": returns.evaluate(session, user, body)[2]}
                 elif name == "create_return_draft":
@@ -158,6 +165,10 @@ def create_mcp_app(settings=None, *, index=None):
                             session, create_shipping(session, user, body, body.idempotency_key)
                         ),
                     }
+                elif name == "read_policy_source":
+                    from workbench.knowledge_service import read_parent
+
+                    data = read_parent(session, user, body)
                 else:
                     data = retriever.search(user.organization_id, body)
                 status = data["status"]
