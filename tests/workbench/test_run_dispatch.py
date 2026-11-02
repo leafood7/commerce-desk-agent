@@ -64,8 +64,10 @@ def test_enqueue_failure_rolls_back_run_message_and_job_atomically(queued, monke
         raise RuntimeError("explicit enqueue failure")
 
     monkeypatch.setattr("workbench.run_worker.enqueue", fail)
-    with pytest.raises(RuntimeError, match="enqueue failure"):
-        queued[0].post("/api/v1/runs", json={"order_number": "A1001"}, headers=queued[2]())
+    response = queued[0].post("/api/v1/runs", json={"order_number": "A1001"}, headers=queued[2]())
+    assert response.status_code == 500
+    assert response.headers.get("X-Trace-ID")
+    assert "explicit enqueue failure" not in response.text
     for model in (Run, Message, RunJob):
         assert count(queued, model) == 0
 

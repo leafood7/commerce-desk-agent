@@ -1,6 +1,7 @@
 """Functional adapter checks; no quality or throughput comparison."""
 
 import json
+from pathlib import Path
 
 import httpx
 import pytest
@@ -172,7 +173,11 @@ def test_rebuild_reads_published_chunks_without_switching_or_overwriting(logged_
         app.state.settings,
         backend="qdrant",
         target_namespace="rebuild_feature",
-        expected_database="business.sqlite3",
+        expected_database=(
+            Path(app.state.database.engine.url.database).name
+            if app.state.database.engine.dialect.name == "sqlite"
+            else app.state.database.engine.url.database
+        ),
         index_factory=lambda s: candidate,
     )
     assert result["state"] == "ready_for_manual_switch" and result["versions"] == 1
@@ -183,7 +188,11 @@ def test_rebuild_reads_published_chunks_without_switching_or_overwriting(logged_
             app.state.settings,
             backend="qdrant",
             target_namespace="rebuild_feature",
-            expected_database="business.sqlite3",
+            expected_database=(
+                Path(app.state.database.engine.url.database).name
+                if app.state.database.engine.dialect.name == "sqlite"
+                else app.state.database.engine.url.database
+            ),
             index_factory=lambda s: candidate,
         )
     with pytest.raises(ValueError):
@@ -191,7 +200,11 @@ def test_rebuild_reads_published_chunks_without_switching_or_overwriting(logged_
             app.state.settings,
             backend="qdrant",
             target_namespace="",
-            expected_database="business.sqlite3",
+            expected_database=(
+                Path(app.state.database.engine.url.database).name
+                if app.state.database.engine.dialect.name == "sqlite"
+                else app.state.database.engine.url.database
+            ),
             index_factory=lambda s: candidate,
         )
     with pytest.raises(ValueError):
@@ -226,7 +239,11 @@ def test_rebuild_rejects_publication_change_during_write(logged_in):
             app.state.settings,
             backend="qdrant",
             target_namespace="rebuild_changed",
-            expected_database="business.sqlite3",
+            expected_database=(
+                Path(app.state.database.engine.url.database).name
+                if app.state.database.engine.dialect.name == "sqlite"
+                else app.state.database.engine.url.database
+            ),
             index_factory=lambda s: UpdatingIndex(),
         )
 
