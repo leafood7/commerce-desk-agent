@@ -16,6 +16,7 @@ from workbench.knowledge_service import validated_evidence
 from workbench.models import Order, OrderItem, now
 from workbench.return_models import ReturnEvent, ReturnPolicy, ReturnRequest
 from workbench.return_schemas import ReturnInput
+from workbench.tracing import traced
 
 RESERVED = ("pending_approval", "approved", "accepted_simulated")
 
@@ -133,6 +134,7 @@ def record(session, actor, row, action, **details):
     audit(session, actor, "return." + action, row.id, revision=row.revision, **details)
 
 
+@traced("business", "evaluate")
 def evaluate(session, actor, body, *, excluding=None, lock=False):
     order = get_order(session, actor, body.order_number, lock=lock)
     statement = select(OrderItem).where(
@@ -246,6 +248,7 @@ def input_for(session, row):
     )
 
 
+@traced("business", "create_request")
 def create_request(session, actor, body, key):
     require_role(actor, "support")
     if not key:
@@ -334,6 +337,7 @@ def correct_request(session, actor, identifier, body):
     return row
 
 
+@traced("business", "confirm_request")
 def confirm_request(session, actor, identifier, body):
     require_role(actor, "support")
     row = locked_request(session, actor, identifier)
@@ -360,6 +364,7 @@ def confirm_request(session, actor, identifier, body):
     return row
 
 
+@traced("business", "decide_request")
 def decide_request(session, actor, identifier, body):
     require_role(actor, "approver")
     row = locked_request(session, actor, identifier)
@@ -383,6 +388,7 @@ def decide_request(session, actor, identifier, body):
     return row
 
 
+@traced("business", "submit_simulated")
 def submit_simulated(session, actor, identifier, body):
     require_role(actor, "support")
     row = locked_request(session, actor, identifier)

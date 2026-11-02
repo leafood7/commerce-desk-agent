@@ -13,8 +13,12 @@ from workbench.flow_models import GraphCheckpoint, GraphWrite
 
 
 class SQLCheckpointSaver(BaseCheckpointSaver):
-    def __init__(self, database, run_id, *, execution_guard=None):
+    def __init__(self, database, run_id, *, execution_guard=None, namespace=""):
         super().__init__(serde=JsonPlusSerializer(pickle_fallback=False))
+        if namespace not in {"", "knowledge_roles_v1", "knowledge_roles_v2"}:
+            raise ValueError("Unsupported checkpoint namespace")
+        self.namespace = namespace
+        self.thread_scope = run_id if not namespace else run_id + ":" + namespace
         self.database, self.run_id = database, run_id
         self.execution_guard = execution_guard
 
@@ -26,9 +30,9 @@ class SQLCheckpointSaver(BaseCheckpointSaver):
 
     def scope(self, config):
         values = config["configurable"]
-        if values["thread_id"] != self.run_id or values.get("checkpoint_ns", ""):
+        if values["thread_id"] != self.thread_scope or values.get("checkpoint_ns", ""):
             raise ValueError("Checkpoint scope mismatch; subgraphs are not enabled")
-        return self.run_id, ""
+        return self.run_id, self.namespace
 
     def encoded(self, value):
         kind, blob = self.serde.dumps_typed(value)
@@ -39,7 +43,7 @@ class SQLCheckpointSaver(BaseCheckpointSaver):
     def config(self, checkpoint_id):
         return {
             "configurable": {
-                "thread_id": self.run_id,
+                "thread_id": self.thread_scope,
                 "checkpoint_ns": "",
                 "checkpoint_id": checkpoint_id,
             }
@@ -130,7 +134,7 @@ class SQLCheckpointSaver(BaseCheckpointSaver):
 
     def list(self, config, *, filter=None, before=None, limit=None):
         if config is None:
-            config = {"configurable": {"thread_id": self.run_id}}
+            config = {"configurable": {"thread_id": self.thread_scope}}
         self.scope(config)
         with self.database.sessions() as session:
             identifiers = session.scalars(

@@ -1,0 +1,42 @@
+import {test,expect} from '@playwright/test';
+const INITIAL='PRIVATE-REPAIR-INITIAL-DRAFT',REJECTED='PRIVATE-REPAIR-REJECTED-DRAFT';
+test('one repair is checked again and neither private draft enters UI or history',async({page,request})=>{
+  test.setTimeout(180000);
+  const password=process.env.WORKBENCH_TEST_PASSWORD,api=process.env.WORKBENCH_TEST_URL;
+  if(!password||!api)throw new Error('Isolated server required');
+  const login=await request.post(api+'/api/v1/auth/login',{data:{organization:'demo-a',email:'admin@demo.test',password}});
+  expect(login.ok()).toBeTruthy();const headers={Authorization:'Bearer '+(await login.json()).access_token};
+  const uploaded=await request.post(api+'/api/v1/knowledge/documents',{headers,multipart:{policy_scope:'returns',chunk_strategy:'parent_child',file:{name:'repair-browser.md',mimeType:'text/markdown',buffer:Buffer.from('# 修复演示规则\n\n普通商品仅在签收后七天内可申请退货，定制商品除外。')}}});
+  expect(uploaded.ok()).toBeTruthy();const version=(await uploaded.json()).version.id;
+  await expect.poll(async()=> (await (await request.get(api+'/api/v1/knowledge/versions/'+version,{headers})).json()).status,{timeout:60000}).toBe('ready');
+  expect((await request.post(api+'/api/v1/knowledge/versions/'+version+'/publish',{headers,data:{}})).ok()).toBeTruthy();
+  await page.goto('/');await page.getByLabel('邮箱').fill('admin@demo.test');await page.getByLabel('密码').fill(password);await page.getByRole('button',{name:'进入工作台'}).click();
+  await page.getByRole('button',{name:'配置版本',exact:true}).click();
+  await page.getByLabel('模型选择').selectOption('server_default');await page.getByLabel('政策回答方式').selectOption('reviewed_repair');
+  await page.getByLabel('退货动作决策').selectOption('rules');
+  await page.getByRole('button',{name:'保存配置草稿'}).click();await expect(page.getByRole('status')).toContainText('已保存草稿');
+  await page.getByRole('button',{name:'发布选中版本'}).click();await expect(page.getByRole('status')).toContainText('已发布');
+  await page.getByRole('button',{name:'政策检索',exact:true}).click();
+  await page.getByLabel('问题涉及的范围').selectOption('returns');
+  await page.getByLabel('政策问题').fill('普通商品退货规则 REPAIR-DEMO');
+  const wait=page.waitForResponse(r=>r.url().endsWith('/api/v1/runs')&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'检索政策',exact:true}).click();const id=(await (await wait).json()).id;
+  await expect(page.getByText('发现问题，正在修订一次',{exact:true}).first()).toBeVisible({timeout:60000});
+  expect(await (await request.get(api+'/api/v1/runs/'+id,{headers})).text()).not.toContain(INITIAL);
+  await expect.poll(async()=> (await (await request.get(api+'/api/v1/runs/'+id,{headers})).json()).status,{timeout:60000}).toBe('completed');
+  await expect(page.getByText('正在重新核验修订结果',{exact:true}).first()).toBeVisible();
+  const result=(await (await request.get(api+'/api/v1/runs/'+id,{headers})).json());
+  expect(result.output.answer_gate.repair).toEqual({attempted:true,outcome:'approved'});
+  const usage=await (await request.get(api+'/api/v1/runs/'+id+'/usage',{headers})).json();expect(usage.model_attempts).toBe(4);expect(usage.max_model_attempts).toBe(4);
+  for(const path of ['/runs/'+id+'/events','/conversations/'+result.conversation_id+'/messages','/conversations/'+result.conversation_id+'/runs']){
+    const text=await (await request.get(api+'/api/v1'+path,{headers})).text();expect(text).not.toContain(INITIAL);expect(text).not.toContain(REJECTED);
+  }
+  expect(await page.locator('body').innerText()).not.toContain(INITIAL);
+  await page.screenshot({path:'../work/answer-repair-v1/repair-approved.png',fullPage:true});
+  await page.getByLabel('政策问题').fill('普通商品退货规则 REPAIR-FAIL');
+  const failedWait=page.waitForResponse(r=>r.url().endsWith('/api/v1/runs')&&r.request().method()==='POST');await page.getByRole('button',{name:'检索政策',exact:true}).click();const failed=(await (await failedWait).json()).id;
+  await expect(page.getByRole('status')).toContainText('当前回答未通过核验',{timeout:60000});
+  const blocked=(await (await request.get(api+'/api/v1/runs/'+failed,{headers})).json());expect(blocked.output.answer_gate.status).toBe('repair_rejected');
+  expect(await page.locator('body').innerText()).not.toContain(REJECTED);
+  expect((await (await request.get(api+'/api/v1/runs/'+failed+'/usage',{headers})).json()).model_attempts).toBe(4);
+});

@@ -1,3 +1,4 @@
+import {PolicyTaskBoard} from "./PolicyTaskBoard";
 import ContextCard from "./ContextCard";
 import { useEffect, useRef, useState } from "react";
 import { api, watchRun } from "./api";
@@ -5,6 +6,8 @@ import { QualityInspections } from "./QualityInspections";
 
 const statuses:Record<string,string>={draft:"草稿",pending_approval:"待审批",approved:"已批准待提交",rejected:"已拒绝",cancelled:"已取消",accepted_simulated:"模拟已受理"};
 const conditions:Record<string,string>={unknown:"尚未核实",unused:"用户确认未使用",used:"已使用"};
+const factLabels:Record<string,string>={signed_at:"实际签收",refund_amount:"实际退款金额",bank_received:"实际到账",activation_status:"激活记录",member_entitlement:"订单权益",quality_verdict:"质检结论",coupon_reissue_amount:"券补发金额"};
+const taskLabels:Record<string,string>={policy:"了解规则",facts:"查询实际字段",eligibility:"核对退货资格",application:"申请退货"};
 const bases:Record<string,string>={no_reason:"无理由退货",quality_issue:"质量问题退货"};
 const missingLabels:Record<string,string>={actual_signed_at:"实际签收时间（须由业务数据核实）",verified_signed_at:"需核实异常的签收时间",item_condition:"商品是否使用",applicable_policy_for_sku:"适用该商品的政策",activation_status:"实际激活状态",member_entitlement:"实际会员权益",quality_verdict:"实际质检结论"};
 
@@ -24,6 +27,9 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
   const [basis,setBasis]=useState("no_reason"),[ruleBasis,setRuleBasis]=useState("no_reason");
   const [clauseRefs,setClauseRefs]=useState<Record<string,{chunk_id:string;quote:string}>>({});
   const [flow,setFlow]=useState<any>(null),[recent,setRecent]=useState<any[]>([]),[steps,setSteps]=useState<any[]>([]);
+  const [liveBoard,setLiveBoard]=useState<any>(null);
+  const [taskMode,setTaskMode]=useState("auto"),[taskEnabled,setTaskEnabled]=useState(false);
+  useEffect(()=>{api("/runtime/config",token).then(v=>setTaskEnabled(!!v.current.values.return_task_clarification)).catch(()=>setTaskEnabled(false));},[token]);
   const watcher=useRef<AbortController|null>(null);
   useEffect(()=>()=>watcher.current?.abort(),[]);
   async function reload(){const [p,r,f]=await Promise.all([api("/returns/policies",token),api("/returns/requests",token),api("/aftersales/runs?workflow=returns",token)]);setPolicies(p.items);setPoliciesLoaded(true);setRows(r.items);setRecent(f.items);}
@@ -43,19 +49,19 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
   }
   async function follow(id:string){
     watcher.current?.abort();const controller=new AbortController();watcher.current=controller;
-    await watchRun(id,token,event=>setSteps(old=>old.some(e=>e.id===event.id)?old:[...old,event]),controller.signal);
+    await watchRun(id,token,event=>{if(event.type==="agent.task_board")setLiveBoard(event.payload?.board||null);setSteps(old=>old.some(e=>e.id===event.id)?old:[...old,event]);},controller.signal);
     const row=await api("/runs/"+id,token);setFlow(row);
     if(row.output?.proposal?.return_condition)setCondition(row.output.proposal.return_condition);
     if(row.output?.request)await open(row.output.request);
   }
   async function startFlow(){
-    setSteps([]);setSelected(null);setPreview(null);
+    setSteps([]);setLiveBoard(null);setSelected(null);setPreview(null);
     const row=await api("/runs",token,{kind:"aftersales",query,
-      order_number:number,return_item_id:item,return_policy_id:policy,return_quantity:quantity,return_condition:condition,return_basis:basis,reason,...(description?{return_description:description}:{})},
+      order_number:number,return_item_id:item,return_policy_id:policy,return_quantity:quantity,return_condition:condition,return_basis:basis,...(reason.trim()?{reason}:{}),...(taskEnabled&&taskMode!=="auto"?{return_task:taskMode}:{}),...(description?{return_description:description}:{})},
       {"Idempotency-Key":crypto.randomUUID()});setFlow(row);await follow(row.id);
   }
-  async function resumeFlow(action:string){
-    const fields=["supply","correct"].includes(action)?{order_number:number,return_item_id:item,return_policy_id:policy,return_quantity:quantity,return_condition:condition,return_basis:basis,reason,...(flow.output?.flow_version==="guided_v3"?{return_description:description}:{})}:action==="accept_condition"?{condition_proposal_hash:flow.output?.condition_proposal?.proposal_hash}:{};
+  async function resumeFlow(action:string,task?:string){
+    const fields=action==="choose_fact"?{return_fact:task}:action==="choose_task"?{return_task:task}:["supply","correct"].includes(action)?{order_number:number,return_item_id:item,return_policy_id:policy,return_quantity:quantity,return_condition:condition,return_basis:basis,reason,...(flow.output?.flow_version==="guided_v3"?{return_description:description}:{})}:action==="accept_condition"?{condition_proposal_hash:flow.output?.condition_proposal?.proposal_hash}:{};
     await api(`/runs/${flow.id}/resume`,token,{action,pause_id:flow.output?.pause_id,...fields},{"Idempotency-Key":crypto.randomUUID()});await follow(flow.id);
   }
   async function openFlow(id:string){
@@ -86,12 +92,13 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
         <label>商品状态<select aria-label="商品状态" value={condition} onChange={e=>{setCondition(e.target.value);setPreview(null);}}>{Object.entries(conditions).map(([v,label])=><option key={v} value={v}>{label}</option>)}</select></label>
         <label>退货原因<input aria-label="退货原因" maxLength={500} value={reason} onChange={e=>{setReason(e.target.value);setPreview(null);}}/></label>
         <label>退货分支<select aria-label="退货分支" value={basis} onChange={e=>{setBasis(e.target.value);setPreview(null);}}>{Object.entries(bases).map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label><small>分支必须与所选政策一致；系统不会从“坏了”或质检未通过自动推断缺陷。</small>
+        {taskEnabled&&<label>这次要做什么<select aria-label="退货任务目的" value={taskMode} onChange={e=>setTaskMode(e.target.value)}><option value="auto">根据需求判断，不明确时先询问</option>{Object.entries(taskLabels).map(([v,label])=><option key={v} value={v}>{label}</option>)}</select></label>}
         <label>本次需求<textarea aria-label="退货核对需求" maxLength={1200} value={query} onChange={e=>setQuery(e.target.value)}/></label>
         <label>商品状态原话<textarea aria-label="商品状态原话" maxLength={500} value={description} onChange={e=>setDescription(e.target.value)}/></label><small>原话澄清需要新版流程配置；提取的候选须由你确认，不能证明激活或质检结果。修改需求后请启动新流程。</small>
         <button disabled={busy||!policy||!reason.trim()} onClick={()=>act(async()=>{
           const row=await api("/returns/requests",token,body(),{"Idempotency-Key":crypto.randomUUID()});await open(row);
         })}>保存退货草稿</button>
-        <button disabled={busy||!policy||!reason.trim()} onClick={()=>act(startFlow)}>启动退货 Agent 核对</button>
+        <button disabled={busy||!policy||(!taskEnabled&&!reason.trim())} onClick={()=>act(startFlow)}>启动退货 Agent 核对</button>
         {selected?.status==="draft"&&<button disabled={busy||!reason.trim()} onClick={()=>act(async()=>{
           const row=await api(`/returns/requests/${selected.id}/correct`,token,{expected_revision:selected.revision,application:body()});await open(row);
         })}>用当前信息更正草稿</button>}
@@ -102,8 +109,11 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
       {flow&&<><p role="status">{flow.output?.answer||"正在执行"}</p><small>流程状态：{flow.status}</small>
         {flow.output?.condition_proposal?.source&&<blockquote>待确认原话：{flow.output.condition_proposal.source.quote}</blockquote>}
         {flow.status==="awaiting_input"&&flow.output?.pause_kind==="condition_confirmation"&&<button disabled={busy||description!==(flow.output?.known?.return_description||"")} onClick={()=>act(()=>resumeFlow("accept_condition"))}>确认这段原话所表达的商品状态</button>}
+        {taskEnabled&&flow.status==="completed"&&flow.output?.task_frame?.purpose!=="application"&&<button disabled={busy||!policy} onClick={()=>act(async()=>{setTaskMode("application");setSteps([]);const row=await api("/runs",token,{kind:"aftersales",query:"用户明确要求申请退货，请重新核对。",conversation_id:flow.conversation_id,order_number:number,return_item_id:item,return_policy_id:policy,return_quantity:quantity,return_condition:condition,return_basis:basis,return_task:"application",...(reason.trim()?{reason}:{})},{"Idempotency-Key":crypto.randomUUID()});setFlow(row);await follow(row.id);})}>现在申请退货（重新核对）</button>}
         {flow.output?.fact_assessment?.items?.map((f:any)=><p key={f.field}>{f.label} · {f.status==="available"?"实际字段已提供":"尚无实际字段可核实"}：{f.message}</p>)}
-        {flow.status==="awaiting_input"&&flow.output?.pause_kind!=="quality_wait"&&<button disabled={busy} onClick={()=>act(()=>resumeFlow("supply"))}>补充退货条件</button>}
+        {flow.status==="awaiting_input"&&flow.output?.pause_kind==="fact_clarification"&&<div aria-label="选择实际字段">{(flow.output.choices||[]).map((v:string)=><button key={v} disabled={busy} onClick={()=>act(()=>resumeFlow("choose_fact",v))}>{factLabels[v]||v}</button>)}</div>}
+        {flow.status==="awaiting_input"&&flow.output?.pause_kind==="task_clarification"&&<div aria-label="选择退货任务">{(flow.output.choices||[]).map((v:string)=><button key={v} disabled={busy} onClick={()=>act(()=>resumeFlow("choose_task",v))}>{taskLabels[v]||v}</button>)}</div>}
+        {flow.status==="awaiting_input"&&flow.output?.pause_kind!=="quality_wait"&&flow.output?.pause_kind!=="task_clarification"&&flow.output?.pause_kind!=="fact_clarification"&&<button disabled={busy} onClick={()=>act(()=>resumeFlow("supply"))}>补充退货条件</button>}
         {flow.status==="awaiting_input"&&flow.output?.pause_kind==="quality_wait"&&<button disabled={busy} onClick={()=>act(()=>resumeFlow("refresh"))}>刷新质检结果并重新核对</button>}
         {flow.status==="awaiting_confirmation"&&<>
           {flow.output?.proposal?.return_item_id&&<button disabled={busy} onClick={()=>act(()=>resumeFlow("correct"))}>按当前信息重新核对</button>}
@@ -114,9 +124,10 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
         {flow.status==="interrupted"&&<button disabled={busy} onClick={()=>act(()=>resumeFlow("retry"))}>恢复并核实退货流程</button>}
         {["awaiting_input","awaiting_confirmation","awaiting_approval","interrupted"].includes(flow.status)&&<button disabled={busy} onClick={()=>act(async()=>{watcher.current?.abort();setFlow(await api(`/runs/${flow.id}/cancel`,token,{}));})}>停止本次退货跟进</button>}
         {proposed?.return_item_id&&<dl><dt>退货分支</dt><dd>{bases[proposed.return_basis||"no_reason"]}</dd><dt>核对订单</dt><dd>{proposed.order_number}</dd><dt>申请数量</dt><dd>{proposed.return_quantity}</dd><dt>退货原因</dt><dd>{proposed.reason}</dd><dt>商品状态</dt><dd>{conditions[proposed.return_condition]||"未核实"}</dd><dt>商品金额参考值</dt><dd>{(proposed.goods_value_cents/100).toFixed(2)}，实际退款金额未确认</dd></dl>}
+        <PolicyTaskBoard board={flow.output?.answer_gate?.collaboration||liveBoard}/>
         <ContextCard context={flow.output?.context}/>
       {flow.output?.policy_context?.map((e:any)=><blockquote key={"bound-"+e.id}>{flow.output.context_purpose==="policy_question"?"只读查询检索原文：":"当前分支绑定原文："}{e.content}</blockquote>)}{flow.output?.evidence?.map((e:any)=><blockquote key={e.id}>{e.content}<small>{e.title} · 版本 {e.version}{e.text_origin==="human_corrected_parse"?" · 人工修订解析":""}</small></blockquote>)}
-        <details><summary>退货工具执行步骤</summary><ol>{steps.map(s=><li key={s.id}>{s.type}{s.payload?.name?" · "+s.payload.name:""}</li>)}</ol></details>
+        <details><summary>退货工具执行步骤</summary><ol>{steps.map(s=><li key={s.id}>{({task_planner:"任务整理",retrieval_agent:"取证助手",evidence_coordinator:"证据协调",answer_agent:"回答助手",review_agent:"核验助手",repair_agent:"修订助手"} as Record<string,string>)[s.payload?.agent]||s.type}{s.payload?.name?" · "+s.payload.name:""}</li>)}</ol></details>
         {flow.output?.source_investigation&&<details><summary>原文补查记录</summary>
           <p>补读 {flow.output.source_investigation.reads}/2 次 · 阅读 {flow.output.source_investigation.chars}/4000 字符 · 补检 {flow.output.source_investigation.supplemental_searches}/1 次</p>
           <ol>{flow.output.source_investigation.history.map((r:any,i:number)=><li key={i}>{r.section||"原文章节"} · {r.status==="read"?`已读${r.chars}字符${r.next_offset!==null?"，仍有后文":""}`:"读取未完成"}</li>)}</ol>

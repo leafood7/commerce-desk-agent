@@ -179,3 +179,22 @@ def test_money_cap_stops_before_network_and_preserves_previous_spend(tmp_path):
         audit.call("generate", [], 1024, lambda: called.append(True))
     assert not called
     assert audit.summary()["charged_cny"] == 0.999
+
+
+
+def test_preregistered_two_arm_comparison_shares_budget_without_allowing_replay(tmp_path):
+    from evaluation.answer_trust_budget import BudgetLedger
+    path = tmp_path / "pair-ledger.json"
+    BudgetLedger(path)
+    old = AuditBudget(path, tmp_path / "base", allowed_cases={"heldout"}, allowed_arms={"baseline_frozen"})
+    old.current = {"case_id": "heldout", "arm": "baseline_frozen"}
+    old.call("generate", [], 1024, lambda: {"usage": {"prompt_tokens": 10, "completion_tokens": 2}})
+    with pytest.raises(ValueError, match="refusing automatic replay"):
+        AuditBudget(path, tmp_path / "repeat", allowed_cases={"heldout"}, allowed_arms={"baseline_frozen"})
+    candidate = AuditBudget(path, tmp_path / "candidate", allowed_cases={"heldout"}, allowed_arms={"candidate_v2"})
+    candidate.current = {"case_id": "heldout", "arm": "unregistered"}
+    with pytest.raises(BatchStop):
+        candidate.call("generate", [], 1024, lambda: None)
+    candidate.current["arm"] = "candidate_v2"
+    candidate.call("generate", [], 1024, lambda: {"usage": {"prompt_tokens": 10, "completion_tokens": 2}})
+    assert candidate.summary()["requests"] == 2

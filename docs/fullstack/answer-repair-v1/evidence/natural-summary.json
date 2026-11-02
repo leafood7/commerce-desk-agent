@@ -1,0 +1,34 @@
+{
+  "runs": 9,
+  "arm": "candidate_v2",
+  "paid": true,
+  "program_goals": 9,
+  "wrong_application_previews": 0,
+  "unnecessary_pauses": 0,
+  "complete_necessary_quotes": 9,
+  "return_requests_in_isolated_database": 0,
+  "budget": {
+    "requests": 84,
+    "charged_cny": 0.235794,
+    "unknown_calls": 0,
+    "cumulative_cny": 4.992324,
+    "stopped": null
+  },
+  "modes": {
+    "reviewed": {
+      "runs": 3,
+      "program_goals": 3,
+      "repairs_attempted": 0
+    },
+    "reviewed_repair": {
+      "runs": 3,
+      "program_goals": 3,
+      "repairs_attempted": 0
+    },
+    "contract": {
+      "runs": 3,
+      "program_goals": 3,
+      "repairs_attempted": 0
+    }
+  }
+}

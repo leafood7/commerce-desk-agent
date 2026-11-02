@@ -1,3 +1,4 @@
+import {confirmKnowledgeImpact} from './knowledge-ui';
 import {test,expect} from '@playwright/test';
 import {createHash} from 'node:crypto';
 
@@ -44,7 +45,7 @@ test('parse repair is independently reviewed; publication refreshes retrieval an
   await expect(panel).toContainText('审核通过');
   await login('admin@demo.test');
   card=page.locator('article.document-card').filter({has:page.getByRole('heading',{name:title,exact:true})});
-  await card.getByRole('button',{name:'发布 v2',exact:true}).click();
+  await card.getByRole('button',{name:'发布 v2',exact:true}).click();await confirmKnowledgeImpact(page,'publish');
   await expect.poll(async()=> (await (await request.get(api+'/api/v1/knowledge/versions/'+edited.id,{headers})).json()).published).toBeTruthy();
   const found=await (await request.post(api+'/api/v1/knowledge/search',{headers,data:{query:'定制商品退货',version_id:edited.id,strategy:'hybrid_rerank',top_k:3}})).json();
   expect(found.matches.length).toBeGreaterThan(0);expect(found.matches.every((m:any)=>m.version_id===edited.id&&m.text_origin==='human_corrected_parse')).toBeTruthy();

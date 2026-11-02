@@ -73,6 +73,10 @@ def effective_blocks(session, version, settings, depth=0):
         blocks[index] = replace(blocks[index], text=patch["text"])
     if sum(len(b.text) for b in blocks) > MAX_TEXT:
         raise IngestionError("revision_text_limit")
+    # An annotation belongs to one exact version, not to a derived parse revision.
+    metadata = {
+        k: v for k, v in metadata.items() if k not in {"policy_extraction_id", "faq_update_review"}
+    }
     return blocks, {**metadata, "text_origin": "human_corrected_parse"}
 
 
@@ -345,6 +349,19 @@ def rollback_version(session, actor, document_id, body):
     previous = document.active_version_id
     invalidate_faqs(session, actor, document.id, previous, target.id)
     document.active_version_id = target.id
+    from workbench.knowledge_updates import record_update
+
+    old_version = session.get(DocumentVersion, previous)
+    record_update(
+        session,
+        actor,
+        document,
+        previous,
+        target.id,
+        "rollback",
+        old_annotation=(old_version.parse_metadata or {}).get("policy_extraction_id"),
+        new_annotation=(target.parse_metadata or {}).get("policy_extraction_id"),
+    )
     audit(
         session,
         actor,

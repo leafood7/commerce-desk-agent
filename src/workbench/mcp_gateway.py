@@ -10,6 +10,8 @@ from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
 
 from workbench.tool_contracts import CONTRACTS
+from workbench.tracing import headers as trace_headers
+from workbench.tracing import traced
 
 
 class ToolFailure(RuntimeError):
@@ -23,6 +25,12 @@ class MCPGateway:
         self.settings = settings
 
     async def call(self, name, arguments, token):
+        # Keep each retry as a distinct client span while preserving the parent graph node.
+        return await traced("mcp_client", name if name in CONTRACTS else "unknown_tool")(
+            self._call
+        )(name, arguments, token)
+
+    async def _call(self, name, arguments, token):
         if name not in CONTRACTS:
             raise ToolFailure("unknown_tool")
         body = CONTRACTS[name][0].model_validate(arguments)
@@ -30,7 +38,7 @@ class MCPGateway:
         try:
             async with asyncio.timeout(timeout):
                 async with httpx.AsyncClient(
-                    headers={"Authorization": "Bearer " + token},
+                    headers={"Authorization": "Bearer " + token, **trace_headers()},
                     timeout=timeout,
                     follow_redirects=False,
                     trust_env=False,
@@ -78,7 +86,8 @@ class MCPGateway:
                         )
                     )
                     or type(payload.get("complete")) is not bool
-                    or payload.get("source_kind") != "parsed_original"
+                    or payload.get("source_kind")
+                    not in {"parsed_original", "human_corrected_parse"}
                 ):
                     raise ToolFailure("invalid_response")
             if name == "get_order_status":

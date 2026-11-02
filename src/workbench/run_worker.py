@@ -15,15 +15,19 @@ from workbench.models import AuthSession, Run, User, now
 from workbench.runs import event
 from workbench.security import digest
 from workbench.tool_contracts import ROLE_SCOPES
+from workbench.tracing import trace_job
 
 logger = logging.getLogger(__name__)
 INITIAL = "__initial__"
 
 
 def enqueue(session, run, parent_hash, action_key=None):
-    session.add(
-        RunJob(run_id=run.id, action_key=action_key or INITIAL, parent_session_hash=parent_hash)
-    )
+    job = RunJob(run_id=run.id, action_key=action_key or INITIAL, parent_session_hash=parent_hash)
+    session.add(job)
+    session.flush()
+    from workbench.tracing import link
+
+    link(session, run, job)
 
 
 def lease_valid(session, job_id, token):
@@ -141,6 +145,7 @@ def authorize(session, job, run, settings):
     return token
 
 
+@trace_job
 def process_job(database, job_id, token, gateway):
     def guard(session):
         return lease_valid(session, job_id, token)

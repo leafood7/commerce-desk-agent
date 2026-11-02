@@ -1,13 +1,15 @@
+import {PolicyTaskBoard} from "./PolicyTaskBoard";
 import {useEffect,useRef,useState} from "react";
 import {api} from "./api";
 
 export function Conversations({token,onContinue,onResume}:{token:string;onContinue:(id:string)=>void;onResume:(id:string,conversation:string)=>void}){
   const [items,setItems]=useState<any[]>([]),[selected,setSelected]=useState(""),[messages,setMessages]=useState<any[]>([]),[runs,setRuns]=useState<any[]>([]);
+  const [boards,setBoards]=useState<Record<string,any>>({});
   const [cursor,setCursor]=useState<string|null>(null),[offset,setOffset]=useState(0),[busy,setBusy]=useState(false),[error,setError]=useState("");
   const selection=useRef("");selection.current=selected;
   useEffect(()=>{let active=true;api("/conversations?limit=20&offset="+offset,token).then(data=>{if(active)setItems(data.items);})
     .catch(e=>{if(active)setError(e.message);});return ()=>{active=false;};},[token,offset]);
-  useEffect(()=>{let active=true;setMessages([]);setRuns([]);setCursor(null);if(!selected)return;
+  useEffect(()=>{let active=true;setMessages([]);setRuns([]);setBoards({});setCursor(null);if(!selected)return;
     Promise.all([api("/conversations/"+selected+"/messages?limit=50",token),api("/conversations/"+selected+"/runs",token)])
       .then(([journal,history])=>{if(active){setMessages(journal.items);setCursor(journal.next_before);setRuns(history.items);}})
       .catch(e=>{if(active)setError(e.message);});
@@ -28,8 +30,11 @@ export function Conversations({token,onContinue,onResume}:{token:string;onContin
     {selected&&<><button onClick={()=>onContinue(selected)}>在此会话开始新任务</button>
       {cursor&&<button disabled={busy} className="quiet" onClick={older}>加载更早消息</button>}
       <div className="conversation-journal">{messages.map(row=><article className="document-card" key={row.id}><strong>{row.role==="human"?"用户":"助手"}</strong><p>{row.content}</p></article>)}</div>
-      {!!runs.length&&<details><summary>该会话的近期流程</summary>{runs.map(row=><p key={row.id}>{row.id.slice(0,8)} · {row.status}
-        {row.kind==="aftersales"&&<button className="quiet" onClick={()=>onResume(row.id,selected)}>打开售后流程 {row.id.slice(0,8)}</button>}</p>)}</details>}
+      {!!runs.length&&<details><summary>该会话的近期流程</summary>{runs.map(row=><div key={row.id}><p>{row.id.slice(0,8)} · {row.status}</p>
+        {row.kind==="aftersales"&&<button className="quiet" onClick={()=>onResume(row.id,selected)}>打开售后流程 {row.id.slice(0,8)}</button>}
+        {["aftersales","knowledge_search"].includes(row.kind)&&<button className="quiet" onClick={async()=>{try{const value=await api("/runs/"+row.id,token);setBoards(previous=>({...previous,[row.id]:value.output?.answer_gate?.collaboration||{tasks:[]}}));}catch(e){setError((e as Error).message);}}}>查看协作记录 {row.id.slice(0,8)}</button>}
+        {boards[row.id]&&(!boards[row.id].tasks?.length?<p>本流程没有可展示的新版政策协作事项。</p>:<PolicyTaskBoard board={boards[row.id]}/>)}
+      </div>)}</details>}
     </>}
     {!items.length&&<p>当前没有可显示的会话。</p>}{error&&<p role="alert" className="error">{error}</p>}
   </section>;

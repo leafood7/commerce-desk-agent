@@ -25,6 +25,8 @@ def require_recovery(settings, expected_database):
     url = make_url(settings.database_url.get_secret_value())
     if url.drivername != "mysql+pymysql" or url.database != expected_database:
         raise ValueError("Configured database does not match the recovery target")
+    if settings.vector_backend != "chroma" or settings.vector_namespace:
+        raise ValueError("Legacy recovery script requires the original Chroma configuration")
     if urlparse(settings.chroma_url).hostname != "restore-chroma":
         raise ValueError("Recovery index must use the isolated restore-chroma service")
 

@@ -14,8 +14,9 @@ export async function api(path: string, token = "", body?: unknown, extra: Recor
       429: path === "/auth/login" ? "登录尝试过多，请稍后再试。" : "当前待处理任务较多，请稍后重试；已有流程仍保留。",
       413: "文件为空或超过 20 MB 限制。", 422: "请检查输入内容与文件格式。"
     };
-    throw new Error(messages[response.status] || (typeof error.detail === "string" ?
-      error.detail : "服务暂不可用，请稍后再试。"));
+    const trace = response.headers.get("X-Trace-ID");
+    throw new Error((messages[response.status] || (typeof error.detail === "string" ?
+      error.detail : "服务暂不可用，请稍后再试。")) + (trace ? "（追踪编号："+trace+"）" : ""));
   }
   return response.status === 204 ? null : response.json();
 }

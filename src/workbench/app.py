@@ -1,9 +1,7 @@
 import asyncio
 import json
 import logging
-import time
 from contextlib import asynccontextmanager
-from uuid import uuid4
 
 from fastapi import (
     BackgroundTasks,
@@ -26,6 +24,8 @@ from sqlalchemy.exc import IntegrityError
 import workbench.profile_models  # noqa: F401
 import workbench.quota_models  # noqa: F401
 import workbench.return_models  # noqa: F401
+import workbench.trace_models  # noqa: F401
+from workbench import tracing
 from workbench.aftersales import WAITING, continue_flow, execute_flow
 from workbench.aftersales_schemas import FlowResume
 from workbench.config import WorkbenchSettings
@@ -99,23 +99,44 @@ def create_app(settings=None, *, gateway=None):
         allow_origins=settings.cors_origins,
         allow_methods=["GET", "POST"],
         allow_headers=["Authorization", "Content-Type", "Idempotency-Key", "Last-Event-ID"],
-        expose_headers=["X-Request-ID"],
+        expose_headers=["X-Request-ID", "X-Trace-ID"],
     )
 
     @application.middleware("http")
     async def request_log(request, call_next):
-        request_id, started = str(uuid4()), time.perf_counter()
-        response = await call_next(request)
-        response.headers["X-Request-ID"] = request_id
-        logger.info(
-            "request_id=%s method=%s path=%s status=%s elapsed_ms=%.1f",
-            request_id,
-            request.method,
-            request.url.path,
-            response.status_code,
-            1000 * (time.perf_counter() - started),
-        )
-        return response
+        if request.url.path.startswith("/api/v1/traces"):
+            return await call_next(request)
+        ctx = tracing.TraceContext(database, operation=request.method + " request")
+        marker = tracing.context.set(ctx)
+        try:
+            with tracing.span("api", request.method + " request") as row:
+                try:
+                    response = await call_next(request)
+                except Exception:
+                    logger.error("request_unhandled_error trace_id=%s", ctx.id)
+                    response = JSONResponse(
+                        status_code=500,
+                        content={
+                            "detail": "服务处理失败，请通过追踪编号核实；已执行的操作请先查询状态。"
+                        },
+                    )
+                route = request.scope.get("route")
+                ctx.operation = (request.method + " " + getattr(route, "path", "unmatched"))[:120]
+                if row:
+                    row["operation"] = ctx.operation
+                    row["details"]["http_status"] = response.status_code
+                    if response.status_code >= 400:
+                        row["status"] = "failed"
+                        row["error_code"] = "http_" + str(response.status_code)
+                    if response.headers.get("content-type", "").startswith("text/event-stream"):
+                        row["details"]["stream_setup_only"] = True
+                response.headers["X-Request-ID"] = ctx.id
+                response.headers["X-Trace-ID"] = ctx.id
+                return response
+        finally:
+            await asyncio.to_thread(tracing.flush)
+            logger.info("trace_id=%s request_finished", ctx.id)
+            tracing.context.reset(marker)
 
     @application.exception_handler(RequestValidationError)
     async def validation_error(request, exc):
@@ -133,12 +154,31 @@ def create_app(settings=None, *, gateway=None):
     def actor(
         credentials: HTTPAuthorizationCredentials | None = Depends(bearer),
         connection=Depends(session),
+        request: Request = None,
     ):
         if not credentials:
             raise HTTPException(
                 401, "Authentication required", headers={"WWW-Authenticate": "Bearer"}
             )
-        return authenticate(connection, credentials.credentials)
+        user = authenticate(connection, credentials.credentials)
+        tracing.register(database, user)
+        if request and tracing.context.get():
+            import re
+
+            match = re.fullmatch(r"/api/v1/runs/([a-f0-9-]{36})(?:/[^/]+)?", request.url.path)
+            if match:
+                with database.sessions() as trace_session:
+                    run = trace_session.scalar(
+                        select(Run).where(
+                            Run.id == match[1],
+                            Run.owner_id == user.id,
+                            Run.organization_id == user.organization_id,
+                        )
+                    )
+                    if run:
+                        tracing.link(trace_session, run)
+                        trace_session.commit()
+        return user
 
     def require(*roles):
         def permitted(user=Depends(actor)):
@@ -581,8 +621,11 @@ def create_app(settings=None, *, gateway=None):
     @application.get("/api/v1/runs/{identifier}/context")
     def context_status(identifier: str, user=Depends(actor), connection=Depends(session)):
         record = owned_run(connection, user, identifier)
-        return {"run_id": record.id, "context": (record.output or {}).get("context"),
-                "coverage": "current_run_only_no_private_history_or_summary"}
+        return {
+            "run_id": record.id,
+            "context": (record.output or {}).get("context"),
+            "coverage": "current_run_only_no_private_history_or_summary",
+        }
 
     @application.get("/api/v1/runs/{identifier}/business-status")
     def business_status(identifier: str, user=Depends(actor), connection=Depends(session)):
@@ -765,6 +808,7 @@ def create_app(settings=None, *, gateway=None):
     from workbench.quality_api import attach_quality_routes
 
     attach_quality_routes(application, session, actor, require, idempotency_key)
+    tracing.attach_routes(application, session, actor)
     return application
 
 

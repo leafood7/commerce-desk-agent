@@ -17,6 +17,7 @@ from workbench.models import (
     ShippingTicket,
     now,
 )
+from workbench.tracing import traced
 
 
 def fingerprint(value):
@@ -48,6 +49,7 @@ def audit(session, actor, action, resource_id, **details):
     )
 
 
+@traced("business", "get_order")
 def get_order(session, actor, number, *, lock=False):
     statement = select(Order).where(
         Order.organization_id == actor.organization_id, Order.number == number.strip().upper()
@@ -150,6 +152,7 @@ def shipping_error(order, kind):
     return eligibility(data, kind, now().replace(tzinfo=UTC))
 
 
+@traced("business", "create_shipping")
 def create_shipping(session, actor, body, idempotency_key=None):
     payload_hash = fingerprint(
         {name: getattr(body, name) for name in ("order_number", "kind", "reason")}
@@ -229,6 +232,7 @@ def create_shipping(session, actor, body, idempotency_key=None):
     return request
 
 
+@traced("business", "decide_shipping")
 def decide_shipping(session, actor, identifier, body):
     target_order = session.scalar(
         select(ShippingRequest.order_id).where(

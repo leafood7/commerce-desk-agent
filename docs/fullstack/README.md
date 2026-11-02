@@ -1,3 +1,5 @@
+本轮新增：[任务澄清、跨章节与新题](return-inquiry-v2/report.md) · [最多一次修复](answer-repair-v1/report.md) · [角色协作实验](knowledge-collaboration-v1/report.md)。默认模式和本地发布状态以STATUS.md最新记录为准。
+
 # CommerceDesk 全栈运行与模块说明
 
 当前工程：`D:\VScodeProgects\commerce-desk-agent`。新React工作台是主交付入口；[作品交付包](../portfolio/README.md)、[实际架构](../portfolio/architecture.md)、[启动排障](../portfolio/operations.md)和[当前状态](STATUS.md)优先于旧阶段文字。

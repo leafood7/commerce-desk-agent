@@ -1,0 +1,68 @@
+import {test,expect} from '@playwright/test';
+
+test('clarify purpose, read rules, explicitly start application, and select an actual field',async({page,request})=>{
+  test.setTimeout(180000);
+  const password=process.env.WORKBENCH_TEST_PASSWORD,api=process.env.WORKBENCH_TEST_URL;
+  const order=process.env.INQUIRY_ORDER,policy=process.env.INQUIRY_POLICY;
+  if(!password||!api||!order||!policy)throw new Error('Isolated fixture required');
+  await page.goto('/');
+  async function login(email:string){
+    await page.getByLabel('邮箱').fill(email);await page.getByLabel('密码').fill(password!);
+    const wait=page.waitForResponse(r=>r.url().endsWith('/api/v1/auth/login')&&r.request().method()==='POST');
+    await page.getByRole('button',{name:'进入工作台'}).click();
+    const response=await wait;expect(response.status()).toBe(200);return (await response.json()).access_token as string;
+  }
+  await login('admin@demo.test');
+  await page.getByRole('button',{name:'配置版本',exact:true}).click();
+  await page.getByLabel('模型选择').selectOption('rules');
+  await page.getByLabel('政策回答方式').selectOption('excerpts');
+  await page.getByLabel('退货动作决策').selectOption('rules');
+  await page.getByLabel('退货流程').selectOption('guided_v3');
+  await page.getByLabel('退货政策范围').selectOption('clause_bound');
+  await page.getByLabel('按需阅读原文').selectOption('true');
+  await page.getByLabel('任务澄清配置').selectOption('true');
+  await page.getByLabel('跨章节核查配置').selectOption('true');
+  await page.getByRole('button',{name:'保存配置草稿'}).click();
+  await expect(page.getByRole('status')).toContainText('已保存草稿');
+  await page.getByRole('button',{name:'发布选中版本'}).click();
+  await expect(page.getByRole('status')).toContainText('已发布');
+  await page.getByRole('button',{name:'退出登录'}).click();
+  const token=await login('support@demo.test');
+  const headers={Authorization:'Bearer '+token};
+  async function state(id:string){const response=await request.get(api+'/api/v1/runs/'+id,{headers});expect(response.status()).toBe(200);return response.json();}
+  await page.getByRole('button',{name:'退货申请',exact:true}).click();
+  await page.getByLabel('退货订单号').fill(order);
+  await page.getByRole('button',{name:'读取退货订单'}).click();
+  await page.getByLabel('退货规则').selectOption(policy);
+  await page.getByLabel('退货原因').fill('隔离任务目的演示');
+  await page.getByLabel('退货核对需求').fill('帮我看看这件商品。');
+  const firstWait=page.waitForResponse(r=>r.url().endsWith('/api/v1/runs')&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'启动退货 Agent 核对'}).click();
+  const first=(await (await firstWait).json()).id;
+  await expect(page.getByRole('button',{name:'了解规则',exact:true})).toBeVisible();
+  expect((await state(first)).output.pause_kind).toBe('task_clarification');
+  await expect(page.getByRole('button',{name:'补充退货条件',exact:true})).toHaveCount(0);
+  await page.getByRole('button',{name:'了解规则',exact:true}).click();
+  await expect.poll(async()=> (await state(first)).status).toBe('completed');
+  expect((await state(first)).output.request).toBeFalsy();
+  const nextWait=page.waitForResponse(r=>r.url().endsWith('/api/v1/runs')&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'现在申请退货（重新核对）',exact:true}).click();
+  const next=(await (await nextWait).json()).id;expect(next).not.toBe(first);
+  await expect(page.getByRole('button',{name:'补充退货条件',exact:true})).toBeVisible();
+  await page.getByLabel('商品状态',{exact:true}).selectOption('unused');
+  await page.getByRole('button',{name:'补充退货条件',exact:true}).click();
+  await expect(page.getByRole('button',{name:'确认已核对的退货预览',exact:true})).toBeVisible();
+  expect((await state(next)).status).toBe('awaiting_confirmation');
+  expect((await state(next)).output.request).toBeFalsy();
+  await page.screenshot({path:'../work/return-inquiry-v2/inquiry-preview.png',fullPage:true});
+  await page.getByRole('button',{name:'停止本次退货跟进',exact:true}).click();
+  await page.getByLabel('退货任务目的').selectOption('facts');
+  const factWait=page.waitForResponse(r=>r.url().endsWith('/api/v1/runs')&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'启动退货 Agent 核对'}).click();
+  const fact=(await (await factWait).json()).id;
+  await expect(page.getByRole('button',{name:'实际到账',exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'实际到账',exact:true}).click();
+  await expect.poll(async()=> (await state(fact)).status).toBe('completed');
+  expect((await state(fact)).output.answer).toContain('不提供');
+  expect((await state(fact)).output.request).toBeFalsy();
+});

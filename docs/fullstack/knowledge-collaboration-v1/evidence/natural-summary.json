@@ -1,0 +1,34 @@
+{
+  "runs": 6,
+  "arm": "candidate_v2",
+  "paid": true,
+  "program_goals": 6,
+  "wrong_application_previews": 0,
+  "unnecessary_pauses": 0,
+  "complete_necessary_quotes": 6,
+  "return_requests_in_isolated_database": 0,
+  "budget": {
+    "requests": 98,
+    "charged_cny": 0.273756,
+    "unknown_calls": 0,
+    "cumulative_cny": 5.030285999999999,
+    "stopped": null
+  },
+  "agents": {
+    "single": {
+      "runs": 3,
+      "program_goals": 3
+    },
+    "collaborative": {
+      "runs": 3,
+      "program_goals": 3
+    }
+  },
+  "modes": {
+    "reviewed": {
+      "runs": 6,
+      "program_goals": 6,
+      "repairs_attempted": 0
+    }
+  }
+}

@@ -11,6 +11,7 @@ from business.rag_retrieval import BM25Index, reciprocal_rank_fusion, rerank
 from workbench.evidence_context import expand_context
 from workbench.knowledge_models import Document, DocumentVersion, KnowledgeChunk
 from workbench.reference_context import expand_references
+from workbench.tracing import span, traced
 
 
 class KnowledgeRetriever:
@@ -53,6 +54,7 @@ class KnowledgeRetriever:
             if dependencies_current(session, organization_id, v.parse_metadata or {})
         ]
 
+    @traced("retrieval", "snapshot")
     def snapshot(self, organization_id, policy_scope, version_id=None, audience=None):
         with self.database.sessions() as session:
             versions = self.active_versions(session, organization_id, policy_scope, version_id)
@@ -124,6 +126,7 @@ class KnowledgeRetriever:
                 self.cache.popitem(last=False)
         return ids, cached
 
+    @traced("retrieval", "search")
     def search(self, organization_id, request):
         start = perf_counter()
         from workbench.policy_audience import audience_filter
@@ -142,7 +145,11 @@ class KnowledgeRetriever:
                 "matches": [],
                 "coverage": "needs_scope",
                 "clarification": {"missing": missing, "source": "explicit_conditions_required"},
-                "trace": {"strategy": request.strategy, "version_ids": []},
+                "trace": {
+                    "strategy": request.strategy,
+                    "vector_backend": getattr(self.index, "backend", "explicit_test_double"),
+                    "version_ids": [],
+                },
             }
         version_ids, (documents, sparse_index) = self.snapshot(
             organization_id, request.policy_scope, request.version_id, request.audience
@@ -156,26 +163,33 @@ class KnowledgeRetriever:
             }
         pool = max(12, request.top_k)
         by_id = {row["id"]: row for row in documents}
-        dense_raw = self.index.query(
-            organization_id, version_ids, request.query, min(pool, len(documents))
-        )
+        with span("retrieval", "vector_search") as step:
+            dense_raw = self.index.query(
+                organization_id, version_ids, request.query, min(pool, len(documents))
+            )
+            if step:
+                step["details"]["dense_count"] = len(dense_raw)
         dense = [
             {**by_id[row["id"]], "distance": row["distance"]}
             for row in dense_raw
             if row["id"] in by_id and row["distance"] <= self.settings.vector_max_distance
         ]
-        sparse = sparse_index.search(request.query, pool)
-        fusion = reciprocal_rank_fusion([dense, sparse], pool)
+        with span("retrieval", "bm25_and_fusion") as step:
+            sparse = sparse_index.search(request.query, pool)
+            fusion = reciprocal_rank_fusion([dense, sparse], pool)
+            if step:
+                step["details"]["sparse_count"] = len(sparse)
         if request.strategy == "vector":
             ranked = dense
         elif request.strategy == "hybrid":
             ranked = fusion
         else:
-            ranked = [
-                row
-                for row in rerank(request.query, fusion)
-                if row["rerank_score"] >= self.settings.rerank_threshold
-            ]
+            with span("retrieval", "rerank"):
+                ranked = [
+                    row
+                    for row in rerank(request.query, fusion)
+                    if row["rerank_score"] >= self.settings.rerank_threshold
+                ]
         anchors = []
         total_chars = 0
         for candidate in ranked[: request.top_k]:
@@ -216,6 +230,8 @@ class KnowledgeRetriever:
             "coverage": "retrieved_evidence_only" if selected else "no_supported_match",
             "trace": {
                 "strategy": request.strategy,
+                "vector_backend": getattr(self.index, "backend", "explicit_test_double"),
+                "vector_namespace": getattr(self.index, "namespace", ""),
                 "context_mode": self.settings.retrieval_context_mode,
                 "reference_expansion": reference_trace,
                 "version_ids": list(version_ids),

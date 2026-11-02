@@ -1,0 +1,14 @@
+{
+  "status": "pending_user_review",
+  "items": [
+    {
+      "id": "inquiry-final-02-intent",
+      "proposed": "核心规则已答出，附加无法确认全部结论，待确认是否为多余不确定提示。"
+    },
+    {
+      "id": "inquiry-final-03-intent",
+      "proposed": "原稿含非所问通用9天标准条款且被审查拦截；不直接等同于把封签设备8天改成9天。"
+    }
+  ],
+  "note": "其余仅作者初步核对，不宣称独立盲审；模型approved不等于人工确认正确。"
+}

@@ -1,3 +1,4 @@
+import {confirmKnowledgeImpact} from './knowledge-ui';
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -35,7 +36,7 @@ test("real upload, worker, MCP retrieval, source isolation and withdrawal", asyn
   try {
     await expect(card.getByRole("button",{name:"发布 v1"})).toBeVisible({timeout:120_000});
     expect((await search()).some(row=>row.version_id===version)).toBeFalsy();
-    await card.getByRole("button",{name:"发布 v1"}).click();
+    await card.getByRole("button",{name:"发布 v1"}).click();await confirmKnowledgeImpact(page,'publish');
     await expect(card).toContainText("当前已发布");
     await page.getByRole("button",{name:"政策检索",exact:true}).click();
     await page.getByLabel("政策问题").fill("运费券可以抵扣商品金额吗？");
@@ -55,7 +56,7 @@ test("real upload, worker, MCP retrieval, source isolation and withdrawal", asyn
       headers:{Authorization:"Bearer "+otherToken}});
     expect(cross.status()).toBe(404);
     await page.getByRole("button",{name:"知识库",exact:true}).click();
-    await card.getByRole("button",{name:"撤回当前版本"}).click();
+    await card.getByRole("button",{name:"撤回当前版本"}).click();await confirmKnowledgeImpact(page,'withdraw');
     await expect(card).not.toContainText("当前已发布");
     expect((await search()).some(row=>row.version_id===version)).toBeFalsy();
   } finally {

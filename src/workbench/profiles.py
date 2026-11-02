@@ -54,6 +54,23 @@ def factory_values(settings):
 
 
 def check_options(options, settings):
+    if (
+        options.knowledge_collaboration_version == "task_board_v2"
+        and options.knowledge_agent_mode != "collaborative"
+    ):
+        raise HTTPException(422, "Task-board orchestration requires collaborative mode")
+    if options.knowledge_agent_mode == "collaborative" and (
+        options.return_decisions != "model"
+        or not options.return_source_reading
+        or options.policy_answer_mode not in {"reviewed", "reviewed_repair"}
+    ):
+        raise HTTPException(
+            422, "Collaborative policy roles require bounded model reading and review"
+        )
+    if options.return_task_clarification and options.return_flow_version != "guided_v3":
+        raise HTTPException(422, "Task clarification requires guided mode")
+    if options.return_reference_check and not options.return_source_reading:
+        raise HTTPException(422, "Reference checking requires bounded source reading")
     if options.return_source_reading and (
         not settings.return_source_reading_enabled
         or options.return_flow_version != "guided_v3"
@@ -62,7 +79,7 @@ def check_options(options, settings):
         raise HTTPException(
             422, "Source reading requires server enablement and guided clause-bound mode"
         )
-    rank = {"excerpts": 0, "contract": 1, "reviewed": 2}
+    rank = {"excerpts": 0, "contract": 1, "reviewed": 2, "reviewed_repair": 3}
     if options.policy_answer_mode != "excerpts" and (
         options.model_alias != "server_default"
         or rank[options.policy_answer_mode] > rank[settings.policy_answer_mode]
@@ -262,7 +279,7 @@ def effective_settings(database, run_id):
             else:
                 return_mode = "model"
         answer_mode = "excerpts"
-        rank = {"excerpts": 0, "contract": 1, "reviewed": 2}
+        rank = {"excerpts": 0, "contract": 1, "reviewed": 2, "reviewed_repair": 3}
         if (
             mode == "model"
             and options.policy_answer_mode != "excerpts"
@@ -278,6 +295,7 @@ def effective_settings(database, run_id):
             base.model_copy(
                 update={
                     "policy_answer_mode": answer_mode,
+                    "knowledge_collaboration_version": options.knowledge_collaboration_version,
                     "policy_answer_max_tokens": min(
                         options.policy_answer_max_tokens, base.policy_answer_max_tokens
                     ),

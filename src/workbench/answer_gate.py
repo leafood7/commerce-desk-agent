@@ -7,6 +7,8 @@ from sqlalchemy import select
 
 from workbench.answer_contract import (
     SAFE_ANSWER,
+    AnswerDraft,
+    DraftContractIssue,
     messages,
     prompt_hash,
     render_draft,
@@ -139,57 +141,162 @@ def private_call(database, run_id, settings, phase, context, draft, limits, guar
     return result
 
 
-def produce_answer(database, run_id, settings, context, limits, guard, progress=None):
-    mode = settings.policy_answer_mode
-    if mode == "excerpts":
-        return None
+def reserve_repair_once(database, run_id, context, draft, codes, guard):
+    """Consume the run's single repair allowance before I/O; never restore on replay."""
+    digest = fingerprint(
+        {"context": context, "draft": draft, "codes": codes, "prompt": prompt_hash()}
+    )
+    guard()
+    with database.sessions() as session:
+        run = session.scalar(select(Run).where(Run.id == run_id).with_for_update())
+        if run.status != "running":
+            raise ToolFailure("cancelled")
+        key = "__answer_repair_once__"
+        row = session.get(FlowAction, (run_id, key))
+        if row:
+            if row.input_hash != digest:
+                raise ToolFailure("repair_already_consumed")
+        else:
+            session.add(
+                FlowAction(
+                    run_id=run_id,
+                    key=key,
+                    input_hash=digest,
+                    body={"status": "consumed", "phase": "repair", "codes": codes},
+                )
+            )
+        session.commit()
 
-    def fallback(status, codes=None):
+
+class AnswerSession:
+    """Shared bounded role operations for the fixed workflow and collaborative graph."""
+
+    def __init__(self, database, run_id, settings, context, limits, guard, progress=None):
+        self.database, self.run_id, self.settings = database, run_id, settings
+        self.context, self.limits, self.guard, self.progress = context, limits, guard, progress
+        self.mode = settings.policy_answer_mode
+        self.repair_attempted = False
+
+    def call(self, phase, payload=None):
+        phases = {
+            "generate": "generating",
+            "review": "reviewing",
+            "repair": "repairing",
+            "review_repair": "reviewing_repair",
+        }
+        if self.progress:
+            self.progress(phases[phase])
+        return private_call(
+            self.database,
+            self.run_id,
+            self.settings,
+            phase,
+            self.context,
+            payload,
+            self.limits,
+            self.guard,
+        )
+
+    def fallback(self, status, codes=None):
         return {
             "answer": SAFE_ANSWER
             + (
-                "\n" + "\n".join(context["unknown_facts"].values())
-                if context["unknown_facts"]
+                "\n" + "\n".join(self.context["unknown_facts"].values())
+                if self.context["unknown_facts"]
                 else ""
             ),
             "answer_gate": {
-                "mode": mode,
+                "mode": self.mode,
                 "status": status,
                 "codes": codes or [],
+                "repair": {"attempted": self.repair_attempted},
                 "semantic_correctness_guaranteed": False,
             },
         }
 
-    if not context["allowed_evidence"]:
-        return fallback("no_evidence")
-    try:
-        if progress:
-            progress("generating")
-        generated = private_call(
-            database, run_id, settings, "generate", context, None, limits, guard
-        )
-        draft = validate_draft(generated["raw"], context)
-        if mode == "reviewed":
-            if progress:
-                progress("reviewing")
-            reviewed = private_call(
-                database, run_id, settings, "review", context, draft.model_dump(), limits, guard
-            )
-            decision = validate_review(reviewed["raw"])
-            if not decision.approved:
-                return fallback("blocked", decision.codes)
+    def published(self, draft, repaired=False):
         return {
-            "answer": render_draft(draft, context),
+            "answer": render_draft(draft, self.context),
             "answer_gate": {
-                "mode": mode,
-                "status": "approved" if mode == "reviewed" else "contract_valid",
+                "mode": self.mode,
+                "status": "approved"
+                if self.mode in {"reviewed", "reviewed_repair"}
+                else "contract_valid",
                 "codes": [],
+                "repair": {
+                    "attempted": repaired,
+                    "outcome": "approved" if repaired else "not_needed",
+                },
                 "semantic_correctness_guaranteed": False,
+                "evidence_bindings": [
+                    {"label": i + 1, "id": row["id"], "version_id": row["version_id"]}
+                    for i, row in enumerate(self.context["allowed_evidence"])
+                ],
             },
         }
+
+    def repair_usable(self):
+        return not self.context.get("requires_partial_boundary") and not any(
+            (self.context.get("assembly_gaps") or {}).values()
+        )
+
+    def repair_generation(self, draft, codes, check_kind):
+        if not self.repair_usable():
+            raise ToolFailure("answer_evidence_gap")
+        reserve_repair_once(
+            self.database, self.run_id, self.context, draft.model_dump(), codes, self.guard
+        )
+        self.repair_attempted = True
+        payload = {
+            "previous_draft": draft.model_dump(),
+            "check_codes": codes,
+            "check_kind": check_kind,
+        }
+        return validate_draft(self.call("repair", payload)["raw"], self.context)
+
+    def check(self, draft, repaired=False):
+        return validate_review(
+            self.call("review_repair" if repaired else "review", draft.model_dump())["raw"]
+        )
+
+    def repair_and_check(self, draft, codes, check_kind):
+        if not self.repair_usable():
+            return self.fallback("blocked_evidence_gap", codes)
+        corrected = self.repair_generation(draft, codes, check_kind)
+        decision = self.check(corrected, repaired=True)
+        if not decision.approved:
+            return self.fallback("repair_rejected", decision.codes)
+        return self.published(corrected, repaired=True)
+
+
+def produce_answer(database, run_id, settings, context, limits, guard, progress=None):
+    engine = AnswerSession(database, run_id, settings, context, limits, guard, progress)
+    if engine.mode == "excerpts":
+        return None
+    if not context["allowed_evidence"]:
+        return engine.fallback("no_evidence")
+    try:
+        generated = engine.call("generate")
+        try:
+            draft = validate_draft(generated["raw"], context)
+        except DraftContractIssue as issue:
+            if engine.mode != "reviewed_repair":
+                return engine.fallback("invalid_contract_or_review")
+            return engine.repair_and_check(
+                AnswerDraft.model_validate_json(generated["raw"]), [issue.code], "program"
+            )
+        if engine.mode in {"reviewed", "reviewed_repair"}:
+            decision = engine.check(draft)
+            if not decision.approved:
+                if engine.mode == "reviewed_repair":
+                    return engine.repair_and_check(draft, decision.codes, "semantic")
+                return engine.fallback("blocked", decision.codes)
+        return engine.published(draft)
     except ToolFailure as exc:
         if exc.code in {"cancelled", "worker_lease_lost", "forbidden", "unauthorized"}:
             raise
-        return fallback("unavailable")
+        return engine.fallback("repair_unavailable" if engine.repair_attempted else "unavailable")
     except Exception:
-        return fallback("invalid_contract_or_review")
+        return engine.fallback(
+            "repair_invalid" if engine.repair_attempted else "invalid_contract_or_review"
+        )

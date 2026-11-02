@@ -12,10 +12,10 @@ from sqlalchemy import and_, delete, or_, select, update
 from workbench.config import WorkbenchSettings
 from workbench.database import Database
 from workbench.document_parsing import IngestionError, chunks_from_blocks
-from workbench.knowledge_index import ChromaIndex
 from workbench.knowledge_models import Document, DocumentVersion, IngestionJob, KnowledgeChunk
 from workbench.knowledge_service import stored_file
 from workbench.models import identifier, now
+from workbench.vector_store import VectorStoreError, create_index
 
 logger = logging.getLogger(__name__)
 
@@ -128,6 +128,8 @@ def process_job(database, settings, job_id, lease_token, index):
                 "knowledge_kind", "document"
             )
             metadata["faq_sources"] = (version.parse_metadata or {}).get("faq_sources", [])
+            if (version.parse_metadata or {}).get("faq_update_review"):
+                metadata["faq_update_review"] = version.parse_metadata["faq_update_review"]
             if (version.parse_metadata or {}).get("revision"):
                 metadata["revision"] = version.parse_metadata["revision"]
             for chunk in chunks:
@@ -173,6 +175,8 @@ def process_job(database, settings, job_id, lease_token, index):
                 "sha256": hashlib.sha256(snapshot_bytes).hexdigest(),
             }
             version.status, version.chunk_count = "ready", len(chunks)
+            if (version.parse_metadata or {}).get("faq_update_review"):
+                metadata["faq_update_review"] = version.parse_metadata["faq_update_review"]
             if (version.parse_metadata or {}).get("source_invalidated"):
                 metadata["source_invalidated"] = version.parse_metadata["source_invalidated"]
             version.parse_metadata, version.embedding_revision = metadata, index.revision
@@ -181,7 +185,9 @@ def process_job(database, settings, job_id, lease_token, index):
             job.updated_at = now()
             session.commit()
     except Exception as exc:
-        code = exc.code if isinstance(exc, IngestionError) else "ingestion_failed"
+        code = (
+            exc.code if isinstance(exc, (IngestionError, VectorStoreError)) else "ingestion_failed"
+        )
         logger.error("Ingestion job %s failed: %s", job_id, code)
         with database.sessions() as session:
             job = session.scalar(
@@ -212,7 +218,7 @@ def main():
     settings = WorkbenchSettings()
     database = Database(settings)
     database.check_schema()
-    index = ChromaIndex(settings)
+    index = create_index(settings)
     # Numerical dependencies are loaded on the process main thread on Windows.
     index.warm(rerank=False)
     try:

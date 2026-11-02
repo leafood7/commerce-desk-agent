@@ -18,6 +18,7 @@ from workbench.knowledge_service import validated_evidence
 from workbench.mcp_gateway import ToolFailure
 from workbench.models import Conversation, Message, Run, User, now
 from workbench.runs import TERMINAL, event, owned_run
+from workbench.tracing import trace_execution
 
 WAITING = {"awaiting_input", "awaiting_confirmation", "awaiting_approval"}
 logger = logging.getLogger(__name__)
@@ -46,6 +47,8 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
         body.return_policy_id,
         body.return_description,
         body.return_basis,
+        body.return_task,
+        body.return_fact,
     )
     if not run.input.get("return_policy_id") and any(v is not None for v in return_fields):
         raise HTTPException(422, "Return fields require a return workflow")
@@ -57,13 +60,26 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
         snapshot = session.get(RunProfile, run.id)
         if not snapshot or snapshot.values.get("return_flow_version") != "guided_v3":
             raise HTTPException(409, "This saved workflow does not support description review")
+    if body.return_task is not None or body.return_fact is not None:
+        from workbench.profile_models import RunProfile
+
+        pinned = session.get(RunProfile, run.id)
+        if not pinned or not pinned.values.get("return_task_clarification"):
+            raise HTTPException(409, "This saved workflow does not support task choice")
     previous = session.get(FlowAction, (run.id, key))
     body_data = body.model_dump(mode="json")
     body_hash = fingerprint(
         {
             k: v
             for k, v in body_data.items()
-            if k not in {"return_description", "condition_proposal_hash", "return_basis"}
+            if k
+            not in {
+                "return_description",
+                "condition_proposal_hash",
+                "return_basis",
+                "return_task",
+                "return_fact",
+            }
             or v is not None
         }
     )
@@ -79,6 +95,12 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
     }
     if (run.output or {}).get("pause_kind") == "quality_wait":
         allowed["awaiting_input"] = {"refresh"}
+    if (run.output or {}).get("pause_kind") == "task_clarification":
+        allowed["awaiting_input"] = {"choose_task"}
+    elif (run.output or {}).get("pause_kind") == "fact_clarification":
+        allowed["awaiting_input"] = {"choose_fact"}
+    elif body.action in {"choose_task", "choose_fact"}:
+        raise HTTPException(409, "Task choice requires its current clarification pause")
     if body.action not in allowed.get(run.status, set()):
         raise HTTPException(409, "Action is not valid for the current pause")
     if run.status in WAITING and body.pause_id != (run.output or {}).get("pause_id"):
@@ -115,7 +137,7 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
     session.add(FlowAction(run_id=run.id, key=key, input_hash=body_hash, body=body_data))
     event(session, run, "run.resumed", action=body.action)
     audit(session, actor, "aftersales.resumed", run.id, continuation_action=body.action)
-    if body.action in {"supply", "correct"}:
+    if body.action in {"supply", "correct", "choose_task", "choose_fact"}:
         session.add(
             Message(
                 organization_id=run.organization_id,
@@ -146,6 +168,7 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
     return run, True
 
 
+@trace_execution
 def execute_flow(database, run_id, gateway, token, action_key=None, *, execution_guard=None):
     write_started = False
     from workbench.profiles import effective_settings, render_answer
@@ -277,6 +300,8 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                     "return_condition",
                     "return_description",
                     "return_basis",
+                    "return_task",
+                    "return_fact",
                 }
             }
             action = session.get(FlowAction, (run_id, action_key)).body if action_key else None
@@ -410,15 +435,60 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                 },
             )
 
+            if state.get("task_frame"):
+                context["task"] = state["task_frame"]
+
             def progress(phase):
                 gate_guard()
                 with database.sessions() as connection:
                     event(connection, connection.get(Run, run_id), "answer.check", phase=phase)
                     connection.commit()
 
-            gate_result = produce_answer(
-                database, run_id, run_settings, context, limits, gate_guard, progress
-            )
+            if profile.get("knowledge_agent_mode") == "collaborative":
+                from workbench.knowledge_collaboration import run_collaboration
+
+                result, gate_result = run_collaboration(
+                    database,
+                    run_id,
+                    run_settings,
+                    {
+                        "query": state.get("query", ""),
+                        "policy_scope": "returns",
+                        "task_frame": state.get("task_frame"),
+                    },
+                    {"matches": checked, "trace": state.get("retrieval", {}), "status": "found"},
+                    gateway,
+                    token,
+                    limits,
+                    gate_guard,
+                    progress,
+                    execution_guard=execution_guard,
+                    context_options={
+                        "order": state.get("order"),
+                        "latest": context.get("latest_conditions"),
+                        "policy_only": bool(state.get("return_policy_id"))
+                        and (state.get("task_frame") or {}).get("purpose") == "policy",
+                    },
+                )
+                reading = result["trace"].get("collaborative_reading", {})
+                state = {
+                    **state,
+                    "evidence": result["matches"],
+                    "retrieval": result["trace"],
+                    "source_read_count": max(
+                        state.get("source_read_count", 0), reading.get("reads", 0)
+                    ),
+                    "source_read_chars": max(
+                        state.get("source_read_chars", 0), reading.get("observed_chars", 0)
+                    ),
+                    "source_search_count": max(
+                        state.get("source_search_count", 0), reading.get("supplements", 0)
+                    ),
+                }
+            else:
+                gate_result = produce_answer(
+                    database, run_id, run_settings, context, limits, gate_guard, progress
+                )
         with database.sessions() as session:
             run = session.scalar(select(Run).where(Run.id == run_id).with_for_update())
             if run.status != "running":
@@ -499,6 +569,7 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                     state.get("order") or {},
                     evidence=public.get("evidence"),
                     quality=state.get("quality_info"),
+                    selected_fields=[state["return_fact"]] if state.get("return_fact") else (),
                 )
                 public.update(
                     fact_assessment=assessment,
@@ -510,7 +581,11 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                     key: preview.get(key) for key in ("eligibility", "missing", "blocked")
                 }
                 public["task_frame"] = state.get("task_frame")
-                if (state.get("task_frame") or {}).get("purpose") == "facts" and not pending:
+                if (
+                    (state.get("task_frame") or {}).get("purpose") == "facts"
+                    and not pending
+                    and assessment["items"]
+                ):
                     public["answer"] = render_fact_checks(assessment).removeprefix("\n同时核对：")
                     # Public tool details follow the requested fields as well as the answer text.
                     fields = {row["field"] for row in assessment["items"]}

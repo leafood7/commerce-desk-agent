@@ -107,9 +107,9 @@ def model_adapters(settings, budget, offline):
                         }
                     ]
                 }
-                if phase == "generate" and context["allowed_evidence"]
+                if phase in {"generate", "repair"} and context["allowed_evidence"]
                 else {"cannot_confirm": True}
-                if phase == "generate"
+                if phase in {"generate", "repair"}
                 else {"approved": True, "codes": []}
             )
             return {

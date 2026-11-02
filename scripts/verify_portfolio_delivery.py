@@ -20,6 +20,9 @@ def main():
         str(p.relative_to(ROOT)).replace("\\", "/") for p in (ROOT / "src/workbench").glob("*.py")
     )
     paths.append("migrations/versions/0009_quality_return_basis.py")
+    paths.append("migrations/versions/0010_policy_extractions.py")
+    paths.append("migrations/versions/0011_knowledge_updates.py")
+    paths.append("migrations/versions/0012_request_traces.py")
     expected = {p: digest(ROOT / p) for p in paths}
     client = AcceptanceDatabase()
     code = (
@@ -32,12 +35,12 @@ def main():
         found = json.loads(client.run(["exec", "-T", service, "python", "-c", code]))
         if found != expected:
             raise RuntimeError("Runtime source differs: " + service)
-        services[service] = {"source_files": len(paths) - 1, "migration_matches": True}
+        services[service] = {"source_files": sum(path.startswith("src/workbench/") for path in paths), "migration_matches": True}
     code = "from workbench.config import WorkbenchSettings; from workbench.database import Database; from sqlalchemy import text,inspect; import json; s=WorkbenchSettings(); d=Database(s); c=d.engine.connect(); print(json.dumps({'schema':c.scalar(text('SELECT version_num FROM alembic_version')),'tables':len(inspect(d.engine).get_table_names()),'agent_router_mode':s.agent_router_mode,'return_decision_mode':s.return_decision_mode,'retrieval_context_mode':s.retrieval_context_mode,'model_key_present':bool(s.agent_router_key and s.agent_router_key.get_secret_value())})); c.close(); d.close()"
     runtime = json.loads(client.run(["exec", "-T", "api", "python", "-c", code]))
     if runtime != {
-        "schema": "0009_quality_return_basis",
-        "tables": 34,
+        "schema": "0012_request_traces",
+        "tables": 39,
         "agent_router_mode": "rules",
         "return_decision_mode": "rules",
         "retrieval_context_mode": "neighbors",

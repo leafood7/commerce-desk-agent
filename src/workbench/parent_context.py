@@ -163,3 +163,27 @@ def expand_parents(anchors, documents, budget):
         "link_policy": "explicit_same_version_article_mentions_one_hop",
         "policy_sufficiency": "not_established",
     }
+
+
+def related_sections(parents, identifier):
+    """Same-version explicit mentions in both directions, not inferred exceptions."""
+    own = next((p for p in parents if p["id"] == identifier), {})
+    links = []
+    for parent in parents:
+        if parent["id"] == identifier:
+            continue
+        outgoing = parent["id"] in own.get("links", [])
+        incoming = identifier in parent.get("links", [])
+        if outgoing or incoming:
+            links.append(
+                {
+                    "parent_id": parent["id"],
+                    "section": parent["section"],
+                    "direction": "both"
+                    if outgoing and incoming
+                    else "outgoing"
+                    if outgoing
+                    else "incoming",
+                }
+            )
+    return links

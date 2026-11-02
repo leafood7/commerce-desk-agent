@@ -1,0 +1,206 @@
+[
+  {
+    "id": "inquiry-final-01-intent",
+    "question": "组合套装这个情况帮我看看。",
+    "answer": "组合套装可在签收后13天内申请。 [依据2]\n若组合套装缺少随箱配件，须先补齐配件。 [依据1]\n本演示政策仅适用于本店商品 AUDIT-INQUIRY-FINAL-01-INTENT，其他商品与商家不适用。 [依据3]\n无理由申请须商品未使用，独立专项条款仍需同时核对。 [依据3]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 1,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-01-rule",
+    "question": "组合套装具体有什么限制？先给我解释规定。",
+    "answer": "组合套装可在签收后13天内申请。 [依据2]\n涉及组合套装时，缺少随箱配件的组合套装须先补齐配件。 [依据1]\n上述组合套装规则仅适用于本店商品 AUDIT-INQUIRY-FINAL-01-RULE，其他商品与商家不适用。 [依据3]\n无理由申请须商品未使用，独立专项条款仍需同时核对。 [依据3]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 0,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-02-intent",
+    "question": "序号刻字品这个情况帮我看看。",
+    "answer": "本店商品可在签收后17天内申请（第四条主规则）。 [依据2]\n序号刻字品不适用上述无理由规则（第十二条专项限制）。 [依据1]\n本演示政策只适用于本店商品 AUDIT-INQUIRY-FINAL-02-INTENT，其他商品与商家不适用。 [依据3]\n无理由申请须商品未使用，独立专项条款仍需同时核对。 [依据3]\n目前不能确认所问的全部结论。",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 1,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-02-rule",
+    "question": "序号刻字品具体有什么限制？先给我解释规定。",
+    "answer": "序号刻字品不适用无理由规则；该专项限制针对第四条涉及序号刻字品的情形。 [依据1]\n本店商品可在签收后17天申请，但序号刻字品不适用上述无理由规则。 [依据2、1]\n本演示政策只适用于本店商品 AUDIT-INQUIRY-FINAL-02-RULE，其他商品与商家不适用。 [依据3]\n无理由申请须商品未使用，独立专项条款仍需同时核对。 [依据3]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 0,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-03-intent",
+    "question": "封签设备这个情况帮我看看。",
+    "answer": "当前回答未通过核验，暂不能确认相关结论。请核对原文、补充必要信息或联系人工。",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 1,
+      "reads": 0,
+      "gate_status": "blocked",
+      "semantic_review": "author_pending",
+      "program_goal": false
+    }
+  },
+  {
+    "id": "inquiry-final-03-rule",
+    "question": "封签设备具体有什么限制？先给我解释规定。",
+    "answer": "封签设备适用专项限制：封签破损不能单独证明设备已使用。 [依据1]\n设备未使用可在签收后8天申请。 [依据2]\n本演示政策只适用于本店商品 AUDIT-INQUIRY-FINAL-03-RULE，其他商品与商家不适用。 [依据3]\n未配置专项时限的标准样品自实际签收后9天内可申请；无理由申请须商品未使用，独立专项条款仍需同时核对。 [依据3]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 0,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-04-intent",
+    "question": "组合包装这个情况帮我看看。",
+    "answer": "组合包装按商品行核对数量。 [依据1]\n第四条涉及组合包装时，只退部分商品时不可承诺整套附赠品折现。 [依据3]\n本演示政策只适用于本店商品 AUDIT-INQUIRY-FINAL-04-INTENT，其他商品与商家不适用。 [依据2]\n未配置专项时限的标准样品自实际签收后9天内可申请。 [依据2]\n无理由申请须商品未使用，独立专项条款仍需同时核对。 [依据2]\n目前不能确认所问的全部结论。",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 1,
+      "reads": 1,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-04-rule",
+    "question": "组合包装具体有什么限制？先给我解释规定。",
+    "answer": "组合包装按商品行核对数量。 [依据2]\n涉及组合包装时，只退部分商品时不可承诺整套附赠品折现。 [依据1]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 0,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-05-intent",
+    "question": "节庆专供这个情况帮我看看。",
+    "answer": "节庆专供商品可在签收后6天内申请。 [依据1]\n节庆专供的期限不延长普通商品的期限。 [依据3]\n本演示政策只适用于本店商品 AUDIT-INQUIRY-FINAL-05-INTENT，其他商品与商家不适用。 [依据2]\n无理由申请须商品未使用，独立专项条款仍需同时核对。 [依据2]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 1,
+      "reads": 1,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-05-rule",
+    "question": "节庆专供具体有什么限制？先给我解释规定。",
+    "answer": "节庆专供可在签收后6天申请。 [依据2]\n节庆专供的期限不延长普通商品的期限。 [依据1]\n上述节庆专供规则以本演示政策适用商品 AUDIT-INQUIRY-FINAL-05-RULE 为前提，其他商品与商家不适用。 [依据3]\n无理由申请须商品未使用，独立专项条款仍需同时核对。 [依据3]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 0,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-06-intent",
+    "question": "检测数量这个情况帮我看看。",
+    "answer": "关于检测数量：一件商品的检测不能代替另两件商品的结论。 [依据1]\n质量退货需独立确认缺陷。 [依据2]\n本演示政策只适用于本店商品 AUDIT-INQUIRY-FINAL-06-INTENT，其他商品与商家不适用。 [依据3]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 1,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  },
+  {
+    "id": "inquiry-final-06-rule",
+    "question": "检测数量具体有什么限制？先给我解释规定。",
+    "answer": "专项限制条款规定：涉及检测数量时，一件商品的检测不能代替另两件的结论。 [依据1]\n质量退货需独立确认缺陷。 [依据2]\n本演示政策只适用于本店商品 AUDIT-INQUIRY-FINAL-06-RULE，其他商品与商家不适用。 [依据3]",
+    "score": {
+      "target_state": true,
+      "necessary_quotes": 2,
+      "needed_quotes": 2,
+      "wrong_application_preview": false,
+      "unnecessary_pause": false,
+      "required_task_choices": 0,
+      "reads": 0,
+      "gate_status": "approved",
+      "semantic_review": "author_pending",
+      "program_goal": true
+    }
+  }
+]

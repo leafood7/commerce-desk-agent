@@ -20,7 +20,15 @@ class FlowInput(Input):
 
 class FlowResume(Input):
     action: Literal[
-        "supply", "correct", "confirm", "refresh", "retry", "cancel", "accept_condition"
+        "supply",
+        "correct",
+        "confirm",
+        "refresh",
+        "retry",
+        "cancel",
+        "accept_condition",
+        "choose_task",
+        "choose_fact",
     ]
     pause_id: str | None = Field(default=None, min_length=1, max_length=128)
     order_number: str | None = Field(default=None, pattern=r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
@@ -32,6 +40,19 @@ class FlowResume(Input):
     return_policy_id: str | None = Field(default=None, min_length=1, max_length=36)
     return_description: str | None = Field(default=None, max_length=500)
     return_basis: Literal["no_reason", "quality_issue"] | None = None
+    return_fact: (
+        Literal[
+            "signed_at",
+            "refund_amount",
+            "bank_received",
+            "activation_status",
+            "member_entitlement",
+            "quality_verdict",
+            "coupon_reissue_amount",
+        ]
+        | None
+    ) = None
+    return_task: Literal["policy", "facts", "eligibility", "application"] | None = None
     condition_proposal_hash: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
 
     @model_validator(mode="after")
@@ -47,8 +68,22 @@ class FlowResume(Input):
             self.return_description,
             self.return_basis,
         )
-        if self.action in {"supply", "correct"}:
-            if not any(value is not None for value in fields):
+        if self.action == "choose_fact":
+            if (
+                self.return_fact is None
+                or self.return_task is not None
+                or any(value is not None for value in fields)
+            ):
+                raise ValueError("Fact choice requires only an actual field selector")
+        elif self.return_fact is not None:
+            raise ValueError("Fact selector requires the fact clarification action")
+        elif self.action == "choose_task":
+            if self.return_task is None or any(value is not None for value in fields):
+                raise ValueError("Task choice requires only its explicit purpose")
+        elif self.return_task is not None:
+            raise ValueError("Task purpose cannot change during confirmation")
+        elif self.action in {"supply", "correct"}:
+            if self.return_task is None and not any(value is not None for value in fields):
                 raise ValueError("Supply/correction requires explicit fields")
         elif any(value is not None for value in fields):
             raise ValueError("Confirmation/refresh must not modify the reviewed fields")

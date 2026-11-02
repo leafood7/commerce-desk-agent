@@ -39,7 +39,7 @@ def test_contract_rejects_fabricated_reference_and_missing_fields():
 def setup_gate(logged_in, workbench, monkeypatch, mode="reviewed"):
     client, app, headers = logged_in
     settings = workbench[2]
-    settings.policy_answer_mode = "reviewed"
+    settings.policy_answer_mode = "reviewed_repair" if mode == "reviewed_repair" else "reviewed"
     settings.agent_router_mode = "model"
     settings.agent_router_url = "https://api.deepseek.com/chat/completions"
     settings.agent_router_model = "deepseek-flash"

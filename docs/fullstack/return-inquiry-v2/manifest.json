@@ -1,0 +1,9 @@
+{
+  "baseline": "66a0fad42dcd8e11f1a66dae9b3d3c12ca93049a",
+  "files": {
+    "development.json": "4b6ad8c1f35fb22fab4c2b553719bdfeed2bd557568c4f4b78ab17873802d8b1",
+    "new-family-final.json": "382cd2d749b66688e9deac2f50aef5ca1fef15c86b57995bec8c1f743d6b4e9f"
+  },
+  "protocol_sha256": "68d6908ca16008542c1061c1cd1c66c6fc82106b4e613fffadb4375a60b47573",
+  "final_visibility": "author_prepared_family_holdout_not_external_blind_review"
+}

@@ -1,6 +1,7 @@
 from alembic import context
 from sqlalchemy import create_engine, pool
 
+import workbench.trace_models  # noqa: F401
 import workbench.flow_models  # noqa: F401
 import workbench.job_models  # noqa: F401
 import workbench.knowledge_models  # noqa: F401

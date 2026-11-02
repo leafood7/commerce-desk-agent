@@ -15,7 +15,10 @@ def task_frame(query, requested=()):
     masked = text
     for match in reversed(denials):
         masked = masked[: match.start()] + " " * len(match.group()) + masked[match.end() :]
-    positive = next(
+    direct = re.match(
+        r"^(?:请)?(?:帮我)?(?:申请|办理|提交)(?:一次|本次|这次)?退货(?:[，。！!]|$)", masked
+    )
+    positive = direct or next(
         (m for m in re.finditer(APPLY, masked) if not re.search(r"了解|知道|怎么|如何", m.group())),
         None,
     )

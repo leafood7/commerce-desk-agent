@@ -55,9 +55,9 @@ def create_mcp_app(settings=None, *, index=None):
     settings = settings or WorkbenchSettings()
     database = Database(settings)
     if index is None:
-        from workbench.knowledge_index import ChromaIndex
+        from workbench.vector_store import create_index
 
-        index = ChromaIndex(settings)
+        index = create_index(settings)
     retriever = KnowledgeRetriever(database, settings, index)
     server = Server("CommerceDesk Scoped Tools")
 
@@ -81,7 +81,7 @@ def create_mcp_app(settings=None, *, index=None):
             if scope in scopes
         ]
 
-    def execute(name, arguments, token):
+    def _execute(name, arguments, token):
         started, actor_id, organization_id = perf_counter(), None, None
         status, error_code = "error", None
         safe_arguments = {}
@@ -216,6 +216,22 @@ def create_mcp_app(settings=None, *, index=None):
                 data["audit_status"] = "unavailable"
         return data
 
+    def execute(name, arguments, token):
+        from workbench import tracing
+
+        # Adopt a remote trace only after matching its authenticated owner and merchant.
+        with database.sessions() as s:
+            user, _ = verify_grant(s, token, settings)
+        tracing.register(database, user)
+        with tracing.span("mcp_server", name if name in CONTRACTS else "unknown_tool") as row:
+            with tracing.span(
+                "business", name if name in CONTRACTS else "unknown_tool"
+            ) as business:
+                data = _execute(name, arguments, token)
+                tracing.result_details(business, data)
+            tracing.result_details(row, data)
+            return data
+
     @server.call_tool(validate_input=False)
     async def call_tool(name, arguments):
         access = get_access_token()
@@ -264,6 +280,9 @@ def create_mcp_app(settings=None, *, index=None):
     application = Starlette(
         routes=[Route("/health", health), Route("/mcp", secured)], lifespan=lifespan
     )
+    from workbench.tracing import MCPTraceMiddleware
+
+    application.add_middleware(MCPTraceMiddleware, database=database)
     application.state.database = database
     application.state.retriever = retriever
     return application
@@ -271,9 +290,9 @@ def create_mcp_app(settings=None, *, index=None):
 
 def main():
     settings = WorkbenchSettings()
-    from workbench.knowledge_index import ChromaIndex
+    from workbench.vector_store import create_index
 
-    index = ChromaIndex(settings)
+    index = create_index(settings)
     if settings.mcp_warm_models:
         index.warm()
     uvicorn.run(

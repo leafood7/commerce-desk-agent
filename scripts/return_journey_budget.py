@@ -16,7 +16,7 @@ class BatchStop(RuntimeError):
 
 
 class AuditBudget:
-    def __init__(self, path, output, *, allowed_cases=None):
+    def __init__(self, path, output, *, allowed_cases=None, allowed_arms=None):
         if not Path(path).is_file():
             raise ValueError("Existing cumulative ledger required")
         self.ledger = BudgetLedger(path)
@@ -25,9 +25,15 @@ class AuditBudget:
         self.calls = []
         self.stopped = None
         self.allowed_cases = allowed_cases
+        if allowed_arms is not None and (
+            not allowed_arms or not set(allowed_arms) <= {"baseline_frozen", "candidate_v2"}
+        ):
+            raise ValueError("Unknown preregistered comparison arm")
+        self.allowed_arms = set(allowed_arms) if allowed_arms is not None else None
         if any(
             e.get("metadata", {}).get("phase") == PHASE
             and (allowed_cases is None or e.get("metadata", {}).get("case_id") in allowed_cases)
+            and (self.allowed_arms is None or e.get("metadata", {}).get("arm") in self.allowed_arms)
             for e in self.ledger.snapshot()["entries"]
         ):
             raise ValueError(
@@ -35,6 +41,8 @@ class AuditBudget:
             )
 
     def call(self, stage, messages, output_tokens, callback):
+        if self.allowed_arms is not None and self.current.get("arm") not in self.allowed_arms:
+            raise BatchStop("Arm is outside the preregistered comparison")
         if self.allowed_cases is not None and self.current.get("case_id") not in self.allowed_cases:
             raise BatchStop("Case is outside the frozen allowed set")
         # The caller performs the production preflight before reserving.

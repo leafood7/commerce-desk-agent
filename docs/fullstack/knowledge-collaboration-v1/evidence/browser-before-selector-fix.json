@@ -1,0 +1,170 @@
+{
+  "config": {
+    "argv": [
+      "D:\\Program Files\\nodejs\\node.exe",
+      "D:\\VScodeProgects\\commerce-desk-agent\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "knowledge-collaboration.spec.ts",
+      "--reporter=json",
+      "--output=../work/knowledge-collaboration-v1/browser-artifacts"
+    ],
+    "configFile": "D:\\VScodeProgects\\commerce-desk-agent\\frontend\\playwright.config.ts",
+    "rootDir": "D:/VScodeProgects/commerce-desk-agent/frontend/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/VScodeProgects/commerce-desk-agent/work/knowledge-collaboration-v1/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/VScodeProgects/commerce-desk-agent/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\VScodeProgects\\commerce-desk-agent\\work\\knowledge-collaboration-v1\\browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "D:\\VScodeProgects\\commerce-desk-agent\\frontend\\e2e",
+        "snapshotDir": "D:\\VScodeProgects\\commerce-desk-agent\\frontend\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://127.0.0.1:15175",
+          "headless": true,
+          "trace": "off",
+          "video": "off",
+          "screenshot": "only-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "knowledge-collaboration.spec.ts",
+      "file": "knowledge-collaboration.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "collaborative policy roles hand off sources and recheck a private repair",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 180126,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "D:\\VScodeProgects\\commerce-desk-agent\\frontend\\e2e\\knowledge-collaboration.spec.ts",
+                        "column": 46,
+                        "line": 17
+                      },
+                      "message": "Error: locator.selectOption: Test timeout of 180000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('退货流程', { exact: true })\u001b[22m\n\n\n  15 |   await page.getByLabel('模型选择').selectOption('server_default');await page.getByLabel('政策回答方式').selectOption('reviewed_repair');\n  16 |   await page.getByLabel('退货动作决策').selectOption('model');\n> 17 |   await page.getByLabel('退货流程',{exact:true}).selectOption('guided_v3');\n     |                                              ^\n  18 |   await page.getByLabel('退货政策范围',{exact:true}).selectOption('clause_bound');\n  19 |   await page.getByLabel('按需阅读原文',{exact:true}).selectOption('true');\n  20 |   await page.getByLabel('政策协作模式').selectOption('collaborative');\n    at D:\\VScodeProgects\\commerce-desk-agent\\frontend\\e2e\\knowledge-collaboration.spec.ts:17:46"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:32:09.922Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\VScodeProgects\\commerce-desk-agent\\work\\knowledge-collaboration-v1\\browser-artifacts\\knowledge-collaboration-co-589b7-nd-recheck-a-private-repair\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\VScodeProgects\\commerce-desk-agent\\work\\knowledge-collaboration-v1\\browser-artifacts\\knowledge-collaboration-co-589b7-nd-recheck-a-private-repair\\error-context.md"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e0b63ce8cb192ff957b0-75220a3f5b1bef78c106",
+          "file": "knowledge-collaboration.spec.ts",
+          "line": 3,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T21:32:09.291Z",
+    "duration": 181130.375,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -49,6 +49,9 @@ class ReturnState(TypedDict, total=False):
     policy_context: list
     retrieved_evidence: list
     context_bound: bool
+    reference_check: bool
+    return_fact: str | None
+    return_task: str | None
     task_frame: dict
     policy_reuse_candidates: list
     policy_reuse_binding: dict
@@ -374,7 +377,9 @@ def build_return_graph(saver, tools, validate, planner=None, *, profile=None):
         ("external", external),
         ("result", result),
     ):
-        graph.add_node(name, node)
+        from workbench.tracing import trace_node
+
+        graph.add_node(name, trace_node(node, name))
     graph.add_edge(START, "gather")
     graph.add_conditional_edges(
         "gather", lambda s: END if s["next_step"] == "finish" else s["next_step"]

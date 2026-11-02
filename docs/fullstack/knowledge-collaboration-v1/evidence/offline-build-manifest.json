@@ -1,0 +1,22 @@
+{
+  "api": {
+    "base_image": "sha256:6c7c2e8ba1bce88effa7d15dadf17318bf6cea8a97c3e2b3aaa6f167dfd9d7cc",
+    "method": "local_image_plus_sources_no_dependency_changes"
+  },
+  "mcp": {
+    "base_image": "sha256:ebf500bfaa348cc418389f39bcb71bcf7f0c72f74917815772f5adcfc6a5e2e9",
+    "method": "local_image_plus_sources_no_dependency_changes"
+  },
+  "worker": {
+    "base_image": "sha256:5d1972ac5ca869d196276916dac69dd3a8c74f4bc84018ffe62887007a6a6fc3",
+    "method": "local_image_plus_sources_no_dependency_changes"
+  },
+  "run-worker": {
+    "base_image": "sha256:8bb2efce48a300a8ac08dc25b6c80d870142fdb9571b5be2bd497ebc769138ac",
+    "method": "local_image_plus_sources_no_dependency_changes"
+  },
+  "web": {
+    "base_image": "sha256:a60286e321b15fdc00eb5f4dbf9253d26fe145de0841ea07638fdc03eef1d398",
+    "method": "local_image_plus_sources_no_dependency_changes"
+  }
+}

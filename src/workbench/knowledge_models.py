@@ -123,3 +123,58 @@ class ToolInvocation(Scoped, Base):
     error_code: Mapped[str | None] = mapped_column(String(80))
     elapsed_ms: Mapped[int] = mapped_column(Integer)
     created_at: Mapped[datetime] = mapped_column(UTC_DATETIME, default=now)
+
+
+class PolicyExtraction(Scoped, Base):
+    __tablename__ = "wb_policy_extractions"
+    __table_args__ = (
+        UniqueConstraint("version_id", "number", name="uq_wb_extraction_number"),
+        Index("ix_wb_policy_extractions_organization_id", "organization_id"),
+    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=identifier)
+    version_id: Mapped[str] = mapped_column(ForeignKey("wb_document_versions.id"))
+    number: Mapped[int] = mapped_column(Integer)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    status: Mapped[str] = mapped_column(String(24), default="draft")
+    proposed_by: Mapped[str] = mapped_column(ForeignKey("wb_users.id"))
+    reviewed_by: Mapped[str | None] = mapped_column(ForeignKey("wb_users.id"))
+    payload: Mapped[dict] = mapped_column(JSON)
+    source_hash: Mapped[str] = mapped_column(String(64))
+    base_active_id: Mapped[str | None] = mapped_column(String(36))
+    review_note: Mapped[str | None] = mapped_column(String(500))
+    created_at: Mapped[datetime] = mapped_column(UTC_DATETIME, default=now)
+    updated_at: Mapped[datetime] = mapped_column(UTC_DATETIME, default=now)
+
+
+class KnowledgeUpdate(Scoped, Base):
+    __tablename__ = "wb_knowledge_updates"
+    __table_args__ = (
+        Index("ix_wb_update_document", "organization_id", "document_id", "created_at"),
+    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=identifier)
+    document_id: Mapped[str] = mapped_column(ForeignKey("wb_documents.id"))
+    previous_version_id: Mapped[str | None] = mapped_column(ForeignKey("wb_document_versions.id"))
+    current_version_id: Mapped[str | None] = mapped_column(ForeignKey("wb_document_versions.id"))
+    action: Mapped[str] = mapped_column(String(32))
+    created_by: Mapped[str] = mapped_column(ForeignKey("wb_users.id"))
+    details: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(UTC_DATETIME, default=now)
+
+
+class KnowledgeUpdateTask(Scoped, Base):
+    __tablename__ = "wb_knowledge_update_tasks"
+    __table_args__ = (
+        Index("ix_wb_update_task_pending", "organization_id", "status", "updated_at"),
+    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=identifier)
+    update_id: Mapped[str] = mapped_column(ForeignKey("wb_knowledge_updates.id"))
+    resource_kind: Mapped[str] = mapped_column(String(24))
+    resource_id: Mapped[str] = mapped_column(String(80))
+    target_version_id: Mapped[str | None] = mapped_column(ForeignKey("wb_document_versions.id"))
+    replacement_id: Mapped[str | None] = mapped_column(String(80))
+    status: Mapped[str] = mapped_column(String(24), default="pending")
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    note: Mapped[str | None] = mapped_column(String(500))
+    updated_by: Mapped[str | None] = mapped_column(ForeignKey("wb_users.id"))
+    created_at: Mapped[datetime] = mapped_column(UTC_DATETIME, default=now)
+    updated_at: Mapped[datetime] = mapped_column(UTC_DATETIME, default=now)

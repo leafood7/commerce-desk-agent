@@ -1,0 +1,30 @@
+{
+  "source_files": 64,
+  "services": {
+    "api": {
+      "matches": true
+    },
+    "mcp": {
+      "matches": true
+    },
+    "worker": {
+      "matches": true
+    },
+    "run-worker": {
+      "matches": true
+    }
+  },
+  "before": {
+    "returns": 3,
+    "active_runs": 0
+  },
+  "after_returns": 3,
+  "runtime": {
+    "tables": 34,
+    "mode": "rules",
+    "answer": "excerpts",
+    "reading": false,
+    "key_present": false
+  },
+  "web_matches": true
+}

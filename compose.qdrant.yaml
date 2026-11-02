@@ -1,0 +1,29 @@
+# Optional vector-store selection. Existing Chroma data remains untouched.
+# Use with compose.yaml; set a namespace that has been rebuilt and checked first.
+x-qdrant-selection: &qdrant-selection
+  WORKBENCH_VECTOR_BACKEND: qdrant
+  WORKBENCH_QDRANT_URL: http://qdrant:6333
+  WORKBENCH_QDRANT_API_KEY: ${WORKBENCH_QDRANT_API_KEY:-}
+  WORKBENCH_VECTOR_TIMEOUT_SECONDS: ${WORKBENCH_VECTOR_TIMEOUT_SECONDS:-30}
+  WORKBENCH_VECTOR_NAMESPACE: ${WORKBENCH_VECTOR_NAMESPACE:?Set the rebuilt candidate namespace}
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.13.6
+    environment:
+      QDRANT__TELEMETRY_DISABLED: "true"
+    volumes:
+      - "${WORKBENCH_QDRANT_DATA:-./data/workbench/qdrant}:/qdrant/storage"
+    restart: unless-stopped
+  api:
+    environment: *qdrant-selection
+  mcp:
+    environment: *qdrant-selection
+    depends_on: !override
+      api:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+  worker:
+    environment: *qdrant-selection
+  run-worker:
+    environment: *qdrant-selection

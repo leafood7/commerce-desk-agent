@@ -34,7 +34,18 @@ def dependencies_current(session, organization_id, metadata):
         and (not v.effective_until or v.effective_until >= today)
         and (v.parse_metadata or {}).get("knowledge_kind") != "faq"
     }
-    return allowed == set(references)
+    if allowed != set(references):
+        return False
+    review = metadata.get("faq_update_review") or {}
+    bindings = review.get("source_bindings")
+    if bindings is not None:
+        expected = {(b["document_id"], b["version_id"], b.get("annotation_id")) for b in bindings}
+        actual = {
+            (d.id, v.id, (v.parse_metadata or {}).get("policy_extraction_id")) for d, v in rows
+        }
+        if expected != actual:
+            return False
+    return True
 
 
 def check_faq(session, organization_id, metadata):

@@ -66,12 +66,27 @@ class RunInput(Input):
     return_quantity: StrictInt | None = Field(default=None, ge=1, le=10000)
     return_condition: Literal["unknown", "unused", "used"] | None = None
     return_description: str | None = Field(default=None, max_length=500)
+    return_fact: (
+        Literal[
+            "signed_at",
+            "refund_amount",
+            "bank_received",
+            "activation_status",
+            "member_entitlement",
+            "quality_verdict",
+            "coupon_reissue_amount",
+        ]
+        | None
+    ) = None
+    return_task: Literal["policy", "facts", "eligibility", "application"] | None = None
     return_basis: Literal["no_reason", "quality_issue"] | None = None
 
     @model_validator(mode="after")
     def task_fields(self):
         if self.audience is not None and self.kind != "knowledge_search":
             raise ValueError("Explicit audience is supported only for policy search")
+        if self.return_fact is not None and self.return_task != "facts":
+            raise ValueError("An explicit fact selector requires the facts task")
         if self.kind == "aftersales":
             if not self.return_policy_id and any(
                 v is not None
@@ -81,6 +96,8 @@ class RunInput(Input):
                     self.return_condition,
                     self.return_description,
                     self.return_basis,
+                    self.return_task,
+                    self.return_fact,
                 )
             ):
                 raise ValueError("Return fields require an explicit return policy")
@@ -103,6 +120,8 @@ class RunInput(Input):
                     self.return_condition,
                     self.return_description,
                     self.return_basis,
+                    self.return_task,
+                    self.return_fact,
                 )
             )
         ):

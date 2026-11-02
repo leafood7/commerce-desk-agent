@@ -10,12 +10,19 @@ from sqlalchemy.exc import IntegrityError
 
 from workbench.domain import audit, fingerprint, get_conversation, get_order
 from workbench.models import Conversation, Message, Run, RunEvent, User, now
+from workbench.tracing import trace_execution
 
 logger = logging.getLogger(__name__)
 TERMINAL = {"completed", "failed", "cancelled", "interrupted"}
 
 
 def event(session, run, kind, **payload):
+    from workbench.tracing import active_span, context
+
+    ctx = context.get()
+    step = active_span.get()
+    if ctx and ctx.owner_id == run.owner_id and ctx.organization_id == run.organization_id:
+        payload = {**payload, "trace_id": ctx.id, "span_id": step["id"] if step else None}
     session.add(
         RunEvent(
             organization_id=run.organization_id,
@@ -63,6 +70,10 @@ def create_run(session, actor, body, key=None, *, enqueue_job=None, settings=Non
         hash_input.pop("return_basis", None)
     if hash_input.get("return_description") is None:
         hash_input.pop("return_description", None)  # Preserve stage7 idempotency hashes.
+    if hash_input.get("return_fact") is None:
+        hash_input.pop("return_fact", None)
+    if hash_input.get("return_task") is None:
+        hash_input.pop("return_task", None)
     if hash_input.get("audience") is None:
         hash_input.pop("audience", None)
     input_hash = fingerprint(hash_input)
@@ -111,6 +122,8 @@ def create_run(session, actor, body, key=None, *, enqueue_job=None, settings=Non
         from workbench.profiles import snapshot_run
 
         snapshot = snapshot_run(session, run, actor, settings)
+        if body.return_task is not None and not snapshot.values.get("return_task_clarification"):
+            raise HTTPException(422, "Task choice is not enabled in the current profile")
         if body.return_description and snapshot.values.get("return_flow_version") != "guided_v3":
             raise HTTPException(
                 409,
@@ -130,6 +143,9 @@ def create_run(session, actor, body, key=None, *, enqueue_job=None, settings=Non
                 ),
             )
         )
+        from workbench.tracing import link
+
+        link(session, run)
         event(session, run, "run.queued")
         conversation.updated_at = now()
         audit(session, actor, "run.created", run.id, kind=body.kind)
@@ -155,6 +171,7 @@ def create_run(session, actor, body, key=None, *, enqueue_job=None, settings=Non
     return run, True
 
 
+@trace_execution
 def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
     from workbench.execution_limits import ExecutionLimits, call_bounded
     from workbench.mcp_gateway import ToolFailure
@@ -267,9 +284,30 @@ def execute_lookup(database, run_id, gateway, token, *, execution_guard=None):
                     if actor.id != current.owner_id:
                         raise ToolFailure("forbidden")
 
-            gate_result = produce_answer(
-                database, run_id, run_settings, context, limits, gate_guard, gate_progress
-            )
+            if profile.get("knowledge_agent_mode") == "collaborative":
+                from workbench.knowledge_collaboration import run_collaboration
+
+                payload, gate_result = run_collaboration(
+                    database,
+                    run_id,
+                    run_settings,
+                    {
+                        "query": arguments["query"],
+                        "policy_scope": arguments.get("policy_scope"),
+                        "audience": arguments.get("audience"),
+                    },
+                    {**payload, "matches": checked},
+                    gateway,
+                    token,
+                    limits,
+                    gate_guard,
+                    gate_progress,
+                    execution_guard=execution_guard,
+                )
+            else:
+                gate_result = produce_answer(
+                    database, run_id, run_settings, context, limits, gate_guard, gate_progress
+                )
         limits.check()
         with database.sessions() as session:
             run = session.scalar(select(Run).where(Run.id == run_id).with_for_update())

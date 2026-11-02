@@ -53,7 +53,7 @@ def return_reasons(codes):
     return "、".join(RETURN_REASONS.get(code, "需要人工核对的业务条件") for code in codes)
 
 
-def question_requirements(query):
+def question_requirements(query, *, selected_fields=()):
     query = query or ""
     requested = []
     for field, pattern in PATTERNS.items():
@@ -65,6 +65,19 @@ def question_requirements(query):
                     "request_quote": match.group(),
                     "start": match.start(),
                     "end": match.end(),
+                }
+            )
+    for field in selected_fields:
+        if field not in PATTERNS:
+            raise ValueError("Unknown actual fact selector")
+        if field not in {row["field"] for row in requested}:
+            requested.append(
+                {
+                    "field": field,
+                    "request_quote": None,
+                    "start": None,
+                    "end": None,
+                    "origin": "explicit_user_selection",
                 }
             )
     legacy_read_only = bool(
@@ -82,8 +95,8 @@ def question_requirements(query):
     return {"requested": requested, "read_only": read_only, "task": task}
 
 
-def fact_checks(query, order, *, evidence=None, quality=None):
-    plan = question_requirements(query)
+def fact_checks(query, order, *, evidence=None, quality=None, selected_fields=()):
+    plan = question_requirements(query, selected_fields=selected_fields)
     checks = []
     for item in plan["requested"]:
         field = item["field"]

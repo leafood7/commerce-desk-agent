@@ -29,7 +29,10 @@ def reading_evidence(result, body):
         "offset": result["offset"],
         "next_offset": result["next_offset"],
         "complete": result["complete"],
+        "total_chars": result.get("total_chars"),
         "covered_chunk_ids": result["covered_chunk_ids"],
+        "related_sections": result.get("related_sections", []),
+        "unresolved_articles": result.get("unresolved_articles", []),
     }
 
 
@@ -54,7 +57,9 @@ def search_targets(matches):
                 row["parent_id"],
                 row.get("section", ""),
                 offset=max(0, row.get("parent_match_offset", 0) - 250),
-                reason="matched_position" if row.get("parent_match_offset", 0) > 250 else "matched_section",
+                reason="matched_position"
+                if row.get("parent_match_offset", 0) > 250
+                else "matched_section",
                 audience=row.get("audience"),
             )
             result[item["id"]] = item
@@ -156,12 +161,13 @@ def inquiry_actions(state, original):
     ):
         return original
     missing = required_ids(state) - set(state.get("retrieved_ids", []))
-    if not missing:
+    gaps = reference_gaps(state) if state.get("reference_check") else {}
+    if not missing and not any(gaps.values()):
         return original
     choices = []
     if available_targets(state):
         choices.append("read_source")
-    if state.get("source_search_count", 0) < 1:
+    if missing and state.get("source_search_count", 0) < 1:
         choices.append("supplement")
     return choices or ["stop"]
 
@@ -191,3 +197,51 @@ def reserve_source_io(database, run_id, kind, guard):
                 FlowAction(run_id=run_id, key="__source_budget__", input_hash="v1", body=values)
             )
         session.commit()
+
+
+def reference_gaps(state):
+    """Completion is coverage of actual read/retrieved parents, not just rule mapping."""
+    rows = state.get("retrieved_evidence", [])
+    complete = {
+        (r["version_id"], r.get("parent_id"))
+        for r in rows
+        if r.get("parent_complete") or r.get("complete")
+    }
+    windows = {}
+    for row in rows:
+        if row.get("source_kind") == "source_read" and row.get("total_chars"):
+            key = (row["version_id"], row.get("parent_id"))
+            windows.setdefault(key, []).append(
+                (
+                    row.get("offset", 0),
+                    row.get("offset", 0) + len(row["content"]),
+                    row["total_chars"],
+                )
+            )
+    for key, intervals in windows.items():
+        end = 0
+        for start, finish, total in sorted(intervals):
+            if start > end:
+                break
+            end = max(end, finish)
+            if end >= total:
+                complete.add(key)
+    required, unresolved = set(), set()
+    for row in rows:
+        for linked in row.get("related_sections", []):
+            required.add((row["version_id"], linked["parent_id"]))
+        for number in row.get("unresolved_articles", []):
+            unresolved.add((row["version_id"], number))
+    mapped = {
+        (r["version_id"], r.get("parent_id"))
+        for r in (state.get("preview") or {}).get("evidence", {}).get("sources", [])
+    }
+    business = (
+        state.get("context_purpose") != "policy_question"
+        and (state.get("task_frame") or {}).get("purpose") != "facts"
+    )
+    return {
+        "unread_related_sections": len(required - complete),
+        "unresolved_article_references": len(unresolved),
+        "unmapped_business_reference_sections": len(required - mapped) if business else 0,
+    }

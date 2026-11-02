@@ -40,7 +40,61 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
         ).model_dump(mode="json")
 
     def gather(state):
-        requirements = question_requirements(state.get("query"))
+        requirements = question_requirements(
+            state.get("query"),
+            selected_fields=[state["return_fact"]] if state.get("return_fact") else (),
+        )
+        explicit = state.get("return_task")
+        if profile.get("return_task_clarification"):
+            if not explicit and requirements["task"]["purpose"] == "unspecified":
+                response = interrupt(
+                    {
+                        "status": "awaiting_input",
+                        "pause_kind": "task_clarification",
+                        "answer": "你希望先了解规则、查询实际字段、核对退货资格，还是申请退货？选择目的不会提交申请。",
+                        "missing": ["return_task"],
+                        "choices": ["policy", "facts", "eligibility", "application"],
+                    }
+                )
+                if response.get("action") != "choose_task" or response.get("return_task") not in {
+                    "policy",
+                    "facts",
+                    "eligibility",
+                    "application",
+                }:
+                    raise ValueError("An explicit task choice is required")
+                return {
+                    "return_task": response["return_task"],
+                    "next_step": "gather",
+                    "confirmed": False,
+                }
+            if explicit:
+                requirements = {
+                    **requirements,
+                    "read_only": explicit in {"policy", "facts"},
+                    "task": {
+                        "purpose": explicit,
+                        "origin": "explicit_user_selection",
+                        "does_not_authorize_write": True,
+                    },
+                }
+        elif explicit:
+            raise ValueError("Task choice is not enabled for this workflow")
+        if explicit == "facts" and not requirements["requested"]:
+            from workbench.return_fact_checks import LABELS
+
+            response = interrupt(
+                {
+                    "status": "awaiting_input",
+                    "pause_kind": "fact_clarification",
+                    "answer": "你要核对哪项实际记录？政策文字不会代替实际记录。",
+                    "missing": ["return_fact"],
+                    "choices": list(LABELS),
+                }
+            )
+            if response.get("action") != "choose_fact" or response.get("return_fact") not in LABELS:
+                raise ValueError("An explicit actual field is required")
+            return {"return_fact": response["return_fact"], "next_step": "gather"}
         information = guided and requirements["read_only"]
         if information:
             # Information does not require application quantity/reason/item condition.
@@ -50,6 +104,7 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
         if change["next_step"] == "observe":
             change.update(
                 policy_reuse_candidates=state.get("retrieved_evidence", []) if reading else [],
+                reference_check=profile.get("return_reference_check", False),
                 task_frame=requirements["task"],
                 next_step="decide",
                 order_read=False,
@@ -71,7 +126,7 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
                 retrieved_evidence=[],
                 context_bound=bound,
                 context_purpose="policy_question"
-                if guided and question_requirements(state.get("query"))["read_only"]
+                if guided and requirements["read_only"]
                 else "application",
             )
             if guided:
@@ -102,7 +157,10 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
     def decide(state):
         task = state.get("task_frame") or {}
         if guided and task.get("purpose") == "facts":
-            requested = question_requirements(state.get("query"))["requested"]
+            requested = question_requirements(
+                state.get("query"),
+                selected_fields=[state["return_fact"]] if state.get("return_fact") else (),
+            )["requested"]
             needs_order = any(r["field"] == "signed_at" for r in requested)
             if needs_order and not state.get("order_read"):
                 return {"next_step": "read_order"}
@@ -125,7 +183,7 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
             and bool(
                 {"quality_verdict", "quality_defect_finding"} & set(preview.get("missing", []))
             )
-            and not question_requirements(state.get("query"))["read_only"]
+            and state.get("context_purpose") != "policy_question"
             and {s["id"] for s in preview["evidence"]["sources"]}
             <= set(state.get("retrieved_ids", []))
         ):
@@ -135,7 +193,7 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
             and state.get("order_read")
             and state.get("return_checked")
             and state.get("policy_searched")
-            and question_requirements(state.get("query"))["read_only"]
+            and state.get("context_purpose") == "policy_question"
         ):
             allowed = ["stop"]
         if reading:
@@ -554,9 +612,17 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
         }
 
     def confirmation(state):
-        if guided and question_requirements(state.get("query"))["read_only"]:
+        if (state.get("task_frame") or {}).get("purpose") == "eligibility":
+            return {
+                **result_metadata(state),
+                "next_step": "stop",
+                "answer": "当前核对符合本演示规则；尚未申请，未提交审批或执行退款。",
+            }
+        if guided and state.get("context_purpose") == "policy_question":
             raise ValueError("Read-only intent cannot enter application confirmation")
         change = core["confirmation"](state)
+        if response_task := (state.get("return_task")):
+            change.setdefault("return_task", response_task)
         if guided and change.get("next_step") == "gather":
             text = change.get("return_description", state.get("return_description")) or ""
             if text != (state.get("return_description") or ""):
@@ -575,21 +641,27 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
         return change
 
     def complete_for_question(state):
-        from workbench.source_reading import required_ids
+        from workbench.source_reading import reference_gaps, required_ids
 
-        return required_ids(state) <= set(state.get("retrieved_ids", []))
+        return required_ids(state) <= set(state.get("retrieved_ids", [])) and (
+            not state.get("reference_check") or not any(reference_gaps(state).values())
+        )
 
     def result_metadata(state):
         preview = state.get("preview") or {}
         required = {e["id"] for e in preview.get("evidence", {}).get("sources", [])}
         covered = required & set(state.get("retrieved_ids", []))
+        from workbench.source_reading import reference_gaps
+
+        gaps = reference_gaps(state) if state.get("reference_check") else {}
         return {
             "retrieval": {
                 **state.get("retrieval", {}),
                 "mode": profile.get("return_retrieval_mode", "baseline"),
                 "required_source_ids": sorted(required),
                 "covered_source_ids": sorted(covered),
-                "complete": required <= covered,
+                "complete": required <= covered and not any(gaps.values()),
+                "reference_gaps": gaps,
                 "supplemental_searches": state.get("source_search_count", 0)
                 if reading
                 else int(state.get("supplemented", False)),
@@ -627,7 +699,21 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
     def stop(state):
         preview = state["preview"]
         meta = result_metadata(state)
-        if guided and question_requirements(state.get("query"))["read_only"]:
+        if (state.get("task_frame") or {}).get("purpose") == "facts" and not question_requirements(
+            state.get("query")
+        )["requested"]:
+            return {
+                **meta,
+                "answer": "请在查询需求中写明要核对的实际字段，例如实际签收或质检结论；未提交申请。",
+            }
+        if (
+            (state.get("task_frame") or {}).get("purpose") == "eligibility"
+            and not preview.get("missing")
+            and not preview.get("blocked")
+            and meta["retrieval"]["complete"]
+        ):
+            return {**meta, "answer": "当前核对符合本演示规则；尚未申请，未提交审批或执行退款。"}
+        if guided and state.get("context_purpose") == "policy_question":
             answer = "已按只读需求核对订单与政策，未进入申请确认，未提交退货申请。" + (
                 "当前检索未覆盖全部必要政策条款。"
                 if not meta["retrieval"]["complete"]
@@ -652,6 +738,10 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
                 "需核实业务字段或适用政策："
                 + (return_reasons(preview["missing"]) if guided else "、".join(preview["missing"]))
                 + "。预计送达不等于实际签收，未提交申请。"
+            )
+        if any(meta["retrieval"].get("reference_gaps", {}).values()):
+            answer += (
+                "关联条款尚未读全、引用未解析，或尚未纳入管理员的资格规则；暂不能确认完整适用结论。"
             )
         return {**meta, "answer": answer}
 
@@ -687,7 +777,9 @@ def build_observation_graph(state_type, saver, tools, validate, planner, profile
         nodes["wait_quality"] = wait_quality
         nodes["confirmation"] = confirmation
     for name, node in nodes.items():
-        graph.add_node(name, node)
+        from workbench.tracing import trace_node
+
+        graph.add_node(name, trace_node(node, name))
     graph.add_edge(START, "gather")
     graph.add_conditional_edges(
         "gather", lambda s: END if s["next_step"] == "finish" else s["next_step"]

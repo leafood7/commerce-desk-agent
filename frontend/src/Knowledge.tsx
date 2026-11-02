@@ -1,5 +1,9 @@
+import {KnowledgeImpactPanel} from "./KnowledgeImpact";
+import {KnowledgeUpdatesPanel} from "./KnowledgeUpdates";
 import { useEffect, useState, type FormEvent } from "react";
+import {PolicyTaskBoard,type TaskBoard} from "./PolicyTaskBoard";
 import { api, watchRun } from "./api";
+import {PolicyExtractionPanel} from "./PolicyExtraction";
 import {ParseRevisionPanel} from "./ParseRevision";
 
 const scopes: Record<string,string> = {
@@ -8,7 +12,7 @@ const scopes: Record<string,string> = {
 };
 type Version = {config_hash:string;published_at:string|null;document_id:string;knowledge_kind?:string;faq_sources?:string[];source_review_required?:boolean;id:string;number:number;filename:string;status:string;published:boolean;policy_scope:string;
   chunk_count:number;error_code:string|null;job:{attempts:number};
-  parse_metadata:{revision?:{review_status:string};text_origin?:string;audience?:Record<string,string>;warnings?:{code:string;page?:number}[]}};
+  parse_metadata:{faq_update_review?:{status:string};revision?:{review_status:string};text_origin?:string;audience?:Record<string,string>;warnings?:{code:string;page?:number}[]}};
 type Document = {id:string;title:string;active_version_id:string|null;versions:Version[]};
 type Evidence = {text_origin?:string;id:string;version_id:string;version:number;title:string;filename:string;
   parent_id?:string;audience?:Record<string,string>;content:string;section:string;page_start:number|null;page_end:number|null;policy_scope:string};
@@ -25,6 +29,10 @@ async function download(token:string, version:string, filename:string) {
 }
 
 export function KnowledgeManager({token,role}:{token:string;role:string}) {
+  const [storage,setStorage]=useState<{backend:string;namespace:string}|null>(null);
+  useEffect(()=>{let active=true;setStorage(null);if(role==="admin")void api("/knowledge/vector-storage",token).then(value=>{if(active)setStorage(value);}).catch(()=>{});return ()=>{active=false;};},[token,role]);
+  const [showUpdates,setShowUpdates]=useState(false),[impact,setImpact]=useState<{version:Version;operation:string;documentId:string}|null>(null);
+  const [candidateVersion,setCandidateVersion]=useState<Version|null>(null);
   const [inspect,setInspect]=useState<{version:Version;active:string|null}|null>(null);
   const [documents,setDocuments] = useState<Document[]>([]);
   const [title,setTitle] = useState("");
@@ -75,6 +83,7 @@ export function KnowledgeManager({token,role}:{token:string;role:string}) {
     finally {setBusy(false);}
   }
   return <section className="knowledge"><h2>知识库</h2>
+    {storage&&<p className="muted" role="status">向量存储配置：{storage.backend==="qdrant"?"Qdrant":"Chroma"} · {storage.namespace||"原有默认索引"}。切换前须完成隔离重建；不会自动回退。</p>}
     <p className="muted">只有当前商家已发布且在有效期内的版本，才会参与政策检索。</p>
     {role==="admin" && <form onSubmit={upload} className="upload-form"><fieldset disabled={busy}>
       <label>上传到<select aria-label="上传到" value={target} onChange={event => {
@@ -94,27 +103,32 @@ export function KnowledgeManager({token,role}:{token:string;role:string}) {
       <p className="muted">支持 UTF-8 文本、Markdown、文本型 PDF 和普通 DOCX，单文件不超过 20 MB。扫描件需要先做 OCR。</p>
       <button disabled={busy||!file}>{busy?"正在提交…":"上传并处理"}</button>
     </fieldset></form>}
+    {["admin","approver"].includes(role)&&<button onClick={()=>setShowUpdates(true)}>知识更新待办</button>}
+    {showUpdates&&<KnowledgeUpdatesPanel token={token} role={role} onDone={refresh} onClose={()=>setShowUpdates(false)}/>}
+    {impact&&<KnowledgeImpactPanel token={token} version={impact.version} operation={impact.operation} onClose={()=>setImpact(null)} onConfirm={role==="admin"&&impact.operation!=="inspect"?async()=>{await api(impact.operation==="withdraw"?"/knowledge/documents/"+impact.documentId+"/withdraw":"/knowledge/versions/"+impact.version.id+"/publish",token,{acknowledge_warnings:!!ack[impact.version.id]});await refresh();}:undefined}/>}
     {notice&&<p className="success" role="status">{notice}</p>}{error&&<p className="error" role="alert">{error}</p>}
     {!documents.length&&<p className="empty">尚无文档。管理员上传并发布后，客服即可检索。</p>}
+    {candidateVersion&&<PolicyExtractionPanel token={token} role={role} version={candidateVersion} onDone={refresh} onClose={()=>setCandidateVersion(null)}/>}
     {inspect&&<ParseRevisionPanel token={token} role={role} version={inspect.version} activeVersion={inspect.active} onDone={refresh} onClose={()=>setInspect(null)}/>}
     {documents.map(document=><article className="document-card" key={document.id}>
       <div className="row"><h3>{document.title}</h3>{role==="admin"&&document.active_version_id&&
-        <button className="quiet" disabled={busy} onClick={()=>act("/knowledge/documents/"+document.id+"/withdraw")}>撤回当前版本</button>}</div>
+        <button className="quiet" disabled={busy} onClick={()=>{const version=document.versions.find(v=>v.id===document.active_version_id);if(version)setImpact({version,operation:"withdraw",documentId:document.id});}}>撤回当前版本</button>}</div>
       {document.versions.map(version=><div className="version-row" key={version.id}>
         <div><strong>v{version.number} · {version.filename}</strong>
           <p className="muted">{version.published?"当前已发布":states[version.status]||version.status} · {scopes[version.policy_scope]} · {version.chunk_count} 个片段</p>
           {version.parse_metadata?.revision&&<p>人工修订解析 · {version.parse_metadata.revision.review_status==="approved"?"独立审核通过":version.parse_metadata.revision.review_status==="rejected"?"已驳回":"待独立审核"}</p>}
+          {version.parse_metadata?.faq_update_review&&<p>联动FAQ：{({pending:"待独立审核",approved:"审核通过",rejected:"已驳回"} as Record<string,string>)[version.parse_metadata.faq_update_review.status]}，请在知识更新待办中处理。</p>}
           {version.source_review_required&&<p className="error">关联政策已变更或失效，FAQ暂停检索，请审核并发布新版本。</p>}
           {version.error_code&&<p className="error">{version.error_code==="no_extractable_text" ?
             "未提取到正文，请提供文本文件或先做 OCR。" : "处理未完成：" + version.error_code}</p>}
           {!!version.parse_metadata?.warnings?.length&&<p>有 {version.parse_metadata.warnings.length} 页未提取到文本，请核对原文件。</p>}
         </div>
-        <div className="actions">{["admin","approver"].includes(role)&&version.status==="ready"&&<button className="quiet" onClick={()=>setInspect({version,active:document.active_version_id})}>核对解析 v{version.number}</button>}<button className="quiet" onClick={()=>download(token,version.id,version.filename).catch(e=>setError(e.message))}>下载原文件</button>
+        <div className="actions">{["admin","approver"].includes(role)&&version.status==="ready"&&<button className="quiet" onClick={()=>setImpact({version,operation:"inspect",documentId:document.id})}>查看更新影响 v{version.number}</button>}{["admin","approver"].includes(role)&&version.status==="ready"&&version.policy_scope==="returns"&&version.knowledge_kind!=="faq"&&<button className="quiet" onClick={()=>setCandidateVersion(version)}>政策提取与审核 v{version.number}</button>}{["admin","approver"].includes(role)&&version.status==="ready"&&<button className="quiet" onClick={()=>setInspect({version,active:document.active_version_id})}>核对解析 v{version.number}</button>}<button className="quiet" onClick={()=>download(token,version.id,version.filename).catch(e=>setError(e.message))}>下载原文件</button>
           {role==="admin"&&version.status==="ready"&&!version.published&&<>
             {!!version.parse_metadata?.warnings?.length&&<label><input type="checkbox" checked={ack[version.id]||false}
               onChange={e=>setAck({...ack,[version.id]:e.target.checked})}/>已核对缺失页面</label>}
-            <button disabled={busy || (!!version.parse_metadata?.revision&&version.parse_metadata.revision.review_status!=="approved") || !!version.source_review_required || (!!version.parse_metadata?.warnings?.length&&!ack[version.id])}
-              onClick={()=>act("/knowledge/versions/"+version.id+"/publish",{acknowledge_warnings:!!ack[version.id]})}>发布 v{version.number}</button>
+            <button disabled={busy || (!!version.parse_metadata?.revision&&version.parse_metadata.revision.review_status!=="approved") || (!!version.parse_metadata?.faq_update_review&&version.parse_metadata.faq_update_review.status!=="approved") || !!version.source_review_required || (!!version.parse_metadata?.warnings?.length&&!ack[version.id])}
+              onClick={()=>setImpact({version,operation:"publish",documentId:document.id})}>发布 v{version.number}</button>
           </>}
           {role==="admin"&&version.status==="failed"&&version.job.attempts<3&&<button disabled={busy}
             onClick={()=>act("/knowledge/versions/"+version.id+"/retry")}>重试处理</button>}
@@ -131,38 +145,45 @@ export function PolicySearch({token}:{token:string}) {
   const [scope,setScope] = useState("");
   const [answer,setAnswer] = useState("");
   const [evidence,setEvidence] = useState<Evidence[]>([]);
+  const [bindings,setBindings] = useState<Record<string,number>>({});
+  const [summaries,setSummaries]=useState<Record<string,any>>({});
+  const [taskBoard,setTaskBoard]=useState<TaskBoard|null>(null);
   const [steps,setSteps] = useState<string[]>([]);
   const [busy,setBusy] = useState(false);
   const [error,setError] = useState("");
   async function search(event:FormEvent) {
-    event.preventDefault();setBusy(true);setError("");setEvidence([]);setAnswer("");setSteps([]);setReadings({});
+    event.preventDefault();setBusy(true);setError("");setEvidence([]);setAnswer("");setSteps([]);setTaskBoard(null);setReadings({});setSummaries({});
     try {
       const run=await api("/runs",token,{kind:"knowledge_search",query,policy_scope:scope||null,audience:Object.fromEntries(Object.entries(audience).filter(([,v])=>v.trim()))},
         {"Idempotency-Key":crypto.randomUUID()});
       const labels:Record<string,string>={"run.queued":"检索已排队","run.started":"开始处理",
         "tool.started":"检索已发布政策","tool.finished":"已取得检索结果",
         "answer.check":"正在核对回答依据","answer.published":"依据已发布","run.finished":"处理结束","tool.failed":"检索未完成"};
-      await watchRun(run.id,token,event=>setSteps(previous=>[...previous,labels[event.type]||event.type]));
+      const checks:Record<string,string>={generating:"正在组织回答",reviewing:"正在核对回答依据",repairing:"发现问题，正在修订一次",reviewing_repair:"正在重新核验修订结果"};
+      const agents:Record<string,string>={task_planner:"任务整理",evidence_coordinator:"证据协调",retrieval_agent:"取证助手",answer_agent:"回答助手",review_agent:"回答核验助手",repair_agent:"修订助手",supervisor:"协调步骤"};
+      await watchRun(run.id,token,event=>{if(event.type==="agent.task_board"){setTaskBoard(event.payload?.board||null);return;}setSteps(previous=>[...previous,event.type==="tool.started"&&event.payload?.name==="read_policy_source"?"补读已授权原文":event.type==="tool.finished"&&event.payload?.name==="read_policy_source"?"已取得原文片段":event.type.startsWith("agent.")?(agents[event.payload?.agent]||"协作助手")+(event.type==="agent.started"?"开始处理":event.type==="agent.failed"?"未完成，已保守处理":"完成交接"):event.type==="answer.check"?(checks[event.payload?.phase]||labels[event.type]):(labels[event.type]||event.type)]);});
       const result=await api("/runs/"+run.id,token);
       if(result.status!=="completed") throw new Error("本次检索未完成，请稍后重试。");
-      setAnswer(result.output.answer);setEvidence(result.output.evidence||[]);
+      if(result.output.answer_gate?.collaboration)setTaskBoard(result.output.answer_gate.collaboration);
+      setAnswer(result.output.answer);setEvidence(result.output.evidence||[]);setBindings(Object.fromEntries((result.output.answer_gate?.evidence_bindings||[]).map((r:{id:string;label:number})=>[r.id,r.label])));
     } catch(problem) {setError((problem as Error).message);}
     finally {setBusy(false);}
   }
   return <section className="knowledge"><h2>政策检索</h2>
     <p className="muted">此入口用于规则问答，展示已发布原文与来源。办理退货请进入退货申请；原文不代表订单事实已确认。未标注范围的资料仍需核对适用条件。</p>
-    <form onSubmit={search}><label>政策问题<textarea disabled={busy} value={query} onChange={e=>{setQuery(e.target.value);setEvidence([]);setReadings({});setAnswer("");}}
+    <form onSubmit={search}><label>政策问题<textarea disabled={busy} value={query} onChange={e=>{setQuery(e.target.value);setEvidence([]);setReadings({});setSummaries({});setAnswer("");}}
       placeholder="例如：运费券可以用于抵扣商品金额吗？" required maxLength={1200}/></label>
-      <label>问题涉及的范围<select disabled={busy} aria-label="问题涉及的范围" value={scope} onChange={e=>{setScope(e.target.value);setEvidence([]);setReadings({});setAnswer("");}}>
+      <label>问题涉及的范围<select disabled={busy} aria-label="问题涉及的范围" value={scope} onChange={e=>{setScope(e.target.value);setEvidence([]);setReadings({});setSummaries({});setAnswer("");}}>
         <option value="">尚未确认 / 全部范围</option>{Object.entries(scopes).filter(([key])=>key!=="unknown").map(([value,label])=>
           <option key={value} value={value}>{label}</option>)}</select></label>
-      {Object.entries({merchant:"商家",region:"地区",channel:"购买渠道",product:"商品范围"}).map(([key,label])=><label key={key}>{label}<input disabled={busy} maxLength={80} value={audience[key]||""} onChange={e=>{setAudience({...audience,[key]:e.target.value});setEvidence([]);setReadings({});setAnswer("");}} placeholder="仅填写已确认条件"/></label>)}
+      {Object.entries({merchant:"商家",region:"地区",channel:"购买渠道",product:"商品范围"}).map(([key,label])=><label key={key}>{label}<input disabled={busy} maxLength={80} value={audience[key]||""} onChange={e=>{setAudience({...audience,[key]:e.target.value});setEvidence([]);setReadings({});setSummaries({});setAnswer("");}} placeholder="仅填写已确认条件"/></label>)}
       <button disabled={busy}>{busy?"正在检索…":"检索政策"}</button></form>
     {!!steps.length&&<ol className="inline-steps">{steps.map((step,index)=><li key={index}>{step}</li>)}</ol>}
     {error&&<p className="error" role="alert">{error}</p>}
+    <PolicyTaskBoard board={taskBoard}/>
     {answer&&<p className="answer" role="status">{answer}</p>}
     {evidence.map(item=><article className="evidence" key={item.id}>
-      <div className="row"><h3>{item.title}</h3><span className="badge">{scopes[item.policy_scope]}</span></div>
+      <div className="row"><h3>{bindings[item.id]?"依据"+bindings[item.id]+" · ":""}{item.title}</h3><span className="badge">{scopes[item.policy_scope]}</span></div>
       <blockquote>{item.content}</blockquote>
       <p className="muted">{item.filename} · v{item.version}{item.page_start ? " · 第 "+item.page_start+" 页" : ""}
         {item.section ? " · "+item.section : ""}</p>
@@ -178,6 +199,8 @@ export function PolicySearch({token}:{token:string}) {
           setReadings(previous=>({...previous,[item.id]:{content:result.content,next_offset:result.next_offset,complete:result.next_offset===null,parent_id:result.parent_id,related_sections:result.related_sections||[]}}));
         }catch(e){setError((e as Error).message);}finally{setBusy(false);}
       }}>阅读关联条款：{link.section}</button>)}</div>}</>}
+      <button className="quiet" disabled={busy} onClick={async()=>{setBusy(true);setError("");try{const value=await api("/knowledge/versions/"+item.version_id+"/policy-summary",token);setSummaries(previous=>({...previous,[item.version_id]:value}));}catch{setError("该版本尚无可用的已审核政策条款，或来源已变化。请核对原文。");}finally{setBusy(false);}}}>查看已审核条款</button>
+      {summaries[item.version_id]&&<details open><summary>人工审核的政策整理（不等于退货资格已确认）</summary>{summaries[item.version_id].cards.map((card:any)=><div key={card.id}><strong> {({scope:"适用范围",window:"期限",condition:"条件",exception:"例外",responsibility:"费用与责任"} as Record<string,string>)[card.category]||"审核条款"}</strong><p>{card.statement}</p><details><summary>查看对应原文</summary>{card.sources.map((source:any,index:number)=><blockquote key={index}>{source.quote}</blockquote>)}</details></div>)}</details>}
       <button className="quiet" onClick={()=>download(token,item.version_id,item.filename).catch(e=>setError(e.message))}>查看原文件</button>
     </article>)}
   </section>;

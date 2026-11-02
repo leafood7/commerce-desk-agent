@@ -307,7 +307,9 @@ def build_graph(saver, tools, validate, planner=None, *, profile=None):
         ("result", result),
         ("unsupported", unsupported),
     ):
-        graph.add_node(name, node)
+        from workbench.tracing import trace_node
+
+        graph.add_node(name, trace_node(node, name))
     graph.add_edge(START, "route")
     graph.add_conditional_edges(
         "route",

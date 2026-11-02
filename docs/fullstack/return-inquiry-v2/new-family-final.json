@@ -1,0 +1,68 @@
+[
+  {
+    "id": "inquiry-final-01",
+    "family": "bundle_component",
+    "question": "组合套装具体有什么限制？先给我解释规定。",
+    "document": "# 第四条 主规则\n组合套装可在签收后13天申请。\n\n# 第十二条 专项限制\n第四条涉及组合套装时，缺少随箱配件的组合套装须先补齐配件。",
+    "necessary": [
+      "组合套装可在签收后13天申请",
+      "缺少随箱配件的组合套装须先补齐配件"
+    ],
+    "write_allowed": false
+  },
+  {
+    "id": "inquiry-final-02",
+    "family": "engraved_serial",
+    "question": "序号刻字品具体有什么限制？先给我解释规定。",
+    "document": "# 第四条 主规则\n本店商品可在签收后17天申请。\n\n# 第十二条 专项限制\n第四条涉及序号刻字品时，序号刻字品不适用上述无理由规则。",
+    "necessary": [
+      "本店商品可在签收后17天申请",
+      "序号刻字品不适用上述无理由规则"
+    ],
+    "write_allowed": false
+  },
+  {
+    "id": "inquiry-final-03",
+    "family": "tamper_seal",
+    "question": "封签设备具体有什么限制？先给我解释规定。",
+    "document": "# 第四条 主规则\n设备未使用可在签收后8天申请。\n\n# 第十二条 专项限制\n第四条涉及封签设备时，封签破损不能单独证明设备已使用。",
+    "necessary": [
+      "设备未使用可在签收后8天申请",
+      "封签破损不能单独证明设备已使用"
+    ],
+    "write_allowed": false
+  },
+  {
+    "id": "inquiry-final-04",
+    "family": "partial_package",
+    "question": "组合包装具体有什么限制？先给我解释规定。",
+    "document": "# 第四条 主规则\n组合包装按商品行核对数量。\n\n# 第十二条 专项限制\n第四条涉及组合包装时，只退部分商品时不可承诺整套附赠品折现。",
+    "necessary": [
+      "组合包装按商品行核对数量",
+      "只退部分商品时不可承诺整套附赠品折现"
+    ],
+    "write_allowed": false
+  },
+  {
+    "id": "inquiry-final-05",
+    "family": "seasonal_cutoff",
+    "question": "节庆专供具体有什么限制？先给我解释规定。",
+    "document": "# 第四条 主规则\n节庆专供可在签收后6天申请。\n\n# 第十二条 专项限制\n第四条涉及节庆专供时，节庆专供的期限不延长普通商品的期限。",
+    "necessary": [
+      "节庆专供可在签收后6天申请",
+      "节庆专供的期限不延长普通商品的期限"
+    ],
+    "write_allowed": false
+  },
+  {
+    "id": "inquiry-final-06",
+    "family": "inspection_quantity",
+    "question": "检测数量具体有什么限制？先给我解释规定。",
+    "document": "# 第四条 主规则\n质量退货需独立确认缺陷。\n\n# 第十二条 专项限制\n第四条涉及检测数量时，一件商品的检测不能代替另两件的结论。",
+    "necessary": [
+      "质量退货需独立确认缺陷",
+      "一件商品的检测不能代替另两件的结论"
+    ],
+    "write_allowed": false
+  }
+]

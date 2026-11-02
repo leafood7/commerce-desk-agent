@@ -28,12 +28,18 @@ class WorkbenchSettings(BaseSettings):
     run_tool_limit: int = Field(default=40, ge=1, le=1000)
     run_model_token_limit: int = Field(default=16384, ge=256, le=1000000)
     run_model_reserve_tokens: int = Field(default=8192, ge=256, le=32768)
-    policy_answer_mode: Literal["excerpts", "contract", "reviewed"] = "excerpts"
+    knowledge_collaboration_version: Literal["roles_v1", "task_board_v2"] = "roles_v1"
+    policy_answer_mode: Literal["excerpts", "contract", "reviewed", "reviewed_repair"] = "excerpts"
     policy_answer_max_tokens: int = Field(default=1024, ge=256, le=2048)
     policy_answer_timeout_seconds: float = Field(default=12, ge=1, le=30)
     return_source_reading_enabled: bool = False
     return_decision_mode: Literal["rules", "model"] = "rules"
     return_model_limit: int = Field(default=6, ge=1, le=6)
+    vector_backend: Literal["chroma", "qdrant"] = "chroma"
+    vector_namespace: str = ""
+    qdrant_url: str = "http://127.0.0.1:6333"
+    qdrant_api_key: SecretStr | None = None
+    vector_timeout_seconds: float = Field(default=30, ge=1, le=120)
     chroma_url: str = "http://127.0.0.1:8005"
     storage_root: str = "data/workbench/files"
     upload_limit_bytes: int = 20 * 1024 * 1024
@@ -80,7 +86,10 @@ class WorkbenchSettings(BaseSettings):
         if self.return_decision_mode == "model" and self.agent_router_mode != "model":
             raise ValueError("Return decisions require an explicitly enabled server model")
 
-        for endpoint in (self.mcp_url, self.chroma_url):
+        from workbench.vector_store import namespace
+
+        namespace(self.vector_namespace)
+        for endpoint in (self.mcp_url, self.chroma_url, self.qdrant_url):
             parsed = urlparse(endpoint)
             if (
                 parsed.scheme not in {"http", "https"}

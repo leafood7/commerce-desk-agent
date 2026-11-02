@@ -1,3 +1,4 @@
+import {confirmKnowledgeImpact} from './knowledge-ui';
 import {test,expect} from "@playwright/test";
 import {readFileSync} from "node:fs";
 
@@ -18,7 +19,7 @@ test("long policy upload and source pagination expose remote exclusion with orig
   const card=page.locator(".document-card").filter({has:page.getByRole("heading",{name:title,exact:true})});
   try{
     await expect(card.getByRole("button",{name:"发布 v1"})).toBeVisible({timeout:120_000});
-    await card.getByRole("button",{name:"发布 v1"}).click();await expect(card).toContainText("当前已发布");
+    await card.getByRole("button",{name:"发布 v1"}).click();await confirmKnowledgeImpact(page,'publish');await expect(card).toContainText("当前已发布");
     await page.getByRole("button",{name:"退货申请",exact:true}).click();
     await page.getByText("登记人工核对的退货规则",{exact:true}).click();
     await page.getByRole("button",{name:"加载已发布退货政策"}).click();

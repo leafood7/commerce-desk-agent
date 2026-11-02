@@ -5,6 +5,7 @@ import { Conversations } from "./Conversations";
 import { RuntimeProfile } from "./RuntimeProfile";
 import { AfterSales, Approvals } from "./AfterSales";
 import { KnowledgeManager, PolicySearch } from "./Knowledge";
+import { TraceExplorer } from "./TraceExplorer";
 import { Returns } from "./Returns";
 
 type User = { id: string; organization_id: string; display_name: string; role: string };
@@ -78,6 +79,7 @@ export default function App() {
       <button className={tab==="returns"?"active":""} onClick={()=>{setContext(null);setTab("returns");}}>退货申请</button>
       {user.role==="approver"&&<button className={tab==="approvals"?"active":""} onClick={()=>setTab("approvals")}>加急审批</button>}
       <button className={tab==="runtime"?"active":""} onClick={()=>setTab("runtime")}>运行策略</button>
+      <button className={tab==="traces"?"active":""} onClick={()=>setTab("traces")}>执行追踪</button>
       <button className={tab==="history"?"active":""} onClick={()=>setTab("history")}>会话记录</button>
       <button className={tab==="config"?"active":""} onClick={()=>setTab("config")}>配置版本</button>
     </nav>}
@@ -110,6 +112,7 @@ export default function App() {
         onResume={(id,conversation)=>{void api("/runs/"+id,token).then(row=>{setContext({conversation,run:id});setTab(row.input.return_policy_id?"returns":"aftersales");}).catch(e=>setError(e.message));}}/> :
       tab === "config" ? <ConfigVersions token={token} role={user.role}/> :
       tab === "returns" ? <Returns token={token} role={user.role} initialRunId={context?.run}/> :
+      tab === "traces" ? <TraceExplorer token={token}/> :
       tab === "runtime" ? <RuntimeProfile token={token}/> : <KnowledgeManager token={token} role={user.role}/>}
     {error && <p className="error" role="alert">{error}</p>}
   </main>;

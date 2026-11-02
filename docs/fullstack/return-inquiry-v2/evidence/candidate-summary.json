@@ -1,0 +1,17 @@
+{
+  "runs": 12,
+  "arm": "candidate_v2",
+  "paid": true,
+  "program_goals": 11,
+  "wrong_application_previews": 0,
+  "unnecessary_pauses": 0,
+  "complete_necessary_quotes": 12,
+  "return_requests_in_isolated_database": 0,
+  "budget": {
+    "requests": 66,
+    "charged_cny": 0.18785,
+    "unknown_calls": 0,
+    "cumulative_cny": 4.94438,
+    "stopped": null
+  }
+}

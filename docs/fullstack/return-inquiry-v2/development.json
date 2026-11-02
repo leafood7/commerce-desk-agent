@@ -1,0 +1,50 @@
+[
+  {
+    "id": "inquiry-dev-01",
+    "family": "ambiguous_goal",
+    "question": "这个退货你帮我看看。",
+    "expected": "task_clarification"
+  },
+  {
+    "id": "inquiry-dev-02",
+    "family": "rule_to_application",
+    "question": "先了解商品范围，之后再申请。",
+    "expected": "policy_only_then_new_explicit_choice"
+  },
+  {
+    "id": "inquiry-dev-03",
+    "family": "eligibility_without_writing",
+    "question": "核对是否符合条件，不要替我提交。",
+    "expected": "eligibility_only"
+  },
+  {
+    "id": "inquiry-dev-04",
+    "family": "actual_record",
+    "question": "只查实际质检结果。",
+    "expected": "facts_only"
+  },
+  {
+    "id": "inquiry-dev-05",
+    "family": "outgoing_exception",
+    "document": "# 第三条 期限\n退货限签收后11天，例外见第八条。\n\n# 第八条 展示品例外\n展示品仅限签收后4天；不延长普通商品期限。",
+    "expected": "both_sections"
+  },
+  {
+    "id": "inquiry-dev-06",
+    "family": "incoming_exception",
+    "document": "# 第三条 期限\n普通商品签收后11天内可申请。\n\n# 第八条 特殊商品\n第三条不适用于按需印字商品，该类不支持无理由退货。",
+    "expected": "reverse_reference"
+  },
+  {
+    "id": "inquiry-dev-07",
+    "family": "unresolved_reference",
+    "document": "# 第三条 期限\n退货限签收后11天，例外参见第九条。",
+    "expected": "partial_boundary"
+  },
+  {
+    "id": "inquiry-dev-08",
+    "family": "bounded_cycle",
+    "document": "# 第三条 期限\n参见第八条。\n\n# 第八条 例外\n参见第三条。",
+    "expected": "no_repeat_no_budget_reset"
+  }
+]

@@ -94,7 +94,16 @@ def ensure_usage(session, run, settings, *, legacy=True):
             1,
             (settings.return_model_limit if return_model else 1 if run.kind == "aftersales" else 0)
             + (
-                2
+                settings.return_model_limit
+                if profile
+                and profile.values.get("knowledge_agent_mode") == "collaborative"
+                and run.kind == "knowledge_search"
+                else 0
+            )
+            + (
+                4
+                if profile and profile.values.get("policy_answer_mode") == "reviewed_repair"
+                else 2
                 if profile and profile.values.get("policy_answer_mode") == "reviewed"
                 else 1
                 if profile and profile.values.get("policy_answer_mode") == "contract"

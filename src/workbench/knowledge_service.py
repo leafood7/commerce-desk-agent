@@ -12,6 +12,7 @@ from workbench.document_parsing import IngestionError, validate_container
 from workbench.domain import audit, fingerprint
 from workbench.knowledge_models import Document, DocumentVersion, IngestionJob, KnowledgeChunk
 from workbench.models import Organization, identifier, now
+from workbench.tracing import traced
 
 
 def storage_root(settings):
@@ -117,7 +118,17 @@ def version_view(session, document, version, job=_UNSET):
 
 
 def create_version(
-    session, actor, settings, filename, content, options, *, title=None, document_id=None
+    session,
+    actor,
+    settings,
+    filename,
+    content,
+    options,
+    *,
+    title=None,
+    document_id=None,
+    faq_review=None,
+    commit=True,
 ):
     if actor.role != "admin":
         raise HTTPException(403, "Role is not permitted")
@@ -130,6 +141,10 @@ def create_version(
         "knowledge_kind": options.knowledge_kind or "document",
         "faq_sources": options.faq_sources or [],
     }
+    if faq_review:
+        if initial_metadata["knowledge_kind"] != "faq":
+            raise HTTPException(422, "FAQ review context is only supported for FAQ")
+        initial_metadata["faq_update_review"] = faq_review
     check_faq(session, actor.organization_id, initial_metadata)
     filename = re.split(r"[/\\]", filename or "")[-1]
     if not filename or len(filename) > 200 or any(ord(char) < 32 for char in filename):
@@ -144,6 +159,8 @@ def create_version(
             key == "knowledge_kind" and config[key] == "document"
         ):
             config.pop(key, None)
+    if faq_review:
+        config["faq_update_review"] = fingerprint(faq_review)
     config_hash = fingerprint(config)
     # Serialize uploads within one organization to make network retries deduplicate.
     session.scalar(
@@ -235,7 +252,10 @@ def create_version(
         session.flush()
         session.add(IngestionJob(organization_id=actor.organization_id, version_id=version.id))
         audit(session, actor, "document.uploaded", version.id, document_id=document.id)
-        session.commit()
+        if commit:
+            session.commit()
+        else:
+            session.flush()
     except Exception:
         session.rollback()
         path.unlink(missing_ok=True)
@@ -243,7 +263,18 @@ def create_version(
     return document, version, True
 
 
-def publish(session, actor, version_id, acknowledge_warnings=False):
+@traced("business", "publish")
+def publish(
+    session,
+    actor,
+    version_id,
+    acknowledge_warnings=False,
+    *,
+    candidate_id=None,
+    candidate_revision=None,
+    publication_note="",
+    settings=None,
+):
     from workbench.knowledge_revisions import invalidate_faqs, publication_lock
 
     if actor.role != "admin":
@@ -258,20 +289,67 @@ def publish(session, actor, version_id, acknowledge_warnings=False):
     from workbench.faq_sources import check_faq
 
     check_faq(session, actor.organization_id, version.parse_metadata or {})
+    from workbench.knowledge_updates import faq_publication_ready, finish_published, record_update
+
+    faq_publication_ready(session, actor, version)
+    previous_version_id = document.active_version_id
+    previous_version = (
+        session.get(DocumentVersion, previous_version_id) if previous_version_id else None
+    )
+    previous_annotation = (
+        (previous_version.parse_metadata or {}).get("policy_extraction_id")
+        if previous_version
+        else None
+    )
     revision = (version.parse_metadata or {}).get("revision")
     if revision and (
         revision.get("review_status") != "approved"
-        or document.active_version_id != revision["base_version_id"]
+        or document.active_version_id not in {revision["base_version_id"], version.id}
     ):
         raise HTTPException(409, "Revision requires independent review against the current source")
+    from workbench.policy_extraction import publication_candidate
+
+    candidate = publication_candidate(session, actor, version, document, settings)
+    if candidate_id is not None and (
+        candidate is None
+        or candidate.id != candidate_id
+        or candidate.revision != candidate_revision
+    ):
+        raise HTTPException(409, "Candidate or revision changed before publication")
+    if candidate and candidate.status != "published":
+        candidate.status = "published"
+        candidate.revision += 1
+        candidate.updated_at = now()
+        version.parse_metadata = {**version.parse_metadata, "policy_extraction_id": candidate.id}
+        audit(
+            session,
+            actor,
+            "policy.published",
+            candidate.id,
+            version_id=version.id,
+            reviewer=candidate.reviewed_by,
+            reason=publication_note,
+        )
     invalidate_faqs(session, actor, document.id, document.active_version_id, version.id)
     document.active_version_id = version.id
     version.published_at = now()
+    finish_published(session, actor, version, candidate)
+    record_update(
+        session,
+        actor,
+        document,
+        previous_version_id,
+        version.id,
+        "annotation_update" if previous_version_id == version.id else "publish",
+        old_annotation=previous_annotation,
+        new_annotation=(version.parse_metadata or {}).get("policy_extraction_id"),
+    )
     audit(session, actor, "document.published", version.id, document_id=document.id)
     session.commit()
     return version_view(session, document, version)
 
 
+@traced("business", "withdraw")
 def withdraw(session, actor, document_id):
     from workbench.knowledge_revisions import invalidate_faqs, publication_lock
 
@@ -282,6 +360,9 @@ def withdraw(session, actor, document_id):
     previous = document.active_version_id
     invalidate_faqs(session, actor, document.id, previous, None)
     document.active_version_id = None
+    from workbench.knowledge_updates import record_update
+
+    record_update(session, actor, document, previous, None, "withdraw")
     audit(session, actor, "document.withdrawn", document.id, previous_version=previous)
     session.commit()
     return {"id": document.id, "active_version_id": None}
@@ -390,6 +471,8 @@ def validated_evidence(session, actor, matches, *, audience=None):
         current, _ = audience_filter(candidates, audience, explicit_version=True)
         if {v.id for _, v in current} != {v.id for _, v, _ in allowed.values()}:
             raise HTTPException(409, "Evidence audience conflicts with current conditions")
+    from workbench.parent_context import related_sections
+
     parent_info = {}
     for version in {v.id: v for _, v, _ in allowed.values()}.values():
         parents = (version.parse_metadata or {}).get("parent_child", {}).get("parents", [])
@@ -406,11 +489,8 @@ def validated_evidence(session, actor, matches, *, audience=None):
                 "text": parent.get("text", ""),
                 "complete": bool(parent["positions"])
                 and all(by_position.get(p) in identifiers for p in parent["positions"]),
-                "related_sections": [
-                    {"parent_id": p["id"], "section": p["section"]}
-                    for p in parents
-                    if p["id"] in parent.get("links", [])
-                ],
+                "related_sections": related_sections(parents, parent["id"]),
+                "unresolved_articles": parent.get("unresolved_articles", []),
             }
             for parent in parents
         }
@@ -437,6 +517,15 @@ def validated_evidence(session, actor, matches, *, audience=None):
                 "section": chunk.section,
                 "policy_scope": version.policy_scope,
                 "audience": (version.parse_metadata or {}).get("audience", {}),
+                "unresolved_articles": parent_info.get(version.id, {})
+                .get(
+                    (version.parse_metadata or {})
+                    .get("parent_child", {})
+                    .get("children", {})
+                    .get(str(chunk.position)),
+                    {},
+                )
+                .get("unresolved_articles", []),
                 "parent_match_offset": parent_info.get(version.id, {})
                 .get(
                     (version.parse_metadata or {})
@@ -474,9 +563,11 @@ def validated_evidence(session, actor, matches, *, audience=None):
     return result + checked_readings
 
 
+@traced("business", "read_parent")
 def read_parent(session, actor, body):
     from datetime import UTC, datetime
 
+    from workbench.parent_context import related_sections
     from workbench.policy_audience import audience_filter
 
     version = scoped_version(session, actor, body.version_id)
@@ -516,11 +607,7 @@ def read_parent(session, actor, body):
         "parent_id": parent["id"],
         "title": document.title,
         "section": parent["section"],
-        "related_sections": [
-            {"parent_id": p["id"], "section": p["section"]}
-            for p in parents
-            if p["id"] in parent.get("links", [])
-        ],
+        "related_sections": related_sections(parents, parent["id"]),
         "unresolved_articles": parent.get("unresolved_articles", []),
         "source_kind": (version.parse_metadata or {}).get("text_origin", "parsed_original"),
         "source_sha256": version.content_hash,

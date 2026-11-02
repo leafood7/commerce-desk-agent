@@ -1,3 +1,4 @@
+import {confirmKnowledgeImpact} from './knowledge-ui';
 import {test,expect} from '@playwright/test';
 
 test('stage1 upload, publish, clarify, read linked original and invalidate FAQ on source update',async({page,request})=>{
@@ -23,7 +24,7 @@ test('stage1 upload, publish, clarify, read linked original and invalidate FAQ o
   await page.getByRole('button',{name:'上传并处理'}).click();
   const card=page.locator('.document-card').filter({has:page.getByRole('heading',{name:title,exact:true})});
   await expect(card.getByRole('button',{name:'发布 v1'})).toBeVisible({timeout:60000});
-  await card.getByRole('button',{name:'发布 v1'}).click();
+  await card.getByRole('button',{name:'发布 v1'}).click();await confirmKnowledgeImpact(page,'publish');
   await expect(card.getByText('当前已发布',{exact:false})).toBeVisible();
   await page.getByRole('button',{name:'政策检索',exact:true}).click();
   await page.getByLabel('政策问题').fill('普通商品七天内申请退货的期限和例外是什么？');
