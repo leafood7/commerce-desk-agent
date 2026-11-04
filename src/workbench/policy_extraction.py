@@ -118,19 +118,29 @@ def binding_digest(version, rows):
 def risks(cards, rows):
     found = {c["category"] for c in cards}
     unknown = [k for k in PATTERNS if k not in found]
-    windows = sorted(
-        set(
-            re.findall(
-                r"\d+\s*(?:天|日|days?)",
-                "\n".join(c["statement"] for c in cards if c["category"] == "window"),
-                re.I,
-            )
+    window_entries = [
+        {"value": v, "chunk_ids": sorted({s["chunk_id"] for s in c["sources"]})}
+        for c in cards
+        if c["category"] == "window"
+        for v in re.findall(r"\d+\s*(?:天|日|days?)", c["statement"], re.I)
+    ]
+    window_values = sorted({e["value"] for e in window_entries})
+    conflict_cues = []
+    # Distinct limits are a review cue, never proof that the rules contradict each other.
+    if len(window_values) > 1:
+        conflict_cues.append(
+            {
+                "kind": "different_windows",
+                "values": window_values,
+                "chunk_ids": sorted({cid for e in window_entries for cid in e["chunk_ids"]}),
+                "meaning": "同一提取结果出现不同期限，可能分属不同适用分支；必须人工核对各自范围，不能直接判定为矛盾",
+            }
         )
-    )
     return {
         "unknown_categories": unknown,
-        "review_flags": (["multiple_windows_require_scope_review"] if len(windows) > 1 else [])
+        "review_flags": (["multiple_windows_require_scope_review"] if len(window_values) > 1 else [])
         + (["no_exception_identified_not_proof_of_absence"] if "exception" not in found else []),
+        "conflict_cues": conflict_cues,
         "references": sorted(
             set(
                 re.findall(

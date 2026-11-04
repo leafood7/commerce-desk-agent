@@ -38,7 +38,7 @@ def main():
                 parser.error("Demo seeding is disabled in production")
             password = os.environ.get(args.password_env)
             if not password:
-                parser.error("Set the named password environment variable (at least 12 characters)")
+                parser.error("Set the named password environment variable (at least 8 characters)")
             print(
                 json.dumps(
                     {"accounts": seed_demo(database, password), "existing_passwords_reset": False},
@@ -49,7 +49,7 @@ def main():
             print(
                 json.dumps(
                     {
-                        "schema": "0012_request_traces",
+                        "schema": "0019_reply_draft_audit",
                         "ready": True,
                         "dialect": database.engine.dialect.name,
                     }

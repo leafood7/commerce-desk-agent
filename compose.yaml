@@ -118,7 +118,7 @@ services:
     command: ["python", "-m", "workbench.ingestion"]
     environment: *knowledge-environment
     volumes:
-      - document_files:/app/data/workbench/files:ro
+      - document_files:/app/data/workbench/files
       - "${WORKBENCH_MODEL_CACHE:-./work/huggingface/hub}:/app/work/huggingface/hub:ro"
     depends_on:
       mcp:

@@ -132,7 +132,7 @@ class KnowledgeRetriever:
         from workbench.policy_audience import audience_filter
 
         with self.database.sessions() as session:
-            _, missing = audience_filter(
+            versions, missing = audience_filter(
                 self.active_versions(
                     session, organization_id, request.policy_scope, request.version_id
                 ),
@@ -140,11 +140,36 @@ class KnowledgeRetriever:
                 explicit_version=bool(request.version_id),
             )
         if missing:
+            dimensions = ("merchant", "region", "channel", "product")
+            options = {
+                key: sorted(
+                    {
+                        value
+                        for _, version in versions
+                        if (value := (version.parse_metadata or {}).get("audience", {}).get(key))
+                    }
+                )
+                for key in missing
+            }
+            profiles = {}
+            for _, version in versions:
+                audience_values = (version.parse_metadata or {}).get("audience", {})
+                profile = {
+                    key: audience_values[key]
+                    for key in dimensions
+                    if audience_values.get(key)
+                }
+                if all(key in profile for key in missing):
+                    profiles[tuple(sorted(profile.items()))] = profile
             return {
                 "status": "no_evidence",
                 "matches": [],
                 "coverage": "needs_scope",
-                "clarification": {"missing": missing, "source": "explicit_conditions_required"},
+                "clarification": {
+                    "missing": missing,
+                    "options": {**options, "profiles": list(profiles.values())},
+                    "source": "explicit_conditions_required",
+                },
                 "trace": {
                     "strategy": request.strategy,
                     "vector_backend": getattr(self.index, "backend", "explicit_test_double"),

@@ -61,6 +61,8 @@ class WorkbenchSettings(BaseSettings):
     agent_router_url: str | None = None
     agent_router_model: str | None = None
     agent_router_key: SecretStr | None = None
+    reply_llm_enabled: bool = False
+    reply_llm_url: str | None = None
     session_minutes: int = 480
     cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
 
@@ -85,6 +87,20 @@ class WorkbenchSettings(BaseSettings):
                 )
         if self.return_decision_mode == "model" and self.agent_router_mode != "model":
             raise ValueError("Return decisions require an explicitly enabled server model")
+        if self.reply_llm_enabled:
+            endpoint = urlparse(self.reply_llm_url or self.agent_router_url or "")
+            if (
+                endpoint.scheme != "https"
+                or not endpoint.hostname
+                or endpoint.username
+                or endpoint.fragment
+                or not self.agent_router_model
+                or not self.agent_router_key
+                or not self.agent_router_key.get_secret_value().strip()
+            ):
+                raise ValueError(
+                    "Reply LLM requires an explicit HTTPS chat-completions endpoint, model and key"
+                )
 
         from workbench.vector_store import namespace
 

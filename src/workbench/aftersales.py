@@ -52,6 +52,8 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
     )
     if not run.input.get("return_policy_id") and any(v is not None for v in return_fields):
         raise HTTPException(422, "Return fields require a return workflow")
+    if body.audience is not None and (run.output or {}).get("pause_kind") != "policy_scope":
+        raise HTTPException(409, "Policy scope can only be supplied during a policy-scope clarification")
     if run.input.get("return_policy_id") and body.shipping_kind is not None:
         raise HTTPException(422, "Shipping fields cannot modify a return workflow")
     if body.return_description is not None:
@@ -115,6 +117,16 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
             raise HTTPException(409, "Condition proposal changed or is unavailable")
     if body.action == "cancel":
         session.add(FlowAction(run_id=run.id, key=key, input_hash=body_hash, body=body_data))
+        if body.message is not None:
+            session.add(
+                Message(
+                    organization_id=run.organization_id,
+                    conversation_id=run.conversation_id,
+                    run_id=run.id,
+                    role="human",
+                    content=body.message.strip(),
+                )
+            )
         return cancel_run(session, actor, identifier), False
     check_admission(session, actor, settings)
     if (
@@ -137,7 +149,17 @@ def continue_flow(session, actor, identifier, body, key, *, enqueue_job=None, se
     session.add(FlowAction(run_id=run.id, key=key, input_hash=body_hash, body=body_data))
     event(session, run, "run.resumed", action=body.action)
     audit(session, actor, "aftersales.resumed", run.id, continuation_action=body.action)
-    if body.action in {"supply", "correct", "choose_task", "choose_fact"}:
+    if body.message is not None:
+        session.add(
+            Message(
+                organization_id=run.organization_id,
+                conversation_id=run.conversation_id,
+                run_id=run.id,
+                role="human",
+                content=body.message.strip(),
+            )
+        )
+    elif body.action in {"supply", "correct", "choose_task", "choose_fact"}:
         session.add(
             Message(
                 organization_id=run.organization_id,
@@ -305,6 +327,8 @@ def execute_flow(database, run_id, gateway, token, action_key=None, *, execution
                 }
             }
             action = session.get(FlowAction, (run_id, action_key)).body if action_key else None
+            if action and "message" in action:
+                action = {key: value for key, value in action.items() if key != "message"}
             event(session, run, "run.started", engine="langgraph")
             session.commit()
         from workbench.intent_router import route_once

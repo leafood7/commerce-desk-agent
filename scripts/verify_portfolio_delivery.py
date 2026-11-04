@@ -23,6 +23,13 @@ def main():
     paths.append("migrations/versions/0010_policy_extractions.py")
     paths.append("migrations/versions/0011_knowledge_updates.py")
     paths.append("migrations/versions/0012_request_traces.py")
+    paths.append("migrations/versions/0013_return_fulfillment.py")
+    paths.append("migrations/versions/0014_after_sales_attachments.py")
+    paths.append("migrations/versions/0015_after_sales_evidence_review.py")
+    paths.append("migrations/versions/0016_policy_conflicts.py")
+    paths.append("migrations/versions/0017_reply_drafts.py")
+    paths.append("migrations/versions/0018_trace_resources.py")
+    paths.append("migrations/versions/0019_reply_draft_audit.py")
     expected = {p: digest(ROOT / p) for p in paths}
     client = AcceptanceDatabase()
     code = (
@@ -39,8 +46,8 @@ def main():
     code = "from workbench.config import WorkbenchSettings; from workbench.database import Database; from sqlalchemy import text,inspect; import json; s=WorkbenchSettings(); d=Database(s); c=d.engine.connect(); print(json.dumps({'schema':c.scalar(text('SELECT version_num FROM alembic_version')),'tables':len(inspect(d.engine).get_table_names()),'agent_router_mode':s.agent_router_mode,'return_decision_mode':s.return_decision_mode,'retrieval_context_mode':s.retrieval_context_mode,'model_key_present':bool(s.agent_router_key and s.agent_router_key.get_secret_value())})); c.close(); d.close()"
     runtime = json.loads(client.run(["exec", "-T", "api", "python", "-c", code]))
     if runtime != {
-        "schema": "0012_request_traces",
-        "tables": 39,
+        "schema": "0019_reply_draft_audit",
+        "tables": 47,
         "agent_router_mode": "rules",
         "return_decision_mode": "rules",
         "retrieval_context_mode": "neighbors",

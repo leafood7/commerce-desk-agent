@@ -42,7 +42,7 @@ powershell -ExecutionPolicy Bypass -File scripts/stop-workbench.ps1
 $env:PYTHONPATH='src'
 .venv\Scripts\python.exe -m workbench.cli migrate
 .venv\Scripts\python.exe -m workbench.cli check
-$env:WORKBENCH_DEMO_PASSWORD='<至少12字符的本机演示密码>'
+$env:WORKBENCH_DEMO_PASSWORD='<至少8字符的本机演示密码>'
 .venv\Scripts\python.exe -m workbench.cli seed
 ```
 
@@ -121,7 +121,7 @@ mysql+pymysql://commerce:<URL编码后的密码>@mysql:3306/commercedesk?charset
 
 ```powershell
 docker compose up --build -d --wait
-docker compose exec -e WORKBENCH_DEMO_PASSWORD='<本机演示密码>' api python -m workbench.cli seed
+docker compose exec -e WORKBENCH_DEMO_PASSWORD='<至少8字符的本机演示密码>' api python -m workbench.cli seed
 # 日志
 docker compose logs --tail=100 api
 ```

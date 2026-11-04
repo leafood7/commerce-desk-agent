@@ -11,7 +11,7 @@ from threading import Lock
 from time import perf_counter
 from uuid import UUID, uuid4
 
-from sqlalchemy import select
+from sqlalchemy import or_, select
 
 from workbench.models import Run, User, now
 from workbench.trace_models import TraceRecord, TraceSpan
@@ -106,6 +106,17 @@ def link(session, run, job=None):
             current = active_span.get()
             if current:
                 row.dispatch_parent_id = current["id"]
+
+
+def link_resource(session, kind, resource_id):
+    """Attach the first business resource touched by this request to its trace."""
+    ctx = context.get()
+    if ctx is None or not ctx.owner_id or not resource_id:
+        return
+    row = session.get(TraceRecord, ctx.id)
+    if row and not row.resource_id:
+        row.resource_kind = kind[:32]
+        row.resource_id = str(resource_id)[:64]
 
 
 def flush():
@@ -396,6 +407,7 @@ def attach_routes(app, session_dependency, actor):
     @app.get("/api/v1/traces")
     def traces(
         run_id: str | None = None,
+        resource_id: str | None = None,
         limit: int = Query(20, ge=1, le=50),
         offset: int = Query(0, ge=0),
         user=Depends(actor),
@@ -404,6 +416,13 @@ def attach_routes(app, session_dependency, actor):
         q = select(TraceRecord).where(*visible(user))
         if run_id:
             q = q.where(TraceRecord.run_id == run_id)
+        if resource_id:
+            q = q.where(
+                or_(
+                    TraceRecord.resource_id == resource_id,
+                    TraceRecord.run_id == resource_id,
+                )
+            )
         rows = session.scalars(
             q.order_by(TraceRecord.created_at.desc(), TraceRecord.id)
             .offset(offset)
@@ -414,6 +433,8 @@ def attach_routes(app, session_dependency, actor):
                 {
                     "id": r.id,
                     "run_id": r.run_id,
+                    "resource_kind": r.resource_kind,
+                    "resource_id": r.resource_id,
                     "operation": r.operation,
                     "created_at": r.created_at,
                 }
@@ -422,6 +443,18 @@ def attach_routes(app, session_dependency, actor):
             "has_more": len(rows) > limit,
             "offset": offset,
         }
+
+    @app.get("/api/v1/cases/{resource_id}/trail")
+    def case_trail_route(
+        resource_id: str,
+        user=Depends(actor),
+        session=Depends(session_dependency),
+    ):
+        if not 1 <= len(resource_id) <= 64:
+            raise HTTPException(404, "Case not found")
+        from workbench.case_trail import case_trail
+
+        return case_trail(session, user, resource_id)
 
     @app.get("/api/v1/traces/{trace_id}")
     def detail(

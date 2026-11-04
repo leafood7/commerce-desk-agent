@@ -24,6 +24,9 @@ class AfterSalesState(TypedDict, total=False):
     order: dict
     evidence: list
     retrieval: dict
+    coverage: str
+    clarification: dict
+    audience: dict
     request: dict
     proposal: dict
     confirmed: bool
@@ -37,7 +40,7 @@ class AfterSalesState(TypedDict, total=False):
 
 
 def classify(query):
-    if any(word in query for word in ("政策", "规则", "条件", "权益", "多少", "几分钟")):
+    if any(word in query for word in ("政策", "规则", "条件", "权益", "多少", "几分钟", "资料", "文档", "知识库")):
         return "knowledge"
     if any(word in query for word in ("退款", "退货", "赔偿", "补偿", "改地址", "取消订单")):
         return "unsupported"
@@ -129,17 +132,35 @@ def build_graph(saver, tools, validate, planner=None, *, profile=None):
             if state["intent"] == "knowledge"
             else "普通催单与加急申请的条件、承诺发货时间及工具能力边界"
         )
-        result = tools(
-            "search_knowledge_base",
-            {
-                "query": query,
-                "policy_scope": "shipping" if state["intent"] == "shipping" else None,
-                "strategy": "hybrid_rerank",
-                "top_k": (profile or {}).get("top_k", 3),
-            },
-        )
+        arguments = {
+            "query": query,
+            "policy_scope": "shipping" if state["intent"] == "shipping" else None,
+            "strategy": "hybrid_rerank",
+            "top_k": (profile or {}).get("top_k", 3),
+            **({"audience": state["audience"]} if state.get("audience") else {}),
+        }
+        result = tools("search_knowledge_base", arguments)
+        if result.get("coverage") == "needs_scope" and not state.get("audience"):
+            profiles = (result.get("clarification") or {}).get("options", {}).get("profiles", [])
+            normalized_query = re.sub(r"\s+", "", query).casefold()
+            matches = [
+                audience
+                for audience in profiles
+                if all(
+                    re.sub(r"\s+", "", str(value)).casefold() in normalized_query
+                    for value in audience.values()
+                )
+            ]
+            if len(matches) == 1:
+                arguments["audience"] = matches[0]
+                result = tools("search_knowledge_base", arguments)
         matches = validate(result["matches"])
-        return {"evidence": matches, "retrieval": result.get("trace", {})}
+        return {
+            "evidence": matches,
+            "retrieval": {**(result.get("trace", {})), "coverage": result.get("coverage")},
+            "coverage": result.get("coverage"),
+            "clarification": result.get("clarification", {}),
+        }
 
     def read_plan(state):
         defaults = {
@@ -165,11 +186,75 @@ def build_graph(saver, tools, validate, planner=None, *, profile=None):
         return result
 
     def knowledge_result(state):
+        evidence = state.get("evidence") or []
+        if evidence:
+            excerpts = []
+            remaining = 3000
+            for index, item in enumerate(evidence[:3], start=1):
+                content = str(item.get("content") or item.get("text") or "").strip()
+                if not content or remaining <= 0:
+                    continue
+                source = " · ".join(
+                    part
+                    for part in (
+                        item.get("title"),
+                        f"v{item['version']}" if item.get("version") is not None else None,
+                        item.get("section"),
+                        f"第 {item['page_start']} 页" if item.get("page_start") else None,
+                    )
+                    if part
+                ) or "已发布政策原文"
+                excerpt = content[: min(1000, remaining)]
+                remaining -= len(excerpt)
+                if len(content) > len(excerpt):
+                    excerpt += "…（片段已截短）"
+                excerpts.append(f"{index}. {source}\n{excerpt}")
+            if excerpts:
+                return {
+                    "answer": "我检索到以下相关政策原文：\n\n"
+                    + "\n\n".join(excerpts)
+                    + "\n\n以上是检索片段；我可以继续帮你核对适用条件或阅读对应章节。"
+                }
         return {
             "answer": "以下是当前已发布的政策原文，请结合适用条件核对；相关片段不等于已能回答全部问题。"
             if state.get("evidence")
-            else "当前已发布资料没有可用依据，无法确认该政策。"
+            else (
+                "当前商家暂无符合所选范围的已发布政策。请核对商家、地区和购买渠道，或请管理员发布相应资料。"
+                if state.get("audience")
+                else "当前已发布资料中没有检索到支持该问题的条款，暂时无法确认。"
+            )
         }
+
+    def clarify_policy_scope(state):
+        clarification = state.get("clarification") or {}
+        missing = clarification.get("missing", [])
+        options = clarification.get("options", {})
+        prompt = {
+            "status": "awaiting_input",
+            "pause_kind": "policy_scope",
+            "answer": "这批已发布政策有不同适用范围。请在当前对话中选择要查询的商家、地区和购买渠道，我再按该范围检索。",
+            "missing": missing,
+            "scope_options": options,
+            "known_audience": state.get("audience", {}),
+        }
+        while True:
+            response = interrupt(prompt)
+            audience = {
+                key: value
+                for key, value in (response.get("audience") or {}).items()
+                if value is not None and value != ""
+            }
+            profiles = options.get("profiles", [])
+            profile_match = any(audience == item for item in profiles)
+            dimensions_match = all(
+                key in audience and audience[key] in options.get(key, []) for key in missing
+            )
+            if profile_match or (not profiles and dimensions_match):
+                return {"audience": audience}
+            prompt = {
+                **prompt,
+                "answer": "所选范围没有匹配到当前政策目录。请从下方选项中选择一组完整范围后继续。",
+            }
 
     def propose(state):
         error = eligibility(state["order"], state["shipping_kind"], now().replace(tzinfo=UTC))
@@ -296,6 +381,7 @@ def build_graph(saver, tools, validate, planner=None, *, profile=None):
         ("route", route),
         ("gather", gather),
         ("read_plan", read_plan),
+        ("clarify_policy_scope", clarify_policy_scope),
         ("lookup_result", lookup_result),
         ("knowledge_result", knowledge_result),
         ("propose", propose),
@@ -329,10 +415,16 @@ def build_graph(saver, tools, validate, planner=None, *, profile=None):
         lambda s: (
             "lookup_result"
             if s["intent"] == "lookup"
+            else "clarify_policy_scope"
+            if s["intent"] == "knowledge" and s.get("coverage") == "needs_scope"
             else "knowledge_result"
             if s["intent"] == "knowledge"
             else "propose"
         ),
+    )
+    graph.add_conditional_edges(
+        "clarify_policy_scope",
+        lambda s: "read_plan" if s.get("audience") else "knowledge_result",
     )
     graph.add_conditional_edges(
         "propose", lambda s: END if s["next_step"] == "finish" else "confirmation"

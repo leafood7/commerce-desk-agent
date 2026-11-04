@@ -17,7 +17,7 @@ from workbench.models import (
     ShippingTicket,
     now,
 )
-from workbench.tracing import traced
+from workbench.tracing import link_resource, traced
 
 
 def fingerprint(value):
@@ -47,6 +47,7 @@ def audit(session, actor, action, resource_id, **details):
             details=details,
         )
     )
+    link_resource(session, action.split(".", 1)[0], resource_id)
 
 
 @traced("business", "get_order")

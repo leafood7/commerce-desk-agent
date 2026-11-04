@@ -5,6 +5,8 @@ import {PolicyTaskBoard,type TaskBoard} from "./PolicyTaskBoard";
 import { api, watchRun } from "./api";
 import {PolicyExtractionPanel} from "./PolicyExtraction";
 import {ParseRevisionPanel} from "./ParseRevision";
+import { FileSearch } from "lucide-react";
+import { ModulePageHeader } from "./ModuleUI";
 
 const scopes: Record<string,string> = {
   unknown:"未标注，需核实", general:"通用政策", goods_coupon:"商品券",
@@ -169,8 +171,9 @@ export function PolicySearch({token}:{token:string}) {
     } catch(problem) {setError((problem as Error).message);}
     finally {setBusy(false);}
   }
-  return <section className="knowledge"><h2>政策检索</h2>
-    <p className="muted">此入口用于规则问答，展示已发布原文与来源。办理退货请进入退货申请；原文不代表订单事实已确认。未标注范围的资料仍需核对适用条件。</p>
+  return <section className="knowledge module-page policy-search-page">
+    <ModulePageHeader icon={FileSearch} eyebrow="知识与策略" title="政策检索" description="根据已发布政策回答规则问题，并展示命中的原文、来源和适用范围。" />
+    <p className="notice module-page-notice">此入口用于规则问答，展示已发布原文与来源。办理退货请进入退货申请；原文不代表订单事实已确认。未标注范围的资料仍需核对适用条件。</p>
     <form onSubmit={search}><label>政策问题<textarea disabled={busy} value={query} onChange={e=>{setQuery(e.target.value);setEvidence([]);setReadings({});setSummaries({});setAnswer("");}}
       placeholder="例如：运费券可以用于抵扣商品金额吗？" required maxLength={1200}/></label>
       <label>问题涉及的范围<select disabled={busy} aria-label="问题涉及的范围" value={scope} onChange={e=>{setScope(e.target.value);setEvidence([]);setReadings({});setSummaries({});setAnswer("");}}>

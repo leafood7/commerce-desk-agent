@@ -12,6 +12,7 @@ class TraceRecord(Base):
         Index("ix_wb_trace_owner_created", "organization_id", "owner_id", "created_at"),
         Index("ix_wb_trace_run", "run_id"),
         Index("ix_wb_trace_job", "job_id"),
+        Index("ix_wb_trace_resource", "organization_id", "resource_id"),
     )
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     organization_id: Mapped[str] = mapped_column(ForeignKey("wb_organizations.id"))
@@ -19,6 +20,8 @@ class TraceRecord(Base):
     run_id: Mapped[str | None] = mapped_column(String(36))
     job_id: Mapped[str | None] = mapped_column(String(36))
     dispatch_parent_id: Mapped[str | None] = mapped_column(String(36))
+    resource_kind: Mapped[str | None] = mapped_column(String(32))
+    resource_id: Mapped[str | None] = mapped_column(String(64))
     operation: Mapped[str] = mapped_column(String(120))
     created_at: Mapped[object] = mapped_column(UTC_DATETIME, default=now)
 

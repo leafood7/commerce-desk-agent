@@ -3,6 +3,8 @@ import ContextCard from "./ContextCard";
 import { useEffect, useRef, useState } from "react";
 import { api, watchRun } from "./api";
 import { QualityInspections } from "./QualityInspections";
+import { RotateCcw } from "lucide-react";
+import { ModulePageHeader } from "./ModuleUI";
 
 const statuses:Record<string,string>={draft:"草稿",pending_approval:"待审批",approved:"已批准待提交",rejected:"已拒绝",cancelled:"已取消",accepted_simulated:"模拟已受理"};
 const conditions:Record<string,string>={unknown:"尚未核实",unused:"用户确认未使用",used:"已使用"};
@@ -27,13 +29,14 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
   const [basis,setBasis]=useState("no_reason"),[ruleBasis,setRuleBasis]=useState("no_reason");
   const [clauseRefs,setClauseRefs]=useState<Record<string,{chunk_id:string;quote:string}>>({});
   const [flow,setFlow]=useState<any>(null),[recent,setRecent]=useState<any[]>([]),[steps,setSteps]=useState<any[]>([]);
+  const [showHiddenFlows,setShowHiddenFlows]=useState(false);
   const [liveBoard,setLiveBoard]=useState<any>(null);
   const [taskMode,setTaskMode]=useState("auto"),[taskEnabled,setTaskEnabled]=useState(false);
   useEffect(()=>{api("/runtime/config",token).then(v=>setTaskEnabled(!!v.current.values.return_task_clarification)).catch(()=>setTaskEnabled(false));},[token]);
   const watcher=useRef<AbortController|null>(null);
   useEffect(()=>()=>watcher.current?.abort(),[]);
-  async function reload(){const [p,r,f]=await Promise.all([api("/returns/policies",token),api("/returns/requests",token),api("/aftersales/runs?workflow=returns",token)]);setPolicies(p.items);setPoliciesLoaded(true);setRows(r.items);setRecent(f.items);}
-  useEffect(()=>{void reload().catch(e=>setError(e.message));},[token]);
+  async function reload(){const [p,r,f]=await Promise.all([api("/returns/policies",token),api("/returns/requests",token),api(`/aftersales/runs?workflow=returns&include_hidden=${showHiddenFlows}`,token)]);setPolicies(p.items);setPoliciesLoaded(true);setRows(r.items);setRecent(f.items);}
+  useEffect(()=>{void reload().catch(e=>setError(e.message));},[token,showHiddenFlows]);
   async function act(task:()=>Promise<void>){setBusy(true);setError("");try{await task();await reload();}catch(e){setError((e as Error).message);}finally{setBusy(false);}}
   async function loadSources(id:string,offset=0){const result=await api(`/returns/policy-sources/${id}?offset=${offset}&limit=20`,token);setSources(old=>offset?[...old,...result.items]:result.items);setSourceOffset(offset+result.items.length);setSourceMore(result.has_more);}
   async function lookup(){const data=await api("/orders/"+encodeURIComponent(number),token);setOrder(data);setItem(data.items[0]?.id||"");setPolicy("");setSelected(null);setPreview(null);}
@@ -79,8 +82,9 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
   useEffect(()=>{if(initialRunId)void act(()=>openFlow(initialRunId));},[initialRunId,token]);
   const proposed=flow?.output?.proposal;
   const agentEdits=!!proposed?.return_item_id&&(number!==proposed.order_number||item!==proposed.return_item_id||quantity!==proposed.return_quantity||condition!==proposed.return_condition||basis!==(proposed.return_basis||"no_reason")||reason!==proposed.reason||description!==(proposed.return_description||"")||policy!==(proposed.return_policy_id||flow.input.return_policy_id));
-  return <section className="conversation"><h2>退货申请</h2>
-    <p className="notice">演示商家规则 · 外部受理仅模拟 · 不执行真实退款。申请、批准与受理分别记录。</p>
+  return <section className="conversation module-page returns-page">
+    <ModulePageHeader icon={RotateCcw} eyebrow="业务工作台" title="退货申请" description="核对订单商品与适用规则，创建申请并跟进独立审批和受理状态。" />
+    <p className="notice">依据当前商家发布的规则核对 · 外部受理仅模拟，不执行真实退款。申请、批准与受理分别记录。</p>
     {role==="support"&&<>
       <div className="query"><input aria-label="退货订单号" value={number} onChange={e=>{setNumber(e.target.value);setOrder(null);setItem("");setPolicy("");setPreview(null);setSelected(null);}}/><button disabled={busy} onClick={()=>act(lookup)}>读取退货订单</button></div>
       {order&&<><p>实际签收：{order.signed_at||"未提供，不能使用预计送达代替"}</p>
@@ -105,7 +109,9 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
       </>}
     </>}
     {role==="support"&&<article><h3>退货 Agent 流程</h3><p>根据工具观察选择查询或补问；默认规则路径。管理员可在服务端允许时启用受限模型建议，资格、审批和写入始终由业务规则控制。</p>
-      <label>恢复退货流程<select aria-label="恢复退货流程" value={flow?.id||""} disabled={busy} onChange={e=>{const id=e.target.value;if(id)void act(()=>openFlow(id));}}><option value="">选择已有流程</option>{recent.map(r=><option key={r.id} value={r.id}>{r.id.slice(0,8)} · {r.status}</option>)}</select></label>
+      <label>恢复退货流程<select aria-label="恢复退货流程" value={flow?.id||""} disabled={busy} onChange={e=>{const id=e.target.value;if(id)void act(()=>openFlow(id));}}><option value="">选择已有流程</option>{recent.map(r=><option key={r.id} value={r.id}>{r.hidden?"已隐藏 · ":""}{r.id.slice(0,8)} · {r.status}</option>)}</select></label>
+      <button type="button" disabled={busy} onClick={()=>setShowHiddenFlows(v=>!v)}>{showHiddenFlows?"收起隐藏流程":"查看隐藏流程"}</button>
+      {flow?.input?.return_policy_id&&recent.some(r=>r.id===flow.id)&&<button type="button" disabled={busy} onClick={()=>act(async()=>{const hidden=!!recent.find(r=>r.id===flow.id)?.hidden;await api(`/aftersales/runs/${flow.id}/${hidden?"unhide":"hide"}`,token,{});await reload();})}>{recent.find(r=>r.id===flow.id)?.hidden?"恢复到常用列表":"从常用列表隐藏"}</button>}
       {flow&&<><p role="status">{flow.output?.answer||"正在执行"}</p><small>流程状态：{flow.status}</small>
         {flow.output?.condition_proposal?.source&&<blockquote>待确认原话：{flow.output.condition_proposal.source.quote}</blockquote>}
         {flow.status==="awaiting_input"&&flow.output?.pause_kind==="condition_confirmation"&&<button disabled={busy||description!==(flow.output?.known?.return_description||"")} onClick={()=>act(()=>resumeFlow("accept_condition"))}>确认这段原话所表达的商品状态</button>}
@@ -156,7 +162,7 @@ export function Returns({token,role,initialRunId}:{token:string;role:string;init
     <h3>申请记录</h3><button disabled={busy} onClick={()=>act(async()=>{})}>刷新退货记录</button>
     {rows.map(row=><p key={row.id}><button disabled={busy} onClick={()=>act(()=>open(row))}>{row.order_number} · {statuses[row.status]||row.status} · {row.id.slice(0,8)}</button></p>)}
     {selected&&<article><h3>当前申请：{statuses[selected.status]}</h3><p>版本 {selected.revision} · 数量 {selected.quantity} · {selected.reason}</p><p>商品金额参考值：{(selected.goods_value_cents/100).toFixed(2)}；实际退款金额：未确认。</p>
-      {preview&&<><p>核对结果：{preview.eligibility==="eligible"?"满足当前演示规则，可提交审批":preview.eligibility==="needs_information"?"需补充信息":"当前条件不满足"}</p>
+      {preview&&<><p>核对结果：{preview.eligibility==="eligible"?"满足当前已登记规则，可提交审批":preview.eligibility==="needs_information"?"需补充信息":"当前条件不满足"}</p>
         {preview.missing?.map((m:string)=><p key={m}>待核实：{missingLabels[m]||m}</p>)}{preview.blocked?.map((b:string)=><p key={b}>限制：{b}</p>)}
         <details><summary>政策条款与来源</summary>{preview.evidence.clauses.map((c:any)=><blockquote key={c.purpose}>{c.quote}<small>来源 {c.chunk_id}</small></blockquote>)}</details>
         {role==="support"&&selected.status==="draft"&&<button disabled={busy||preview.eligibility!=="eligible"} onClick={()=>act(()=>action("confirm",{preview_hash:preview.preview_hash}))}>确认本版本并提交审批</button>}

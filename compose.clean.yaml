@@ -1,0 +1,8 @@
+# 8C clean-install stack: dedicated ports so the retained acceptance stack keeps running.
+services:
+  api:
+    ports: !override
+      - "127.0.0.1:28082:8080"
+  web:
+    ports: !override
+      - "127.0.0.1:25173:80"

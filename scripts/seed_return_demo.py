@@ -30,17 +30,16 @@ def main():
     suffix = uuid4().hex[:10].upper()
     sku = "DEMO-RETURN-" + suffix
     clauses = {
-        "scope_clause": f"本演示规则仅适用于商品 {sku}，不适用于其他商品或真实平台。",
+        "scope_clause": f"本规则适用于商品编码 {sku}；其他商品须依据各自适用规则核对。",
         "window_clause": "申请时间不得晚于业务系统实际签收时间之后的7天；预计到达时间不能代替实际签收。",
-        "condition_clause": "仅演示未使用商品的无理由退货申请；已使用商品不适用本演示规则，其他原因须人工处理。",
-        "quality_clause": "仅在管理员登记的需质检分支，必须取得同一订单商品行及申请数量的有效质检通过结论；其他分支不新增该项要求。",
+        "condition_clause": "无理由退货仅适用于未使用商品；已使用商品的其他退货原因须人工核对。",
+        "quality_clause": "仅对管理员登记为需质检的规则分支，要求取得同一订单商品行及申请数量对应的有效质检通过结论；其他分支不增加此要求。",
         "quality_issue_window": "质量问题退货分支限实际签收30天内；不能延长无理由退货的7天窗口。",
-        "quality_issue_condition": "质量问题分支允许已使用商品，但必须由独立处理人明确登记同商品行同数量的存在缺陷结论；质检未通过、用户自述或照片不能代替。",
+        "quality_issue_condition": "质量问题分支允许已使用商品，但须由独立处理人针对同一订单商品行及申请数量登记明确的缺陷结论；质检未通过、用户自述或照片不能替代该结论。",
     }
     text = (
-        "# 演示商家退货规则\n\n"
+        "# 商家退货规则\n\n"
         + "\n\n".join(clauses.values())
-        + "\n\n受理为本地模拟，不执行真实退款。"
     )
     data = {"sku": sku, "orders": {}, "external_mode": "simulation"}
     with database.sessions() as session:
@@ -54,11 +53,11 @@ def main():
             order = Order(
                 organization_id=org.id,
                 number="RET-" + label.upper() + "-" + suffix,
-                customer_name="退货隔离演示",
+                customer_name="退货客户",
                 payment_status="paid",
                 shipping_status="delivered",
                 signed_at=now() - timedelta(days=days) if days else None,
-                estimated_delivery="演示预计信息，非签收事实",
+                estimated_delivery="预计送达信息，仅供参考",
                 data_source="demo_return_seed",
             )
             session.add(order)
@@ -67,7 +66,7 @@ def main():
                 organization_id=org.id,
                 order_id=order.id,
                 sku=sku,
-                product_name="演示未使用商品",
+                product_name="待退商品",
                 quantity=3,
                 unit_price_cents=12345,
             )
@@ -79,10 +78,10 @@ def main():
             session,
             admin,
             settings,
-            "demo-return-" + suffix + ".md",
+            "return-policy-" + suffix + ".md",
             text.encode("utf-8"),
             VersionOptions(policy_scope="returns"),
-            title="退货规则演示 " + suffix,
+            title="商家退货规则 " + suffix,
         )
         version_id = version.id
     deadline = time.monotonic() + 180

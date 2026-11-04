@@ -40,6 +40,28 @@ class ShippingStatusArguments(Input):
     request_id: StrictStr = Field(min_length=1, max_length=36)
 
 
+class FulfillmentArguments(Input):
+    fulfillment_id: StrictStr = Field(min_length=1, max_length=36)
+
+
+class ReturnEvidenceArguments(Input):
+    request_id: StrictStr = Field(min_length=1, max_length=36)
+
+
+class PolicyConflictArguments(Input):
+    sku: StrictStr | None = Field(
+        default=None,
+        min_length=1,
+        max_length=64,
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$",
+    )
+    status: Literal["pending_review", "resolved"] | None = None
+
+
+class CaseFactsArguments(Input):
+    return_request_id: StrictStr = Field(min_length=1, max_length=36)
+
+
 class ShippingArguments(OrderArguments):
     kind: Literal["normal", "expedite"] = "normal"
     reason: StrictStr = Field(min_length=1, max_length=500)
@@ -118,6 +140,48 @@ CONTRACTS = {
         "shipping:write",
         "登记普通催单或待审批加急申请；不批准申请，不通知外部仓库。",
         False,
+    ),
+    "get_return_fulfillment": (
+        FulfillmentArguments,
+        "orders:read",
+        "查询退货履约单状态、事件时间线、仓库验收与模拟退款；只读，不推进流程、不执行退款。",
+        True,
+    ),
+    "track_return_package": (
+        FulfillmentArguments,
+        "orders:read",
+        "查询退货寄回的模拟物流状态与事件；物流状态由模拟服务推进，不推断真实签收。",
+        True,
+    ),
+    "get_warehouse_inspection": (
+        FulfillmentArguments,
+        "orders:read",
+        "查询退货商品仓库验收结果（收货/通过/不通过）；只读。",
+        True,
+    ),
+    "get_refund_status": (
+        FulfillmentArguments,
+        "orders:read",
+        "查询模拟退款状态；退款由后端按幂等键执行，Agent 不决定是否退款。",
+        True,
+    ),
+    "list_return_evidence": (
+        ReturnEvidenceArguments,
+        "orders:read",
+        "查询本商家指定退货申请的售后凭证、规则提取候选字段与人工核验状态；只读，不上传、不核验、不判定真实性。",
+        True,
+    ),
+    "get_policy_conflicts": (
+        PolicyConflictArguments,
+        "knowledge:read",
+        "查询本商家政策冲突候选、涉及规则编号、原文来源与人工裁决结果；只读，不裁决、不发布、不改变退货资格。",
+        True,
+    ),
+    "get_verified_case_facts": (
+        CaseFactsArguments,
+        "orders:read",
+        "查询本商家指定退货申请的已核实业务事实、未知事实与禁止表述；只读，不生成草稿、不确认回复。实际退款始终未确认。",
+        True,
     ),
 }
 

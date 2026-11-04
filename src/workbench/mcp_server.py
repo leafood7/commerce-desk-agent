@@ -148,6 +148,66 @@ def create_mcp_app(settings=None, *, index=None):
                     from workbench.quality import lookup
 
                     data = {"status": "found", "quality": lookup(session, user, body)}
+                elif name == "list_return_evidence":
+                    from workbench.after_sales_api import evidence_for_request
+
+                    data = {
+                        "status": "found",
+                        "evidence": evidence_for_request(session, user, body.request_id),
+                    }
+                elif name == "get_policy_conflicts":
+                    from workbench.policy_conflict_service import list_conflicts
+
+                    result = list_conflicts(session, user, body.status, limit=50)
+                    items = [
+                        item
+                        for item in result["items"]
+                        if body.sku is None
+                        or any(rule_id.split(":")[-1] == body.sku for rule_id in item["rule_ids"])
+                    ]
+                    data = {
+                        "status": "found",
+                        "conflicts": items,
+                        "blocks_automatic_decision": any(
+                            item["status"] == "pending_review" for item in items
+                        ),
+                    }
+                elif name == "get_verified_case_facts":
+                    from workbench.reply_drafts import collect_case_facts
+
+                    data = {
+                        "status": "found",
+                        "facts": collect_case_facts(session, user, body.return_request_id),
+                    }
+                elif name in {
+                    "get_return_fulfillment",
+                    "track_return_package",
+                    "get_warehouse_inspection",
+                    "get_refund_status",
+                }:
+                    from workbench.fulfillment import fulfillment_view, owned_fulfillment
+
+                    view = fulfillment_view(
+                        session, user, owned_fulfillment(session, user, body.fulfillment_id)
+                    )
+                    if name == "get_return_fulfillment":
+                        data = {"status": "found", "fulfillment": view}
+                    elif name == "track_return_package":
+                        data = {
+                            "status": "found",
+                            "tracking": {
+                                "status": view["status"],
+                                "tracking_number": view["tracking_number"],
+                                "carrier": view["carrier"],
+                                "logistics": [
+                                    e for e in view["timeline"] if e["source"] == "logistics"
+                                ],
+                            },
+                        }
+                    elif name == "get_warehouse_inspection":
+                        data = {"status": "found", "inspection": view["inspection"]}
+                    else:
+                        data = {"status": "found", "refund": view["refund"]}
                 elif name == "get_order_status":
                     data = {
                         "status": "found",

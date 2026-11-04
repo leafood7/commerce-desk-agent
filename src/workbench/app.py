@@ -21,8 +21,12 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy import and_, delete, func, or_, select
 from sqlalchemy.exc import IntegrityError
 
+import workbench.after_sales_models  # noqa: F401
+import workbench.fulfillment_models  # noqa: F401
+import workbench.policy_conflict_models  # noqa: F401
 import workbench.profile_models  # noqa: F401
 import workbench.quota_models  # noqa: F401
+import workbench.reply_draft_models  # noqa: F401
 import workbench.return_models  # noqa: F401
 import workbench.trace_models  # noqa: F401
 from workbench import tracing
@@ -516,23 +520,46 @@ def create_app(settings=None, *, gateway=None):
     @application.get("/api/v1/aftersales/runs")
     def recent_aftersales(
         workflow: str = Query("shipping", pattern="^(shipping|returns)$"),
+        include_hidden: bool = Query(False),
         user=Depends(actor),
         connection=Depends(session),
     ):
+        statement = select(Run).where(
+            Run.kind == "aftersales",
+            Run.owner_id == user.id,
+            Run.organization_id == user.organization_id,
+            Run.input["return_policy_id"].as_string().is_not(None)
+            if workflow == "returns"
+            else Run.input["return_policy_id"].as_string().is_(None),
+        )
+        if workflow == "returns" and not include_hidden:
+            statement = statement.where(Run.hidden_from_recovery.is_(False))
         rows = connection.scalars(
-            select(Run)
-            .where(
-                Run.kind == "aftersales",
-                Run.owner_id == user.id,
-                Run.organization_id == user.organization_id,
-                Run.input["return_policy_id"].as_string().is_not(None)
-                if workflow == "returns"
-                else Run.input["return_policy_id"].as_string().is_(None),
-            )
-            .order_by(Run.created_at.desc())
-            .limit(20)
+            statement.order_by(Run.created_at.desc(), Run.id.desc()).limit(200)
         ).all()
-        return {"items": [run_view(row) for row in rows]}
+        return {
+            "items": [
+                {**run_view(row), "hidden": bool(row.hidden_from_recovery)} for row in rows
+            ]
+        }
+
+    @application.post("/api/v1/aftersales/runs/{identifier}/hide")
+    def hide_aftersales_run(identifier: str, user=Depends(actor), connection=Depends(session)):
+        row = owned_run(connection, user, identifier)
+        if row.kind != "aftersales" or not (row.input or {}).get("return_policy_id"):
+            raise HTTPException(404, "Return workflow not found")
+        row.hidden_from_recovery = True
+        connection.commit()
+        return {"id": row.id, "hidden": True}
+
+    @application.post("/api/v1/aftersales/runs/{identifier}/unhide")
+    def unhide_aftersales_run(identifier: str, user=Depends(actor), connection=Depends(session)):
+        row = owned_run(connection, user, identifier)
+        if row.kind != "aftersales" or not (row.input or {}).get("return_policy_id"):
+            raise HTTPException(404, "Return workflow not found")
+        row.hidden_from_recovery = False
+        connection.commit()
+        return {"id": row.id, "hidden": False}
 
     @application.post("/api/v1/runs", status_code=202)
     def start_run(
@@ -808,6 +835,18 @@ def create_app(settings=None, *, gateway=None):
     from workbench.quality_api import attach_quality_routes
 
     attach_quality_routes(application, session, actor, require, idempotency_key)
+    from workbench.fulfillment_api import attach_fulfillment_routes
+
+    attach_fulfillment_routes(application, session, actor, require)
+    from workbench.after_sales_api import attach_after_sales_routes
+
+    attach_after_sales_routes(application, settings, session, actor, require)
+    from workbench.policy_conflict_api import attach_policy_conflict_routes
+
+    attach_policy_conflict_routes(application, session, actor, require)
+    from workbench.reply_draft_api import attach_reply_draft_routes
+
+    attach_reply_draft_routes(application, settings, session, actor, require)
     tracing.attach_routes(application, session, actor)
     return application
 

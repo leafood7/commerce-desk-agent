@@ -114,6 +114,40 @@ def test_pending_cannot_publish_through_original_endpoint(candidate_case):
     assert request(candidate_case, row, "publish", acknowledge_warnings=True).status_code == 409
 
 
+def test_risks_marks_distinct_windows_with_source_chunks(logged_in, workbench):
+    client, app, headers = logged_in
+    response = client.post(
+        "/api/v1/knowledge/documents",
+        headers=headers("admin"),
+        data={
+            "title": "政策多期限冲突提示",
+            "policy_scope": "returns",
+            "chunk_strategy": "parent_child",
+        },
+        files={
+            "file": (
+                "policy.md",
+                "# 期限\n签收7天内可申请退货。\n\n# 预售\n预售商品收货后30天内亦可申请。".encode(),
+                "text/markdown",
+            )
+        },
+    )
+    assert response.status_code == 201, response.text
+    version = response.json()["version"]["id"]
+    assert work_once(app.state.database, workbench[2], MemoryIndex())
+    extracted = client.post(
+        f"/api/v1/knowledge/versions/{version}/policy-extractions",
+        headers=headers("admin"),
+        json={},
+    )
+    assert extracted.status_code == 201, extracted.text
+    cues = extracted.json()["payload"]["conflict_cues"]
+    assert any(c["kind"] == "different_windows" for c in cues)
+    windows = next(c for c in cues if c["kind"] == "different_windows")
+    assert "7天" in windows["values"] and "30天" in windows["values"]
+    assert windows["chunk_ids"], "source chunks must be traceable for conflict review"
+
+
 def test_fabricated_source_or_stale_revision_cannot_submit(candidate_case):
     row = candidate_case[-1]
     cards = copy.deepcopy(row["payload"]["cards"])

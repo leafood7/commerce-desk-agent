@@ -1,6 +1,8 @@
 import ContextCard from "./ContextCard";
 import { useEffect, useState, type FormEvent } from "react";
 import { api, watchRun } from "./api";
+import { Headphones } from "lucide-react";
+import { ModulePageHeader } from "./ModuleUI";
 
 type Run = {id:string;conversation_id:string;status:string;input:{query:string};output:any;error_code?:string};
 const nodes:Record<string,string>={route:"识别任务",read_plan:"校验只读工具计划",gather:"核对信息",observe:"读取订单",retrieve:"检索政策",propose:"形成申请",confirmation:"核对确认",recheck:"重新检查条件",submit:"登记申请",wait_approval:"等待审批",refresh:"核实审批状态",result:"整理办理结果",lookup_result:"整理订单信息",knowledge_result:"整理政策依据",unsupported:"说明能力边界"};
@@ -105,8 +107,9 @@ export function AfterSales({token,conversationId,initialRunId,onResetContext}:{t
       <option value="">尚未确定</option><option value="normal">普通催单</option><option value="expedite">加急申请（需审批）</option></select></label>
     <label>申请原因<input value={reason} onChange={e=>setReason(e.target.value)} maxLength={500}/></label>
   </>;
-  return <section className="knowledge"><h2>售后助手</h2>
-    <p className="muted">可查询订单、查阅政策、登记普通催单或申请加急。办理前需要确认；加急由独立审批员决定。当前不会办理退款或通知外部仓库。</p>
+  return <section className="knowledge module-page after-sales-page">
+    <ModulePageHeader icon={Headphones} eyebrow="业务工作台" title="售后助手" description="核对订单与政策，整理售后处理建议；需要办理时按流程确认并交由相应角色处理。" />
+    <p className="notice module-page-notice">可查询订单、查阅政策、登记普通催单或申请加急。办理前需要确认；加急由独立审批员决定。当前不会办理退款或通知外部仓库。</p>
     {activeConversation&&<p className="muted">当前会话 {activeConversation.slice(0,8)}；新任务不自动沿用旧条件。</p>}
     <button className="quiet" disabled={busy} onClick={()=>{onResetContext?.(null);setRun(null);setActiveConversation(null);setQuery("");setEvents([]);setNumber("");setKind("");setReason("");setVerified(null);}}>新建会话</button>
     {run&&<button className="quiet" disabled={busy} onClick={()=>{onResetContext?.(activeConversation);setRun(null);setQuery("");setEvents([]);setNumber("");setKind("");setReason("");setVerified(null);}}>在当前会话准备新任务</button>}
@@ -171,7 +174,7 @@ export function Approvals({token}:{token:string}) {
     try{await api("/shipping/requests/"+id+"/decision",token,{action,reason});await load();}
     catch(e){setError((e as Error).message);}finally{setBusy(false);}
   }
-  return <section className="knowledge"><h2>加急审批</h2><p>审批前会重新校验订单条件。批准只创建内部工单，不表示外部仓库已收到通知。</p>
+  return <section className="knowledge module-page approvals-page"><ModulePageHeader icon={Headphones} eyebrow="业务工作台" title="加急审批" description="审批前会重新校验订单条件；批准只创建内部工单，不表示外部仓库已收到通知。" />
     <label>审批说明<input value={reason} onChange={e=>setReason(e.target.value)} maxLength={500}/></label>
     <button className="quiet" onClick={()=>load().catch(e=>setError(e.message))}>刷新待审批列表</button>
     {items.map(item=><article className="document-card" key={item.id}><h3>订单 {item.order_number}</h3>

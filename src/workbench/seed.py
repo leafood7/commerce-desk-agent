@@ -11,8 +11,8 @@ from workbench.security import password_hash
 
 
 def seed_demo(database, password):
-    if len(password) < 12:
-        raise ValueError("Demo password must have at least 12 characters")
+    if len(password) < 8:
+        raise ValueError("Demo password must have at least 8 characters")
     rows = json.loads((ROOT / "data/demo_orders.json").read_text(encoding="utf-8"))
     result = []
     with database.sessions() as session:

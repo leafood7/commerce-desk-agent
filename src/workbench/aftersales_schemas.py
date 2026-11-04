@@ -2,6 +2,7 @@ from typing import Literal
 
 from pydantic import Field, StrictInt, model_validator
 
+from workbench.policy_audience import PolicyAudience
 from workbench.schemas import Input
 
 
@@ -30,6 +31,8 @@ class FlowResume(Input):
         "choose_task",
         "choose_fact",
     ]
+    audience: PolicyAudience | None = None
+    message: str | None = Field(default=None, min_length=1, max_length=1200)
     pause_id: str | None = Field(default=None, min_length=1, max_length=128)
     order_number: str | None = Field(default=None, pattern=r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
     shipping_kind: Literal["normal", "expedite"] | None = None
@@ -57,7 +60,14 @@ class FlowResume(Input):
 
     @model_validator(mode="after")
     def meaningful(self):
+        if self.message is not None and not self.message.strip():
+            raise ValueError("Message must be nonblank")
+        if self.message is not None and self.action not in {
+            "supply", "correct", "confirm", "cancel", "accept_condition"
+        }:
+            raise ValueError("Message is not valid for this action")
         fields = (
+            self.audience,
             self.order_number,
             self.shipping_kind,
             self.reason,
@@ -72,21 +82,32 @@ class FlowResume(Input):
             if (
                 self.return_fact is None
                 or self.return_task is not None
+                or self.message is not None
                 or any(value is not None for value in fields)
             ):
                 raise ValueError("Fact choice requires only an actual field selector")
         elif self.return_fact is not None:
             raise ValueError("Fact selector requires the fact clarification action")
         elif self.action == "choose_task":
-            if self.return_task is None or any(value is not None for value in fields):
+            if (
+                self.return_task is None
+                or self.message is not None
+                or any(value is not None for value in fields)
+            ):
                 raise ValueError("Task choice requires only its explicit purpose")
         elif self.return_task is not None:
             raise ValueError("Task purpose cannot change during confirmation")
         elif self.action in {"supply", "correct"}:
-            if self.return_task is None and not any(value is not None for value in fields):
+            if (
+                self.return_task is None
+                and not any(value is not None for value in fields)
+                and self.message is None
+            ):
                 raise ValueError("Supply/correction requires explicit fields")
         elif any(value is not None for value in fields):
             raise ValueError("Confirmation/refresh must not modify the reviewed fields")
+        if self.audience is not None and self.action not in {"supply", "correct"}:
+            raise ValueError("Policy scope can only be supplied during clarification")
         if self.reason is not None and not self.reason.strip():
             raise ValueError("Reason must be nonblank")
         if (self.action == "accept_condition") != (self.condition_proposal_hash is not None):

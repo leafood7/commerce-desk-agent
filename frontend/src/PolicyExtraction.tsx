@@ -5,7 +5,7 @@ const names:Record<string,string>={scope:'适用范围',window:'期限',conditio
 const states:Record<string,string>={draft:'草稿',pending:'待独立审核',approved:'已审核待发布',rejected:'已驳回',published:'已发布'};
 type Ref={chunk_id:string;start:number;end:number;quote:string};
 type Card={id:string;category:string;statement:string;sources:Ref[]};
-type Candidate={id:string;version_id:string;revision:number;status:string;stale:boolean;review_note:string|null;payload:{cards:Card[];original_cards?:Card[];unknown_categories:string[];review_flags:string[];references:string[];method:string;source_origin:string};sources:{id:string;content:string;section:string;page:number|null}[]};
+type Candidate={id:string;version_id:string;revision:number;status:string;stale:boolean;review_note:string|null;payload:{cards:Card[];original_cards?:Card[];unknown_categories:string[];review_flags:string[];conflict_cues?:{kind:string;values:string[];chunk_ids:string[];meaning:string}[];references:string[];method:string;source_origin:string};sources:{id:string;content:string;section:string;page:number|null}[]};
 export function PolicyExtractionPanel({token,role,version,onDone,onClose}:{token:string;role:string;version:{id:string;number:number};onDone:()=>Promise<void>;onClose:()=>void}){
  const [showImpact,setShowImpact]=useState(false);
  const [row,setRow]=useState<Candidate|null>(null),[history,setHistory]=useState<any[]>([]),[cards,setCards]=useState<Card[]>([]),[note,setNote]=useState(''),[ack,setAck]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
@@ -29,6 +29,7 @@ export function PolicyExtractionPanel({token,role,version,onDone,onClose}:{token
  {row&&<><p role="status">候选状态：{states[row.status]} · 修订{row.revision}</p>{row.stale&&<p role="alert">来源或发布版本已变化，请重新提取和审核，旧候选不能继续发布。</p>}
  <p>未识别的项目：{row.payload.unknown_categories.map(k=>names[k]).join('、')||'无；仍须人工核对遗漏'}。未识别不等于政策没有规定。</p>
  {!!row.payload.review_flags.length&&<p>待核对：{row.payload.review_flags.map(f=>f==='multiple_windows_require_scope_review'?'存在不同期限，请核对各自范围':'未找到明确例外，请检查全文').join('；')}</p>}
+ {!!(row.payload.conflict_cues||[]).length&&<p role="status">冲突提示：{(row.payload.conflict_cues||[]).map(c=>c.kind==='different_windows'?`出现不同期限 ${c.values.join('、')}（涉及来源片段 ${c.chunk_ids.join('、')}）——${c.meaning}`:c.meaning).join('；')}</p>}
  {!!row.payload.references.length&&<p>原文明确提及：{row.payload.references.join('、')}，请核对引用条款是否齐全。</p>}
  {row.review_note&&<p>审核意见：{row.review_note}</p>}
  {cards.map((card,index)=><fieldset disabled={busy||!editable} key={card.id}><legend>条款{index+1}</legend><label>条款类型<select value={card.category} onChange={e=>patch(index,{category:e.target.value})}>{Object.entries(names).map(([k,n])=><option key={k} value={k}>{n}</option>)}</select></label>{row.payload.original_cards?.find(c=>c.id===card.id)?.statement!==card.statement&&<p className="muted">原自动候选：{row.payload.original_cards?.find(c=>c.id===card.id)?.statement||'人工补入条款'}</p>}<label>整理后的说明<textarea value={card.statement} maxLength={2000} onChange={e=>patch(index,{statement:e.target.value})}/></label>

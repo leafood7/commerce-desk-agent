@@ -384,6 +384,10 @@ def decide_request(session, actor, identifier, body):
             )
     row.status, row.decided_by, row.decision_reason = desired, actor.id, body.reason
     record(session, actor, row, desired, reason=body.reason)
+    if desired == "approved":
+        from workbench.fulfillment import ensure_for_request
+
+        ensure_for_request(session, actor, row)
     session.commit()
     return row
 
